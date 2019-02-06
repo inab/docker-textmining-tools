@@ -1,0 +1,8 @@
+FROM alpine:3.9
+WORKDIR /usr/local/bin
+
+ARG	POPPLER_VERSION=0.73.0
+ARG	POPPLER_DATA_VERSION=0.4.9
+COPY	docker-build.sh .
+RUN	docker-build.sh ${POPPLER_VERSION} ${POPPLER_DATA_VERSION}
+
