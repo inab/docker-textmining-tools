@@ -24,6 +24,7 @@ cd grobid
 
 # Copy the grobid-home dir
 cp -dpTr grobid-home "${GROBID_HOME}"
+sed -i 's#^grobid.temp.path=.*#grobid.temp.path=/tmp#' "${GROBID_HOME}/config/grobid.properties"
 
 # Last, copy JARs to destination, while creating their invocation wrappers
 mkdir -p "$JARSDIR"
