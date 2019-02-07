@@ -12,8 +12,8 @@ if [ $# -ge 1 ] ; then
 	GROBID_VERSION="$1"
 fi
 
-# Installing OpenJDK 8
-apk add --update openjdk8-jre openjdk8 git
+# Installing OpenJDK 8 + bash (hardcoded grobid dep)
+apk add --update openjdk8-jre bash openjdk8 git
 
 # Getting grobid sources and its configuration directory
 mkdir /tmp/grobid_install
