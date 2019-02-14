@@ -71,5 +71,9 @@ apk del cmake make gcc g++ freetype-dev fontconfig-dev jpeg-dev \
 	openjpeg-dev openjpeg-tools tiff-dev lcms2-dev cairo-dev libxml2-dev \
 	pkgconf
 
+#add bash for nextcloud
+apk add bash
+
+
 # And the sources
 rm -rf /tmp/poppler_install /var/cache/apk/*

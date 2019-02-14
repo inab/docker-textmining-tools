@@ -1,3 +1,2 @@
-#pikepdf
 pybind11
 ocrmypdf
