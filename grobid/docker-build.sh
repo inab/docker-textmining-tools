@@ -82,7 +82,7 @@ for targ in grobid-core grobid-trainer ; do
 	cp -p "${targ}/build/libs/${targ}-${GROBID_VERSION}-onejar.jar" "$JARSDIR"
 	cat > /usr/local/bin/"${targ}" <<EOF
 #!/bin/sh
-exec java -jar "${JARSDIR}/${targ}-${GROBID_VERSION}-onejar.jar" -gH "${GROBID_HOME}" "\$@"
+exec java \$JAVA_OPTS -jar "${JARSDIR}/${targ}-${GROBID_VERSION}-onejar.jar" -gH "${GROBID_HOME}" "\$@"
 EOF
 	chmod +x /usr/local/bin/"${targ}"
 done

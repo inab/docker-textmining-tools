@@ -49,7 +49,7 @@ for targ in cermine-tools ; do
 	jarfile=${JARSDIR}/${targ}-*-with-dependencies.jar
 	cat > /usr/local/bin/"${targ}" <<EOF
 #!/bin/sh
-exec java -cp ${jarfile} pl.edu.icm.cermine.ContentExtractor "\$@"
+exec java \$JAVA_OPTS -cp ${jarfile} pl.edu.icm.cermine.ContentExtractor "\$@"
 EOF
 	chmod +x /usr/local/bin/"${targ}"
 done
