@@ -12,10 +12,14 @@ params.grobid_output_folder = "/home/jcorvi/eTRANSAFE_DATA/nextflow_example/grob
 //to set this parameter to True  
 params.forceOCR = "True"
 
+//Output directory for the linnaeus tagger step
+params.linnaeus_output_folder = "/home/jcorvi/eTRANSAFE_DATA/nextflow_example/linnaeus_output"
+
+
 original_pdf_folder_ch = Channel.fromPath( params.original_pdf_folder, type: 'dir' )
 preprocessing_pdf_folder = file(params.preprocessing_pdf_folder)
 grobid_output_folder=file(params.grobid_output_folder)
-
+linnaeus_output_folder=file(params.linnaeus_output_folder)
 process ocrmypdf {
     input:
     file original_pdf_folder from original_pdf_folder_ch
@@ -37,7 +41,20 @@ process grobid {
     val grobid_output_folder into grobid_output_folder_ch
     	
     """
-    grobid-core -exe processFullText -dIn $preprocessing_pdf_folder_2 -dOut $grobid_output_folder
+    grobid-core -e JAVA_OPTS=-Xmx5G -exe processFullText -dIn $preprocessing_pdf_folder_2 -dOut $grobid_output_folder -Xmx1024m
+	
+    """
+}
+
+process linnaeus_wrapper {
+    input:
+    file input_linnaeus from grobid_output_folder_ch
+    
+    output:
+    val linnaeus_output_folder into linnaeus_output_folder_ch
+    	
+    """
+    java -jar /usr/local/bin/target/linnaeus-gate-wrapper-0.0.1-SNAPSHOT-jar-with-dependencies.jar -i $input_linnaeus -o $linnaeus_output_folder
 	
     """
 }
