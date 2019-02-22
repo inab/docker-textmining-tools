@@ -1,19 +1,25 @@
-// Script parameters
+#!/usr/bin/env nextflow
+
+log.info """
+The input directory is: ${params.inputDir}. Contains the pdf to be processed.
+Base directory to use: ${params.baseDir}. This directory is used to output all the pipeline results.
+"""
+.stripIndent()
 
 //Configuration of the original pdf directory
-params.original_pdf_folder = "/home/jcorvi/eTRANSAFE_DATA/nextflow_example/original_pdf"
+params.original_pdf_folder = "${params.inputDir}"
 //Configuration of the preprocessing ocrmypdf directory, store pdf files after pdf process
-params.preprocessing_pdf_folder = "/home/jcorvi/eTRANSAFE_DATA/nextflow_example/preprocessed_pdf"
+params.preprocessing_pdf_folder = "${params.baseDir}/preprocessed_pdf"
 //Configuration of the grobid out directory, store the pdf annotated with the structure of the study report
-params.grobid_output_folder = "/home/jcorvi/eTRANSAFE_DATA/nextflow_example/grobid_output"
+params.grobid_output_folder = "${params.baseDir}/grobid_output"
 //force ocr allways ?, if not set a validation will run to see if the pdf is readable or not.  
 //It's strongly recomended that the scanned pdf and the readable pdf were put in different folders. 
 //And for the already readable pdf this parameter set as False, if all the documents are in the same directory and hava a mix of scanned and readable pdf its recomended
 //to set this parameter to True  
 params.forceOCR = "True"
-
 //Output directory for the linnaeus tagger step
-params.linnaeus_output_folder = "/home/jcorvi/eTRANSAFE_DATA/nextflow_example/linnaeus_output"
+params.linnaeus_output_folder = "${params.baseDir}/linnaeus_output"
+
 
 
 original_pdf_folder_ch = Channel.fromPath( params.original_pdf_folder, type: 'dir' )
