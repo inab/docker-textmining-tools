@@ -196,7 +196,7 @@ class Wrapper {
 						log.info("Wrapper::generatePlainText :: processing file : " + file.getAbsolutePath());
 						gate.Document toxicolodyReportWitAnnotations = Factory.newDocument(file.toURI().toURL(), "UTF-8");
 						String plainText = toxicolodyReportWitAnnotations.getContent().getContent(0l, gate.Utils.lengthLong(toxicolodyReportWitAnnotations)).toString();
-						String plainTextPath = inputDirectoryPath + File.separator + "linnaeus_tmp" + File.separator + file.getName().replace(".xml", ".txt");
+						String plainTextPath = tmpWordDir + File.separator + file.getName().replace(".xml", ".txt");
 						//create tmp dir for tagger
 						createTxtFile(plainTextPath, plainText);
 					} catch (ResourceInstantiationException e) {

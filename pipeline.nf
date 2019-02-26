@@ -19,7 +19,8 @@ params.grobid_output_folder = "${params.baseDir}/grobid_output"
 params.forceOCR = "True"
 //Output directory for the linnaeus tagger step
 params.linnaeus_output_folder = "${params.baseDir}/linnaeus_output"
-
+//Output directory for the dnorm tagger step
+params.dnorm_output_folder = "${params.baseDir}/dnorm_output"
 
 
 original_pdf_folder_ch = Channel.fromPath( params.original_pdf_folder, type: 'dir' )
@@ -60,7 +61,20 @@ process linnaeus_wrapper {
     val linnaeus_output_folder into linnaeus_output_folder_ch
     	
     """
-    java -jar /usr/local/bin/target/linnaeus-gate-wrapper-0.0.1-SNAPSHOT-jar-with-dependencies.jar -i $input_linnaeus -o $linnaeus_output_folder
+    java -jar /usr/local/bin/linnaeus-gate-wrapper-1.0.jar -i $input_linnaeus -o $linnaeus_output_folder
+	
+    """
+}
+
+process dnorm_wrapper {
+    input:
+    file input_dnorm from linnaeus_output_folder_ch
+    
+    output:
+    val dnorm_output_folder into dnorm_output_folder_ch
+    	
+    """
+    java -jar /usr/local/bin/dnorm-gate-wrapper-1.0.jar -i $input_dnorm -o $dnorm_output_folder
 	
     """
 }

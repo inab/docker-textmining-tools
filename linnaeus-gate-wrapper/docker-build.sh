@@ -1,12 +1,15 @@
 #!/bin/sh
 
-LINNEAUS_GATE_WRAPPER_VERSION=1.0
+BASEDIR=/usr/local
+LINNAEUS_HOME="${BASEDIR}/share/linnaeus"
+
+LINNAEUS_GATE_WRAPPER_VERSION=1.0
 
 # Exit on error
 set -e
 
 if [ $# -ge 1 ] ; then
-	LINNEAUS_GATE_WRAPPER_VERSION="$1"
+	LINNAEUS_GATE_WRAPPER_VERSION="$1"
 fi
 
 if [ -f /etc/alpine-release ] ; then
@@ -26,7 +29,20 @@ fi
 
 mvn clean install -DskipTests
 
-#add bash for nextcloud
+#rename jar
+mv target/linnaeus-gate-wrapper-0.0.1-SNAPSHOT-jar-with-dependencies.jar linnaeus-gate-wrapper-${LINNAEUS_GATE_WRAPPER_VERSION}.jar
+
+cat > /usr/local/bin/linnaeus-gate-wrapper <<EOF
+#!/bin/sh
+exec java \$JAVA_OPTS -jar "${LINNAEUS_HOME}/linnaeus-gate-wrapper-${LINNAEUS_GATE_WRAPPER_VERSION}.jar" "\$@"
+EOF
+chmod +x /usr/local/bin/linnaeus-gate-wrapper
+
+
+#delete target
+rm -R target src pom.xml
+
+#add bash for nextflow
 apk add bash
 
 if [ -f /etc/alpine-release ] ; then
