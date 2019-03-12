@@ -21,12 +21,16 @@ params.forceOCR = "True"
 params.linnaeus_output_folder = "${params.baseDir}/linnaeus_output"
 //Output directory for the dnorm tagger step
 params.dnorm_output_folder = "${params.baseDir}/dnorm_output"
-
+//Output directory for the metamap tagger step
+params.metamap_output_folder = "${params.baseDir}/metamap_output"
 
 original_pdf_folder_ch = Channel.fromPath( params.original_pdf_folder, type: 'dir' )
 preprocessing_pdf_folder = file(params.preprocessing_pdf_folder)
 grobid_output_folder=file(params.grobid_output_folder)
 linnaeus_output_folder=file(params.linnaeus_output_folder)
+dnorm_output_folder=file(params.dnorm_output_folder)
+metamap_output_folder=file(params.metamap_output_folder)
+
 process ocrmypdf {
     input:
     file original_pdf_folder from original_pdf_folder_ch
@@ -61,7 +65,7 @@ process linnaeus_wrapper {
     val linnaeus_output_folder into linnaeus_output_folder_ch
     	
     """
-    java -jar /usr/local/bin/linnaeus-gate-wrapper-1.0.jar -i $input_linnaeus -o $linnaeus_output_folder
+    linnaeus-gate-wrapper -i $input_linnaeus -o $linnaeus_output_folder
 	
     """
 }
@@ -74,7 +78,20 @@ process dnorm_wrapper {
     val dnorm_output_folder into dnorm_output_folder_ch
     	
     """
-    java -jar /usr/local/bin/dnorm-gate-wrapper-1.0.jar -i $input_dnorm -o $dnorm_output_folder
+    dnorm-gate-wrapper -i $input_dnorm -o $dnorm_output_folder
+	
+    """
+}
+
+process metamap_wrapper {
+    input:
+    file input_metamap from dnorm_output_folder_ch
+    
+    output:
+    val metamap_output_folder into metamap_output_folder_ch
+    	
+    """
+    metamap-gate-wrapper -i $input_metamap -o $metamap_output_folder
 	
     """
 }
