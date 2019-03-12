@@ -156,6 +156,7 @@ class Wrapper {
 						toxicolodyReportWitAnnotations.getAnnotations().add(startOff, endOff, "SPECIES", features);
 					}
 				}
+			    br.close();
 			    java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
 				out.write(toxicolodyReportWitAnnotations.toXml());
 				out.close();
