@@ -1,0 +1,142 @@
+$STATICAL_SYMBOL = "/<|>|=|<=|>=|!=|<>|≤|/"
+$STATICAL_SEP_KEY = "/and|or|to|,/"
+$PARENTESIS = "/-LRB-|-RRB-/"
+$PERCENTAJE = "/%/"
+$DOSE_SEP = "/,|-|and|or|to/"
+$NEGATION_WORD="/no|not|neither|none/"
+
+ENV.defaults["stage"] = 1
+
+//{ ruleType: "text", pattern: /\Qpotassium/creatinine ejemplo + - * [] % ( pepe ))\E/, result:  "anatomy_etox_send"}
+
+//{ ruleType: "text", pattern: /potassium \& creatinine \\ ejemplo \+ \- \* \[\] \% \( pepe \)\)  \$ \\b/, result:  "anatomy_etox_send"}
+
+//{([{ ner:MALE_SEX }]+) => "MALE_SEX" }
+//{([{ ner:FEMALE_SEX }]+) => "FEMALE_SEX" }
+
+//{([{ ner:TREATMENT_RELATED_FINDING_PARTIAL_KEYWORD }]+) => "TREATMENT_RELATED_FINDING_PARTIAL_KEYWORD" }
+{([{ ner:NO_TREATMENT_RELATED_EFFECT_DETECTED }]+) => "NO_TREATMENT_RELATED_EFFECT_DETECTED" }
+//{([{ ner:ROUTE_OF_ADMINISTRATION }]+) => "ROUTE_OF_ADMINISTRATION" }
+{([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+) => "TREATMENT_RELATED_EFFECT_DETECTED" }
+
+//{
+//  ruleType: "tokens",
+//  pattern: ( $NEGATION_WORD []{0,8} ([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+)), 
+//  action: Annotate($0, ner, "NO_TREATMENT_RELATED_EFFECT_DETECTED") ,  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
+//}
+
+
+ENV.defaults["stage"] = 2
+
+//the range will be deleted because the analisys is made on the sentences
+//{ ( $NEGATION_WORD [!{ word:/:/}]* ([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+)) => "NO_TREATMENT_RELATED_EFFECT_DETECTED" }
+
+{ ( [{ word:$NEGATION_WORD; tag:/DT|NN.*|RB/ }]  [!{ word:/:/}]* ([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+)) => "NO_TREATMENT_RELATED_EFFECT_DETECTED" }
+
+//{ ( $NEGATION_WORD  ([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+)) => "NO_TREATMENT_RELATED_EFFECT_DETECTED" }
+
+
+//{
+//  ruleType: "tokens",
+//  pattern: ( $NEGATION_WORD []{0,8} ([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+)), 
+//  action: Annotate($0, ner, "NO_TREATMENT_RELATED_EFFECT_DETECTED") ,  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
+//}
+
+
+//{([{ ner:BODY_WEIGHT_DOMAIN }]+) => "BODY_WEIGHT_DOMAIN" }
+//{([{ ner:BODY_WEIGHT_GAIN_DOMAIN }]+) => "BODY_WEIGHT_GAIN_DOMAIN" }
+//{([{ ner:CLINICAL_DOMAIN }]+) => "CLINICAL_DOMAIN" }
+//{([{ ner:CARDIOVASCULAR_DOMAIN }]+) => "CARDIOVASCULAR_DOMAIN" }
+//{([{ ner:MACROSCOPIC_FINDINGS_DOMAIN }]+) => "MACROSCOPIC_FINDINGS_DOMAIN" }
+//{([{ ner:MICROSCOPIC_FINDINGS_DOMAIN }]+) => "MICROSCOPIC_FINDINGS_DOMAIN" }
+//{([{ ner:ORGAN_MEASUREMENT_DOMAIN }]+) => "ORGAN_MEASUREMENT_DOMAIN" }
+//{([{ ner:PHARMACOKINETICS_PARAMETERS_DOMAIN }]+) => "PHARMACOKINETICS_PARAMETERS_DOMAIN" }
+//{([{ ner:TUMOR_FINDINGS_DOMAIN }]+) => "TUMOR_FINDINGS_DOMAIN" }
+//{([{ ner:RESPIRATORY_FINDINGS_DOMAIN }]+) => "RESPIRATORY_FINDINGS_DOMAIN" }
+//{([{ ner:DEATH_DIAGNOSIS_DOMAIN }]+) => "DEATH_DIAGNOSIS_DOMAIN" }
+//{([{ ner:FOOD_WATER_CONSUMPTION_DOMAIN }]+) => "FOOD_WATER_CONSUMPTION_DOMAIN" }
+//{([{ ner:ECG_DOMAIN }]+) => "ECG_DOMAIN" }
+//{([{ ner:LABORATORY_FINDINGS_DOMAIN }]+) => "LABORATORY_FINDINGS_DOMAIN" }
+//{([{ ner:VITAL_SIGNS_DOMAIN }]+) => "VITAL_SIGNS_DOMAIN" }
+
+
+//{([{ ner:NOEL_RISK_LEVEL }]+) => "NOEL_RISK_LEVEL" }
+//{([{ ner:LOEL_RISK_LEVEL }]+) => "LOEL_RISK_LEVEL" }
+//{([{ ner:NOAEL_RISK_LEVEL }]+) => "NOAEL_RISK_LEVEL" }
+//{([{ ner:LOAEL_RISK_LEVEL }]+) => "LOAEL_RISK_LEVEL" }
+
+{([{ ner:INCREASE_MANIFESTATION_FINDING; tag:/VB.*/ }]+) => "INCREASE_MANIFESTATION_FINDING" }
+{([{ ner:DECREASE_MANIFESTATION_FINDING; tag:/VB.*/ }]+) => "DECREASE_MANIFESTATION_FINDING" }
+{([{ ner:TRANSITORY_MANIFESTATION_FINDING; tag:/VB.*/ }]+) => "TRANSITORY_MANIFESTATION_FINDING" }
+{([{ ner:JUSTPRESENT_MANIFESTATION_FINDING; tag:/VB.*/ }]+) => "JUSTPRESENT_MANIFESTATION_FINDING" }
+
+
+
+ENV.defaults["stage"] = 3
+
+//treatement finding with domain
+
+//{
+//  ruleType: "tokens",
+//  pattern: ( ( [ { ner:clinical_domain_etox_send } | { ner:CLINICAL_DOMAIN } | { ner:BODY_WEIGHT_DOMAIN }  | { ner:BODY_WEIGHT_GAIN_DOMAIN }  | { ner:CARDIOVASCULAR_DOMAIN } | { ner:MACROSCOPIC_FINDINGS_DOMAIN } 
+//  | { ner:MICROSCOPIC_FINDINGS_DOMAIN } | { ner:ORGAN_MEASUREMENT_DOMAIN } | { ner:PHARMACOKINETICS_PARAMETERS_DOMAIN } | { ner:TUMOR_FINDINGS_DOMAIN } 
+// | { ner:RESPIRATORY_FINDINGS_DOMAIN } | { ner:DEATH_DIAGNOSIS_DOMAIN } | { ner:FOOD_WATER_CONSUMPTION_DOMAIN } | { ner:ECG_DOMAIN } 
+//  | { ner:LABORATORY_FINDINGS_DOMAIN } | { ner:VITAL_SIGNS_DOMAIN } ]+) []{0,20} ( [ { ner:TREATMENT_RELATED_EFFECT_DETECTED } ]+) ),
+//  result: "TREATMENT_RELATED_FINDING_WITH_STUDY"
+//}
+
+//treatement finding with domain
+//{
+//  ruleType: "tokens",
+//  pattern: ( ( [ { ner:TREATMENT_RELATED_EFFECT_DETECTED } ]+) []{0,20} ( [ { ner:clinical_domain_etox_send } | { ner:CLINICAL_DOMAIN } | { ner:BODY_WEIGHT_DOMAIN }  | { ner:BODY_WEIGHT_GAIN_DOMAIN }  | { ner:CARDIOVASCULAR_DOMAIN } | { ner:MACROSCOPIC_FINDINGS_DOMAIN } 
+//  | { ner:MICROSCOPIC_FINDINGS_DOMAIN } | { ner:ORGAN_MEASUREMENT_DOMAIN } | { ner:PHARMACOKINETICS_PARAMETERS_DOMAIN } | { ner:TUMOR_FINDINGS_DOMAIN } 
+//  | { ner:RESPIRATORY_FINDINGS_DOMAIN } | { ner:DEATH_DIAGNOSIS_DOMAIN } | { ner:FOOD_WATER_CONSUMPTION_DOMAIN } | { ner:ECG_DOMAIN } 
+ // | { ner:LABORATORY_FINDINGS_DOMAIN } | { ner:VITAL_SIGNS_DOMAIN } ]+)   ),
+//  result: "TREATMENT_RELATED_FINDING_WITH_STUDY"/:/
+//}
+
+
+
+//{
+//  ruleType: "tokens",
+//  pattern: ([{ ner:TREATMENT_KEYWORD }] []{0,20} [ {ner:FINDING_KEYWORD }] []{0,20} [{ ner:RELATED_KEYWORD }] []{0,20} [{ ner:EFFECT_KEYWORD }]   ),
+// result: "TREATMENT_RELATED_EFFECT_DETECTED2"
+//}
+//{([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+) => "TREATMENT_RELATED_EFFECT_DETECTED" }
+//ojo se podria poner algo asi {([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+) => "TREATMENT_RELATED_EFFECT_DETECTED" }
+//{ ner:TREATMENT_KEYWORD } | {ner:FINDING_KEYWORD }] | [{ ner:RELATED_KEYWORD }] | [{ ner:EFFECT_KEYWORD } y  todo eso entre 0..20
+
+
+//STATICAL SIGNIFICANCE
+{(/p/ $STATICAL_SYMBOL ([{ner:NUMBER }])) => "STATICAL_SIGNIFICANCE" }
+{( (/p/ $STATICAL_SYMBOL ([{ner:NUMBER }])) $STATICAL_SEP_KEY (/p/ $STATICAL_SYMBOL ([{ner:NUMBER }]))   ) => "STATICAL_SIGNIFICANCE" }
+{ (( [/\**/] $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) ) $PARENTESIS ) => "STATICAL_SIGNIFICANCE" }
+{ (( [/\**/] $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) ) $PARENTESIS $STATICAL_SEP_KEY* ( [/\**/] $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) ) $PARENTESIS ) => "STATICAL_SIGNIFICANCE" }
+{(([{word::IS_NUM}]) $PERCENTAJE $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) $PARENTESIS ) => "STATICAL_SIGNIFICANCE" }
+{(([{word::IS_NUM}]) $PERCENTAJE $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) $PARENTESIS $STATICAL_SEP_KEY ([{word::IS_NUM}]) $PERCENTAJE $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) $PARENTESIS ) => "STATICAL_SIGNIFICANCE2" }
+{( ([{ner:NUMBER }]) /\%/ /\(/ /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) /\)/ ) => "STATICAL_SIGNIFICANCE2222" }
+
+//{ ((  /=/ /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) ) ) => "STATICAL_SIGNIFICANCE" }
+//{ ruleType: "text", pattern: (/=/ /p/ /=/), result:  "STATICAL_SIGNIFICANCE"}
+
+
+{(( ([{ner:NUMBER}] [{ word:$DOSE_SEP }])* [{ner:NUMBER}] [{word:$DOSE_SEP}]* [{ner:DOSE_UNIT} | {ner:DOSE_UNIT_MANUAL}] )) => "DOSE" } // 
+//{(( ([{ner:NUMBER}] [{ word:/,|-|and|or|to/ }])* [{ner:NUMBER}] [{word:/,|-|and|or|to/}]* [{ner:DOSE_UNIT} | {ner:DOSE_UNIT_MANUAL}] )) => "DOSE2" } // 
+//{(( [{word::IS_NUM}]* [/,/]* [{word::IS_NUM}] [$DOSE_SEP]* [{ner:DOSE_UNIT}] )) => "DOSE" } //tengo que unir [{word::IS_NUM}]* [/,/]* 
+//{(( [{word::IS_NUM}] [{word::IS_NUM}] [{ner:DOSE_UNIT}] )  ) => "DOSE_TEST" }
+//{( ( [{word::IS_NUM}] $DOSE_SEP [{word::IS_NUM}] [{ner:DOSE_UNIT}] )  ) => "DOSE_2" }
+
+
+
+
+{( ([{word::IS_NUM}]) ([{ner:DURATION}]+)) => "DURATION_DOSIS" }
+{( ([{ner:DURATION}]+) ([{word::IS_NUM}])) => "DURATION_DOSIS" }
+
+{ (([{ word:/group/; tag:/NN.*/}] ([{ner:NUMBER }]+) ) ) => "GROUP" }
+{ (([{ word:/group/; tag:/NN.*/}] /^[mdclxvi]+$/ ) ) => "GROUP" }
+{ (([{ word:/groups/; tag:/NN.*/}] ([{ner:NUMBER }]+) ) ) => "GROUP" }
+{ (([{ word:/groups/; tag:/NN.*/}] ([{ner:NUMBER }]+) /and/ ([{ner:NUMBER }]+) ) ) => "GROUP" }
+{ (([{ word:/group/; tag:/NN.*/}] ([{ner:NUMBER }]+) /and/ ([{ner:NUMBER }]+) ) ) => "GROUP" }
+{ ((  [{ word:/control/}]  [{ word:/group/}]  ) ) => "GROUP" }
+//{ (([{ word:/group/; tag:/NN.*/}] ([!{tag:/VB.*|IN|JJ|TO|NN.*/ }]) ) ) => "GROUP" }
+//{ (([{ word:/group/; tag:/NN.*/}] )) => "GROUP_" }

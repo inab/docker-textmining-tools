@@ -1,0 +1,2297 @@
+enzyme	MOA_ETOX_SOURCE_1	MISC	2.0
+auxiliary transport protein	MOA_ETOX_SOURCE_2	MISC	2.0
+epigenetic regulator	MOA_ETOX_SOURCE_3	MISC	2.0
+ion channel	MOA_ETOX_SOURCE_4	MISC	2.0
+membrane receptor	MOA_ETOX_SOURCE_5	MISC	2.0
+not applicable	MOA_ETOX_SOURCE_6	MISC	2.0
+other cytosolic protein	MOA_ETOX_SOURCE_7	MISC	2.0
+secreted protein	MOA_ETOX_SOURCE_8	MISC	2.0
+structural protein	MOA_ETOX_SOURCE_9	MISC	2.0
+surface antigen	MOA_ETOX_SOURCE_10	MISC	2.0
+transporter	MOA_ETOX_SOURCE_11	MISC	2.0
+transcription factor	MOA_ETOX_SOURCE_12	MISC	2.0
+unclassified protein	MOA_ETOX_SOURCE_13	MISC	2.0
+calcium channel auxiliary subunit alpha2delta family	MOA_ETOX_SOURCE_14	MISC	2.0
+calcium channel auxiliary subunit beta family	MOA_ETOX_SOURCE_15	MISC	2.0
+calcium channel auxiliary subunit gamma family	MOA_ETOX_SOURCE_16	MISC	2.0
+cytochrome p450	MOA_ETOX_SOURCE_17	MISC	2.0
+cytochrome p450 family 19	MOA_ETOX_SOURCE_18	MISC	2.0
+cytochrome p450 family 19a	MOA_ETOX_SOURCE_19	MISC	2.0
+cytochrome p450 19a1	MOA_ETOX_SOURCE_20	MISC	2.0
+aromatase	MOA_ETOX_SOURCE_21	MISC	2.0
+cyp19	MOA_ETOX_SOURCE_22	MISC	2.0
+cytochrome p450 19a1	MOA_ETOX_SOURCE_23	MISC	2.0
+cyp19a1	MOA_ETOX_SOURCE_24	MISC	2.0
+estrogen synthase	MOA_ETOX_SOURCE_25	MISC	2.0
+cypxix	MOA_ETOX_SOURCE_26	MISC	2.0
+cyar	MOA_ETOX_SOURCE_27	MISC	2.0
+aro1	MOA_ETOX_SOURCE_28	MISC	2.0
+cytochrome p-450arom	MOA_ETOX_SOURCE_29	MISC	2.0
+cytochrome p450 family 2	MOA_ETOX_SOURCE_30	MISC	2.0
+cytochrome p450 family 2d	MOA_ETOX_SOURCE_31	MISC	2.0
+cytochrome p450 2d6	MOA_ETOX_SOURCE_32	MISC	2.0
+cyp2dl1	MOA_ETOX_SOURCE_33	MISC	2.0
+cytochrome p450 2d6	MOA_ETOX_SOURCE_34	MISC	2.0
+cypiid6	MOA_ETOX_SOURCE_35	MISC	2.0
+cyp2d6	MOA_ETOX_SOURCE_36	MISC	2.0
+cytochrome p450-db1	MOA_ETOX_SOURCE_37	MISC	2.0
+debrisoquine 4-hydroxylase	MOA_ETOX_SOURCE_38	MISC	2.0
+hydrolase	MOA_ETOX_SOURCE_39	MISC	2.0
+isomerase	MOA_ETOX_SOURCE_40	MISC	2.0
+kinase	MOA_ETOX_SOURCE_41	MISC	2.0
+protein kinase	MOA_ETOX_SOURCE_42	MISC	2.0
+agc protein kinase group	MOA_ETOX_SOURCE_43	MISC	2.0
+agc protein kinase dmpk family	MOA_ETOX_SOURCE_44	MISC	2.0
+agc protein kinase rock subfamily	MOA_ETOX_SOURCE_45	MISC	2.0
+agc protein kinase grk family	MOA_ETOX_SOURCE_46	MISC	2.0
+agc protein kinase bark subfamily	MOA_ETOX_SOURCE_47	MISC	2.0
+agc protein kinase pkc family	MOA_ETOX_SOURCE_48	MISC	2.0
+agc protein kinase pkc alpha subfamily	MOA_ETOX_SOURCE_49	MISC	2.0
+agc protein kinase pkc delta subfamily	MOA_ETOX_SOURCE_50	MISC	2.0
+agc protein kinase pkc eta subfamily	MOA_ETOX_SOURCE_51	MISC	2.0
+agc protein kinase pkc iota subfamily	MOA_ETOX_SOURCE_52	MISC	2.0
+atypical protein kinase group	MOA_ETOX_SOURCE_53	MISC	2.0
+atypical protein kinase pdhk subfamily	MOA_ETOX_SOURCE_54	MISC	2.0
+atypical protein kinase pikk family	MOA_ETOX_SOURCE_55	MISC	2.0
+camk protein kinase group	MOA_ETOX_SOURCE_56	MISC	2.0
+camk protein kinase pkd family	MOA_ETOX_SOURCE_57	MISC	2.0
+cmgc protein kinase cdk group	MOA_ETOX_SOURCE_58	MISC	2.0
+cmgc protein kinase cdk family	MOA_ETOX_SOURCE_59	MISC	2.0
+cmgc protein kinase cdc2 subfamily	MOA_ETOX_SOURCE_60	MISC	2.0
+cmgc protein kinase gsk family	MOA_ETOX_SOURCE_61	MISC	2.0
+cmgc protein kinase mapk family	MOA_ETOX_SOURCE_62	MISC	2.0
+cmgc protein kinase p38 subfamily	MOA_ETOX_SOURCE_63	MISC	2.0
+cmgc protein kinase rck family	MOA_ETOX_SOURCE_64	MISC	2.0
+cmgc protein kinase mak	MOA_ETOX_SOURCE_65	MISC	2.0
+other protein kinase group	MOA_ETOX_SOURCE_66	MISC	2.0
+other protein kinase aur family	MOA_ETOX_SOURCE_67	MISC	2.0
+other protein kinase plk family	MOA_ETOX_SOURCE_68	MISC	2.0
+ste protein kinase group	MOA_ETOX_SOURCE_69	MISC	2.0
+ste protein kinase ste20 family	MOA_ETOX_SOURCE_70	MISC	2.0
+ste protein kinase khs subfamily	MOA_ETOX_SOURCE_71	MISC	2.0
+ste protein kinase ste7 family	MOA_ETOX_SOURCE_72	MISC	2.0
+tk protein kinase group	MOA_ETOX_SOURCE_73	MISC	2.0
+tyrosine protein kinase abl family	MOA_ETOX_SOURCE_74	MISC	2.0
+tyrosine protein kinase egfr family	MOA_ETOX_SOURCE_75	MISC	2.0
+tyrosine protein kinase fak family	MOA_ETOX_SOURCE_76	MISC	2.0
+tyrosine protein kinase fgfr family	MOA_ETOX_SOURCE_77	MISC	2.0
+tyrosine protein kinase insr family	MOA_ETOX_SOURCE_78	MISC	2.0
+tyrosine protein kinase jaka family	MOA_ETOX_SOURCE_79	MISC	2.0
+tyrosine protein kinase jakb family	MOA_ETOX_SOURCE_80	MISC	2.0
+tyrosine protein kinase met family	MOA_ETOX_SOURCE_81	MISC	2.0
+tyrosine protein kinase pdgfr family	MOA_ETOX_SOURCE_82	MISC	2.0
+tyrosine protein kinase src family	MOA_ETOX_SOURCE_83	MISC	2.0
+tyrosine protein kinase srm	MOA_ETOX_SOURCE_84	MISC	2.0
+tyrosine protein kinase vegfr family	MOA_ETOX_SOURCE_85	MISC	2.0
+tkl protein kinase group	MOA_ETOX_SOURCE_86	MISC	2.0
+tkl protein kinase raf family	MOA_ETOX_SOURCE_87	MISC	2.0
+tkl protein kinase stkr family	MOA_ETOX_SOURCE_88	MISC	2.0
+tkl protein kinase stkr type 1 subfamily	MOA_ETOX_SOURCE_89	MISC	2.0
+lyase	MOA_ETOX_SOURCE_90	MISC	2.0
+guanylate cyclase	MOA_ETOX_SOURCE_91	MISC	2.0
+soluble guanylate cyclase	MOA_ETOX_SOURCE_92	MISC	2.0
+guanylate cyclase soluble subunit alpha-3	MOA_ETOX_SOURCE_93	MISC	2.0
+guanylate cyclase soluble subunit alpha-2	MOA_ETOX_SOURCE_94	MISC	2.0
+gucsa3	MOA_ETOX_SOURCE_95	MISC	2.0
+gcs-alpha-2	MOA_ETOX_SOURCE_96	MISC	2.0
+gcs-alpha-3	MOA_ETOX_SOURCE_97	MISC	2.0
+gcs-alpha-1	MOA_ETOX_SOURCE_98	MISC	2.0
+gucy1b1	MOA_ETOX_SOURCE_99	MISC	2.0
+gucy1b3	MOA_ETOX_SOURCE_100	MISC	2.0
+gucy1b2	MOA_ETOX_SOURCE_101	MISC	2.0
+soluble guanylate cyclase large subunit	MOA_ETOX_SOURCE_102	MISC	2.0
+gucsb3	MOA_ETOX_SOURCE_103	MISC	2.0
+soluble guanylate cyclase small subunit	MOA_ETOX_SOURCE_104	MISC	2.0
+guc1b3	MOA_ETOX_SOURCE_105	MISC	2.0
+guc1a2	MOA_ETOX_SOURCE_106	MISC	2.0
+guc1a3	MOA_ETOX_SOURCE_107	MISC	2.0
+gcs-beta-3	MOA_ETOX_SOURCE_108	MISC	2.0
+gcs-beta-2	MOA_ETOX_SOURCE_109	MISC	2.0
+gcs-beta-1	MOA_ETOX_SOURCE_110	MISC	2.0
+gucy1a3	MOA_ETOX_SOURCE_111	MISC	2.0
+guanylate cyclase soluble subunit beta-3	MOA_ETOX_SOURCE_112	MISC	2.0
+gucy1a1	MOA_ETOX_SOURCE_113	MISC	2.0
+guanylate cyclase soluble subunit beta-2	MOA_ETOX_SOURCE_114	MISC	2.0
+gucy1a2	MOA_ETOX_SOURCE_115	MISC	2.0
+guanylate cyclase soluble subunit beta-1	MOA_ETOX_SOURCE_116	MISC	2.0
+gucsa2	MOA_ETOX_SOURCE_117	MISC	2.0
+oxidoreductase	MOA_ETOX_SOURCE_118	MISC	2.0
+phosphodiesterase	MOA_ETOX_SOURCE_119	MISC	2.0
+pde	MOA_ETOX_SOURCE_120	MISC	2.0
+phosphodiesterase 3	MOA_ETOX_SOURCE_121	MISC	2.0
+cyclic gmp-inhibited phosphodiesterase b	MOA_ETOX_SOURCE_122	MISC	2.0
+pde3b	MOA_ETOX_SOURCE_123	MISC	2.0
+pde3a	MOA_ETOX_SOURCE_124	MISC	2.0
+cgmp-inhibited 3',5'-cyclic phosphodiesterase a	MOA_ETOX_SOURCE_125	MISC	2.0
+cgmp-inhibited 3',5'-cyclic phosphodiesterase b	MOA_ETOX_SOURCE_126	MISC	2.0
+cgi-pde a	MOA_ETOX_SOURCE_127	MISC	2.0
+cgi-pde b	MOA_ETOX_SOURCE_128	MISC	2.0
+cyclic gmp-inhibited phosphodiesterase a	MOA_ETOX_SOURCE_129	MISC	2.0
+cgip1	MOA_ETOX_SOURCE_130	MISC	2.0
+cgipde1	MOA_ETOX_SOURCE_131	MISC	2.0
+phosphodiesterase 4	MOA_ETOX_SOURCE_132	MISC	2.0
+pde4d	MOA_ETOX_SOURCE_133	MISC	2.0
+dpde2	MOA_ETOX_SOURCE_134	MISC	2.0
+pde4b	MOA_ETOX_SOURCE_135	MISC	2.0
+pde4c	MOA_ETOX_SOURCE_136	MISC	2.0
+dpde1	MOA_ETOX_SOURCE_137	MISC	2.0
+camp-specific 3',5'-cyclic phosphodiesterase 4c	MOA_ETOX_SOURCE_138	MISC	2.0
+camp-specific 3',5'-cyclic phosphodiesterase 4b	MOA_ETOX_SOURCE_139	MISC	2.0
+dpde4	MOA_ETOX_SOURCE_140	MISC	2.0
+camp-specific 3',5'-cyclic phosphodiesterase 4a	MOA_ETOX_SOURCE_141	MISC	2.0
+pde32	MOA_ETOX_SOURCE_142	MISC	2.0
+pde4a	MOA_ETOX_SOURCE_143	MISC	2.0
+dpde3	MOA_ETOX_SOURCE_144	MISC	2.0
+camp-specific 3',5'-cyclic phosphodiesterase 4d	MOA_ETOX_SOURCE_145	MISC	2.0
+pde46	MOA_ETOX_SOURCE_146	MISC	2.0
+pde43	MOA_ETOX_SOURCE_147	MISC	2.0
+pde21	MOA_ETOX_SOURCE_148	MISC	2.0
+phosphodiesterase 5	MOA_ETOX_SOURCE_149	MISC	2.0
+pde-5	MOA_ETOX_SOURCE_150	MISC	2.0
+pde5	MOA_ETOX_SOURCE_151	MISC	2.0
+sodium channel	MOA_ETOX_SOURCE_152	MISC	2.0
+sodium--LRB-potassium-RRB--chloride cotransporter	MOA_ETOX_SOURCE_153	MISC	2.0
+alpha-1a adrenergic receptor	MOA_ETOX_SOURCE_154	MISC	2.0
+alpha-2 adrenergic receptor	MOA_ETOX_SOURCE_155	MISC	2.0
+cytochrome p450 family 2c	MOA_ETOX_SOURCE_156	MISC	2.0
+cytochrome p450 2c9	MOA_ETOX_SOURCE_157	MISC	2.0
+cytochrome p450 2c9	MOA_ETOX_SOURCE_158	MISC	2.0
+cholesterol 25-hydroxylase	MOA_ETOX_SOURCE_159	MISC	2.0
+cytochrome p-450mp	MOA_ETOX_SOURCE_160	MISC	2.0
+-LRB-s-RRB--limonene 6-monooxygenase	MOA_ETOX_SOURCE_161	MISC	2.0
+-LRB-s-RRB--limonene 7-monooxygenase	MOA_ETOX_SOURCE_162	MISC	2.0
+s-mephenytoin 4-hydroxylase	MOA_ETOX_SOURCE_163	MISC	2.0
+cyp2c9	MOA_ETOX_SOURCE_164	MISC	2.0
+cytochrome p450 mp-4	MOA_ETOX_SOURCE_165	MISC	2.0
+cypiic9	MOA_ETOX_SOURCE_166	MISC	2.0
+cytochrome p450 pb-1	MOA_ETOX_SOURCE_167	MISC	2.0
+-LRB-r-RRB--limonene 6-monooxygenase	MOA_ETOX_SOURCE_168	MISC	2.0
+cyp2c10	MOA_ETOX_SOURCE_169	MISC	2.0
+cytochrome p450 mp-8	MOA_ETOX_SOURCE_170	MISC	2.0
+protease	MOA_ETOX_SOURCE_171	MISC	2.0
+aspartic protease	MOA_ETOX_SOURCE_172	MISC	2.0
+aspartic protease aa clan	MOA_ETOX_SOURCE_173	MISC	2.0
+aspartic protease ad clan	MOA_ETOX_SOURCE_174	MISC	2.0
+aspartic protease a1a subfamily	MOA_ETOX_SOURCE_175	MISC	2.0
+aspartic protease a22a subfamily	MOA_ETOX_SOURCE_176	MISC	2.0
+aspartic protease a22a regulatory subfamily	MOA_ETOX_SOURCE_177	MISC	2.0
+cysteine protease	MOA_ETOX_SOURCE_178	MISC	2.0
+cysteine protease ca clan	MOA_ETOX_SOURCE_179	MISC	2.0
+hiv-1 retropepsin	MOA_ETOX_SOURCE_180	MISC	2.0
+cysteine protease c1a family	MOA_ETOX_SOURCE_181	MISC	2.0
+p-glycoprotein 1	MOA_ETOX_SOURCE_182	MISC	2.0
+p-glycoprotein 1	MOA_ETOX_SOURCE_183	MISC	2.0
+atp-binding cassette sub-family b member 1	MOA_ETOX_SOURCE_184	MISC	2.0
+multidrug resistance protein 1	MOA_ETOX_SOURCE_185	MISC	2.0
+cd_antigen=cd243	MOA_ETOX_SOURCE_186	MISC	2.0
+abcb1	MOA_ETOX_SOURCE_187	MISC	2.0
+pgy1	MOA_ETOX_SOURCE_188	MISC	2.0
+mdr1	MOA_ETOX_SOURCE_189	MISC	2.0
+metallo protease	MOA_ETOX_SOURCE_190	MISC	2.0
+metallo protease mae clan	MOA_ETOX_SOURCE_191	MISC	2.0
+metallo protease mam clan	MOA_ETOX_SOURCE_192	MISC	2.0
+metallo protease m13 family	MOA_ETOX_SOURCE_193	MISC	2.0
+metallo protease m2 family	MOA_ETOX_SOURCE_194	MISC	2.0
+metallo protease m10a subfamily	MOA_ETOX_SOURCE_195	MISC	2.0
+metallo protease m12b subfamily	MOA_ETOX_SOURCE_196	MISC	2.0
+serine protease	MOA_ETOX_SOURCE_197	MISC	2.0
+serine protease pa clan	MOA_ETOX_SOURCE_198	MISC	2.0
+serine protease s1a subfamily	MOA_ETOX_SOURCE_199	MISC	2.0
+serine protease sc clan	MOA_ETOX_SOURCE_200	MISC	2.0
+serine protease s33 family	MOA_ETOX_SOURCE_201	MISC	2.0
+serine protease s9b subfamily	MOA_ETOX_SOURCE_202	MISC	2.0
+transferase	MOA_ETOX_SOURCE_203	MISC	2.0
+eraser	MOA_ETOX_SOURCE_204	MISC	2.0
+histone deacetylase	MOA_ETOX_SOURCE_205	MISC	2.0
+mef2-interacting transcription repressor mitr	MOA_ETOX_SOURCE_206	MISC	2.0
+hdrp	MOA_ETOX_SOURCE_207	MISC	2.0
+kiaa0901	MOA_ETOX_SOURCE_208	MISC	2.0
+antigen ny-co-9	MOA_ETOX_SOURCE_209	MISC	2.0
+histone deacetylase 11	MOA_ETOX_SOURCE_210	MISC	2.0
+histone deacetylase 10	MOA_ETOX_SOURCE_211	MISC	2.0
+smap45	MOA_ETOX_SOURCE_212	MISC	2.0
+histone deacetylase-related protein	MOA_ETOX_SOURCE_213	MISC	2.0
+hdac7a	MOA_ETOX_SOURCE_214	MISC	2.0
+hdac7b	MOA_ETOX_SOURCE_215	MISC	2.0
+histone deacetylase 9	MOA_ETOX_SOURCE_216	MISC	2.0
+histone deacetylase 8	MOA_ETOX_SOURCE_217	MISC	2.0
+rpd3-2	MOA_ETOX_SOURCE_218	MISC	2.0
+histone deacetylase 2	MOA_ETOX_SOURCE_219	MISC	2.0
+histone deacetylase 3	MOA_ETOX_SOURCE_220	MISC	2.0
+histone deacetylase 1	MOA_ETOX_SOURCE_221	MISC	2.0
+hdac10	MOA_ETOX_SOURCE_222	MISC	2.0
+kiaa0744	MOA_ETOX_SOURCE_223	MISC	2.0
+hdac11	MOA_ETOX_SOURCE_224	MISC	2.0
+histone deacetylase 7	MOA_ETOX_SOURCE_225	MISC	2.0
+histone deacetylase 6	MOA_ETOX_SOURCE_226	MISC	2.0
+histone deacetylase 5	MOA_ETOX_SOURCE_227	MISC	2.0
+kiaa0600	MOA_ETOX_SOURCE_228	MISC	2.0
+histone deacetylase 4	MOA_ETOX_SOURCE_229	MISC	2.0
+hd1	MOA_ETOX_SOURCE_230	MISC	2.0
+hd2	MOA_ETOX_SOURCE_231	MISC	2.0
+hd3	MOA_ETOX_SOURCE_232	MISC	2.0
+hd4	MOA_ETOX_SOURCE_233	MISC	2.0
+hd5	MOA_ETOX_SOURCE_234	MISC	2.0
+hd6	MOA_ETOX_SOURCE_235	MISC	2.0
+rpd3l1	MOA_ETOX_SOURCE_236	MISC	2.0
+hd7	MOA_ETOX_SOURCE_237	MISC	2.0
+hd8	MOA_ETOX_SOURCE_238	MISC	2.0
+hd9	MOA_ETOX_SOURCE_239	MISC	2.0
+hdacl1	MOA_ETOX_SOURCE_240	MISC	2.0
+histone deacetylase 7a	MOA_ETOX_SOURCE_241	MISC	2.0
+histone deacetylase 7b	MOA_ETOX_SOURCE_242	MISC	2.0
+kiaa0288	MOA_ETOX_SOURCE_243	MISC	2.0
+mitr	MOA_ETOX_SOURCE_244	MISC	2.0
+hd7b	MOA_ETOX_SOURCE_245	MISC	2.0
+hdac9	MOA_ETOX_SOURCE_246	MISC	2.0
+hdac8	MOA_ETOX_SOURCE_247	MISC	2.0
+hd7a	MOA_ETOX_SOURCE_248	MISC	2.0
+hdac7	MOA_ETOX_SOURCE_249	MISC	2.0
+hdac6	MOA_ETOX_SOURCE_250	MISC	2.0
+hd10	MOA_ETOX_SOURCE_251	MISC	2.0
+hd11	MOA_ETOX_SOURCE_252	MISC	2.0
+hdac3	MOA_ETOX_SOURCE_253	MISC	2.0
+hdac2	MOA_ETOX_SOURCE_254	MISC	2.0
+hdac1	MOA_ETOX_SOURCE_255	MISC	2.0
+hdac5	MOA_ETOX_SOURCE_256	MISC	2.0
+hdac4	MOA_ETOX_SOURCE_257	MISC	2.0
+calcium channel	MOA_ETOX_SOURCE_258	MISC	2.0
+ligand-gated ion channel	MOA_ETOX_SOURCE_259	MISC	2.0
+5ht3 receptor	MOA_ETOX_SOURCE_260	MISC	2.0
+gaba a receptor	MOA_ETOX_SOURCE_261	MISC	2.0
+gaba-a receptor	MOA_ETOX_SOURCE_262	MISC	2.0
+glycine receptor	MOA_ETOX_SOURCE_263	MISC	2.0
+ionotropic glutamate receptor	MOA_ETOX_SOURCE_264	MISC	2.0
+ampa receptor	MOA_ETOX_SOURCE_265	MISC	2.0
+nmda receptor	MOA_ETOX_SOURCE_266	MISC	2.0
+nicotinic acetylcholine receptor	MOA_ETOX_SOURCE_267	MISC	2.0
+acetylcholine receptor protein subunit alpha-l1, putative	MOA_ETOX_SOURCE_268	MISC	2.0
+drosglucl, putative	MOA_ETOX_SOURCE_269	MISC	2.0
+acetylcholine receptor protein alpha 1, 2, 3, 4 invertebrate, putative	MOA_ETOX_SOURCE_270	MISC	2.0
+nicotinic acetylcholine receptor alpha subunit	MOA_ETOX_SOURCE_271	MISC	2.0
+nicotinic acetylcholine receptor beta subunit	MOA_ETOX_SOURCE_272	MISC	2.0
+p2x receptor	MOA_ETOX_SOURCE_273	MISC	2.0
+other ion channel	MOA_ETOX_SOURCE_274	MISC	2.0
+chloride channel	MOA_ETOX_SOURCE_275	MISC	2.0
+cystic fibrosis transmembrane conductance regulator	MOA_ETOX_SOURCE_276	MISC	2.0
+atp-binding cassette sub-family c member 7	MOA_ETOX_SOURCE_277	MISC	2.0
+channel conductance-controlling atpase	MOA_ETOX_SOURCE_278	MISC	2.0
+camp-dependent chloride channel	MOA_ETOX_SOURCE_279	MISC	2.0
+cftr	MOA_ETOX_SOURCE_280	MISC	2.0
+abcc7	MOA_ETOX_SOURCE_281	MISC	2.0
+cystic fibrosis transmembrane conductance regulator	MOA_ETOX_SOURCE_282	MISC	2.0
+miscellaneous ion channel	MOA_ETOX_SOURCE_283	MISC	2.0
+presenilin er ca2\+ leak channel family	MOA_ETOX_SOURCE_284	MISC	2.0
+pore-forming toxins -LRB-proteins and peptides-RRB-	MOA_ETOX_SOURCE_285	MISC	2.0
+voltage-gated ion channel	MOA_ETOX_SOURCE_286	MISC	2.0
+potassium channels	MOA_ETOX_SOURCE_287	MISC	2.0
+voltage-gated potassium channel	MOA_ETOX_SOURCE_288	MISC	2.0
+transient receptor potential channel	MOA_ETOX_SOURCE_289	MISC	2.0
+voltage-gated calcium channel	MOA_ETOX_SOURCE_290	MISC	2.0
+voltage-gated sodium channel	MOA_ETOX_SOURCE_291	MISC	2.0
+family a g protein-coupled receptor	MOA_ETOX_SOURCE_292	MISC	2.0
+family c g protein-coupled receptor	MOA_ETOX_SOURCE_293	MISC	2.0
+peptide receptor -LRB-family a gpcr-RRB-	MOA_ETOX_SOURCE_294	MISC	2.0
+small molecule receptor -LRB-family a gpcr-RRB-	MOA_ETOX_SOURCE_295	MISC	2.0
+small molecule receptor -LRB-family c gpcr-RRB-	MOA_ETOX_SOURCE_296	MISC	2.0
+chemokine receptor	MOA_ETOX_SOURCE_297	MISC	2.0
+chemokine receptor	MOA_ETOX_SOURCE_298	MISC	2.0
+uncharacterized protein	MOA_ETOX_SOURCE_299	MISC	2.0
+cc chemokine receptor	MOA_ETOX_SOURCE_300	MISC	2.0
+cx3c chemokine receptor	MOA_ETOX_SOURCE_301	MISC	2.0
+cxc chemokine receptor	MOA_ETOX_SOURCE_302	MISC	2.0
+short peptide receptor -LRB-family a gpcr-RRB-	MOA_ETOX_SOURCE_303	MISC	2.0
+angiotensin receptor	MOA_ETOX_SOURCE_304	MISC	2.0
+bradykinin receptor	MOA_ETOX_SOURCE_305	MISC	2.0
+cholecystokinin receptor	MOA_ETOX_SOURCE_306	MISC	2.0
+endothelin receptor	MOA_ETOX_SOURCE_307	MISC	2.0
+gnrh receptor	MOA_ETOX_SOURCE_308	MISC	2.0
+mch receptor	MOA_ETOX_SOURCE_309	MISC	2.0
+melanocortin receptor	MOA_ETOX_SOURCE_310	MISC	2.0
+neurokinin receptor	MOA_ETOX_SOURCE_311	MISC	2.0
+neuropeptide y receptor	MOA_ETOX_SOURCE_312	MISC	2.0
+opioid receptor	MOA_ETOX_SOURCE_313	MISC	2.0
+vasopressin and oxytocin receptor	MOA_ETOX_SOURCE_314	MISC	2.0
+carboxylic acid receptor	MOA_ETOX_SOURCE_315	MISC	2.0
+kynurenic acid receptor	MOA_ETOX_SOURCE_316	MISC	2.0
+lipid-like ligand receptor -LRB-family a gpcr-RRB-	MOA_ETOX_SOURCE_317	MISC	2.0
+cannabinoid receptor	MOA_ETOX_SOURCE_318	MISC	2.0
+leukotriene receptor	MOA_ETOX_SOURCE_319	MISC	2.0
+paf receptor	MOA_ETOX_SOURCE_320	MISC	2.0
+prostanoid receptor	MOA_ETOX_SOURCE_321	MISC	2.0
+monoamine receptor	MOA_ETOX_SOURCE_322	MISC	2.0
+acetylcholine receptor	MOA_ETOX_SOURCE_323	MISC	2.0
+adrenergic receptor	MOA_ETOX_SOURCE_324	MISC	2.0
+dopamine receptor	MOA_ETOX_SOURCE_325	MISC	2.0
+dopamine d4 receptor	MOA_ETOX_SOURCE_326	MISC	2.0
+d-LRB-2c-RRB- dopamine receptor	MOA_ETOX_SOURCE_327	MISC	2.0
+dopamine d5 receptor	MOA_ETOX_SOURCE_328	MISC	2.0
+drd4	MOA_ETOX_SOURCE_329	MISC	2.0
+d-LRB-5-RRB- dopamine receptor	MOA_ETOX_SOURCE_330	MISC	2.0
+drd5	MOA_ETOX_SOURCE_331	MISC	2.0
+d-LRB-1b-RRB- dopamine receptor	MOA_ETOX_SOURCE_332	MISC	2.0
+drd1a	MOA_ETOX_SOURCE_333	MISC	2.0
+d-LRB-4-RRB- dopamine receptor	MOA_ETOX_SOURCE_334	MISC	2.0
+histamine receptor	MOA_ETOX_SOURCE_335	MISC	2.0
+serotonin receptor	MOA_ETOX_SOURCE_336	MISC	2.0
+nucleotide-like receptor -LRB-family a gpcr-RRB-	MOA_ETOX_SOURCE_337	MISC	2.0
+adenosine receptor	MOA_ETOX_SOURCE_338	MISC	2.0
+purine receptor	MOA_ETOX_SOURCE_339	MISC	2.0
+neurotransmitter receptor -LRB-family c gpcr-RRB-	MOA_ETOX_SOURCE_340	MISC	2.0
+gaba b receptor	MOA_ETOX_SOURCE_341	MISC	2.0
+gabbr2	MOA_ETOX_SOURCE_342	MISC	2.0
+gababr2	MOA_ETOX_SOURCE_343	MISC	2.0
+gabbr1	MOA_ETOX_SOURCE_344	MISC	2.0
+g-protein coupled receptor 51	MOA_ETOX_SOURCE_345	MISC	2.0
+gamma-aminobutyric acid type b receptor subunit 2	MOA_ETOX_SOURCE_346	MISC	2.0
+gb1	MOA_ETOX_SOURCE_347	MISC	2.0
+gb2	MOA_ETOX_SOURCE_348	MISC	2.0
+gaba-br1	MOA_ETOX_SOURCE_349	MISC	2.0
+gaba-b-r2	MOA_ETOX_SOURCE_350	MISC	2.0
+gaba-b-r1	MOA_ETOX_SOURCE_351	MISC	2.0
+gaba-b receptor 2	MOA_ETOX_SOURCE_352	MISC	2.0
+gamma-aminobutyric acid type b receptor subunit 1	MOA_ETOX_SOURCE_353	MISC	2.0
+gpr51	MOA_ETOX_SOURCE_354	MISC	2.0
+gababr1	MOA_ETOX_SOURCE_355	MISC	2.0
+gaba-b receptor 1	MOA_ETOX_SOURCE_356	MISC	2.0
+gaba-br2	MOA_ETOX_SOURCE_357	MISC	2.0
+metabotropic glutamate receptor	MOA_ETOX_SOURCE_358	MISC	2.0
+toll-like and il-1 receptors	MOA_ETOX_SOURCE_359	MISC	2.0
+nuclear receptor	MOA_ETOX_SOURCE_360	MISC	2.0
+nuclear hormone receptor subfamily 1	MOA_ETOX_SOURCE_361	MISC	2.0
+nuclear hormone receptor subfamily 3	MOA_ETOX_SOURCE_362	MISC	2.0
+nuclear hormone receptor subfamily 1 group b	MOA_ETOX_SOURCE_363	MISC	2.0
+nuclear hormone receptor subfamily 1 group c	MOA_ETOX_SOURCE_364	MISC	2.0
+nuclear hormone receptor subfamily 1 group h	MOA_ETOX_SOURCE_365	MISC	2.0
+nuclear hormone receptor subfamily 1 group i	MOA_ETOX_SOURCE_366	MISC	2.0
+nuclear hormone receptor subfamily 1 group b member 3	MOA_ETOX_SOURCE_367	MISC	2.0
+nuclear hormone receptor subfamily 1 group c member 1	MOA_ETOX_SOURCE_368	MISC	2.0
+nuclear hormone receptor subfamily 1 group c member 3	MOA_ETOX_SOURCE_369	MISC	2.0
+nuclear hormone receptor subfamily 1 group h member 3	MOA_ETOX_SOURCE_370	MISC	2.0
+nuclear hormone receptor subfamily 1 group i member 1	MOA_ETOX_SOURCE_371	MISC	2.0
+nuclear hormone receptor subfamily 3 group a	MOA_ETOX_SOURCE_372	MISC	2.0
+nuclear hormone receptor subfamily 3 group c	MOA_ETOX_SOURCE_373	MISC	2.0
+nuclear hormone receptor subfamily 3 group a member 1	MOA_ETOX_SOURCE_374	MISC	2.0
+nuclear hormone receptor subfamily 3 group a member 2	MOA_ETOX_SOURCE_375	MISC	2.0
+nuclear hormone receptor subfamily 3 group c member 1	MOA_ETOX_SOURCE_376	MISC	2.0
+nuclear hormone receptor subfamily 3 group c member 2	MOA_ETOX_SOURCE_377	MISC	2.0
+nuclear hormone receptor subfamily 3 group c member 3	MOA_ETOX_SOURCE_378	MISC	2.0
+nuclear hormone receptor subfamily 3 group c member 4	MOA_ETOX_SOURCE_379	MISC	2.0
+electrochemical transporter	MOA_ETOX_SOURCE_380	MISC	2.0
+slc superfamily of solute carriers	MOA_ETOX_SOURCE_381	MISC	2.0
+slc06 neurotransmitter transporter family	MOA_ETOX_SOURCE_382	MISC	2.0
+slc09 family of sodium\/hydrogen exchangers	MOA_ETOX_SOURCE_383	MISC	2.0
+slc10 family of sodium-bile acid co-transporters	MOA_ETOX_SOURCE_384	MISC	2.0
+slc12 family of cation-coupled chloride transporters	MOA_ETOX_SOURCE_385	MISC	2.0
+slc16 family of monocarboxylate transporters	MOA_ETOX_SOURCE_386	MISC	2.0
+primary active transporter	MOA_ETOX_SOURCE_387	MISC	2.0
+atp-binding cassette	MOA_ETOX_SOURCE_388	MISC	2.0
+abcg subfamily	MOA_ETOX_SOURCE_389	MISC	2.0
+p-type atpase	MOA_ETOX_SOURCE_390	MISC	2.0
+hydrogen potassium atpase	MOA_ETOX_SOURCE_391	MISC	2.0
+voltage-gated potassium channel subunit kv7.1	MOA_ETOX_SOURCE_392	MISC	2.0
+potassium voltage-gated channel subfamily kqt member 1	MOA_ETOX_SOURCE_393	MISC	2.0
+kcnq1	MOA_ETOX_SOURCE_394	MISC	2.0
+kcna9	MOA_ETOX_SOURCE_395	MISC	2.0
+kcna8	MOA_ETOX_SOURCE_396	MISC	2.0
+voltage-gated potassium channel subunit kv7.1	MOA_ETOX_SOURCE_397	MISC	2.0
+kqt-like 1	MOA_ETOX_SOURCE_398	MISC	2.0
+kvlqt1	MOA_ETOX_SOURCE_399	MISC	2.0
+iks producing slow voltage-gated potassium channel subunit alpha kvlqt1	MOA_ETOX_SOURCE_400	MISC	2.0
+voltage-gated potassium channel subunit kv1.5	MOA_ETOX_SOURCE_401	MISC	2.0
+hpcn1	MOA_ETOX_SOURCE_402	MISC	2.0
+kcna5	MOA_ETOX_SOURCE_403	MISC	2.0
+voltage-gated potassium channel hk2	MOA_ETOX_SOURCE_404	MISC	2.0
+potassium voltage-gated channel subfamily a member 5	MOA_ETOX_SOURCE_405	MISC	2.0
+voltage-gated potassium channel subunit kv1.5	MOA_ETOX_SOURCE_406	MISC	2.0
+voltage-gated l-type calcium channel	MOA_ETOX_SOURCE_407	MISC	2.0
+voltage-dependent l-type calcium channel subunit alpha-1d	MOA_ETOX_SOURCE_408	MISC	2.0
+voltage-dependent l-type calcium channel subunit alpha-1f	MOA_ETOX_SOURCE_409	MISC	2.0
+cacna1s	MOA_ETOX_SOURCE_410	MISC	2.0
+calcium channel, l type, alpha-1 polypeptide, isoform 3, skeletal muscle	MOA_ETOX_SOURCE_411	MISC	2.0
+voltage-dependent l-type calcium channel subunit alpha-1s	MOA_ETOX_SOURCE_412	MISC	2.0
+cacnl1a3	MOA_ETOX_SOURCE_413	MISC	2.0
+cchl1a2	MOA_ETOX_SOURCE_414	MISC	2.0
+cacnl1a2	MOA_ETOX_SOURCE_415	MISC	2.0
+cacnl1a1	MOA_ETOX_SOURCE_416	MISC	2.0
+voltage-dependent l-type calcium channel subunit alpha-1c	MOA_ETOX_SOURCE_417	MISC	2.0
+cacna1c	MOA_ETOX_SOURCE_418	MISC	2.0
+cacna1d	MOA_ETOX_SOURCE_419	MISC	2.0
+calcium channel, l type, alpha-1 polypeptide, isoform 1, cardiac muscle	MOA_ETOX_SOURCE_420	MISC	2.0
+cach2	MOA_ETOX_SOURCE_421	MISC	2.0
+cach1	MOA_ETOX_SOURCE_422	MISC	2.0
+cacna1f	MOA_ETOX_SOURCE_423	MISC	2.0
+cchl1a1	MOA_ETOX_SOURCE_424	MISC	2.0
+cach3	MOA_ETOX_SOURCE_425	MISC	2.0
+cacnaf1	MOA_ETOX_SOURCE_426	MISC	2.0
+voltage-gated calcium channel subunit alpha cav1.4	MOA_ETOX_SOURCE_427	MISC	2.0
+cacn2	MOA_ETOX_SOURCE_428	MISC	2.0
+voltage-gated calcium channel subunit alpha cav1.3	MOA_ETOX_SOURCE_429	MISC	2.0
+voltage-gated calcium channel subunit alpha cav1.1	MOA_ETOX_SOURCE_430	MISC	2.0
+cacn4	MOA_ETOX_SOURCE_431	MISC	2.0
+voltage-gated calcium channel subunit alpha cav1.2	MOA_ETOX_SOURCE_432	MISC	2.0
+cacn1	MOA_ETOX_SOURCE_433	MISC	2.0
+calcium channel, l type, alpha-1 polypeptide, isoform 2	MOA_ETOX_SOURCE_434	MISC	2.0
+vitamin d receptor	MOA_ETOX_SOURCE_435	MISC	2.0
+vdr	MOA_ETOX_SOURCE_436	MISC	2.0
+vitamin d3 receptor	MOA_ETOX_SOURCE_437	MISC	2.0
+1,25-dihydroxyvitamin d3 receptor	MOA_ETOX_SOURCE_438	MISC	2.0
+nr1i1	MOA_ETOX_SOURCE_439	MISC	2.0
+nuclear receptor subfamily 1 group i member 1	MOA_ETOX_SOURCE_440	MISC	2.0
+vasopressin v1b receptor	MOA_ETOX_SOURCE_441	MISC	2.0
+vasopressin v1b receptor	MOA_ETOX_SOURCE_442	MISC	2.0
+avpr1b	MOA_ETOX_SOURCE_443	MISC	2.0
+avpr v3	MOA_ETOX_SOURCE_444	MISC	2.0
+avpr v1b	MOA_ETOX_SOURCE_445	MISC	2.0
+avpr3	MOA_ETOX_SOURCE_446	MISC	2.0
+vpr3	MOA_ETOX_SOURCE_447	MISC	2.0
+v1br	MOA_ETOX_SOURCE_448	MISC	2.0
+antidiuretic hormone receptor 1b	MOA_ETOX_SOURCE_449	MISC	2.0
+vasopressin v3 receptor	MOA_ETOX_SOURCE_450	MISC	2.0
+vascular endothelial growth factor receptor	MOA_ETOX_SOURCE_451	MISC	2.0
+frt	MOA_ETOX_SOURCE_452	MISC	2.0
+fms-like tyrosine kinase 1	MOA_ETOX_SOURCE_453	MISC	2.0
+flt-1	MOA_ETOX_SOURCE_454	MISC	2.0
+vascular endothelial growth factor receptor 1	MOA_ETOX_SOURCE_455	MISC	2.0
+flt1	MOA_ETOX_SOURCE_456	MISC	2.0
+flt	MOA_ETOX_SOURCE_457	MISC	2.0
+vegfr1	MOA_ETOX_SOURCE_458	MISC	2.0
+tyrosine-protein kinase frt	MOA_ETOX_SOURCE_459	MISC	2.0
+tyrosine-protein kinase receptor flt	MOA_ETOX_SOURCE_460	MISC	2.0
+vascular permeability factor receptor	MOA_ETOX_SOURCE_461	MISC	2.0
+vegfr-1	MOA_ETOX_SOURCE_462	MISC	2.0
+vascular endothelial growth factor receptor 2	MOA_ETOX_SOURCE_463	MISC	2.0
+vascular endothelial growth factor receptor 3	MOA_ETOX_SOURCE_464	MISC	2.0
+vanilloid receptor	MOA_ETOX_SOURCE_465	MISC	2.0
+osm-9-like trp channel 1	MOA_ETOX_SOURCE_466	MISC	2.0
+otrpc1	MOA_ETOX_SOURCE_467	MISC	2.0
+capsaicin receptor	MOA_ETOX_SOURCE_468	MISC	2.0
+vr1	MOA_ETOX_SOURCE_469	MISC	2.0
+transient receptor potential cation channel subfamily v member 1	MOA_ETOX_SOURCE_470	MISC	2.0
+trpv1	MOA_ETOX_SOURCE_471	MISC	2.0
+vanilloid receptor 1	MOA_ETOX_SOURCE_472	MISC	2.0
+tyrosine-protein kinase jak2	MOA_ETOX_SOURCE_473	MISC	2.0
+jak2	MOA_ETOX_SOURCE_474	MISC	2.0
+janus kinase 2	MOA_ETOX_SOURCE_475	MISC	2.0
+jak-2	MOA_ETOX_SOURCE_476	MISC	2.0
+tyrosine-protein kinase jak2	MOA_ETOX_SOURCE_477	MISC	2.0
+tyrosine-protein kinase abl	MOA_ETOX_SOURCE_478	MISC	2.0
+proto-oncogene c-abl	MOA_ETOX_SOURCE_479	MISC	2.0
+tyrosine-protein kinase abl1	MOA_ETOX_SOURCE_480	MISC	2.0
+jtk7	MOA_ETOX_SOURCE_481	MISC	2.0
+abelson murine leukemia viral oncogene homolog 1	MOA_ETOX_SOURCE_482	MISC	2.0
+p150	MOA_ETOX_SOURCE_483	MISC	2.0
+abl	MOA_ETOX_SOURCE_484	MISC	2.0
+abelson tyrosine-protein kinase 1	MOA_ETOX_SOURCE_485	MISC	2.0
+abl1	MOA_ETOX_SOURCE_486	MISC	2.0
+tryptase beta-1	MOA_ETOX_SOURCE_487	MISC	2.0
+tryptase i	MOA_ETOX_SOURCE_488	MISC	2.0
+tryptase alpha\/beta-1	MOA_ETOX_SOURCE_489	MISC	2.0
+tps2	MOA_ETOX_SOURCE_490	MISC	2.0
+tps1	MOA_ETOX_SOURCE_491	MISC	2.0
+tryptase alpha-1	MOA_ETOX_SOURCE_492	MISC	2.0
+tryptase-1	MOA_ETOX_SOURCE_493	MISC	2.0
+tpsab1	MOA_ETOX_SOURCE_494	MISC	2.0
+tpsb1	MOA_ETOX_SOURCE_495	MISC	2.0
+topoisomerase iv	MOA_ETOX_SOURCE_496	MISC	2.0
+topoisomerase ii	MOA_ETOX_SOURCE_497	MISC	2.0
+topoisomerase	MOA_ETOX_SOURCE_498	MISC	2.0
+toll-like receptor 7	MOA_ETOX_SOURCE_499	MISC	2.0
+toll-like receptor 7	MOA_ETOX_SOURCE_500	MISC	2.0
+tlr7	MOA_ETOX_SOURCE_501	MISC	2.0
+tnf-alpha	MOA_ETOX_SOURCE_502	MISC	2.0
+tnfa	MOA_ETOX_SOURCE_503	MISC	2.0
+intracellular domain 1	MOA_ETOX_SOURCE_504	MISC	2.0
+ntf	MOA_ETOX_SOURCE_505	MISC	2.0
+intracellular domain 2	MOA_ETOX_SOURCE_506	MISC	2.0
+tumor necrosis factor	MOA_ETOX_SOURCE_507	MISC	2.0
+c-domain 2	MOA_ETOX_SOURCE_508	MISC	2.0
+c-domain 1	MOA_ETOX_SOURCE_509	MISC	2.0
+tumor necrosis factor, soluble form	MOA_ETOX_SOURCE_510	MISC	2.0
+icd2	MOA_ETOX_SOURCE_511	MISC	2.0
+icd1	MOA_ETOX_SOURCE_512	MISC	2.0
+tnfsf2	MOA_ETOX_SOURCE_513	MISC	2.0
+tnf	MOA_ETOX_SOURCE_514	MISC	2.0
+tumor necrosis factor ligand superfamily member 2	MOA_ETOX_SOURCE_515	MISC	2.0
+tnf-a	MOA_ETOX_SOURCE_516	MISC	2.0
+n-terminal fragment	MOA_ETOX_SOURCE_517	MISC	2.0
+tnf-alpha	MOA_ETOX_SOURCE_518	MISC	2.0
+tumor necrosis factor, membrane form	MOA_ETOX_SOURCE_519	MISC	2.0
+cachectin	MOA_ETOX_SOURCE_520	MISC	2.0
+thymidylate synthase	MOA_ETOX_SOURCE_521	MISC	2.0
+tyms	MOA_ETOX_SOURCE_522	MISC	2.0
+tsase	MOA_ETOX_SOURCE_523	MISC	2.0
+ts	MOA_ETOX_SOURCE_524	MISC	2.0
+thymidylate synthase	MOA_ETOX_SOURCE_525	MISC	2.0
+thromboxane a2 receptor	MOA_ETOX_SOURCE_526	MISC	2.0
+thromboxane a2 receptor	MOA_ETOX_SOURCE_527	MISC	2.0
+tbxa2r	MOA_ETOX_SOURCE_528	MISC	2.0
+prostanoid tp receptor	MOA_ETOX_SOURCE_529	MISC	2.0
+txa2-r	MOA_ETOX_SOURCE_530	MISC	2.0
+thrombin & trypsin	MOA_ETOX_SOURCE_531	MISC	2.0
+brain trypsinogen	MOA_ETOX_SOURCE_532	MISC	2.0
+trypsin-3	MOA_ETOX_SOURCE_533	MISC	2.0
+tryp2	MOA_ETOX_SOURCE_534	MISC	2.0
+trypsin iii	MOA_ETOX_SOURCE_535	MISC	2.0
+trypsin ii	MOA_ETOX_SOURCE_536	MISC	2.0
+tryp1	MOA_ETOX_SOURCE_537	MISC	2.0
+trypsin-2	MOA_ETOX_SOURCE_538	MISC	2.0
+trypsin-1	MOA_ETOX_SOURCE_539	MISC	2.0
+anionic trypsinogen	MOA_ETOX_SOURCE_540	MISC	2.0
+try3	MOA_ETOX_SOURCE_541	MISC	2.0
+try2	MOA_ETOX_SOURCE_542	MISC	2.0
+try1	MOA_ETOX_SOURCE_543	MISC	2.0
+trypsin iv	MOA_ETOX_SOURCE_544	MISC	2.0
+try4	MOA_ETOX_SOURCE_545	MISC	2.0
+cationic trypsinogen	MOA_ETOX_SOURCE_546	MISC	2.0
+serine protease 1	MOA_ETOX_SOURCE_547	MISC	2.0
+serine protease 2	MOA_ETOX_SOURCE_548	MISC	2.0
+serine protease 3	MOA_ETOX_SOURCE_549	MISC	2.0
+prss2	MOA_ETOX_SOURCE_550	MISC	2.0
+trypsin i	MOA_ETOX_SOURCE_551	MISC	2.0
+prss1	MOA_ETOX_SOURCE_552	MISC	2.0
+prss4	MOA_ETOX_SOURCE_553	MISC	2.0
+prss3	MOA_ETOX_SOURCE_554	MISC	2.0
+serine protease 4	MOA_ETOX_SOURCE_555	MISC	2.0
+beta-trypsin	MOA_ETOX_SOURCE_556	MISC	2.0
+alpha-trypsin chain 1	MOA_ETOX_SOURCE_557	MISC	2.0
+mesotrypsinogen	MOA_ETOX_SOURCE_558	MISC	2.0
+alpha-trypsin chain 2	MOA_ETOX_SOURCE_559	MISC	2.0
+trp1	MOA_ETOX_SOURCE_560	MISC	2.0
+thrombin	MOA_ETOX_SOURCE_561	MISC	2.0
+thiazide-sensitive sodium-chloride cotransporter	MOA_ETOX_SOURCE_562	MISC	2.0
+na-cl cotransporter	MOA_ETOX_SOURCE_563	MISC	2.0
+tsc	MOA_ETOX_SOURCE_564	MISC	2.0
+na-cl symporter	MOA_ETOX_SOURCE_565	MISC	2.0
+slc12a3	MOA_ETOX_SOURCE_566	MISC	2.0
+solute carrier family 12 member 3	MOA_ETOX_SOURCE_567	MISC	2.0
+thiazide-sensitive sodium-chloride cotransporter	MOA_ETOX_SOURCE_568	MISC	2.0
+ncc	MOA_ETOX_SOURCE_569	MISC	2.0
+11-beta-hydroxysteroid dehydrogenase 1	MOA_ETOX_SOURCE_570	MISC	2.0
+hsd11b1	MOA_ETOX_SOURCE_571	MISC	2.0
+hsd11l	MOA_ETOX_SOURCE_572	MISC	2.0
+11-beta-hydroxysteroid dehydrogenase 1	MOA_ETOX_SOURCE_573	MISC	2.0
+corticosteroid 11-beta-dehydrogenase isozyme 1	MOA_ETOX_SOURCE_574	MISC	2.0
+11-dh	MOA_ETOX_SOURCE_575	MISC	2.0
+11-beta-hsd1	MOA_ETOX_SOURCE_576	MISC	2.0
+hsd11	MOA_ETOX_SOURCE_577	MISC	2.0
+acyl-coa wax alcohol acyltransferase 1	MOA_ETOX_SOURCE_578	MISC	2.0
+awat1	MOA_ETOX_SOURCE_579	MISC	2.0
+diacylglycerol acyltransferase 2	MOA_ETOX_SOURCE_580	MISC	2.0
+dgat2l3	MOA_ETOX_SOURCE_581	MISC	2.0
+dga2	MOA_ETOX_SOURCE_582	MISC	2.0
+diacylglycerol o-acyltransferase 2-like protein 3	MOA_ETOX_SOURCE_583	MISC	2.0
+acyl-coa wax alcohol acyltransferase 1	MOA_ETOX_SOURCE_584	MISC	2.0
+long-chain-alcohol o-fatty-acyltransferase 1	MOA_ETOX_SOURCE_585	MISC	2.0
+adenosylhomocysteinase	MOA_ETOX_SOURCE_586	MISC	2.0
+adohcyase	MOA_ETOX_SOURCE_587	MISC	2.0
+s-adenosyl-l-homocysteine hydrolase	MOA_ETOX_SOURCE_588	MISC	2.0
+adenosylhomocysteinase	MOA_ETOX_SOURCE_589	MISC	2.0
+ahcy	MOA_ETOX_SOURCE_590	MISC	2.0
+sahh	MOA_ETOX_SOURCE_591	MISC	2.0
+adenylate cyclase	MOA_ETOX_SOURCE_592	MISC	2.0
+adenylate cyclase type 9	MOA_ETOX_SOURCE_593	MISC	2.0
+kiaa0520	MOA_ETOX_SOURCE_594	MISC	2.0
+adenylyl cyclase 5	MOA_ETOX_SOURCE_595	MISC	2.0
+adenylyl cyclase 6	MOA_ETOX_SOURCE_596	MISC	2.0
+adenylyl cyclase 7	MOA_ETOX_SOURCE_597	MISC	2.0
+adenylyl cyclase 8	MOA_ETOX_SOURCE_598	MISC	2.0
+adenylyl cyclase 9	MOA_ETOX_SOURCE_599	MISC	2.0
+adcy1	MOA_ETOX_SOURCE_600	MISC	2.0
+adcy3	MOA_ETOX_SOURCE_601	MISC	2.0
+adcy2	MOA_ETOX_SOURCE_602	MISC	2.0
+ac8	MOA_ETOX_SOURCE_603	MISC	2.0
+kiaa1060	MOA_ETOX_SOURCE_604	MISC	2.0
+adenylate cyclase type 1	MOA_ETOX_SOURCE_605	MISC	2.0
+adenylate cyclase type 2	MOA_ETOX_SOURCE_606	MISC	2.0
+adenylate cyclase type 3	MOA_ETOX_SOURCE_607	MISC	2.0
+adenylate cyclase type 4	MOA_ETOX_SOURCE_608	MISC	2.0
+adenylate cyclase type 5	MOA_ETOX_SOURCE_609	MISC	2.0
+adenylate cyclase type 6	MOA_ETOX_SOURCE_610	MISC	2.0
+adenylate cyclase type 7	MOA_ETOX_SOURCE_611	MISC	2.0
+adenylate cyclase type 8	MOA_ETOX_SOURCE_612	MISC	2.0
+kiaa0037	MOA_ETOX_SOURCE_613	MISC	2.0
+ca-LRB-2\+-RRB-\/calmodulin-activated adenylyl cyclase	MOA_ETOX_SOURCE_614	MISC	2.0
+adenylate cyclase type vii	MOA_ETOX_SOURCE_615	MISC	2.0
+kiaa0511	MOA_ETOX_SOURCE_616	MISC	2.0
+adcy5	MOA_ETOX_SOURCE_617	MISC	2.0
+adcy4	MOA_ETOX_SOURCE_618	MISC	2.0
+adcy6	MOA_ETOX_SOURCE_619	MISC	2.0
+adenylate cyclase type ix	MOA_ETOX_SOURCE_620	MISC	2.0
+adcy9	MOA_ETOX_SOURCE_621	MISC	2.0
+adenylate cyclase type iv	MOA_ETOX_SOURCE_622	MISC	2.0
+adcy7	MOA_ETOX_SOURCE_623	MISC	2.0
+adcy8	MOA_ETOX_SOURCE_624	MISC	2.0
+atp pyrophosphate-lyase 5	MOA_ETOX_SOURCE_625	MISC	2.0
+adenylate cyclase type vi	MOA_ETOX_SOURCE_626	MISC	2.0
+atp pyrophosphate-lyase 6	MOA_ETOX_SOURCE_627	MISC	2.0
+atp pyrophosphate-lyase 2	MOA_ETOX_SOURCE_628	MISC	2.0
+atp pyrophosphate-lyase 1	MOA_ETOX_SOURCE_629	MISC	2.0
+atp pyrophosphate-lyase 4	MOA_ETOX_SOURCE_630	MISC	2.0
+atp pyrophosphate-lyase 3	MOA_ETOX_SOURCE_631	MISC	2.0
+adenylate cyclase type viii	MOA_ETOX_SOURCE_632	MISC	2.0
+ac-iii	MOA_ETOX_SOURCE_633	MISC	2.0
+adenylate cyclase type ii	MOA_ETOX_SOURCE_634	MISC	2.0
+atp pyrophosphate-lyase 9	MOA_ETOX_SOURCE_635	MISC	2.0
+atp pyrophosphate-lyase 7	MOA_ETOX_SOURCE_636	MISC	2.0
+atp pyrophosphate-lyase 8	MOA_ETOX_SOURCE_637	MISC	2.0
+adenylyl cyclase 3	MOA_ETOX_SOURCE_638	MISC	2.0
+adenylate cyclase, olfactive type	MOA_ETOX_SOURCE_639	MISC	2.0
+adenylyl cyclase 4	MOA_ETOX_SOURCE_640	MISC	2.0
+adenylyl cyclase 1	MOA_ETOX_SOURCE_641	MISC	2.0
+adenylyl cyclase 2	MOA_ETOX_SOURCE_642	MISC	2.0
+adenylate cyclase type i	MOA_ETOX_SOURCE_643	MISC	2.0
+ac3	MOA_ETOX_SOURCE_644	MISC	2.0
+adenylate cyclase type v	MOA_ETOX_SOURCE_645	MISC	2.0
+kiaa0422	MOA_ETOX_SOURCE_646	MISC	2.0
+ca-LRB-2\+-RRB--inhibitable adenylyl cyclase	MOA_ETOX_SOURCE_647	MISC	2.0
+adenylate cyclase type iii	MOA_ETOX_SOURCE_648	MISC	2.0
+alpha-glucosidase	MOA_ETOX_SOURCE_649	MISC	2.0
+anandamide amidohydrolase	MOA_ETOX_SOURCE_650	MISC	2.0
+faah1	MOA_ETOX_SOURCE_651	MISC	2.0
+anandamide amidohydrolase 1	MOA_ETOX_SOURCE_652	MISC	2.0
+faah	MOA_ETOX_SOURCE_653	MISC	2.0
+oleamide hydrolase 1	MOA_ETOX_SOURCE_654	MISC	2.0
+fatty-acid amide hydrolase 1	MOA_ETOX_SOURCE_655	MISC	2.0
+baculoviral iap repeat-containing protein 2	MOA_ETOX_SOURCE_656	MISC	2.0
+api1	MOA_ETOX_SOURCE_657	MISC	2.0
+iap homolog b	MOA_ETOX_SOURCE_658	MISC	2.0
+birc2	MOA_ETOX_SOURCE_659	MISC	2.0
+tnfr2-traf-signaling complex protein 2	MOA_ETOX_SOURCE_660	MISC	2.0
+mihb	MOA_ETOX_SOURCE_661	MISC	2.0
+iap-2	MOA_ETOX_SOURCE_662	MISC	2.0
+ring finger protein 48	MOA_ETOX_SOURCE_663	MISC	2.0
+iap2	MOA_ETOX_SOURCE_664	MISC	2.0
+inhibitor of apoptosis protein 2	MOA_ETOX_SOURCE_665	MISC	2.0
+hiap-2	MOA_ETOX_SOURCE_666	MISC	2.0
+hiap2	MOA_ETOX_SOURCE_667	MISC	2.0
+rnf48	MOA_ETOX_SOURCE_668	MISC	2.0
+c-iap1	MOA_ETOX_SOURCE_669	MISC	2.0
+baculoviral iap repeat-containing protein 2	MOA_ETOX_SOURCE_670	MISC	2.0
+diacylglycerol o-acyltransferase 1	MOA_ETOX_SOURCE_671	MISC	2.0
+arat	MOA_ETOX_SOURCE_672	MISC	2.0
+dgat	MOA_ETOX_SOURCE_673	MISC	2.0
+diacylglycerol o-acyltransferase 1	MOA_ETOX_SOURCE_674	MISC	2.0
+dgat1	MOA_ETOX_SOURCE_675	MISC	2.0
+acat-related gene product 1	MOA_ETOX_SOURCE_676	MISC	2.0
+acyl-coa retinol o-fatty-acyltransferase	MOA_ETOX_SOURCE_677	MISC	2.0
+diglyceride acyltransferase	MOA_ETOX_SOURCE_678	MISC	2.0
+agrp1	MOA_ETOX_SOURCE_679	MISC	2.0
+retinol o-fatty-acyltransferase	MOA_ETOX_SOURCE_680	MISC	2.0
+dna polymerase	MOA_ETOX_SOURCE_681	MISC	2.0
+dna-directed rna polymerase beta chain	MOA_ETOX_SOURCE_682	MISC	2.0
+rna polymerase subunit beta	MOA_ETOX_SOURCE_683	MISC	2.0
+rnap subunit beta	MOA_ETOX_SOURCE_684	MISC	2.0
+transcriptase subunit beta	MOA_ETOX_SOURCE_685	MISC	2.0
+rpob	MOA_ETOX_SOURCE_686	MISC	2.0
+dna-directed rna polymerase subunit beta	MOA_ETOX_SOURCE_687	MISC	2.0
+eosinophil peroxidase	MOA_ETOX_SOURCE_688	MISC	2.0
+eosinophil peroxidase heavy chain	MOA_ETOX_SOURCE_689	MISC	2.0
+epp	MOA_ETOX_SOURCE_690	MISC	2.0
+epx	MOA_ETOX_SOURCE_691	MISC	2.0
+eper	MOA_ETOX_SOURCE_692	MISC	2.0
+eosinophil peroxidase	MOA_ETOX_SOURCE_693	MISC	2.0
+eosinophil peroxidase light chain	MOA_ETOX_SOURCE_694	MISC	2.0
+epo	MOA_ETOX_SOURCE_695	MISC	2.0
+glycogen phosphorylase	MOA_ETOX_SOURCE_696	MISC	2.0
+hematopoietic prostaglandin d synthase	MOA_ETOX_SOURCE_697	MISC	2.0
+glutathione-requiring prostaglandin d synthase	MOA_ETOX_SOURCE_698	MISC	2.0
+ptgds2	MOA_ETOX_SOURCE_699	MISC	2.0
+glutathione-dependent pgd synthase	MOA_ETOX_SOURCE_700	MISC	2.0
+h-pgds	MOA_ETOX_SOURCE_701	MISC	2.0
+hematopoietic prostaglandin d synthase	MOA_ETOX_SOURCE_702	MISC	2.0
+glutathione s-transferase	MOA_ETOX_SOURCE_703	MISC	2.0
+prostaglandin-h2 d-isomerase	MOA_ETOX_SOURCE_704	MISC	2.0
+gsts	MOA_ETOX_SOURCE_705	MISC	2.0
+hpgds	MOA_ETOX_SOURCE_706	MISC	2.0
+pgds	MOA_ETOX_SOURCE_707	MISC	2.0
+gst class-sigma	MOA_ETOX_SOURCE_708	MISC	2.0
+hexokinase type iv	MOA_ETOX_SOURCE_709	MISC	2.0
+glucokinase	MOA_ETOX_SOURCE_710	MISC	2.0
+gck	MOA_ETOX_SOURCE_711	MISC	2.0
+hk4	MOA_ETOX_SOURCE_712	MISC	2.0
+hexokinase-d	MOA_ETOX_SOURCE_713	MISC	2.0
+hk iv	MOA_ETOX_SOURCE_714	MISC	2.0
+hexokinase-4	MOA_ETOX_SOURCE_715	MISC	2.0
+hexokinase type iv	MOA_ETOX_SOURCE_716	MISC	2.0
+isoleucyl-trna synthetase	MOA_ETOX_SOURCE_717	MISC	2.0
+iars	MOA_ETOX_SOURCE_718	MISC	2.0
+irs	MOA_ETOX_SOURCE_719	MISC	2.0
+isoleucyl-trna synthetase	MOA_ETOX_SOURCE_720	MISC	2.0
+ilers	MOA_ETOX_SOURCE_721	MISC	2.0
+isoleucine--trna ligase, cytoplasmic	MOA_ETOX_SOURCE_722	MISC	2.0
+myeloperoxidase	MOA_ETOX_SOURCE_723	MISC	2.0
+myeloperoxidase heavy chain	MOA_ETOX_SOURCE_724	MISC	2.0
+84 kda myeloperoxidase	MOA_ETOX_SOURCE_725	MISC	2.0
+myeloperoxidase light chain	MOA_ETOX_SOURCE_726	MISC	2.0
+mpo	MOA_ETOX_SOURCE_727	MISC	2.0
+89 kda myeloperoxidase	MOA_ETOX_SOURCE_728	MISC	2.0
+myeloperoxidase	MOA_ETOX_SOURCE_729	MISC	2.0
+nitric oxide synthase	MOA_ETOX_SOURCE_730	MISC	2.0
+nos	MOA_ETOX_SOURCE_731	MISC	2.0
+nitric oxide synthase, inducible	MOA_ETOX_SOURCE_732	MISC	2.0
+hepatocyte nos	MOA_ETOX_SOURCE_733	MISC	2.0
+nitric oxide synthase, inducible	MOA_ETOX_SOURCE_734	MISC	2.0
+hep-nos	MOA_ETOX_SOURCE_735	MISC	2.0
+inducible no synthase	MOA_ETOX_SOURCE_736	MISC	2.0
+inducible nos	MOA_ETOX_SOURCE_737	MISC	2.0
+nos2a	MOA_ETOX_SOURCE_738	MISC	2.0
+nos type ii	MOA_ETOX_SOURCE_739	MISC	2.0
+peptidyl-cysteine s-nitrosylase nos2	MOA_ETOX_SOURCE_740	MISC	2.0
+inos	MOA_ETOX_SOURCE_741	MISC	2.0
+nos2	MOA_ETOX_SOURCE_742	MISC	2.0
+poly -LSB-adp-ribose-RSB- polymerase-1	MOA_ETOX_SOURCE_743	MISC	2.0
+poly-LSB-adp-ribose-RSB- synthase 1	MOA_ETOX_SOURCE_744	MISC	2.0
+nad-LRB-\+-RRB- adp-ribosyltransferase 1	MOA_ETOX_SOURCE_745	MISC	2.0
+artd1	MOA_ETOX_SOURCE_746	MISC	2.0
+adprt	MOA_ETOX_SOURCE_747	MISC	2.0
+adp-ribosyltransferase diphtheria toxin-like 1	MOA_ETOX_SOURCE_748	MISC	2.0
+parp1	MOA_ETOX_SOURCE_749	MISC	2.0
+parp-1	MOA_ETOX_SOURCE_750	MISC	2.0
+poly -LSB-adp-ribose-RSB- polymerase 1	MOA_ETOX_SOURCE_751	MISC	2.0
+ppol	MOA_ETOX_SOURCE_752	MISC	2.0
+adprt 1	MOA_ETOX_SOURCE_753	MISC	2.0
+prostaglandin e synthase	MOA_ETOX_SOURCE_754	MISC	2.0
+prostaglandin e synthase	MOA_ETOX_SOURCE_755	MISC	2.0
+ptges	MOA_ETOX_SOURCE_756	MISC	2.0
+mpges-1	MOA_ETOX_SOURCE_757	MISC	2.0
+microsomal prostaglandin e synthase 1	MOA_ETOX_SOURCE_758	MISC	2.0
+prostaglandin g\/h synthase 2	MOA_ETOX_SOURCE_759	MISC	2.0
+protein farnesyltransferase	MOA_ETOX_SOURCE_760	MISC	2.0
+ras proteins prenyltransferase subunit alpha	MOA_ETOX_SOURCE_761	MISC	2.0
+protein farnesyltransferase subunit beta	MOA_ETOX_SOURCE_762	MISC	2.0
+caax farnesyltransferase subunit alpha	MOA_ETOX_SOURCE_763	MISC	2.0
+protein farnesyltransferase\/geranylgeranyltransferase type-1 subunit alpha	MOA_ETOX_SOURCE_764	MISC	2.0
+ftase-beta	MOA_ETOX_SOURCE_765	MISC	2.0
+ggtase-i-alpha	MOA_ETOX_SOURCE_766	MISC	2.0
+caax farnesyltransferase subunit beta	MOA_ETOX_SOURCE_767	MISC	2.0
+fntb	MOA_ETOX_SOURCE_768	MISC	2.0
+ras proteins prenyltransferase subunit beta	MOA_ETOX_SOURCE_769	MISC	2.0
+ftase-alpha	MOA_ETOX_SOURCE_770	MISC	2.0
+fnta	MOA_ETOX_SOURCE_771	MISC	2.0
+type i protein geranyl-geranyltransferase subunit alpha	MOA_ETOX_SOURCE_772	MISC	2.0
+squalene monooxygenase	MOA_ETOX_SOURCE_773	MISC	2.0
+se	MOA_ETOX_SOURCE_774	MISC	2.0
+squalene epoxidase	MOA_ETOX_SOURCE_775	MISC	2.0
+squalene monooxygenase	MOA_ETOX_SOURCE_776	MISC	2.0
+sqle	MOA_ETOX_SOURCE_777	MISC	2.0
+acetylcholinesterase	MOA_ETOX_SOURCE_778	MISC	2.0
+ache	MOA_ETOX_SOURCE_779	MISC	2.0
+acetylcholinesterase	MOA_ETOX_SOURCE_780	MISC	2.0
+gastric lipase	MOA_ETOX_SOURCE_781	MISC	2.0
+gastric lipase	MOA_ETOX_SOURCE_782	MISC	2.0
+gl	MOA_ETOX_SOURCE_783	MISC	2.0
+lipf	MOA_ETOX_SOURCE_784	MISC	2.0
+gastric triacylglycerol lipase	MOA_ETOX_SOURCE_785	MISC	2.0
+pancreatic lipase	MOA_ETOX_SOURCE_786	MISC	2.0
+pancreatic triacylglycerol lipase	MOA_ETOX_SOURCE_787	MISC	2.0
+pnlip	MOA_ETOX_SOURCE_788	MISC	2.0
+pl	MOA_ETOX_SOURCE_789	MISC	2.0
+pancreatic lipase	MOA_ETOX_SOURCE_790	MISC	2.0
+ptl	MOA_ETOX_SOURCE_791	MISC	2.0
+bacterial dna gyrase	MOA_ETOX_SOURCE_792	MISC	2.0
+dna gyrase subunit b	MOA_ETOX_SOURCE_793	MISC	2.0
+dna gyrase subunit a	MOA_ETOX_SOURCE_794	MISC	2.0
+pcba	MOA_ETOX_SOURCE_795	MISC	2.0
+acrb	MOA_ETOX_SOURCE_796	MISC	2.0
+pard	MOA_ETOX_SOURCE_797	MISC	2.0
+himb	MOA_ETOX_SOURCE_798	MISC	2.0
+para	MOA_ETOX_SOURCE_799	MISC	2.0
+jw2225	MOA_ETOX_SOURCE_800	MISC	2.0
+gyrb	MOA_ETOX_SOURCE_801	MISC	2.0
+gyra	MOA_ETOX_SOURCE_802	MISC	2.0
+nalc	MOA_ETOX_SOURCE_803	MISC	2.0
+nala	MOA_ETOX_SOURCE_804	MISC	2.0
+hisw	MOA_ETOX_SOURCE_805	MISC	2.0
+jw5625	MOA_ETOX_SOURCE_806	MISC	2.0
+hisu	MOA_ETOX_SOURCE_807	MISC	2.0
+dna gyrase	MOA_ETOX_SOURCE_808	MISC	2.0
+rho-associated protein kinase	MOA_ETOX_SOURCE_809	MISC	2.0
+rho-associated protein kinase 2	MOA_ETOX_SOURCE_810	MISC	2.0
+rho-associated, coiled-coil-containing protein kinase i	MOA_ETOX_SOURCE_811	MISC	2.0
+rho-associated protein kinase 1	MOA_ETOX_SOURCE_812	MISC	2.0
+rock-ii	MOA_ETOX_SOURCE_813	MISC	2.0
+rho-associated, coiled-coil-containing protein kinase 2	MOA_ETOX_SOURCE_814	MISC	2.0
+rock1	MOA_ETOX_SOURCE_815	MISC	2.0
+rho-associated, coiled-coil-containing protein kinase 1	MOA_ETOX_SOURCE_816	MISC	2.0
+p164 rock-2	MOA_ETOX_SOURCE_817	MISC	2.0
+p160rock	MOA_ETOX_SOURCE_818	MISC	2.0
+rock-i	MOA_ETOX_SOURCE_819	MISC	2.0
+rho kinase 2	MOA_ETOX_SOURCE_820	MISC	2.0
+rock2	MOA_ETOX_SOURCE_821	MISC	2.0
+kiaa0619	MOA_ETOX_SOURCE_822	MISC	2.0
+p160 rock-1	MOA_ETOX_SOURCE_823	MISC	2.0
+rho-associated, coiled-coil-containing protein kinase ii	MOA_ETOX_SOURCE_824	MISC	2.0
+renal carcinoma antigen ny-ren-35	MOA_ETOX_SOURCE_825	MISC	2.0
+g-protein coupled receptor kinase 2	MOA_ETOX_SOURCE_826	MISC	2.0
+beta-ark-1	MOA_ETOX_SOURCE_827	MISC	2.0
+beta-adrenergic receptor kinase 1	MOA_ETOX_SOURCE_828	MISC	2.0
+bark	MOA_ETOX_SOURCE_829	MISC	2.0
+bark1	MOA_ETOX_SOURCE_830	MISC	2.0
+g-protein coupled receptor kinase 2	MOA_ETOX_SOURCE_831	MISC	2.0
+adrbk1	MOA_ETOX_SOURCE_832	MISC	2.0
+grk2	MOA_ETOX_SOURCE_833	MISC	2.0
+protein kinase c -LRB-pkc-RRB-	MOA_ETOX_SOURCE_834	MISC	2.0
+pkcb	MOA_ETOX_SOURCE_835	MISC	2.0
+protein kinase c iota type	MOA_ETOX_SOURCE_836	MISC	2.0
+pkce	MOA_ETOX_SOURCE_837	MISC	2.0
+npkc-mu	MOA_ETOX_SOURCE_838	MISC	2.0
+pkcg	MOA_ETOX_SOURCE_839	MISC	2.0
+protein kinase c alpha type	MOA_ETOX_SOURCE_840	MISC	2.0
+pkcl	MOA_ETOX_SOURCE_841	MISC	2.0
+protein kinase c beta type	MOA_ETOX_SOURCE_842	MISC	2.0
+protein kinase c mu type	MOA_ETOX_SOURCE_843	MISC	2.0
+atypical protein kinase c-lambda\/iota	MOA_ETOX_SOURCE_844	MISC	2.0
+pkc-b	MOA_ETOX_SOURCE_845	MISC	2.0
+pkc-a	MOA_ETOX_SOURCE_846	MISC	2.0
+pkc-beta	MOA_ETOX_SOURCE_847	MISC	2.0
+npkc-theta	MOA_ETOX_SOURCE_848	MISC	2.0
+protein kinase epk2	MOA_ETOX_SOURCE_849	MISC	2.0
+sdk1	MOA_ETOX_SOURCE_850	MISC	2.0
+sphingosine-dependent protein kinase-1	MOA_ETOX_SOURCE_851	MISC	2.0
+npkc-nu	MOA_ETOX_SOURCE_852	MISC	2.0
+prkc-lambda\/iota	MOA_ETOX_SOURCE_853	MISC	2.0
+protein kinase c delta type	MOA_ETOX_SOURCE_854	MISC	2.0
+pkd	MOA_ETOX_SOURCE_855	MISC	2.0
+npkc-iota	MOA_ETOX_SOURCE_856	MISC	2.0
+npkc-epsilon	MOA_ETOX_SOURCE_857	MISC	2.0
+serine\/threonine-protein kinase d1	MOA_ETOX_SOURCE_858	MISC	2.0
+serine\/threonine-protein kinase d3	MOA_ETOX_SOURCE_859	MISC	2.0
+prkcb1	MOA_ETOX_SOURCE_860	MISC	2.0
+prkcg	MOA_ETOX_SOURCE_861	MISC	2.0
+tyrosine-protein kinase prkcd	MOA_ETOX_SOURCE_862	MISC	2.0
+prkce	MOA_ETOX_SOURCE_863	MISC	2.0
+prkci	MOA_ETOX_SOURCE_864	MISC	2.0
+prkch	MOA_ETOX_SOURCE_865	MISC	2.0
+pkc-alpha	MOA_ETOX_SOURCE_866	MISC	2.0
+prkcd	MOA_ETOX_SOURCE_867	MISC	2.0
+protein kinase c delta type catalytic subunit	MOA_ETOX_SOURCE_868	MISC	2.0
+prkcb	MOA_ETOX_SOURCE_869	MISC	2.0
+npkc-eta	MOA_ETOX_SOURCE_870	MISC	2.0
+prkca	MOA_ETOX_SOURCE_871	MISC	2.0
+prkcz	MOA_ETOX_SOURCE_872	MISC	2.0
+pkc-gamma	MOA_ETOX_SOURCE_873	MISC	2.0
+prkct	MOA_ETOX_SOURCE_874	MISC	2.0
+protein kinase c nu type	MOA_ETOX_SOURCE_875	MISC	2.0
+prkcm	MOA_ETOX_SOURCE_876	MISC	2.0
+prkcn	MOA_ETOX_SOURCE_877	MISC	2.0
+dxs1179e	MOA_ETOX_SOURCE_878	MISC	2.0
+prkcl	MOA_ETOX_SOURCE_879	MISC	2.0
+prkaca	MOA_ETOX_SOURCE_880	MISC	2.0
+npkc-d1	MOA_ETOX_SOURCE_881	MISC	2.0
+protein kinase c gamma type	MOA_ETOX_SOURCE_882	MISC	2.0
+prkcq	MOA_ETOX_SOURCE_883	MISC	2.0
+pkca	MOA_ETOX_SOURCE_884	MISC	2.0
+pkc-l	MOA_ETOX_SOURCE_885	MISC	2.0
+apkc-lambda\/iota	MOA_ETOX_SOURCE_886	MISC	2.0
+protein kinase c epsilon type	MOA_ETOX_SOURCE_887	MISC	2.0
+npkc-delta	MOA_ETOX_SOURCE_888	MISC	2.0
+pkd1	MOA_ETOX_SOURCE_889	MISC	2.0
+epk2	MOA_ETOX_SOURCE_890	MISC	2.0
+protein kinase c theta type	MOA_ETOX_SOURCE_891	MISC	2.0
+prkd1	MOA_ETOX_SOURCE_892	MISC	2.0
+prkd3	MOA_ETOX_SOURCE_893	MISC	2.0
+protein kinase c delta type regulatory subunit	MOA_ETOX_SOURCE_894	MISC	2.0
+protein kinase c zeta type	MOA_ETOX_SOURCE_895	MISC	2.0
+pkc2	MOA_ETOX_SOURCE_896	MISC	2.0
+npkc-zeta	MOA_ETOX_SOURCE_897	MISC	2.0
+protein kinase d	MOA_ETOX_SOURCE_898	MISC	2.0
+protein kinase c eta type	MOA_ETOX_SOURCE_899	MISC	2.0
+pyruvate dehydrogenase kinase	MOA_ETOX_SOURCE_900	MISC	2.0
+pdkii	MOA_ETOX_SOURCE_901	MISC	2.0
+pdh kinase 1	MOA_ETOX_SOURCE_902	MISC	2.0
+-LSB-pyruvate dehydrogenase -LRB-acetyl-transferring-RRB--RSB- kinase isozyme 2, mitochondrial	MOA_ETOX_SOURCE_903	MISC	2.0
+pyruvate dehydrogenase kinase isoform 4	MOA_ETOX_SOURCE_904	MISC	2.0
+pdh kinase 2	MOA_ETOX_SOURCE_905	MISC	2.0
+pyruvate dehydrogenase kinase isoform 2	MOA_ETOX_SOURCE_906	MISC	2.0
+pyruvate dehydrogenase kinase isoform 1	MOA_ETOX_SOURCE_907	MISC	2.0
+pyruvate dehydrogenase kinase isoform 3	MOA_ETOX_SOURCE_908	MISC	2.0
+pdk1	MOA_ETOX_SOURCE_909	MISC	2.0
+pdhk4	MOA_ETOX_SOURCE_910	MISC	2.0
+-LSB-pyruvate dehydrogenase -LRB-acetyl-transferring-RRB--RSB- kinase isozyme 1, mitochondrial	MOA_ETOX_SOURCE_911	MISC	2.0
+pdk2	MOA_ETOX_SOURCE_912	MISC	2.0
+pdk4	MOA_ETOX_SOURCE_913	MISC	2.0
+pdk3	MOA_ETOX_SOURCE_914	MISC	2.0
+pdhk1	MOA_ETOX_SOURCE_915	MISC	2.0
+pdhk3	MOA_ETOX_SOURCE_916	MISC	2.0
+-LSB-pyruvate dehydrogenase -LRB-acetyl-transferring-RRB--RSB- kinase isozyme 3, mitochondrial	MOA_ETOX_SOURCE_917	MISC	2.0
+pdhk2	MOA_ETOX_SOURCE_918	MISC	2.0
+-LSB-pyruvate dehydrogenase -LRB-acetyl-transferring-RRB--RSB- kinase isozyme 4, mitochondrial	MOA_ETOX_SOURCE_919	MISC	2.0
+dna-dependent protein kinase	MOA_ETOX_SOURCE_920	MISC	2.0
+dna-pk catalytic subunit	MOA_ETOX_SOURCE_921	MISC	2.0
+hyrc1	MOA_ETOX_SOURCE_922	MISC	2.0
+prkdc	MOA_ETOX_SOURCE_923	MISC	2.0
+dna-dependent protein kinase catalytic subunit	MOA_ETOX_SOURCE_924	MISC	2.0
+dna-pkcs	MOA_ETOX_SOURCE_925	MISC	2.0
+p460	MOA_ETOX_SOURCE_926	MISC	2.0
+dnpk1	MOA_ETOX_SOURCE_927	MISC	2.0
+hyrc	MOA_ETOX_SOURCE_928	MISC	2.0
+serine-protein kinase atr	MOA_ETOX_SOURCE_929	MISC	2.0
+frp1	MOA_ETOX_SOURCE_930	MISC	2.0
+serine\/threonine-protein kinase atr	MOA_ETOX_SOURCE_931	MISC	2.0
+atr	MOA_ETOX_SOURCE_932	MISC	2.0
+frap-related protein 1	MOA_ETOX_SOURCE_933	MISC	2.0
+ataxia telangiectasia and rad3-related protein	MOA_ETOX_SOURCE_934	MISC	2.0
+cyclin-dependent kinase 1	MOA_ETOX_SOURCE_935	MISC	2.0
+cell division control protein 2 homolog	MOA_ETOX_SOURCE_936	MISC	2.0
+p34 protein kinase	MOA_ETOX_SOURCE_937	MISC	2.0
+cdc2	MOA_ETOX_SOURCE_938	MISC	2.0
+p34cdc2	MOA_ETOX_SOURCE_939	MISC	2.0
+cdkn1	MOA_ETOX_SOURCE_940	MISC	2.0
+cyclin-dependent kinase 1	MOA_ETOX_SOURCE_941	MISC	2.0
+cdk1	MOA_ETOX_SOURCE_942	MISC	2.0
+cell division protein kinase 1	MOA_ETOX_SOURCE_943	MISC	2.0
+cdc28a	MOA_ETOX_SOURCE_944	MISC	2.0
+cyclin-dependent kinase 2	MOA_ETOX_SOURCE_945	MISC	2.0
+cyclin-dependent kinase 2\/cyclin e	MOA_ETOX_SOURCE_946	MISC	2.0
+ccne2	MOA_ETOX_SOURCE_947	MISC	2.0
+ccne1	MOA_ETOX_SOURCE_948	MISC	2.0
+g1\/s-specific cyclin-e2	MOA_ETOX_SOURCE_949	MISC	2.0
+g1\/s-specific cyclin-e1	MOA_ETOX_SOURCE_950	MISC	2.0
+ccne	MOA_ETOX_SOURCE_951	MISC	2.0
+glycogen synthase kinase-3	MOA_ETOX_SOURCE_952	MISC	2.0
+glycogen synthase kinase-3 alpha	MOA_ETOX_SOURCE_953	MISC	2.0
+gsk-3 alpha	MOA_ETOX_SOURCE_954	MISC	2.0
+serine\/threonine-protein kinase gsk3a	MOA_ETOX_SOURCE_955	MISC	2.0
+gsk3a	MOA_ETOX_SOURCE_956	MISC	2.0
+glycogen synthase kinase-3 beta	MOA_ETOX_SOURCE_957	MISC	2.0
+map kinase p38	MOA_ETOX_SOURCE_958	MISC	2.0
+mitogen-activated protein kinase 11	MOA_ETOX_SOURCE_959	MISC	2.0
+prkm13	MOA_ETOX_SOURCE_960	MISC	2.0
+extracellular signal-regulated kinase 6	MOA_ETOX_SOURCE_961	MISC	2.0
+mapk13	MOA_ETOX_SOURCE_962	MISC	2.0
+sapk2	MOA_ETOX_SOURCE_963	MISC	2.0
+mitogen-activated protein kinase p38 delta	MOA_ETOX_SOURCE_964	MISC	2.0
+prkm11	MOA_ETOX_SOURCE_965	MISC	2.0
+mapk 13	MOA_ETOX_SOURCE_966	MISC	2.0
+mapk12	MOA_ETOX_SOURCE_967	MISC	2.0
+mapk11	MOA_ETOX_SOURCE_968	MISC	2.0
+mapk 12	MOA_ETOX_SOURCE_969	MISC	2.0
+mapk 11	MOA_ETOX_SOURCE_970	MISC	2.0
+erk6	MOA_ETOX_SOURCE_971	MISC	2.0
+stress-activated protein kinase 3	MOA_ETOX_SOURCE_972	MISC	2.0
+mitogen-activated protein kinase p38 beta	MOA_ETOX_SOURCE_973	MISC	2.0
+erk-6	MOA_ETOX_SOURCE_974	MISC	2.0
+sapk2b	MOA_ETOX_SOURCE_975	MISC	2.0
+stress-activated protein kinase 4	MOA_ETOX_SOURCE_976	MISC	2.0
+p38-2	MOA_ETOX_SOURCE_977	MISC	2.0
+map kinase p38 delta	MOA_ETOX_SOURCE_978	MISC	2.0
+stress-activated protein kinase 2b	MOA_ETOX_SOURCE_979	MISC	2.0
+map kinase p38 gamma	MOA_ETOX_SOURCE_980	MISC	2.0
+map kinase p38 beta	MOA_ETOX_SOURCE_981	MISC	2.0
+map kinase 13	MOA_ETOX_SOURCE_982	MISC	2.0
+p38b	MOA_ETOX_SOURCE_983	MISC	2.0
+map kinase 12	MOA_ETOX_SOURCE_984	MISC	2.0
+map kinase 11	MOA_ETOX_SOURCE_985	MISC	2.0
+mitogen-activated protein kinase p38 gamma	MOA_ETOX_SOURCE_986	MISC	2.0
+mitogen-activated protein kinase 12	MOA_ETOX_SOURCE_987	MISC	2.0
+mitogen-activated protein kinase 13	MOA_ETOX_SOURCE_988	MISC	2.0
+sapk3	MOA_ETOX_SOURCE_989	MISC	2.0
+sapk4	MOA_ETOX_SOURCE_990	MISC	2.0
+map kinase p38 alpha	MOA_ETOX_SOURCE_991	MISC	2.0
+serine\/threonine-protein kinase ick	MOA_ETOX_SOURCE_992	MISC	2.0
+intestinal cell kinase	MOA_ETOX_SOURCE_993	MISC	2.0
+laryngeal cancer kinase 2	MOA_ETOX_SOURCE_994	MISC	2.0
+ick	MOA_ETOX_SOURCE_995	MISC	2.0
+kiaa0936	MOA_ETOX_SOURCE_996	MISC	2.0
+serine\/threonine-protein kinase ick	MOA_ETOX_SOURCE_997	MISC	2.0
+mak-related kinase	MOA_ETOX_SOURCE_998	MISC	2.0
+mrk	MOA_ETOX_SOURCE_999	MISC	2.0
+hick	MOA_ETOX_SOURCE_1000	MISC	2.0
+lck2	MOA_ETOX_SOURCE_1001	MISC	2.0
+inhibitor of nuclear factor kappa b kinase beta subunit	MOA_ETOX_SOURCE_1002	MISC	2.0
+i-kappa-b kinase 2	MOA_ETOX_SOURCE_1003	MISC	2.0
+ikkb	MOA_ETOX_SOURCE_1004	MISC	2.0
+ikk-beta	MOA_ETOX_SOURCE_1005	MISC	2.0
+nfkbikb	MOA_ETOX_SOURCE_1006	MISC	2.0
+inhibitor of nuclear factor kappa-b kinase subunit beta	MOA_ETOX_SOURCE_1007	MISC	2.0
+ikk-b	MOA_ETOX_SOURCE_1008	MISC	2.0
+ikk2	MOA_ETOX_SOURCE_1009	MISC	2.0
+ikbkb	MOA_ETOX_SOURCE_1010	MISC	2.0
+nuclear factor nf-kappa-b inhibitor kinase beta	MOA_ETOX_SOURCE_1011	MISC	2.0
+i-kappa-b-kinase beta	MOA_ETOX_SOURCE_1012	MISC	2.0
+serine\/threonine-protein kinase aurora-b	MOA_ETOX_SOURCE_1013	MISC	2.0
+stk5	MOA_ETOX_SOURCE_1014	MISC	2.0
+serine\/threonine-protein kinase aurora-b	MOA_ETOX_SOURCE_1015	MISC	2.0
+serine\/threonine-protein kinase 5	MOA_ETOX_SOURCE_1016	MISC	2.0
+stk1	MOA_ETOX_SOURCE_1017	MISC	2.0
+aim1	MOA_ETOX_SOURCE_1018	MISC	2.0
+stk-1	MOA_ETOX_SOURCE_1019	MISC	2.0
+aurora- and ipl1-like midbody-associated protein 1	MOA_ETOX_SOURCE_1020	MISC	2.0
+aurora-related kinase 2	MOA_ETOX_SOURCE_1021	MISC	2.0
+ark2	MOA_ETOX_SOURCE_1022	MISC	2.0
+aik2	MOA_ETOX_SOURCE_1023	MISC	2.0
+airk2	MOA_ETOX_SOURCE_1024	MISC	2.0
+aurkb	MOA_ETOX_SOURCE_1025	MISC	2.0
+aurora 1	MOA_ETOX_SOURCE_1026	MISC	2.0
+aim-1	MOA_ETOX_SOURCE_1027	MISC	2.0
+aurora kinase b	MOA_ETOX_SOURCE_1028	MISC	2.0
+stk12	MOA_ETOX_SOURCE_1029	MISC	2.0
+serine\/threonine-protein kinase 12	MOA_ETOX_SOURCE_1030	MISC	2.0
+aurora\/ipl1-related kinase 2	MOA_ETOX_SOURCE_1031	MISC	2.0
+ark-2	MOA_ETOX_SOURCE_1032	MISC	2.0
+serine\/threonine-protein kinase plk1	MOA_ETOX_SOURCE_1033	MISC	2.0
+plk-1	MOA_ETOX_SOURCE_1034	MISC	2.0
+serine\/threonine-protein kinase 13	MOA_ETOX_SOURCE_1035	MISC	2.0
+stpk13	MOA_ETOX_SOURCE_1036	MISC	2.0
+plk1	MOA_ETOX_SOURCE_1037	MISC	2.0
+plk	MOA_ETOX_SOURCE_1038	MISC	2.0
+serine\/threonine-protein kinase plk1	MOA_ETOX_SOURCE_1039	MISC	2.0
+polo-like kinase 1	MOA_ETOX_SOURCE_1040	MISC	2.0
+dual specificity mitogen-activated protein kinase kinase; mek1\/2	MOA_ETOX_SOURCE_1041	MISC	2.0
+mapkk 2	MOA_ETOX_SOURCE_1042	MISC	2.0
+map kinase kinase 1	MOA_ETOX_SOURCE_1043	MISC	2.0
+mkk1	MOA_ETOX_SOURCE_1044	MISC	2.0
+mapkk 1	MOA_ETOX_SOURCE_1045	MISC	2.0
+dual specificity mitogen-activated protein kinase kinase 2	MOA_ETOX_SOURCE_1046	MISC	2.0
+mek 2	MOA_ETOX_SOURCE_1047	MISC	2.0
+dual specificity mitogen-activated protein kinase kinase 1	MOA_ETOX_SOURCE_1048	MISC	2.0
+mek 1	MOA_ETOX_SOURCE_1049	MISC	2.0
+map2k1	MOA_ETOX_SOURCE_1050	MISC	2.0
+map kinase kinase 2	MOA_ETOX_SOURCE_1051	MISC	2.0
+map2k2	MOA_ETOX_SOURCE_1052	MISC	2.0
+prkmk1	MOA_ETOX_SOURCE_1053	MISC	2.0
+mapk\/erk kinase 1	MOA_ETOX_SOURCE_1054	MISC	2.0
+prkmk2	MOA_ETOX_SOURCE_1055	MISC	2.0
+mapk\/erk kinase 2	MOA_ETOX_SOURCE_1056	MISC	2.0
+mkk2	MOA_ETOX_SOURCE_1057	MISC	2.0
+erk activator kinase 2	MOA_ETOX_SOURCE_1058	MISC	2.0
+erk activator kinase 1	MOA_ETOX_SOURCE_1059	MISC	2.0
+mek1	MOA_ETOX_SOURCE_1060	MISC	2.0
+mek2	MOA_ETOX_SOURCE_1061	MISC	2.0
+epidermal growth factor receptor	MOA_ETOX_SOURCE_1062	MISC	2.0
+s80her4	MOA_ETOX_SOURCE_1063	MISC	2.0
+epidermal growth factor receptor	MOA_ETOX_SOURCE_1064	MISC	2.0
+proto-oncogene c-erbb-1	MOA_ETOX_SOURCE_1065	MISC	2.0
+tyrosine kinase-type cell surface receptor her4	MOA_ETOX_SOURCE_1066	MISC	2.0
+tyrosine kinase-type cell surface receptor her3	MOA_ETOX_SOURCE_1067	MISC	2.0
+erbb	MOA_ETOX_SOURCE_1068	MISC	2.0
+4icd	MOA_ETOX_SOURCE_1069	MISC	2.0
+p180erbb4	MOA_ETOX_SOURCE_1070	MISC	2.0
+receptor tyrosine-protein kinase erbb-3	MOA_ETOX_SOURCE_1071	MISC	2.0
+proto-oncogene-like protein c-erbb-4	MOA_ETOX_SOURCE_1072	MISC	2.0
+receptor tyrosine-protein kinase erbb-1	MOA_ETOX_SOURCE_1073	MISC	2.0
+proto-oncogene-like protein c-erbb-3	MOA_ETOX_SOURCE_1074	MISC	2.0
+erbb4 intracellular domain	MOA_ETOX_SOURCE_1075	MISC	2.0
+egfr	MOA_ETOX_SOURCE_1076	MISC	2.0
+her1	MOA_ETOX_SOURCE_1077	MISC	2.0
+her3	MOA_ETOX_SOURCE_1078	MISC	2.0
+her4	MOA_ETOX_SOURCE_1079	MISC	2.0
+erbb3	MOA_ETOX_SOURCE_1080	MISC	2.0
+erbb4	MOA_ETOX_SOURCE_1081	MISC	2.0
+erbb1	MOA_ETOX_SOURCE_1082	MISC	2.0
+e4icd	MOA_ETOX_SOURCE_1083	MISC	2.0
+receptor tyrosine-protein kinase erbb-4	MOA_ETOX_SOURCE_1084	MISC	2.0
+receptor protein-tyrosine kinase erbb-2	MOA_ETOX_SOURCE_1085	MISC	2.0
+focal adhesion kinase 1	MOA_ETOX_SOURCE_1086	MISC	2.0
+p125fak	MOA_ETOX_SOURCE_1087	MISC	2.0
+focal adhesion kinase 1	MOA_ETOX_SOURCE_1088	MISC	2.0
+protein-tyrosine kinase 2	MOA_ETOX_SOURCE_1089	MISC	2.0
+focal adhesion kinase-related nonkinase	MOA_ETOX_SOURCE_1090	MISC	2.0
+protein phosphatase 1 regulatory subunit 71	MOA_ETOX_SOURCE_1091	MISC	2.0
+fadk 1	MOA_ETOX_SOURCE_1092	MISC	2.0
+ptk2	MOA_ETOX_SOURCE_1093	MISC	2.0
+pp125fak	MOA_ETOX_SOURCE_1094	MISC	2.0
+ppp1r71	MOA_ETOX_SOURCE_1095	MISC	2.0
+fak	MOA_ETOX_SOURCE_1096	MISC	2.0
+frnk	MOA_ETOX_SOURCE_1097	MISC	2.0
+fak1	MOA_ETOX_SOURCE_1098	MISC	2.0
+fibroblast growth factor receptor	MOA_ETOX_SOURCE_1099	MISC	2.0
+tkf	MOA_ETOX_SOURCE_1100	MISC	2.0
+cd_antigen=cd334	MOA_ETOX_SOURCE_1101	MISC	2.0
+fgfr4	MOA_ETOX_SOURCE_1102	MISC	2.0
+fibroblast growth factor receptor 4	MOA_ETOX_SOURCE_1103	MISC	2.0
+jtk2	MOA_ETOX_SOURCE_1104	MISC	2.0
+fgfr-4	MOA_ETOX_SOURCE_1105	MISC	2.0
+fibroblast growth factor receptor 1	MOA_ETOX_SOURCE_1106	MISC	2.0
+fibroblast growth factor receptor 2	MOA_ETOX_SOURCE_1107	MISC	2.0
+fibroblast growth factor receptor 3	MOA_ETOX_SOURCE_1108	MISC	2.0
+insulin-like growth factor i receptor	MOA_ETOX_SOURCE_1109	MISC	2.0
+insulin-like growth factor i receptor	MOA_ETOX_SOURCE_1110	MISC	2.0
+igf-i receptor	MOA_ETOX_SOURCE_1111	MISC	2.0
+insulin-like growth factor 1 receptor beta chain	MOA_ETOX_SOURCE_1112	MISC	2.0
+insulin-like growth factor 1 receptor	MOA_ETOX_SOURCE_1113	MISC	2.0
+igf1r	MOA_ETOX_SOURCE_1114	MISC	2.0
+insulin-like growth factor 1 receptor alpha chain	MOA_ETOX_SOURCE_1115	MISC	2.0
+cd_antigen=cd221	MOA_ETOX_SOURCE_1116	MISC	2.0
+hepatocyte growth factor receptor	MOA_ETOX_SOURCE_1117	MISC	2.0
+tyrosine-protein kinase met	MOA_ETOX_SOURCE_1118	MISC	2.0
+met	MOA_ETOX_SOURCE_1119	MISC	2.0
+hepatocyte growth factor receptor	MOA_ETOX_SOURCE_1120	MISC	2.0
+proto-oncogene c-met	MOA_ETOX_SOURCE_1121	MISC	2.0
+hgf receptor	MOA_ETOX_SOURCE_1122	MISC	2.0
+sf receptor	MOA_ETOX_SOURCE_1123	MISC	2.0
+scatter factor receptor	MOA_ETOX_SOURCE_1124	MISC	2.0
+hgf\/sf receptor	MOA_ETOX_SOURCE_1125	MISC	2.0
+macrophage colony stimulating factor receptor	MOA_ETOX_SOURCE_1126	MISC	2.0
+csf-1r	MOA_ETOX_SOURCE_1127	MISC	2.0
+fms	MOA_ETOX_SOURCE_1128	MISC	2.0
+cd_antigen=cd115	MOA_ETOX_SOURCE_1129	MISC	2.0
+proto-oncogene c-fms	MOA_ETOX_SOURCE_1130	MISC	2.0
+m-csf-r	MOA_ETOX_SOURCE_1131	MISC	2.0
+csf-1 receptor	MOA_ETOX_SOURCE_1132	MISC	2.0
+csf1r	MOA_ETOX_SOURCE_1133	MISC	2.0
+macrophage colony-stimulating factor 1 receptor	MOA_ETOX_SOURCE_1134	MISC	2.0
+csf-1-r	MOA_ETOX_SOURCE_1135	MISC	2.0
+src	MOA_ETOX_SOURCE_1136	MISC	2.0
+proto-oncogene c-fyn	MOA_ETOX_SOURCE_1137	MISC	2.0
+nuclear tyrosine protein kinase rak	MOA_ETOX_SOURCE_1138	MISC	2.0
+v-yes-1 yamaguchi sarcoma viral related oncogene homolog	MOA_ETOX_SOURCE_1139	MISC	2.0
+leukocyte c-terminal src kinase	MOA_ETOX_SOURCE_1140	MISC	2.0
+tyrosine-protein kinase fyn	MOA_ETOX_SOURCE_1141	MISC	2.0
+hematopoietic cell kinase	MOA_ETOX_SOURCE_1142	MISC	2.0
+lyn	MOA_ETOX_SOURCE_1143	MISC	2.0
+hemopoietic cell kinase	MOA_ETOX_SOURCE_1144	MISC	2.0
+b lymphocyte kinase	MOA_ETOX_SOURCE_1145	MISC	2.0
+t cell-specific protein-tyrosine kinase	MOA_ETOX_SOURCE_1146	MISC	2.0
+fyn-related kinase	MOA_ETOX_SOURCE_1147	MISC	2.0
+tyrosine-protein kinase blk	MOA_ETOX_SOURCE_1148	MISC	2.0
+tyrosine-protein kinase yes	MOA_ETOX_SOURCE_1149	MISC	2.0
+p56-lck	MOA_ETOX_SOURCE_1150	MISC	2.0
+lymphocyte cell-specific protein-tyrosine kinase	MOA_ETOX_SOURCE_1151	MISC	2.0
+tyrosine-protein kinase lck	MOA_ETOX_SOURCE_1152	MISC	2.0
+src1	MOA_ETOX_SOURCE_1153	MISC	2.0
+src2	MOA_ETOX_SOURCE_1154	MISC	2.0
+slk	MOA_ETOX_SOURCE_1155	MISC	2.0
+hck	MOA_ETOX_SOURCE_1156	MISC	2.0
+p58-fgr	MOA_ETOX_SOURCE_1157	MISC	2.0
+frk	MOA_ETOX_SOURCE_1158	MISC	2.0
+pp60c-src	MOA_ETOX_SOURCE_1159	MISC	2.0
+p55-fgr	MOA_ETOX_SOURCE_1160	MISC	2.0
+proto-oncogene syn	MOA_ETOX_SOURCE_1161	MISC	2.0
+tyrosine-protein kinase frk	MOA_ETOX_SOURCE_1162	MISC	2.0
+yes1	MOA_ETOX_SOURCE_1163	MISC	2.0
+tyrosine-protein kinase hck	MOA_ETOX_SOURCE_1164	MISC	2.0
+fyn	MOA_ETOX_SOURCE_1165	MISC	2.0
+p58c-fgr	MOA_ETOX_SOURCE_1166	MISC	2.0
+protein yt16	MOA_ETOX_SOURCE_1167	MISC	2.0
+tyrosine-protein kinase lyn	MOA_ETOX_SOURCE_1168	MISC	2.0
+yes	MOA_ETOX_SOURCE_1169	MISC	2.0
+p59-fyn	MOA_ETOX_SOURCE_1170	MISC	2.0
+p56lyn	MOA_ETOX_SOURCE_1171	MISC	2.0
+p59-hck\/p60-hck	MOA_ETOX_SOURCE_1172	MISC	2.0
+lck\/yes-related novel protein tyrosine kinase	MOA_ETOX_SOURCE_1173	MISC	2.0
+proto-oncogene lck	MOA_ETOX_SOURCE_1174	MISC	2.0
+proto-oncogene tyrosine-protein kinase src	MOA_ETOX_SOURCE_1175	MISC	2.0
+p53lyn	MOA_ETOX_SOURCE_1176	MISC	2.0
+tyrosine-protein kinase fgr	MOA_ETOX_SOURCE_1177	MISC	2.0
+protein-tyrosine kinase 5	MOA_ETOX_SOURCE_1178	MISC	2.0
+src-like kinase	MOA_ETOX_SOURCE_1179	MISC	2.0
+jtk8	MOA_ETOX_SOURCE_1180	MISC	2.0
+src	MOA_ETOX_SOURCE_1181	MISC	2.0
+tyrosine-protein kinase srms	MOA_ETOX_SOURCE_1182	MISC	2.0
+fgr	MOA_ETOX_SOURCE_1183	MISC	2.0
+p59hck	MOA_ETOX_SOURCE_1184	MISC	2.0
+srms	MOA_ETOX_SOURCE_1185	MISC	2.0
+p61hck	MOA_ETOX_SOURCE_1186	MISC	2.0
+c20orf148	MOA_ETOX_SOURCE_1187	MISC	2.0
+p60-src	MOA_ETOX_SOURCE_1188	MISC	2.0
+proto-oncogene c-yes	MOA_ETOX_SOURCE_1189	MISC	2.0
+proto-oncogene c-src	MOA_ETOX_SOURCE_1190	MISC	2.0
+p55-blk	MOA_ETOX_SOURCE_1191	MISC	2.0
+ptk5	MOA_ETOX_SOURCE_1192	MISC	2.0
+blk	MOA_ETOX_SOURCE_1193	MISC	2.0
+gardner-rasheed feline sarcoma viral -LRB-v-fgr-RRB- oncogene homolog	MOA_ETOX_SOURCE_1194	MISC	2.0
+p61-yes	MOA_ETOX_SOURCE_1195	MISC	2.0
+rak	MOA_ETOX_SOURCE_1196	MISC	2.0
+lsk	MOA_ETOX_SOURCE_1197	MISC	2.0
+lck	MOA_ETOX_SOURCE_1198	MISC	2.0
+serine\/threonine-protein kinase b-raf	MOA_ETOX_SOURCE_1199	MISC	2.0
+p94	MOA_ETOX_SOURCE_1200	MISC	2.0
+proto-oncogene b-raf	MOA_ETOX_SOURCE_1201	MISC	2.0
+rafb1	MOA_ETOX_SOURCE_1202	MISC	2.0
+braf1	MOA_ETOX_SOURCE_1203	MISC	2.0
+braf	MOA_ETOX_SOURCE_1204	MISC	2.0
+serine\/threonine-protein kinase b-raf	MOA_ETOX_SOURCE_1205	MISC	2.0
+v-raf murine sarcoma viral oncogene homolog b1	MOA_ETOX_SOURCE_1206	MISC	2.0
+alk tyrosine kinase receptor	MOA_ETOX_SOURCE_1207	MISC	2.0
+cd_antigen=cd246	MOA_ETOX_SOURCE_1208	MISC	2.0
+anaplastic lymphoma kinase	MOA_ETOX_SOURCE_1209	MISC	2.0
+alk	MOA_ETOX_SOURCE_1210	MISC	2.0
+alk tyrosine kinase receptor	MOA_ETOX_SOURCE_1211	MISC	2.0
+arachidonate 5-lipoxygenase	MOA_ETOX_SOURCE_1212	MISC	2.0
+alox5	MOA_ETOX_SOURCE_1213	MISC	2.0
+5-lo	MOA_ETOX_SOURCE_1214	MISC	2.0
+5-lipoxygenase	MOA_ETOX_SOURCE_1215	MISC	2.0
+log5	MOA_ETOX_SOURCE_1216	MISC	2.0
+arachidonate 5-lipoxygenase	MOA_ETOX_SOURCE_1217	MISC	2.0
+cyclooxygenase	MOA_ETOX_SOURCE_1218	MISC	2.0
+cyclooxygenase-1	MOA_ETOX_SOURCE_1219	MISC	2.0
+cyclooxygenase-2	MOA_ETOX_SOURCE_1220	MISC	2.0
+dihydroorotate dehydrogenase	MOA_ETOX_SOURCE_1221	MISC	2.0
+dihydroorotate dehydrogenase -LRB-quinone-RRB-, mitochondrial	MOA_ETOX_SOURCE_1222	MISC	2.0
+dhodehase	MOA_ETOX_SOURCE_1223	MISC	2.0
+dihydroorotate oxidase	MOA_ETOX_SOURCE_1224	MISC	2.0
+dhodh	MOA_ETOX_SOURCE_1225	MISC	2.0
+hmg-coa reductase	MOA_ETOX_SOURCE_1226	MISC	2.0
+hmgcr	MOA_ETOX_SOURCE_1227	MISC	2.0
+hmg-coa reductase	MOA_ETOX_SOURCE_1228	MISC	2.0
+3-hydroxy-3-methylglutaryl-coenzyme a reductase	MOA_ETOX_SOURCE_1229	MISC	2.0
+inosine-5'-monophosphate dehydrogenase -LRB-impdh-RRB-	MOA_ETOX_SOURCE_1230	MISC	2.0
+impdh 1	MOA_ETOX_SOURCE_1231	MISC	2.0
+impdh1	MOA_ETOX_SOURCE_1232	MISC	2.0
+inosine-5'-monophosphate dehydrogenase 2	MOA_ETOX_SOURCE_1233	MISC	2.0
+inosine-5'-monophosphate dehydrogenase 1	MOA_ETOX_SOURCE_1234	MISC	2.0
+impdh 2	MOA_ETOX_SOURCE_1235	MISC	2.0
+impd1	MOA_ETOX_SOURCE_1236	MISC	2.0
+impd2	MOA_ETOX_SOURCE_1237	MISC	2.0
+impd 2	MOA_ETOX_SOURCE_1238	MISC	2.0
+impd 1	MOA_ETOX_SOURCE_1239	MISC	2.0
+imp dehydrogenase 2	MOA_ETOX_SOURCE_1240	MISC	2.0
+impdh-ii	MOA_ETOX_SOURCE_1241	MISC	2.0
+imp dehydrogenase 1	MOA_ETOX_SOURCE_1242	MISC	2.0
+impdh-i	MOA_ETOX_SOURCE_1243	MISC	2.0
+impdh2	MOA_ETOX_SOURCE_1244	MISC	2.0
+monoamine oxidase b	MOA_ETOX_SOURCE_1245	MISC	2.0
+monoamine oxidase type b	MOA_ETOX_SOURCE_1246	MISC	2.0
+mao-b	MOA_ETOX_SOURCE_1247	MISC	2.0
+amine oxidase -LSB-flavin-containing-RSB- b	MOA_ETOX_SOURCE_1248	MISC	2.0
+maob	MOA_ETOX_SOURCE_1249	MISC	2.0
+beta-secretase -LRB-bace-RRB-	MOA_ETOX_SOURCE_1250	MISC	2.0
+down region aspartic protease	MOA_ETOX_SOURCE_1251	MISC	2.0
+beta-site amyloid precursor protein cleaving enzyme 2	MOA_ETOX_SOURCE_1252	MISC	2.0
+kiaa1149	MOA_ETOX_SOURCE_1253	MISC	2.0
+bace1	MOA_ETOX_SOURCE_1254	MISC	2.0
+beta-site amyloid precursor protein cleaving enzyme 1	MOA_ETOX_SOURCE_1255	MISC	2.0
+bace2	MOA_ETOX_SOURCE_1256	MISC	2.0
+asp1	MOA_ETOX_SOURCE_1257	MISC	2.0
+aeplc	MOA_ETOX_SOURCE_1258	MISC	2.0
+asp2	MOA_ETOX_SOURCE_1259	MISC	2.0
+beta-secretase 2	MOA_ETOX_SOURCE_1260	MISC	2.0
+beta-secretase 1	MOA_ETOX_SOURCE_1261	MISC	2.0
+asp21	MOA_ETOX_SOURCE_1262	MISC	2.0
+memapsin-1	MOA_ETOX_SOURCE_1263	MISC	2.0
+beta-site app cleaving enzyme 1	MOA_ETOX_SOURCE_1264	MISC	2.0
+unq418\/pro852	MOA_ETOX_SOURCE_1265	MISC	2.0
+aspartic-like protease 56 kda	MOA_ETOX_SOURCE_1266	MISC	2.0
+asp 1	MOA_ETOX_SOURCE_1267	MISC	2.0
+asp 2	MOA_ETOX_SOURCE_1268	MISC	2.0
+beta-site app cleaving enzyme 2	MOA_ETOX_SOURCE_1269	MISC	2.0
+aspartyl protease 2	MOA_ETOX_SOURCE_1270	MISC	2.0
+aspartyl protease 1	MOA_ETOX_SOURCE_1271	MISC	2.0
+bace	MOA_ETOX_SOURCE_1272	MISC	2.0
+membrane-associated aspartic protease 2	MOA_ETOX_SOURCE_1273	MISC	2.0
+drap	MOA_ETOX_SOURCE_1274	MISC	2.0
+alp56	MOA_ETOX_SOURCE_1275	MISC	2.0
+memapsin-2	MOA_ETOX_SOURCE_1276	MISC	2.0
+theta-secretase	MOA_ETOX_SOURCE_1277	MISC	2.0
+membrane-associated aspartic protease 1	MOA_ETOX_SOURCE_1278	MISC	2.0
+gamma-secretase	MOA_ETOX_SOURCE_1279	MISC	2.0
+ad3	MOA_ETOX_SOURCE_1280	MISC	2.0
+psfl	MOA_ETOX_SOURCE_1281	MISC	2.0
+kiaa0253	MOA_ETOX_SOURCE_1282	MISC	2.0
+ad4	MOA_ETOX_SOURCE_1283	MISC	2.0
+ad5	MOA_ETOX_SOURCE_1284	MISC	2.0
+ncstn	MOA_ETOX_SOURCE_1285	MISC	2.0
+gamma-secretase subunit aph-1a	MOA_ETOX_SOURCE_1286	MISC	2.0
+gamma-secretase subunit aph-1b	MOA_ETOX_SOURCE_1287	MISC	2.0
+psnl2	MOA_ETOX_SOURCE_1288	MISC	2.0
+psf	MOA_ETOX_SOURCE_1289	MISC	2.0
+ad3lp	MOA_ETOX_SOURCE_1290	MISC	2.0
+ps-2	MOA_ETOX_SOURCE_1291	MISC	2.0
+ps1-ctf12	MOA_ETOX_SOURCE_1292	MISC	2.0
+ps-1	MOA_ETOX_SOURCE_1293	MISC	2.0
+psnl1	MOA_ETOX_SOURCE_1294	MISC	2.0
+presenilin-1 ctf subunit	MOA_ETOX_SOURCE_1295	MISC	2.0
+aph-1a	MOA_ETOX_SOURCE_1296	MISC	2.0
+unq579\/pro1141	MOA_ETOX_SOURCE_1297	MISC	2.0
+stm2	MOA_ETOX_SOURCE_1298	MISC	2.0
+aph-1b	MOA_ETOX_SOURCE_1299	MISC	2.0
+nicastrin	MOA_ETOX_SOURCE_1300	MISC	2.0
+presenilin-2 ntf subunit	MOA_ETOX_SOURCE_1301	MISC	2.0
+gamma-secretase subunit pen-2	MOA_ETOX_SOURCE_1302	MISC	2.0
+pen2	MOA_ETOX_SOURCE_1303	MISC	2.0
+presenilin-stabilization factor-like	MOA_ETOX_SOURCE_1304	MISC	2.0
+presenilin-1 ntf subunit	MOA_ETOX_SOURCE_1305	MISC	2.0
+e5-1	MOA_ETOX_SOURCE_1306	MISC	2.0
+presenilin-1	MOA_ETOX_SOURCE_1307	MISC	2.0
+presenilin-2	MOA_ETOX_SOURCE_1308	MISC	2.0
+psenen	MOA_ETOX_SOURCE_1309	MISC	2.0
+protein s182	MOA_ETOX_SOURCE_1310	MISC	2.0
+presenilin-2 ctf subunit	MOA_ETOX_SOURCE_1311	MISC	2.0
+aph-1beta	MOA_ETOX_SOURCE_1312	MISC	2.0
+psen1	MOA_ETOX_SOURCE_1313	MISC	2.0
+stm-2	MOA_ETOX_SOURCE_1314	MISC	2.0
+aph-1alpha	MOA_ETOX_SOURCE_1315	MISC	2.0
+psen2	MOA_ETOX_SOURCE_1316	MISC	2.0
+presenilin-1 ctf12	MOA_ETOX_SOURCE_1317	MISC	2.0
+aph1a	MOA_ETOX_SOURCE_1318	MISC	2.0
+aph1b	MOA_ETOX_SOURCE_1319	MISC	2.0
+presenilin-stabilization factor	MOA_ETOX_SOURCE_1320	MISC	2.0
+presenilin enhancer protein 2	MOA_ETOX_SOURCE_1321	MISC	2.0
+ps1	MOA_ETOX_SOURCE_1322	MISC	2.0
+ps2	MOA_ETOX_SOURCE_1323	MISC	2.0
+cathepsin k	MOA_ETOX_SOURCE_1324	MISC	2.0
+ctsk	MOA_ETOX_SOURCE_1325	MISC	2.0
+cathepsin o	MOA_ETOX_SOURCE_1326	MISC	2.0
+ctso2	MOA_ETOX_SOURCE_1327	MISC	2.0
+cathepsin x	MOA_ETOX_SOURCE_1328	MISC	2.0
+cathepsin o2	MOA_ETOX_SOURCE_1329	MISC	2.0
+ctso	MOA_ETOX_SOURCE_1330	MISC	2.0
+cathepsin k	MOA_ETOX_SOURCE_1331	MISC	2.0
+neprilysin	MOA_ETOX_SOURCE_1332	MISC	2.0
+skin fibroblast elastase	MOA_ETOX_SOURCE_1333	MISC	2.0
+nep	MOA_ETOX_SOURCE_1334	MISC	2.0
+enkephalinase	MOA_ETOX_SOURCE_1335	MISC	2.0
+common acute lymphocytic leukemia antigen	MOA_ETOX_SOURCE_1336	MISC	2.0
+neutral endopeptidase 24.11	MOA_ETOX_SOURCE_1337	MISC	2.0
+neutral endopeptidase	MOA_ETOX_SOURCE_1338	MISC	2.0
+atriopeptidase	MOA_ETOX_SOURCE_1339	MISC	2.0
+calla	MOA_ETOX_SOURCE_1340	MISC	2.0
+sfe	MOA_ETOX_SOURCE_1341	MISC	2.0
+cd_antigen=cd10	MOA_ETOX_SOURCE_1342	MISC	2.0
+epn	MOA_ETOX_SOURCE_1343	MISC	2.0
+neprilysin	MOA_ETOX_SOURCE_1344	MISC	2.0
+angiotensin-converting enzyme	MOA_ETOX_SOURCE_1345	MISC	2.0
+angiotensin-converting enzyme	MOA_ETOX_SOURCE_1346	MISC	2.0
+kininase ii	MOA_ETOX_SOURCE_1347	MISC	2.0
+angiotensin-converting enzyme, soluble form	MOA_ETOX_SOURCE_1348	MISC	2.0
+dcp1	MOA_ETOX_SOURCE_1349	MISC	2.0
+dipeptidyl carboxypeptidase i	MOA_ETOX_SOURCE_1350	MISC	2.0
+cd_antigen=cd143	MOA_ETOX_SOURCE_1351	MISC	2.0
+dcp	MOA_ETOX_SOURCE_1352	MISC	2.0
+ace	MOA_ETOX_SOURCE_1353	MISC	2.0
+collagenase	MOA_ETOX_SOURCE_1354	MISC	2.0
+mmp-9	MOA_ETOX_SOURCE_1355	MISC	2.0
+neutrophil collagenase	MOA_ETOX_SOURCE_1356	MISC	2.0
+mmp2	MOA_ETOX_SOURCE_1357	MISC	2.0
+mmp-8	MOA_ETOX_SOURCE_1358	MISC	2.0
+mmp1	MOA_ETOX_SOURCE_1359	MISC	2.0
+mmp8	MOA_ETOX_SOURCE_1360	MISC	2.0
+clg4a	MOA_ETOX_SOURCE_1361	MISC	2.0
+interstitial collagenase	MOA_ETOX_SOURCE_1362	MISC	2.0
+clg	MOA_ETOX_SOURCE_1363	MISC	2.0
+fibroblast collagenase	MOA_ETOX_SOURCE_1364	MISC	2.0
+gelb	MOA_ETOX_SOURCE_1365	MISC	2.0
+92 kda gelatinase	MOA_ETOX_SOURCE_1366	MISC	2.0
+mmp-1	MOA_ETOX_SOURCE_1367	MISC	2.0
+gelatinase b	MOA_ETOX_SOURCE_1368	MISC	2.0
+mmp9	MOA_ETOX_SOURCE_1369	MISC	2.0
+gelatinase a	MOA_ETOX_SOURCE_1370	MISC	2.0
+clg4b	MOA_ETOX_SOURCE_1371	MISC	2.0
+mmp-2	MOA_ETOX_SOURCE_1372	MISC	2.0
+22 kda interstitial collagenase	MOA_ETOX_SOURCE_1373	MISC	2.0
+27 kda interstitial collagenase	MOA_ETOX_SOURCE_1374	MISC	2.0
+pmnl collagenase	MOA_ETOX_SOURCE_1375	MISC	2.0
+72 kda gelatinase	MOA_ETOX_SOURCE_1376	MISC	2.0
+matrix metalloproteinase-2	MOA_ETOX_SOURCE_1377	MISC	2.0
+matrix metalloproteinase-1	MOA_ETOX_SOURCE_1378	MISC	2.0
+pex	MOA_ETOX_SOURCE_1379	MISC	2.0
+67 kda matrix metalloproteinase-9	MOA_ETOX_SOURCE_1380	MISC	2.0
+matrix metalloproteinase-8	MOA_ETOX_SOURCE_1381	MISC	2.0
+matrix metalloproteinase-9	MOA_ETOX_SOURCE_1382	MISC	2.0
+82 kda matrix metalloproteinase-9	MOA_ETOX_SOURCE_1383	MISC	2.0
+clg1	MOA_ETOX_SOURCE_1384	MISC	2.0
+92 kda type iv collagenase	MOA_ETOX_SOURCE_1385	MISC	2.0
+72 kda type iv collagenase	MOA_ETOX_SOURCE_1386	MISC	2.0
+tbe-1	MOA_ETOX_SOURCE_1387	MISC	2.0
+pmnl-cl	MOA_ETOX_SOURCE_1388	MISC	2.0
+matrix metalloproteinase 12	MOA_ETOX_SOURCE_1389	MISC	2.0
+macrophage metalloelastase	MOA_ETOX_SOURCE_1390	MISC	2.0
+mmp-12	MOA_ETOX_SOURCE_1391	MISC	2.0
+hme	MOA_ETOX_SOURCE_1392	MISC	2.0
+mmp12	MOA_ETOX_SOURCE_1393	MISC	2.0
+me	MOA_ETOX_SOURCE_1394	MISC	2.0
+macrophage elastase	MOA_ETOX_SOURCE_1395	MISC	2.0
+matrix metalloproteinase-12	MOA_ETOX_SOURCE_1396	MISC	2.0
+matrix metalloproteinase 13	MOA_ETOX_SOURCE_1397	MISC	2.0
+adamts4	MOA_ETOX_SOURCE_1398	MISC	2.0
+adam-ts4	MOA_ETOX_SOURCE_1399	MISC	2.0
+adamts4	MOA_ETOX_SOURCE_1400	MISC	2.0
+adamts-4	MOA_ETOX_SOURCE_1401	MISC	2.0
+kiaa0688	MOA_ETOX_SOURCE_1402	MISC	2.0
+adam-ts 4	MOA_ETOX_SOURCE_1403	MISC	2.0
+aggrecanase-1	MOA_ETOX_SOURCE_1404	MISC	2.0
+admp-1	MOA_ETOX_SOURCE_1405	MISC	2.0
+a disintegrin and metalloproteinase with thrombospondin motifs 4	MOA_ETOX_SOURCE_1406	MISC	2.0
+coagulation factor x	MOA_ETOX_SOURCE_1407	MISC	2.0
+factor x light chain	MOA_ETOX_SOURCE_1408	MISC	2.0
+stuart factor	MOA_ETOX_SOURCE_1409	MISC	2.0
+f10	MOA_ETOX_SOURCE_1410	MISC	2.0
+stuart-prower factor	MOA_ETOX_SOURCE_1411	MISC	2.0
+coagulation factor x	MOA_ETOX_SOURCE_1412	MISC	2.0
+factor x heavy chain	MOA_ETOX_SOURCE_1413	MISC	2.0
+activated factor xa heavy chain	MOA_ETOX_SOURCE_1414	MISC	2.0
+epoxide hydrolase	MOA_ETOX_SOURCE_1415	MISC	2.0
+bifunctional epoxide hydrolase 2	MOA_ETOX_SOURCE_1416	MISC	2.0
+seh	MOA_ETOX_SOURCE_1417	MISC	2.0
+epoxide hydratase	MOA_ETOX_SOURCE_1418	MISC	2.0
+soluble epoxide hydrolase	MOA_ETOX_SOURCE_1419	MISC	2.0
+ephx2	MOA_ETOX_SOURCE_1420	MISC	2.0
+lipid-phosphate phosphatase	MOA_ETOX_SOURCE_1421	MISC	2.0
+cytosolic epoxide hydrolase 2	MOA_ETOX_SOURCE_1422	MISC	2.0
+ceh	MOA_ETOX_SOURCE_1423	MISC	2.0
+dipeptidyl peptidase iv	MOA_ETOX_SOURCE_1424	MISC	2.0
+adcp2	MOA_ETOX_SOURCE_1425	MISC	2.0
+tp103	MOA_ETOX_SOURCE_1426	MISC	2.0
+cd_antigen=cd26	MOA_ETOX_SOURCE_1427	MISC	2.0
+dipeptidyl peptidase iv	MOA_ETOX_SOURCE_1428	MISC	2.0
+dipeptidyl peptidase iv soluble form	MOA_ETOX_SOURCE_1429	MISC	2.0
+t-cell activation antigen cd26	MOA_ETOX_SOURCE_1430	MISC	2.0
+dipeptidyl peptidase 4 membrane form	MOA_ETOX_SOURCE_1431	MISC	2.0
+dipeptidyl peptidase 4 soluble form	MOA_ETOX_SOURCE_1432	MISC	2.0
+adcp-2	MOA_ETOX_SOURCE_1433	MISC	2.0
+dipeptidyl peptidase 4	MOA_ETOX_SOURCE_1434	MISC	2.0
+adenosine deaminase complexing protein 2	MOA_ETOX_SOURCE_1435	MISC	2.0
+adabp	MOA_ETOX_SOURCE_1436	MISC	2.0
+dipeptidyl peptidase iv membrane form	MOA_ETOX_SOURCE_1437	MISC	2.0
+dpp iv	MOA_ETOX_SOURCE_1438	MISC	2.0
+cd26	MOA_ETOX_SOURCE_1439	MISC	2.0
+dpp4	MOA_ETOX_SOURCE_1440	MISC	2.0
+serotonin 3 -LRB-5-ht3-RRB- receptor	MOA_ETOX_SOURCE_1441	MISC	2.0
+glutamate receptor ionotropic ampa	MOA_ETOX_SOURCE_1442	MISC	2.0
+ampa-selective glutamate receptor 1	MOA_ETOX_SOURCE_1443	MISC	2.0
+glur1	MOA_ETOX_SOURCE_1444	MISC	2.0
+glur2	MOA_ETOX_SOURCE_1445	MISC	2.0
+ampa-selective glutamate receptor 3	MOA_ETOX_SOURCE_1446	MISC	2.0
+glur3	MOA_ETOX_SOURCE_1447	MISC	2.0
+glur4	MOA_ETOX_SOURCE_1448	MISC	2.0
+ampa-selective glutamate receptor 2	MOA_ETOX_SOURCE_1449	MISC	2.0
+glur-k2	MOA_ETOX_SOURCE_1450	MISC	2.0
+glua3	MOA_ETOX_SOURCE_1451	MISC	2.0
+glua4	MOA_ETOX_SOURCE_1452	MISC	2.0
+glua2	MOA_ETOX_SOURCE_1453	MISC	2.0
+glur-c	MOA_ETOX_SOURCE_1454	MISC	2.0
+glur-k3	MOA_ETOX_SOURCE_1455	MISC	2.0
+glur-b	MOA_ETOX_SOURCE_1456	MISC	2.0
+glur-a	MOA_ETOX_SOURCE_1457	MISC	2.0
+glua1	MOA_ETOX_SOURCE_1458	MISC	2.0
+glur-k1	MOA_ETOX_SOURCE_1459	MISC	2.0
+glur-d	MOA_ETOX_SOURCE_1460	MISC	2.0
+glutamate receptor ionotropic, ampa 4	MOA_ETOX_SOURCE_1461	MISC	2.0
+glutamate receptor ionotropic, ampa 3	MOA_ETOX_SOURCE_1462	MISC	2.0
+gluh1	MOA_ETOX_SOURCE_1463	MISC	2.0
+glutamate receptor ionotropic, ampa 2	MOA_ETOX_SOURCE_1464	MISC	2.0
+glutamate receptor ionotropic, ampa 1	MOA_ETOX_SOURCE_1465	MISC	2.0
+gria3	MOA_ETOX_SOURCE_1466	MISC	2.0
+glurc	MOA_ETOX_SOURCE_1467	MISC	2.0
+gria4	MOA_ETOX_SOURCE_1468	MISC	2.0
+glutamate receptor 4	MOA_ETOX_SOURCE_1469	MISC	2.0
+glur-2	MOA_ETOX_SOURCE_1470	MISC	2.0
+glur-1	MOA_ETOX_SOURCE_1471	MISC	2.0
+glutamate receptor 3	MOA_ETOX_SOURCE_1472	MISC	2.0
+gria1	MOA_ETOX_SOURCE_1473	MISC	2.0
+glutamate receptor 2	MOA_ETOX_SOURCE_1474	MISC	2.0
+gria2	MOA_ETOX_SOURCE_1475	MISC	2.0
+glutamate receptor 1	MOA_ETOX_SOURCE_1476	MISC	2.0
+glur-3	MOA_ETOX_SOURCE_1477	MISC	2.0
+ampa-selective glutamate receptor 4	MOA_ETOX_SOURCE_1478	MISC	2.0
+glur-4	MOA_ETOX_SOURCE_1479	MISC	2.0
+glutamate -LSB-nmda-RSB- receptor	MOA_ETOX_SOURCE_1480	MISC	2.0
+glun2d	MOA_ETOX_SOURCE_1481	MISC	2.0
+grin3a	MOA_ETOX_SOURCE_1482	MISC	2.0
+glun2a	MOA_ETOX_SOURCE_1483	MISC	2.0
+glun2c	MOA_ETOX_SOURCE_1484	MISC	2.0
+glun2b	MOA_ETOX_SOURCE_1485	MISC	2.0
+glun3a	MOA_ETOX_SOURCE_1486	MISC	2.0
+glun3b	MOA_ETOX_SOURCE_1487	MISC	2.0
+glun1	MOA_ETOX_SOURCE_1488	MISC	2.0
+eb11	MOA_ETOX_SOURCE_1489	MISC	2.0
+nr2a	MOA_ETOX_SOURCE_1490	MISC	2.0
+nr2c	MOA_ETOX_SOURCE_1491	MISC	2.0
+grin1	MOA_ETOX_SOURCE_1492	MISC	2.0
+nr2b	MOA_ETOX_SOURCE_1493	MISC	2.0
+nr2d	MOA_ETOX_SOURCE_1494	MISC	2.0
+grin2d	MOA_ETOX_SOURCE_1495	MISC	2.0
+hnr2a	MOA_ETOX_SOURCE_1496	MISC	2.0
+grin2c	MOA_ETOX_SOURCE_1497	MISC	2.0
+grin2b	MOA_ETOX_SOURCE_1498	MISC	2.0
+grin2a	MOA_ETOX_SOURCE_1499	MISC	2.0
+nr3a	MOA_ETOX_SOURCE_1500	MISC	2.0
+hnr3	MOA_ETOX_SOURCE_1501	MISC	2.0
+nr3b	MOA_ETOX_SOURCE_1502	MISC	2.0
+nmdar-l	MOA_ETOX_SOURCE_1503	MISC	2.0
+n-methyl-d-aspartate receptor subunit 3	MOA_ETOX_SOURCE_1504	MISC	2.0
+n-methyl d-aspartate receptor subtype 2d	MOA_ETOX_SOURCE_1505	MISC	2.0
+n-methyl d-aspartate receptor subtype 2c	MOA_ETOX_SOURCE_1506	MISC	2.0
+n-methyl d-aspartate receptor subtype 2b	MOA_ETOX_SOURCE_1507	MISC	2.0
+n-methyl d-aspartate receptor subtype 2a	MOA_ETOX_SOURCE_1508	MISC	2.0
+kiaa1973	MOA_ETOX_SOURCE_1509	MISC	2.0
+glutamate receptor ionotropic, nmda 3a	MOA_ETOX_SOURCE_1510	MISC	2.0
+glutamate receptor ionotropic, nmda 1	MOA_ETOX_SOURCE_1511	MISC	2.0
+glutamate receptor ionotropic, nmda 3b	MOA_ETOX_SOURCE_1512	MISC	2.0
+n-methyl-d-aspartate receptor subtype 3a	MOA_ETOX_SOURCE_1513	MISC	2.0
+n-methyl-d-aspartate receptor subtype 3b	MOA_ETOX_SOURCE_1514	MISC	2.0
+nmdar1	MOA_ETOX_SOURCE_1515	MISC	2.0
+glutamate -LSB-nmda-RSB- receptor subunit epsilon-2	MOA_ETOX_SOURCE_1516	MISC	2.0
+nr3	MOA_ETOX_SOURCE_1517	MISC	2.0
+nmdar2d	MOA_ETOX_SOURCE_1518	MISC	2.0
+glutamate -LSB-nmda-RSB- receptor subunit epsilon-1	MOA_ETOX_SOURCE_1519	MISC	2.0
+nmdar2c	MOA_ETOX_SOURCE_1520	MISC	2.0
+glutamate -LSB-nmda-RSB- receptor subunit epsilon-3	MOA_ETOX_SOURCE_1521	MISC	2.0
+glutamate -LSB-nmda-RSB- receptor subunit epsilon-4	MOA_ETOX_SOURCE_1522	MISC	2.0
+nmdar2a	MOA_ETOX_SOURCE_1523	MISC	2.0
+nmdar2b	MOA_ETOX_SOURCE_1524	MISC	2.0
+n-methyl-d-aspartate receptor subunit nr1	MOA_ETOX_SOURCE_1525	MISC	2.0
+glutamate -LSB-nmda-RSB- receptor subunit zeta-1	MOA_ETOX_SOURCE_1526	MISC	2.0
+nmdar3b	MOA_ETOX_SOURCE_1527	MISC	2.0
+glutamate receptor ionotropic, nmda 2a	MOA_ETOX_SOURCE_1528	MISC	2.0
+nmd-r1	MOA_ETOX_SOURCE_1529	MISC	2.0
+nmdar3a	MOA_ETOX_SOURCE_1530	MISC	2.0
+glutamate receptor ionotropic, nmda 2d	MOA_ETOX_SOURCE_1531	MISC	2.0
+glutamate receptor ionotropic, nmda 2c	MOA_ETOX_SOURCE_1532	MISC	2.0
+grin3b	MOA_ETOX_SOURCE_1533	MISC	2.0
+glutamate receptor ionotropic, nmda 2b	MOA_ETOX_SOURCE_1534	MISC	2.0
+neuronal acetylcholine receptor protein alpha-7 subunit	MOA_ETOX_SOURCE_1535	MISC	2.0
+acra7	MOA_ETOX_SOURCE_1536	MISC	2.0
+neuronal acetylcholine receptor subunit alpha-7	MOA_ETOX_SOURCE_1537	MISC	2.0
+nachra7	MOA_ETOX_SOURCE_1538	MISC	2.0
+narad	MOA_ETOX_SOURCE_1539	MISC	2.0
+nicotinic acetylcholine receptor alpha4\/beta2	MOA_ETOX_SOURCE_1540	MISC	2.0
+acrb4	MOA_ETOX_SOURCE_1541	MISC	2.0
+neuronal acetylcholine receptor subunit beta-2	MOA_ETOX_SOURCE_1542	MISC	2.0
+neuronal acetylcholine receptor subunit beta-4	MOA_ETOX_SOURCE_1543	MISC	2.0
+chrnb4	MOA_ETOX_SOURCE_1544	MISC	2.0
+chrnb2	MOA_ETOX_SOURCE_1545	MISC	2.0
+p2x purinoceptor 7	MOA_ETOX_SOURCE_1546	MISC	2.0
+atp receptor	MOA_ETOX_SOURCE_1547	MISC	2.0
+p2x purinoceptor 7	MOA_ETOX_SOURCE_1548	MISC	2.0
+p2rx7	MOA_ETOX_SOURCE_1549	MISC	2.0
+p2z receptor	MOA_ETOX_SOURCE_1550	MISC	2.0
+purinergic receptor	MOA_ETOX_SOURCE_1551	MISC	2.0
+p2x7	MOA_ETOX_SOURCE_1552	MISC	2.0
+cholesteryl ester transfer protein	MOA_ETOX_SOURCE_1553	MISC	2.0
+cholesteryl ester transfer protein	MOA_ETOX_SOURCE_1554	MISC	2.0
+lipid transfer protein i	MOA_ETOX_SOURCE_1555	MISC	2.0
+cetp	MOA_ETOX_SOURCE_1556	MISC	2.0
+herg	MOA_ETOX_SOURCE_1557	MISC	2.0
+erg-1	MOA_ETOX_SOURCE_1558	MISC	2.0
+ether-a-go-go-related gene potassium channel 1	MOA_ETOX_SOURCE_1559	MISC	2.0
+potassium voltage-gated channel subfamily h member 2	MOA_ETOX_SOURCE_1560	MISC	2.0
+voltage-gated potassium channel subunit kv11.1	MOA_ETOX_SOURCE_1561	MISC	2.0
+herg-1	MOA_ETOX_SOURCE_1562	MISC	2.0
+kcnh2	MOA_ETOX_SOURCE_1563	MISC	2.0
+eag-related protein 1	MOA_ETOX_SOURCE_1564	MISC	2.0
+eag homolog	MOA_ETOX_SOURCE_1565	MISC	2.0
+herg	MOA_ETOX_SOURCE_1566	MISC	2.0
+h-erg	MOA_ETOX_SOURCE_1567	MISC	2.0
+erg	MOA_ETOX_SOURCE_1568	MISC	2.0
+herg1	MOA_ETOX_SOURCE_1569	MISC	2.0
+ether-a-go-go-related protein 1	MOA_ETOX_SOURCE_1570	MISC	2.0
+sodium channel protein type ix alpha subunit	MOA_ETOX_SOURCE_1571	MISC	2.0
+hne-na	MOA_ETOX_SOURCE_1572	MISC	2.0
+scn9a	MOA_ETOX_SOURCE_1573	MISC	2.0
+peripheral sodium channel 1	MOA_ETOX_SOURCE_1574	MISC	2.0
+neuroendocrine sodium channel	MOA_ETOX_SOURCE_1575	MISC	2.0
+voltage-gated sodium channel subunit alpha nav1.7	MOA_ETOX_SOURCE_1576	MISC	2.0
+nena	MOA_ETOX_SOURCE_1577	MISC	2.0
+pn1	MOA_ETOX_SOURCE_1578	MISC	2.0
+sodium channel protein type ix subunit alpha	MOA_ETOX_SOURCE_1579	MISC	2.0
+sodium channel protein type 9 subunit alpha	MOA_ETOX_SOURCE_1580	MISC	2.0
+gaba receptor alpha-2 subunit	MOA_ETOX_SOURCE_1581	MISC	2.0
+gaba-LRB-a-RRB- receptor subunit alpha-2	MOA_ETOX_SOURCE_1582	MISC	2.0
+gamma-aminobutyric acid receptor subunit alpha-2	MOA_ETOX_SOURCE_1583	MISC	2.0
+gabra2	MOA_ETOX_SOURCE_1584	MISC	2.0
+erythropoietin receptor	MOA_ETOX_SOURCE_1585	MISC	2.0
+epo-r	MOA_ETOX_SOURCE_1586	MISC	2.0
+erythropoietin receptor	MOA_ETOX_SOURCE_1587	MISC	2.0
+epor	MOA_ETOX_SOURCE_1588	MISC	2.0
+integrin alpha-4	MOA_ETOX_SOURCE_1589	MISC	2.0
+cd49 antigen-like family member d	MOA_ETOX_SOURCE_1590	MISC	2.0
+vla-4 subunit alpha	MOA_ETOX_SOURCE_1591	MISC	2.0
+integrin alpha-4	MOA_ETOX_SOURCE_1592	MISC	2.0
+cd_antigen=cd49d	MOA_ETOX_SOURCE_1593	MISC	2.0
+itga4	MOA_ETOX_SOURCE_1594	MISC	2.0
+cd49d	MOA_ETOX_SOURCE_1595	MISC	2.0
+integrin alpha-iv	MOA_ETOX_SOURCE_1596	MISC	2.0
+ldl receptor	MOA_ETOX_SOURCE_1597	MISC	2.0
+low-density lipoprotein receptor	MOA_ETOX_SOURCE_1598	MISC	2.0
+ldlr	MOA_ETOX_SOURCE_1599	MISC	2.0
+ldl receptor	MOA_ETOX_SOURCE_1600	MISC	2.0
+c-c chemokine receptor type 1	MOA_ETOX_SOURCE_1601	MISC	2.0
+ld78 receptor	MOA_ETOX_SOURCE_1602	MISC	2.0
+scyar1	MOA_ETOX_SOURCE_1603	MISC	2.0
+mip-1alpha-r	MOA_ETOX_SOURCE_1604	MISC	2.0
+cmkbr1	MOA_ETOX_SOURCE_1605	MISC	2.0
+rantes-r	MOA_ETOX_SOURCE_1606	MISC	2.0
+hm145	MOA_ETOX_SOURCE_1607	MISC	2.0
+cd_antigen=cd191	MOA_ETOX_SOURCE_1608	MISC	2.0
+cc-ckr-1	MOA_ETOX_SOURCE_1609	MISC	2.0
+cmkr1	MOA_ETOX_SOURCE_1610	MISC	2.0
+macrophage inflammatory protein 1-alpha receptor	MOA_ETOX_SOURCE_1611	MISC	2.0
+ccr-1	MOA_ETOX_SOURCE_1612	MISC	2.0
+c-c chemokine receptor type 1	MOA_ETOX_SOURCE_1613	MISC	2.0
+c-c ckr-1	MOA_ETOX_SOURCE_1614	MISC	2.0
+c-c chemokine receptor type 2	MOA_ETOX_SOURCE_1615	MISC	2.0
+ccr2	MOA_ETOX_SOURCE_1616	MISC	2.0
+cmkbr2	MOA_ETOX_SOURCE_1617	MISC	2.0
+c-c chemokine receptor type 2	MOA_ETOX_SOURCE_1618	MISC	2.0
+mcp-1-r	MOA_ETOX_SOURCE_1619	MISC	2.0
+ccr-2	MOA_ETOX_SOURCE_1620	MISC	2.0
+cc-ckr-2	MOA_ETOX_SOURCE_1621	MISC	2.0
+cd_antigen=cd192	MOA_ETOX_SOURCE_1622	MISC	2.0
+c-c ckr-2	MOA_ETOX_SOURCE_1623	MISC	2.0
+monocyte chemoattractant protein 1 receptor	MOA_ETOX_SOURCE_1624	MISC	2.0
+c-c chemokine receptor type 3	MOA_ETOX_SOURCE_1625	MISC	2.0
+cc-ckr-3	MOA_ETOX_SOURCE_1626	MISC	2.0
+eosinophil eotaxin receptor	MOA_ETOX_SOURCE_1627	MISC	2.0
+c-c chemokine receptor type 3	MOA_ETOX_SOURCE_1628	MISC	2.0
+cmkbr3	MOA_ETOX_SOURCE_1629	MISC	2.0
+c-c ckr-3	MOA_ETOX_SOURCE_1630	MISC	2.0
+ccr3	MOA_ETOX_SOURCE_1631	MISC	2.0
+ccr-3	MOA_ETOX_SOURCE_1632	MISC	2.0
+ckr3	MOA_ETOX_SOURCE_1633	MISC	2.0
+cd_antigen=cd193	MOA_ETOX_SOURCE_1634	MISC	2.0
+c-c chemokine receptor type 4	MOA_ETOX_SOURCE_1635	MISC	2.0
+cc-ckr-4	MOA_ETOX_SOURCE_1636	MISC	2.0
+cd_antigen=cd194	MOA_ETOX_SOURCE_1637	MISC	2.0
+k5-5	MOA_ETOX_SOURCE_1638	MISC	2.0
+c-c chemokine receptor type 4	MOA_ETOX_SOURCE_1639	MISC	2.0
+cmkbr4	MOA_ETOX_SOURCE_1640	MISC	2.0
+ccr-4	MOA_ETOX_SOURCE_1641	MISC	2.0
+c-c ckr-4	MOA_ETOX_SOURCE_1642	MISC	2.0
+ccr4	MOA_ETOX_SOURCE_1643	MISC	2.0
+c-c chemokine receptor type 5	MOA_ETOX_SOURCE_1644	MISC	2.0
+cc-ckr-5	MOA_ETOX_SOURCE_1645	MISC	2.0
+c-c chemokine receptor type 5	MOA_ETOX_SOURCE_1646	MISC	2.0
+cd_antigen=cd195	MOA_ETOX_SOURCE_1647	MISC	2.0
+cmkbr5	MOA_ETOX_SOURCE_1648	MISC	2.0
+ccr-5	MOA_ETOX_SOURCE_1649	MISC	2.0
+hiv-1 fusion coreceptor	MOA_ETOX_SOURCE_1650	MISC	2.0
+c-c ckr-5	MOA_ETOX_SOURCE_1651	MISC	2.0
+chemr13	MOA_ETOX_SOURCE_1652	MISC	2.0
+ccr5	MOA_ETOX_SOURCE_1653	MISC	2.0
+c-c chemokine receptor type 8	MOA_ETOX_SOURCE_1654	MISC	2.0
+c-c chemokine receptor type 8	MOA_ETOX_SOURCE_1655	MISC	2.0
+cd_antigen=cdw198	MOA_ETOX_SOURCE_1656	MISC	2.0
+cmkbr8	MOA_ETOX_SOURCE_1657	MISC	2.0
+cc-ckr-8	MOA_ETOX_SOURCE_1658	MISC	2.0
+c-c ckr-8	MOA_ETOX_SOURCE_1659	MISC	2.0
+ccr-8	MOA_ETOX_SOURCE_1660	MISC	2.0
+ccr8	MOA_ETOX_SOURCE_1661	MISC	2.0
+ter1	MOA_ETOX_SOURCE_1662	MISC	2.0
+c-c motif chemokine 2	MOA_ETOX_SOURCE_1663	MISC	2.0
+monocyte chemotactic and activating factor	MOA_ETOX_SOURCE_1664	MISC	2.0
+monocyte secretory protein je	MOA_ETOX_SOURCE_1665	MISC	2.0
+c-c motif chemokine 2	MOA_ETOX_SOURCE_1666	MISC	2.0
+scya2	MOA_ETOX_SOURCE_1667	MISC	2.0
+ccl2	MOA_ETOX_SOURCE_1668	MISC	2.0
+monocyte chemoattractant protein 1	MOA_ETOX_SOURCE_1669	MISC	2.0
+mcaf	MOA_ETOX_SOURCE_1670	MISC	2.0
+mcp1	MOA_ETOX_SOURCE_1671	MISC	2.0
+mcp-1	MOA_ETOX_SOURCE_1672	MISC	2.0
+hc11	MOA_ETOX_SOURCE_1673	MISC	2.0
+monocyte chemotactic protein 1	MOA_ETOX_SOURCE_1674	MISC	2.0
+small-inducible cytokine a2	MOA_ETOX_SOURCE_1675	MISC	2.0
+interleukin-8 receptor b	MOA_ETOX_SOURCE_1676	MISC	2.0
+c-x3-c chemokine receptor 1	MOA_ETOX_SOURCE_1677	MISC	2.0
+cx3c chemokine receptor 1	MOA_ETOX_SOURCE_1678	MISC	2.0
+fractalkine receptor	MOA_ETOX_SOURCE_1679	MISC	2.0
+cx3cr1	MOA_ETOX_SOURCE_1680	MISC	2.0
+v28	MOA_ETOX_SOURCE_1681	MISC	2.0
+g-protein coupled receptor 13	MOA_ETOX_SOURCE_1682	MISC	2.0
+cmk-brl1	MOA_ETOX_SOURCE_1683	MISC	2.0
+beta chemokine receptor-like 1	MOA_ETOX_SOURCE_1684	MISC	2.0
+cmkbrl1	MOA_ETOX_SOURCE_1685	MISC	2.0
+cmk-brl-1	MOA_ETOX_SOURCE_1686	MISC	2.0
+c-x3-c ckr-1	MOA_ETOX_SOURCE_1687	MISC	2.0
+gpr13	MOA_ETOX_SOURCE_1688	MISC	2.0
+c-x-c chemokine receptor type 2	MOA_ETOX_SOURCE_1689	MISC	2.0
+il-8r b	MOA_ETOX_SOURCE_1690	MISC	2.0
+cxc-r2	MOA_ETOX_SOURCE_1691	MISC	2.0
+gro\/mgsa receptor	MOA_ETOX_SOURCE_1692	MISC	2.0
+cxcr2	MOA_ETOX_SOURCE_1693	MISC	2.0
+cd_antigen=cd182	MOA_ETOX_SOURCE_1694	MISC	2.0
+interleukin-8 receptor b	MOA_ETOX_SOURCE_1695	MISC	2.0
+cxcr-2	MOA_ETOX_SOURCE_1696	MISC	2.0
+c-x-c chemokine receptor type 2	MOA_ETOX_SOURCE_1697	MISC	2.0
+il8rb	MOA_ETOX_SOURCE_1698	MISC	2.0
+high affinity interleukin-8 receptor b	MOA_ETOX_SOURCE_1699	MISC	2.0
+angiotensin ii receptor	MOA_ETOX_SOURCE_1700	MISC	2.0
+agtr1a	MOA_ETOX_SOURCE_1701	MISC	2.0
+agtr1	MOA_ETOX_SOURCE_1702	MISC	2.0
+at1ar	MOA_ETOX_SOURCE_1703	MISC	2.0
+at2r1	MOA_ETOX_SOURCE_1704	MISC	2.0
+at1br	MOA_ETOX_SOURCE_1705	MISC	2.0
+at2r1b	MOA_ETOX_SOURCE_1706	MISC	2.0
+type-2 angiotensin ii receptor	MOA_ETOX_SOURCE_1707	MISC	2.0
+agtr2	MOA_ETOX_SOURCE_1708	MISC	2.0
+type-1 angiotensin ii receptor	MOA_ETOX_SOURCE_1709	MISC	2.0
+angiotensin ii type-2 receptor	MOA_ETOX_SOURCE_1710	MISC	2.0
+at1	MOA_ETOX_SOURCE_1711	MISC	2.0
+angiotensin ii type-1 receptor	MOA_ETOX_SOURCE_1712	MISC	2.0
+agtr1b	MOA_ETOX_SOURCE_1713	MISC	2.0
+at2	MOA_ETOX_SOURCE_1714	MISC	2.0
+bradykinin b1 receptor	MOA_ETOX_SOURCE_1715	MISC	2.0
+b1r	MOA_ETOX_SOURCE_1716	MISC	2.0
+b1 bradykinin receptor	MOA_ETOX_SOURCE_1717	MISC	2.0
+bk-1 receptor	MOA_ETOX_SOURCE_1718	MISC	2.0
+bdkrb1	MOA_ETOX_SOURCE_1719	MISC	2.0
+bradyb1	MOA_ETOX_SOURCE_1720	MISC	2.0
+bradykinin b2 receptor	MOA_ETOX_SOURCE_1721	MISC	2.0
+b2r	MOA_ETOX_SOURCE_1722	MISC	2.0
+bk-2 receptor	MOA_ETOX_SOURCE_1723	MISC	2.0
+bdkrb2	MOA_ETOX_SOURCE_1724	MISC	2.0
+b2 bradykinin receptor	MOA_ETOX_SOURCE_1725	MISC	2.0
+bkr2	MOA_ETOX_SOURCE_1726	MISC	2.0
+cholecystokinin a receptor	MOA_ETOX_SOURCE_1727	MISC	2.0
+cholecystokinin-1 receptor	MOA_ETOX_SOURCE_1728	MISC	2.0
+cck-a receptor	MOA_ETOX_SOURCE_1729	MISC	2.0
+cckar	MOA_ETOX_SOURCE_1730	MISC	2.0
+cck-ar	MOA_ETOX_SOURCE_1731	MISC	2.0
+cholecystokinin receptor type a	MOA_ETOX_SOURCE_1732	MISC	2.0
+cckra	MOA_ETOX_SOURCE_1733	MISC	2.0
+cck1-r	MOA_ETOX_SOURCE_1734	MISC	2.0
+endothelin receptor et-a	MOA_ETOX_SOURCE_1735	MISC	2.0
+etra	MOA_ETOX_SOURCE_1736	MISC	2.0
+endothelin-1 receptor	MOA_ETOX_SOURCE_1737	MISC	2.0
+het-ar	MOA_ETOX_SOURCE_1738	MISC	2.0
+eta	MOA_ETOX_SOURCE_1739	MISC	2.0
+et-a	MOA_ETOX_SOURCE_1740	MISC	2.0
+ednra	MOA_ETOX_SOURCE_1741	MISC	2.0
+endothelin a receptor	MOA_ETOX_SOURCE_1742	MISC	2.0
+eta-r	MOA_ETOX_SOURCE_1743	MISC	2.0
+gonadotropin-releasing hormone receptor	MOA_ETOX_SOURCE_1744	MISC	2.0
+grhr	MOA_ETOX_SOURCE_1745	MISC	2.0
+gnrhr	MOA_ETOX_SOURCE_1746	MISC	2.0
+gonadotropin-releasing hormone receptor	MOA_ETOX_SOURCE_1747	MISC	2.0
+gnrh receptor	MOA_ETOX_SOURCE_1748	MISC	2.0
+gnrh-r	MOA_ETOX_SOURCE_1749	MISC	2.0
+melanin-concentrating hormone receptor 1	MOA_ETOX_SOURCE_1750	MISC	2.0
+somatostatin receptor-like protein	MOA_ETOX_SOURCE_1751	MISC	2.0
+g-protein coupled receptor 24	MOA_ETOX_SOURCE_1752	MISC	2.0
+slc-1	MOA_ETOX_SOURCE_1753	MISC	2.0
+mchr	MOA_ETOX_SOURCE_1754	MISC	2.0
+slc1	MOA_ETOX_SOURCE_1755	MISC	2.0
+mchr-1	MOA_ETOX_SOURCE_1756	MISC	2.0
+mch1r	MOA_ETOX_SOURCE_1757	MISC	2.0
+gpr24	MOA_ETOX_SOURCE_1758	MISC	2.0
+mch-r1	MOA_ETOX_SOURCE_1759	MISC	2.0
+mch-1r	MOA_ETOX_SOURCE_1760	MISC	2.0
+mchr1	MOA_ETOX_SOURCE_1761	MISC	2.0
+mch receptor 1	MOA_ETOX_SOURCE_1762	MISC	2.0
+melanin-concentrating hormone receptor 1	MOA_ETOX_SOURCE_1763	MISC	2.0
+melanocortin receptor 2	MOA_ETOX_SOURCE_1764	MISC	2.0
+acth-r	MOA_ETOX_SOURCE_1765	MISC	2.0
+acth receptor	MOA_ETOX_SOURCE_1766	MISC	2.0
+mc2-r	MOA_ETOX_SOURCE_1767	MISC	2.0
+acthr	MOA_ETOX_SOURCE_1768	MISC	2.0
+adrenocorticotropic hormone receptor	MOA_ETOX_SOURCE_1769	MISC	2.0
+mc2r	MOA_ETOX_SOURCE_1770	MISC	2.0
+adrenocorticotropin receptor	MOA_ETOX_SOURCE_1771	MISC	2.0
+melanocortin receptor 2	MOA_ETOX_SOURCE_1772	MISC	2.0
+melanocortin receptor 4	MOA_ETOX_SOURCE_1773	MISC	2.0
+melanocortin receptor 4	MOA_ETOX_SOURCE_1774	MISC	2.0
+mc4-r	MOA_ETOX_SOURCE_1775	MISC	2.0
+mc4r	MOA_ETOX_SOURCE_1776	MISC	2.0
+neurokinin 1 receptor	MOA_ETOX_SOURCE_1777	MISC	2.0
+nk-1 receptor	MOA_ETOX_SOURCE_1778	MISC	2.0
+nk1r	MOA_ETOX_SOURCE_1779	MISC	2.0
+nk-1r	MOA_ETOX_SOURCE_1780	MISC	2.0
+tac1r	MOA_ETOX_SOURCE_1781	MISC	2.0
+tacr1	MOA_ETOX_SOURCE_1782	MISC	2.0
+substance-p receptor	MOA_ETOX_SOURCE_1783	MISC	2.0
+spr	MOA_ETOX_SOURCE_1784	MISC	2.0
+tachykinin receptor 1	MOA_ETOX_SOURCE_1785	MISC	2.0
+neurokinin 2 receptor	MOA_ETOX_SOURCE_1786	MISC	2.0
+tac2r	MOA_ETOX_SOURCE_1787	MISC	2.0
+nk-2 receptor	MOA_ETOX_SOURCE_1788	MISC	2.0
+tacr2	MOA_ETOX_SOURCE_1789	MISC	2.0
+skr	MOA_ETOX_SOURCE_1790	MISC	2.0
+tachykinin receptor 2	MOA_ETOX_SOURCE_1791	MISC	2.0
+nknar	MOA_ETOX_SOURCE_1792	MISC	2.0
+nk-2r	MOA_ETOX_SOURCE_1793	MISC	2.0
+neurokinin a receptor	MOA_ETOX_SOURCE_1794	MISC	2.0
+substance-k receptor	MOA_ETOX_SOURCE_1795	MISC	2.0
+nk2r	MOA_ETOX_SOURCE_1796	MISC	2.0
+neurokinin 3 receptor	MOA_ETOX_SOURCE_1797	MISC	2.0
+nk-3r	MOA_ETOX_SOURCE_1798	MISC	2.0
+nk-3 receptor	MOA_ETOX_SOURCE_1799	MISC	2.0
+nk3r	MOA_ETOX_SOURCE_1800	MISC	2.0
+tacr3	MOA_ETOX_SOURCE_1801	MISC	2.0
+nkr	MOA_ETOX_SOURCE_1802	MISC	2.0
+tachykinin receptor 3	MOA_ETOX_SOURCE_1803	MISC	2.0
+neuromedin-k receptor	MOA_ETOX_SOURCE_1804	MISC	2.0
+neurokinin b receptor	MOA_ETOX_SOURCE_1805	MISC	2.0
+tac3r	MOA_ETOX_SOURCE_1806	MISC	2.0
+neuropeptide y receptor type 1	MOA_ETOX_SOURCE_1807	MISC	2.0
+npy1r	MOA_ETOX_SOURCE_1808	MISC	2.0
+npyy1	MOA_ETOX_SOURCE_1809	MISC	2.0
+npy1-r	MOA_ETOX_SOURCE_1810	MISC	2.0
+npyr	MOA_ETOX_SOURCE_1811	MISC	2.0
+neuropeptide y receptor type 1	MOA_ETOX_SOURCE_1812	MISC	2.0
+neuropeptide y receptor type 5	MOA_ETOX_SOURCE_1813	MISC	2.0
+npy5-r	MOA_ETOX_SOURCE_1814	MISC	2.0
+y5 receptor	MOA_ETOX_SOURCE_1815	MISC	2.0
+neuropeptide y receptor type 5	MOA_ETOX_SOURCE_1816	MISC	2.0
+npyy5-r	MOA_ETOX_SOURCE_1817	MISC	2.0
+npy5r	MOA_ETOX_SOURCE_1818	MISC	2.0
+npy-y5 receptor	MOA_ETOX_SOURCE_1819	MISC	2.0
+npyr5	MOA_ETOX_SOURCE_1820	MISC	2.0
+delta opioid receptor	MOA_ETOX_SOURCE_1821	MISC	2.0
+dor-1	MOA_ETOX_SOURCE_1822	MISC	2.0
+delta-type opioid receptor	MOA_ETOX_SOURCE_1823	MISC	2.0
+oprd1	MOA_ETOX_SOURCE_1824	MISC	2.0
+oprd	MOA_ETOX_SOURCE_1825	MISC	2.0
+d-or-1	MOA_ETOX_SOURCE_1826	MISC	2.0
+mu opioid receptor	MOA_ETOX_SOURCE_1827	MISC	2.0
+m-or-1	MOA_ETOX_SOURCE_1828	MISC	2.0
+mu opiate receptor	MOA_ETOX_SOURCE_1829	MISC	2.0
+mu-type opioid receptor	MOA_ETOX_SOURCE_1830	MISC	2.0
+mu opioid receptor	MOA_ETOX_SOURCE_1831	MISC	2.0
+mop	MOA_ETOX_SOURCE_1832	MISC	2.0
+hmop	MOA_ETOX_SOURCE_1833	MISC	2.0
+mor-1	MOA_ETOX_SOURCE_1834	MISC	2.0
+mor1	MOA_ETOX_SOURCE_1835	MISC	2.0
+oprm1	MOA_ETOX_SOURCE_1836	MISC	2.0
+oxytocin receptor	MOA_ETOX_SOURCE_1837	MISC	2.0
+ot-r	MOA_ETOX_SOURCE_1838	MISC	2.0
+oxtr	MOA_ETOX_SOURCE_1839	MISC	2.0
+oxytocin receptor	MOA_ETOX_SOURCE_1840	MISC	2.0
+g-protein coupled receptor 35	MOA_ETOX_SOURCE_1841	MISC	2.0
+kyna receptor	MOA_ETOX_SOURCE_1842	MISC	2.0
+g-protein coupled receptor 35	MOA_ETOX_SOURCE_1843	MISC	2.0
+kynurenic acid receptor	MOA_ETOX_SOURCE_1844	MISC	2.0
+gpr35	MOA_ETOX_SOURCE_1845	MISC	2.0
+glucose-dependent insulinotropic receptor	MOA_ETOX_SOURCE_1846	MISC	2.0
+g-protein coupled receptor 119	MOA_ETOX_SOURCE_1847	MISC	2.0
+gpr119	MOA_ETOX_SOURCE_1848	MISC	2.0
+glucose-dependent insulinotropic receptor	MOA_ETOX_SOURCE_1849	MISC	2.0
+cannabinoid cb1 receptor	MOA_ETOX_SOURCE_1850	MISC	2.0
+cannabinoid receptor 1	MOA_ETOX_SOURCE_1851	MISC	2.0
+cann6	MOA_ETOX_SOURCE_1852	MISC	2.0
+cnr	MOA_ETOX_SOURCE_1853	MISC	2.0
+cb1	MOA_ETOX_SOURCE_1854	MISC	2.0
+cnr1	MOA_ETOX_SOURCE_1855	MISC	2.0
+cb-r	MOA_ETOX_SOURCE_1856	MISC	2.0
+cannabinoid cb2 receptor	MOA_ETOX_SOURCE_1857	MISC	2.0
+cnr2	MOA_ETOX_SOURCE_1858	MISC	2.0
+cannabinoid receptor 2	MOA_ETOX_SOURCE_1859	MISC	2.0
+hcb2	MOA_ETOX_SOURCE_1860	MISC	2.0
+cb-2	MOA_ETOX_SOURCE_1861	MISC	2.0
+cb2a	MOA_ETOX_SOURCE_1862	MISC	2.0
+cx5	MOA_ETOX_SOURCE_1863	MISC	2.0
+cb2b	MOA_ETOX_SOURCE_1864	MISC	2.0
+cb2	MOA_ETOX_SOURCE_1865	MISC	2.0
+cysteinyl leukotriene receptor	MOA_ETOX_SOURCE_1866	MISC	2.0
+ltd4 receptor	MOA_ETOX_SOURCE_1867	MISC	2.0
+hmtmf81	MOA_ETOX_SOURCE_1868	MISC	2.0
+cysltr2	MOA_ETOX_SOURCE_1869	MISC	2.0
+cysltr1	MOA_ETOX_SOURCE_1870	MISC	2.0
+hgpcr21	MOA_ETOX_SOURCE_1871	MISC	2.0
+cyslt2	MOA_ETOX_SOURCE_1872	MISC	2.0
+g-protein coupled receptor hg55	MOA_ETOX_SOURCE_1873	MISC	2.0
+cyslt1	MOA_ETOX_SOURCE_1874	MISC	2.0
+g-protein coupled receptor gpcr21	MOA_ETOX_SOURCE_1875	MISC	2.0
+g-protein coupled receptor hg57	MOA_ETOX_SOURCE_1876	MISC	2.0
+cyslt2r	MOA_ETOX_SOURCE_1877	MISC	2.0
+cysteinyl leukotriene d4 receptor	MOA_ETOX_SOURCE_1878	MISC	2.0
+hpn321	MOA_ETOX_SOURCE_1879	MISC	2.0
+cysteinyl leukotriene receptor 1	MOA_ETOX_SOURCE_1880	MISC	2.0
+cysteinyl leukotriene receptor 2	MOA_ETOX_SOURCE_1881	MISC	2.0
+platelet activating factor receptor	MOA_ETOX_SOURCE_1882	MISC	2.0
+platelet-activating factor receptor	MOA_ETOX_SOURCE_1883	MISC	2.0
+ptafr	MOA_ETOX_SOURCE_1884	MISC	2.0
+paf-r	MOA_ETOX_SOURCE_1885	MISC	2.0
+pafr	MOA_ETOX_SOURCE_1886	MISC	2.0
+g protein-coupled receptor 44	MOA_ETOX_SOURCE_1887	MISC	2.0
+prostaglandin d2 receptor 2	MOA_ETOX_SOURCE_1888	MISC	2.0
+g-protein coupled receptor 44	MOA_ETOX_SOURCE_1889	MISC	2.0
+gpr44	MOA_ETOX_SOURCE_1890	MISC	2.0
+cd_antigen=cd294	MOA_ETOX_SOURCE_1891	MISC	2.0
+chemoattractant receptor-homologous molecule expressed on th2 cells	MOA_ETOX_SOURCE_1892	MISC	2.0
+ptgdr2	MOA_ETOX_SOURCE_1893	MISC	2.0
+crth2	MOA_ETOX_SOURCE_1894	MISC	2.0
+dl1r	MOA_ETOX_SOURCE_1895	MISC	2.0
+prostaglandin e2 receptor	MOA_ETOX_SOURCE_1896	MISC	2.0
+ptger4	MOA_ETOX_SOURCE_1897	MISC	2.0
+pge receptor ep4 subtype	MOA_ETOX_SOURCE_1898	MISC	2.0
+ptger3	MOA_ETOX_SOURCE_1899	MISC	2.0
+pge receptor ep3 subtype	MOA_ETOX_SOURCE_1900	MISC	2.0
+prostaglandin e2 receptor ep4 subtype	MOA_ETOX_SOURCE_1901	MISC	2.0
+pge2-r	MOA_ETOX_SOURCE_1902	MISC	2.0
+pge2 receptor ep4 subtype	MOA_ETOX_SOURCE_1903	MISC	2.0
+prostanoid ep3 receptor	MOA_ETOX_SOURCE_1904	MISC	2.0
+prostaglandin e2 receptor ep3 subtype	MOA_ETOX_SOURCE_1905	MISC	2.0
+pge2 receptor ep3 subtype	MOA_ETOX_SOURCE_1906	MISC	2.0
+prostanoid ep4 receptor	MOA_ETOX_SOURCE_1907	MISC	2.0
+prostanoid ep1 receptor	MOA_ETOX_SOURCE_1908	MISC	2.0
+prostanoid ep2 receptor	MOA_ETOX_SOURCE_1909	MISC	2.0
+muscarinic acetylcholine receptor	MOA_ETOX_SOURCE_1910	MISC	2.0
+chrm4	MOA_ETOX_SOURCE_1911	MISC	2.0
+chrm5	MOA_ETOX_SOURCE_1912	MISC	2.0
+muscarinic acetylcholine receptor m5	MOA_ETOX_SOURCE_1913	MISC	2.0
+muscarinic acetylcholine receptor m4	MOA_ETOX_SOURCE_1914	MISC	2.0
+muscarinic acetylcholine receptor m1	MOA_ETOX_SOURCE_1915	MISC	2.0
+muscarinic acetylcholine receptor m2	MOA_ETOX_SOURCE_1916	MISC	2.0
+muscarinic acetylcholine receptor m3	MOA_ETOX_SOURCE_1917	MISC	2.0
+adrenergic receptor alpha	MOA_ETOX_SOURCE_1918	MISC	2.0
+adrenergic receptor beta	MOA_ETOX_SOURCE_1919	MISC	2.0
+alpha-1 adrenergic receptor	MOA_ETOX_SOURCE_1920	MISC	2.0
+gpcr8	MOA_ETOX_SOURCE_1921	MISC	2.0
+beta-1 adrenergic receptor	MOA_ETOX_SOURCE_1922	MISC	2.0
+beta-2 adrenergic receptor	MOA_ETOX_SOURCE_1923	MISC	2.0
+beta-3 adrenergic receptor	MOA_ETOX_SOURCE_1924	MISC	2.0
+dopamine d1 receptor	MOA_ETOX_SOURCE_1925	MISC	2.0
+dopamine d3 receptor	MOA_ETOX_SOURCE_1926	MISC	2.0
+dopamine d2 receptor	MOA_ETOX_SOURCE_1927	MISC	2.0
+histamine h1 receptor	MOA_ETOX_SOURCE_1928	MISC	2.0
+histamine h1 receptor	MOA_ETOX_SOURCE_1929	MISC	2.0
+hh1r	MOA_ETOX_SOURCE_1930	MISC	2.0
+h1r	MOA_ETOX_SOURCE_1931	MISC	2.0
+hrh1	MOA_ETOX_SOURCE_1932	MISC	2.0
+histamine h2 receptor	MOA_ETOX_SOURCE_1933	MISC	2.0
+histamine h2 receptor	MOA_ETOX_SOURCE_1934	MISC	2.0
+hh2r	MOA_ETOX_SOURCE_1935	MISC	2.0
+h2r	MOA_ETOX_SOURCE_1936	MISC	2.0
+gastric receptor i	MOA_ETOX_SOURCE_1937	MISC	2.0
+hrh2	MOA_ETOX_SOURCE_1938	MISC	2.0
+histamine h3 receptor	MOA_ETOX_SOURCE_1939	MISC	2.0
+g-protein coupled receptor 97	MOA_ETOX_SOURCE_1940	MISC	2.0
+h3r	MOA_ETOX_SOURCE_1941	MISC	2.0
+gpcr97	MOA_ETOX_SOURCE_1942	MISC	2.0
+hrh3	MOA_ETOX_SOURCE_1943	MISC	2.0
+histamine h3 receptor	MOA_ETOX_SOURCE_1944	MISC	2.0
+hh3r	MOA_ETOX_SOURCE_1945	MISC	2.0
+serotonin -LRB-5-ht-RRB- receptor	MOA_ETOX_SOURCE_1946	MISC	2.0
+5-ht-5	MOA_ETOX_SOURCE_1947	MISC	2.0
+htr1e	MOA_ETOX_SOURCE_1948	MISC	2.0
+5-ht-6	MOA_ETOX_SOURCE_1949	MISC	2.0
+5-ht1e	MOA_ETOX_SOURCE_1950	MISC	2.0
+5-ht4	MOA_ETOX_SOURCE_1951	MISC	2.0
+htr6	MOA_ETOX_SOURCE_1952	MISC	2.0
+htr4	MOA_ETOX_SOURCE_1953	MISC	2.0
+s31	MOA_ETOX_SOURCE_1954	MISC	2.0
+5-hydroxytryptamine receptor 6	MOA_ETOX_SOURCE_1955	MISC	2.0
+5-ht6	MOA_ETOX_SOURCE_1956	MISC	2.0
+5-hydroxytryptamine receptor 4	MOA_ETOX_SOURCE_1957	MISC	2.0
+serotonin receptor 5a	MOA_ETOX_SOURCE_1958	MISC	2.0
+5-ht5a	MOA_ETOX_SOURCE_1959	MISC	2.0
+serotonin receptor 6	MOA_ETOX_SOURCE_1960	MISC	2.0
+serotonin receptor 4	MOA_ETOX_SOURCE_1961	MISC	2.0
+5-hydroxytryptamine receptor 5a	MOA_ETOX_SOURCE_1962	MISC	2.0
+5-hydroxytryptamine receptor 1e	MOA_ETOX_SOURCE_1963	MISC	2.0
+htr5a	MOA_ETOX_SOURCE_1964	MISC	2.0
+5-ht-1e	MOA_ETOX_SOURCE_1965	MISC	2.0
+htr1el	MOA_ETOX_SOURCE_1966	MISC	2.0
+5-ht-5a	MOA_ETOX_SOURCE_1967	MISC	2.0
+serotonin receptor 1e	MOA_ETOX_SOURCE_1968	MISC	2.0
+5-ht-4	MOA_ETOX_SOURCE_1969	MISC	2.0
+serotonin 1 -LRB-5-ht1-RRB- receptor	MOA_ETOX_SOURCE_1970	MISC	2.0
+5ht1f	MOA_ETOX_SOURCE_1971	MISC	2.0
+5ht1a	MOA_ETOX_SOURCE_1972	MISC	2.0
+5ht1b	MOA_ETOX_SOURCE_1973	MISC	2.0
+serotonin 1a -LRB-5-ht1a-RRB- receptor	MOA_ETOX_SOURCE_1974	MISC	2.0
+serotonin 1b -LRB-5-ht1b-RRB- receptor	MOA_ETOX_SOURCE_1975	MISC	2.0
+serotonin 1d -LRB-5-ht1d-RRB- receptor	MOA_ETOX_SOURCE_1976	MISC	2.0
+serotonin 2 -LRB-5-ht2-RRB- receptor	MOA_ETOX_SOURCE_1977	MISC	2.0
+serotonin 2a -LRB-5-ht2a-RRB- receptor	MOA_ETOX_SOURCE_1978	MISC	2.0
+serotonin 2c -LRB-5-ht2c-RRB- receptor	MOA_ETOX_SOURCE_1979	MISC	2.0
+serotonin 7 -LRB-5-ht7-RRB- receptor	MOA_ETOX_SOURCE_1980	MISC	2.0
+adenosine a2b receptor	MOA_ETOX_SOURCE_1981	MISC	2.0
+adenosine receptor a2b	MOA_ETOX_SOURCE_1982	MISC	2.0
+adora2b	MOA_ETOX_SOURCE_1983	MISC	2.0
+adenosine a3 receptor	MOA_ETOX_SOURCE_1984	MISC	2.0
+adora3	MOA_ETOX_SOURCE_1985	MISC	2.0
+adenosine receptor a3	MOA_ETOX_SOURCE_1986	MISC	2.0
+purinergic receptor p2y11	MOA_ETOX_SOURCE_1987	MISC	2.0
+p2ry11	MOA_ETOX_SOURCE_1988	MISC	2.0
+p2y purinoceptor 11	MOA_ETOX_SOURCE_1989	MISC	2.0
+p2y11	MOA_ETOX_SOURCE_1990	MISC	2.0
+purinergic receptor p2y12	MOA_ETOX_SOURCE_1991	MISC	2.0
+p2y-LRB-cyc-RRB-	MOA_ETOX_SOURCE_1992	MISC	2.0
+p2y purinoceptor 12	MOA_ETOX_SOURCE_1993	MISC	2.0
+adpg-r	MOA_ETOX_SOURCE_1994	MISC	2.0
+p2ry12	MOA_ETOX_SOURCE_1995	MISC	2.0
+p2t-LRB-ac-RRB-	MOA_ETOX_SOURCE_1996	MISC	2.0
+p2y12	MOA_ETOX_SOURCE_1997	MISC	2.0
+p2y-LRB-ac-RRB-	MOA_ETOX_SOURCE_1998	MISC	2.0
+p2y12 platelet adp receptor	MOA_ETOX_SOURCE_1999	MISC	2.0
+sp1999	MOA_ETOX_SOURCE_2000	MISC	2.0
+adp-glucose receptor	MOA_ETOX_SOURCE_2001	MISC	2.0
+p2y-LRB-adp-RRB-	MOA_ETOX_SOURCE_2002	MISC	2.0
+hork3	MOA_ETOX_SOURCE_2003	MISC	2.0
+metabotropic glutamate receptor 2	MOA_ETOX_SOURCE_2004	MISC	2.0
+mglur2	MOA_ETOX_SOURCE_2005	MISC	2.0
+grm2	MOA_ETOX_SOURCE_2006	MISC	2.0
+metabotropic glutamate receptor 2	MOA_ETOX_SOURCE_2007	MISC	2.0
+gprc1b	MOA_ETOX_SOURCE_2008	MISC	2.0
+metabotropic glutamate receptor 5	MOA_ETOX_SOURCE_2009	MISC	2.0
+metabotropic glutamate receptor 5	MOA_ETOX_SOURCE_2010	MISC	2.0
+mglur5	MOA_ETOX_SOURCE_2011	MISC	2.0
+gprc1e	MOA_ETOX_SOURCE_2012	MISC	2.0
+grm5	MOA_ETOX_SOURCE_2013	MISC	2.0
+beta tubulin	MOA_ETOX_SOURCE_2014	MISC	2.0
+mhc class ii	MOA_ETOX_SOURCE_2015	MISC	2.0
+rt1-a3	MOA_ETOX_SOURCE_2016	MISC	2.0
+b3galt4	MOA_ETOX_SOURCE_2017	MISC	2.0
+rt1-a1	MOA_ETOX_SOURCE_2018	MISC	2.0
+phf1	MOA_ETOX_SOURCE_2019	MISC	2.0
+protein pfdn6	MOA_ETOX_SOURCE_2020	MISC	2.0
+loc224733l-2	MOA_ETOX_SOURCE_2021	MISC	2.0
+pfdn6	MOA_ETOX_SOURCE_2022	MISC	2.0
+col11a2	MOA_ETOX_SOURCE_2023	MISC	2.0
+rxrb	MOA_ETOX_SOURCE_2024	MISC	2.0
+hsd17b8	MOA_ETOX_SOURCE_2025	MISC	2.0
+loc224733l-1	MOA_ETOX_SOURCE_2026	MISC	2.0
+rt1-hb	MOA_ETOX_SOURCE_2027	MISC	2.0
+sacm2l-ps2	MOA_ETOX_SOURCE_2028	MISC	2.0
+mhc class ii region expressed gene ke2, isoform cra_a	MOA_ETOX_SOURCE_2029	MISC	2.0
+cdk2ap1-ps1	MOA_ETOX_SOURCE_2030	MISC	2.0
+h2-k region expressed gene 2, rat orthologue	MOA_ETOX_SOURCE_2031	MISC	2.0
+sec61-ps	MOA_ETOX_SOURCE_2032	MISC	2.0
+kifc1	MOA_ETOX_SOURCE_2033	MISC	2.0
+retinoic acid receptor gamma	MOA_ETOX_SOURCE_2034	MISC	2.0
+rarg	MOA_ETOX_SOURCE_2035	MISC	2.0
+retinoic acid receptor gamma	MOA_ETOX_SOURCE_2036	MISC	2.0
+rar-gamma	MOA_ETOX_SOURCE_2037	MISC	2.0
+nr1b3	MOA_ETOX_SOURCE_2038	MISC	2.0
+nuclear receptor subfamily 1 group b member 3	MOA_ETOX_SOURCE_2039	MISC	2.0
+peroxisome proliferator-activated receptor alpha	MOA_ETOX_SOURCE_2040	MISC	2.0
+peroxisome proliferator-activated receptor gamma	MOA_ETOX_SOURCE_2041	MISC	2.0
+ppar alpha\/gamma	MOA_ETOX_SOURCE_2042	MISC	2.0
+estrogen receptor	MOA_ETOX_SOURCE_2043	MISC	2.0
+estrb	MOA_ETOX_SOURCE_2044	MISC	2.0
+esr2	MOA_ETOX_SOURCE_2045	MISC	2.0
+er-beta	MOA_ETOX_SOURCE_2046	MISC	2.0
+nr3a2	MOA_ETOX_SOURCE_2047	MISC	2.0
+nuclear receptor subfamily 3 group a member 2	MOA_ETOX_SOURCE_2048	MISC	2.0
+estrogen receptor beta	MOA_ETOX_SOURCE_2049	MISC	2.0
+estrogen receptor alpha	MOA_ETOX_SOURCE_2050	MISC	2.0
+glucocorticoid receptor	MOA_ETOX_SOURCE_2051	MISC	2.0
+nuclear receptor subfamily 3 group c member 1	MOA_ETOX_SOURCE_2052	MISC	2.0
+grl	MOA_ETOX_SOURCE_2053	MISC	2.0
+glucocorticoid receptor	MOA_ETOX_SOURCE_2054	MISC	2.0
+nr3c1	MOA_ETOX_SOURCE_2055	MISC	2.0
+gr	MOA_ETOX_SOURCE_2056	MISC	2.0
+mineralocorticoid receptor	MOA_ETOX_SOURCE_2057	MISC	2.0
+mcr	MOA_ETOX_SOURCE_2058	MISC	2.0
+mlr	MOA_ETOX_SOURCE_2059	MISC	2.0
+mr	MOA_ETOX_SOURCE_2060	MISC	2.0
+nr3c2	MOA_ETOX_SOURCE_2061	MISC	2.0
+mineralocorticoid receptor	MOA_ETOX_SOURCE_2062	MISC	2.0
+nuclear receptor subfamily 3 group c member 2	MOA_ETOX_SOURCE_2063	MISC	2.0
+progesterone receptor	MOA_ETOX_SOURCE_2064	MISC	2.0
+pgr	MOA_ETOX_SOURCE_2065	MISC	2.0
+nr3c3	MOA_ETOX_SOURCE_2066	MISC	2.0
+progesterone receptor	MOA_ETOX_SOURCE_2067	MISC	2.0
+nuclear receptor subfamily 3 group c member 3	MOA_ETOX_SOURCE_2068	MISC	2.0
+pr	MOA_ETOX_SOURCE_2069	MISC	2.0
+androgen receptor	MOA_ETOX_SOURCE_2070	MISC	2.0
+ar	MOA_ETOX_SOURCE_2071	MISC	2.0
+androgen receptor	MOA_ETOX_SOURCE_2072	MISC	2.0
+dihydrotestosterone receptor	MOA_ETOX_SOURCE_2073	MISC	2.0
+dhtr	MOA_ETOX_SOURCE_2074	MISC	2.0
+nr3c4	MOA_ETOX_SOURCE_2075	MISC	2.0
+nuclear receptor subfamily 3 group c member 4	MOA_ETOX_SOURCE_2076	MISC	2.0
+dopamine transporter	MOA_ETOX_SOURCE_2077	MISC	2.0
+glycine transporter 1	MOA_ETOX_SOURCE_2078	MISC	2.0
+glyt-1	MOA_ETOX_SOURCE_2079	MISC	2.0
+solute carrier family 6 member 9	MOA_ETOX_SOURCE_2080	MISC	2.0
+glyt1	MOA_ETOX_SOURCE_2081	MISC	2.0
+sodium- and chloride-dependent glycine transporter 1	MOA_ETOX_SOURCE_2082	MISC	2.0
+slc6a9	MOA_ETOX_SOURCE_2083	MISC	2.0
+monoamine transporters; norepinephrine & dopamine	MOA_ETOX_SOURCE_2084	MISC	2.0
+norepinephrine transporter	MOA_ETOX_SOURCE_2085	MISC	2.0
+serotonin transporter	MOA_ETOX_SOURCE_2086	MISC	2.0
+slc6a4	MOA_ETOX_SOURCE_2087	MISC	2.0
+sodium-dependent serotonin transporter	MOA_ETOX_SOURCE_2088	MISC	2.0
+solute carrier family 6 member 4	MOA_ETOX_SOURCE_2089	MISC	2.0
+5ht transporter	MOA_ETOX_SOURCE_2090	MISC	2.0
+5htt	MOA_ETOX_SOURCE_2091	MISC	2.0
+htt	MOA_ETOX_SOURCE_2092	MISC	2.0
+sert	MOA_ETOX_SOURCE_2093	MISC	2.0
+sodium\/hydrogen exchanger	MOA_ETOX_SOURCE_2094	MISC	2.0
+bile acid transporter	MOA_ETOX_SOURCE_2095	MISC	2.0
+sodium\/bile acid cotransporter	MOA_ETOX_SOURCE_2096	MISC	2.0
+solute carrier family 10 member 1	MOA_ETOX_SOURCE_2097	MISC	2.0
+sodium\/taurocholate cotransporting polypeptide	MOA_ETOX_SOURCE_2098	MISC	2.0
+ntcp	MOA_ETOX_SOURCE_2099	MISC	2.0
+slc10a1	MOA_ETOX_SOURCE_2100	MISC	2.0
+na-LRB-\+-RRB-\/taurocholate transport protein	MOA_ETOX_SOURCE_2101	MISC	2.0
+na-LRB-\+-RRB-\/bile acid cotransporter	MOA_ETOX_SOURCE_2102	MISC	2.0
+cell growth-inhibiting gene 29 protein	MOA_ETOX_SOURCE_2103	MISC	2.0
+ileal bile acid transporter	MOA_ETOX_SOURCE_2104	MISC	2.0
+na-LRB-\+-RRB--dependent ileal bile acid transporter	MOA_ETOX_SOURCE_2105	MISC	2.0
+sodium\/taurocholate cotransporting polypeptide, ileal	MOA_ETOX_SOURCE_2106	MISC	2.0
+ibat	MOA_ETOX_SOURCE_2107	MISC	2.0
+isbt	MOA_ETOX_SOURCE_2108	MISC	2.0
+solute carrier family 10 member 2	MOA_ETOX_SOURCE_2109	MISC	2.0
+ileal sodium\/bile acid cotransporter	MOA_ETOX_SOURCE_2110	MISC	2.0
+ileal sodium-dependent bile acid transporter	MOA_ETOX_SOURCE_2111	MISC	2.0
+apical sodium-dependent bile acid transporter	MOA_ETOX_SOURCE_2112	MISC	2.0
+asbt	MOA_ETOX_SOURCE_2113	MISC	2.0
+slc10a2	MOA_ETOX_SOURCE_2114	MISC	2.0
+ntcp2	MOA_ETOX_SOURCE_2115	MISC	2.0
+ileal na-LRB-\+-RRB-\/bile acid cotransporter	MOA_ETOX_SOURCE_2116	MISC	2.0
+sodium--LRB-potassium-RRB--chloride cotransporter 2	MOA_ETOX_SOURCE_2117	MISC	2.0
+bumetanide-sensitive sodium--LRB-potassium-RRB--chloride cotransporter 2	MOA_ETOX_SOURCE_2118	MISC	2.0
+solute carrier family 12 member 1	MOA_ETOX_SOURCE_2119	MISC	2.0
+nkcc2	MOA_ETOX_SOURCE_2120	MISC	2.0
+slc12a1	MOA_ETOX_SOURCE_2121	MISC	2.0
+kidney-specific na-k-cl symporter	MOA_ETOX_SOURCE_2122	MISC	2.0
+monocarboxylate transporter 1	MOA_ETOX_SOURCE_2123	MISC	2.0
+mct1	MOA_ETOX_SOURCE_2124	MISC	2.0
+monocarboxylate transporter 1	MOA_ETOX_SOURCE_2125	MISC	2.0
+solute carrier family 16 member 1	MOA_ETOX_SOURCE_2126	MISC	2.0
+mct 1	MOA_ETOX_SOURCE_2127	MISC	2.0
+slc16a1	MOA_ETOX_SOURCE_2128	MISC	2.0
+atp-binding cassette sub-family g member 2	MOA_ETOX_SOURCE_2129	MISC	2.0
+mxr	MOA_ETOX_SOURCE_2130	MISC	2.0
+urate exporter	MOA_ETOX_SOURCE_2131	MISC	2.0
+bcrp	MOA_ETOX_SOURCE_2132	MISC	2.0
+bcrp1	MOA_ETOX_SOURCE_2133	MISC	2.0
+placenta-specific atp-binding cassette transporter	MOA_ETOX_SOURCE_2134	MISC	2.0
+atp-binding cassette sub-family g member 2	MOA_ETOX_SOURCE_2135	MISC	2.0
+cdw338	MOA_ETOX_SOURCE_2136	MISC	2.0
+cd_antigen=cd338	MOA_ETOX_SOURCE_2137	MISC	2.0
+breast cancer resistance protein	MOA_ETOX_SOURCE_2138	MISC	2.0
+mitoxantrone resistance-associated protein	MOA_ETOX_SOURCE_2139	MISC	2.0
+abcg2	MOA_ETOX_SOURCE_2140	MISC	2.0
+abcp	MOA_ETOX_SOURCE_2141	MISC	2.0
+potassium-transporting atpase	MOA_ETOX_SOURCE_2142	MISC	2.0
+proton pump	MOA_ETOX_SOURCE_2143	MISC	2.0
+potassium-transporting atpase alpha chain 1	MOA_ETOX_SOURCE_2144	MISC	2.0
+gastric h-LRB-\+-RRB-\/k-LRB-\+-RRB- atpase subunit beta	MOA_ETOX_SOURCE_2145	MISC	2.0
+potassium-transporting atpase subunit beta	MOA_ETOX_SOURCE_2146	MISC	2.0
+atp4a	MOA_ETOX_SOURCE_2147	MISC	2.0
+gastric h-LRB-\+-RRB-\/k-LRB-\+-RRB- atpase subunit alpha	MOA_ETOX_SOURCE_2148	MISC	2.0
+atp4b	MOA_ETOX_SOURCE_2149	MISC	2.0
+proton pump beta chain	MOA_ETOX_SOURCE_2150	MISC	2.0
+integrin alpha-2\/beta-3	MOA_ETOX_SOURCE_2151	MISC	2.0
+platelet membrane glycoprotein ia	MOA_ETOX_SOURCE_2152	MISC	2.0
+cd49 antigen-like family member b	MOA_ETOX_SOURCE_2153	MISC	2.0
+cd_antigen=cd49b	MOA_ETOX_SOURCE_2154	MISC	2.0
+gpiiia	MOA_ETOX_SOURCE_2155	MISC	2.0
+integrin alpha-2	MOA_ETOX_SOURCE_2156	MISC	2.0
+platelet membrane glycoprotein iiia	MOA_ETOX_SOURCE_2157	MISC	2.0
+integrin beta-3	MOA_ETOX_SOURCE_2158	MISC	2.0
+itgb3	MOA_ETOX_SOURCE_2159	MISC	2.0
+gpia	MOA_ETOX_SOURCE_2160	MISC	2.0
+cd49b	MOA_ETOX_SOURCE_2161	MISC	2.0
+cd_antigen=cd61	MOA_ETOX_SOURCE_2162	MISC	2.0
+collagen receptor	MOA_ETOX_SOURCE_2163	MISC	2.0
+vla-2 subunit alpha	MOA_ETOX_SOURCE_2164	MISC	2.0
+itga2	MOA_ETOX_SOURCE_2165	MISC	2.0
+gp3a	MOA_ETOX_SOURCE_2166	MISC	2.0
+matrix protein 2	MOA_ETOX_SOURCE_2167	MISC	2.0
+neutrophil elastase	MOA_ETOX_SOURCE_2168	MISC	2.0
+leukocyte elastase	MOA_ETOX_SOURCE_2169	MISC	2.0
+neutrophil elastase	MOA_ETOX_SOURCE_2170	MISC	2.0
+elane	MOA_ETOX_SOURCE_2171	MISC	2.0
+ela2	MOA_ETOX_SOURCE_2172	MISC	2.0
+elastase-2	MOA_ETOX_SOURCE_2173	MISC	2.0
+bone resoption	MOA_ETOX_SOURCE_2174	MISC	2.0
+calcium	MOA_ETOX_SOURCE_2175	MISC	2.0
+cell wall synthesis	MOA_ETOX_SOURCE_2176	MISC	2.0
+chemokine synthesis	MOA_ETOX_SOURCE_2177	MISC	2.0
+cholesterol	MOA_ETOX_SOURCE_2178	MISC	2.0
+cholesterol absorption	MOA_ETOX_SOURCE_2179	MISC	2.0
+cholesterol uptake	MOA_ETOX_SOURCE_2180	MISC	2.0
+cyclin-dependent kinase	MOA_ETOX_SOURCE_2181	MISC	2.0
+cdk	MOA_ETOX_SOURCE_2182	MISC	2.0
+dopamine reuptake	MOA_ETOX_SOURCE_2183	MISC	2.0
+leukocyte migration	MOA_ETOX_SOURCE_2184	MISC	2.0
+leukocyte extravasation	MOA_ETOX_SOURCE_2185	MISC	2.0
+m-phase cell cycle	MOA_ETOX_SOURCE_2186	MISC	2.0
+mast cell	MOA_ETOX_SOURCE_2187	MISC	2.0
+mast cell degranulation	MOA_ETOX_SOURCE_2188	MISC	2.0
+phosphodiesterase 11	MOA_ETOX_SOURCE_2189	MISC	2.0
+pde11	MOA_ETOX_SOURCE_2190	MISC	2.0
+phosphodiesterase 2	MOA_ETOX_SOURCE_2191	MISC	2.0
+pde2	MOA_ETOX_SOURCE_2192	MISC	2.0
+penicillin-binding protein	MOA_ETOX_SOURCE_2193	MISC	2.0
+peroxisome proliferator-activated receptor	MOA_ETOX_SOURCE_2194	MISC	2.0
+poly -LSB-adp-ribose-RSB- polymerase	MOA_ETOX_SOURCE_2195	MISC	2.0
+parp	MOA_ETOX_SOURCE_2196	MISC	2.0
+polymerase	MOA_ETOX_SOURCE_2197	MISC	2.0
+pi3-kinase p110-beta subunit	MOA_ETOX_SOURCE_2198	MISC	2.0
+ptdins-3-kinase subunit beta	MOA_ETOX_SOURCE_2199	MISC	2.0
+pi3-kinase beta	MOA_ETOX_SOURCE_2200	MISC	2.0
+pi3k-beta	MOA_ETOX_SOURCE_2201	MISC	2.0
+p110beta	MOA_ETOX_SOURCE_2202	MISC	2.0
+phosphatidylinositol 4,5-bisphosphate 3-kinase catalytic subunit beta isoform	MOA_ETOX_SOURCE_2203	MISC	2.0
+pi3kbeta	MOA_ETOX_SOURCE_2204	MISC	2.0
+ptdins-3-kinase subunit p110-beta	MOA_ETOX_SOURCE_2205	MISC	2.0
+phosphatidylinositol 4,5-bisphosphate 3-kinase 110 kda catalytic subunit beta	MOA_ETOX_SOURCE_2206	MISC	2.0
+pik3c1	MOA_ETOX_SOURCE_2207	MISC	2.0
+pi3-kinase subunit beta	MOA_ETOX_SOURCE_2208	MISC	2.0
+pik3cb	MOA_ETOX_SOURCE_2209	MISC	2.0
+purinergic receptor p1	MOA_ETOX_SOURCE_2210	MISC	2.0
+purinergic receptor p2y13	MOA_ETOX_SOURCE_2211	MISC	2.0
+purinergic receptor p2y	MOA_ETOX_SOURCE_2212	MISC	2.0
+potassium channel	MOA_ETOX_SOURCE_2213	MISC	2.0
+sebaceous gland	MOA_ETOX_SOURCE_2214	MISC	2.0
+serine\/threonine-protein kinase	MOA_ETOX_SOURCE_2215	MISC	2.0
+camk protein kinase camk1 family	MOA_ETOX_SOURCE_2216	MISC	2.0
+serine\/threonine-protein kinase chk	MOA_ETOX_SOURCE_2217	MISC	2.0
+serine\/threonine-protein kinase mtor	MOA_ETOX_SOURCE_2218	MISC	2.0
+sigma receptor	MOA_ETOX_SOURCE_2219	MISC	2.0
+tubulin	MOA_ETOX_SOURCE_2220	MISC	2.0
+tubulin beta-8 chain	MOA_ETOX_SOURCE_2221	MISC	2.0
+tubulin alpha-2 chain	MOA_ETOX_SOURCE_2222	MISC	2.0
+tubulin beta-4b chain	MOA_ETOX_SOURCE_2223	MISC	2.0
+tubulin alpha-6 chain	MOA_ETOX_SOURCE_2224	MISC	2.0
+tubulin alpha-ubiquitous chain	MOA_ETOX_SOURCE_2225	MISC	2.0
+tubulin b-alpha-1	MOA_ETOX_SOURCE_2226	MISC	2.0
+tubulin alpha-1b chain	MOA_ETOX_SOURCE_2227	MISC	2.0
+tubulin h2-alpha	MOA_ETOX_SOURCE_2228	MISC	2.0
+tubb	MOA_ETOX_SOURCE_2229	MISC	2.0
+alpha-tubulin ubiquitous	MOA_ETOX_SOURCE_2230	MISC	2.0
+tubulin beta chain	MOA_ETOX_SOURCE_2231	MISC	2.0
+tubb2b	MOA_ETOX_SOURCE_2232	MISC	2.0
+tuba1	MOA_ETOX_SOURCE_2233	MISC	2.0
+tuba2	MOA_ETOX_SOURCE_2234	MISC	2.0
+tubb2c	MOA_ETOX_SOURCE_2235	MISC	2.0
+tubb2a	MOA_ETOX_SOURCE_2236	MISC	2.0
+and	MOA_ETOX_SOURCE_2237	MISC	2.0
+testis-specific alpha-tubulin	MOA_ETOX_SOURCE_2238	MISC	2.0
+tubulin beta-2c chain	MOA_ETOX_SOURCE_2239	MISC	2.0
+alpha-tubulin 3e	MOA_ETOX_SOURCE_2240	MISC	2.0
+tubulin alpha-3c\/d chain	MOA_ETOX_SOURCE_2241	MISC	2.0
+tubulin beta class v	MOA_ETOX_SOURCE_2242	MISC	2.0
+tubulin beta-4 chain	MOA_ETOX_SOURCE_2243	MISC	2.0
+tubulin alpha-4a chain	MOA_ETOX_SOURCE_2244	MISC	2.0
+tubulin beta-1 chain	MOA_ETOX_SOURCE_2245	MISC	2.0
+tubulin beta-4a chain	MOA_ETOX_SOURCE_2246	MISC	2.0
+tubulin beta class iia	MOA_ETOX_SOURCE_2247	MISC	2.0
+tubulin alpha-1 chain	MOA_ETOX_SOURCE_2248	MISC	2.0
+tubb4b	MOA_ETOX_SOURCE_2249	MISC	2.0
+tubulin k-alpha-1	MOA_ETOX_SOURCE_2250	MISC	2.0
+tuba1c	MOA_ETOX_SOURCE_2251	MISC	2.0
+alpha-tubulin 2	MOA_ETOX_SOURCE_2252	MISC	2.0
+tubulin 5 beta	MOA_ETOX_SOURCE_2253	MISC	2.0
+alpha-tubulin 1	MOA_ETOX_SOURCE_2254	MISC	2.0
+tubb4a	MOA_ETOX_SOURCE_2255	MISC	2.0
+tuba1a	MOA_ETOX_SOURCE_2256	MISC	2.0
+alpha-tubulin 6	MOA_ETOX_SOURCE_2257	MISC	2.0
+alpha-tubulin 3	MOA_ETOX_SOURCE_2258	MISC	2.0
+tuba1b	MOA_ETOX_SOURCE_2259	MISC	2.0
+tubulin beta-2b chain	MOA_ETOX_SOURCE_2260	MISC	2.0
+tubulin beta-3 chain	MOA_ETOX_SOURCE_2261	MISC	2.0
+tubb5	MOA_ETOX_SOURCE_2262	MISC	2.0
+tubb6	MOA_ETOX_SOURCE_2263	MISC	2.0
+tubb8	MOA_ETOX_SOURCE_2264	MISC	2.0
+tuba4a	MOA_ETOX_SOURCE_2265	MISC	2.0
+tubulin alpha-1a chain	MOA_ETOX_SOURCE_2266	MISC	2.0
+alpha-tubulin 3c\/d	MOA_ETOX_SOURCE_2267	MISC	2.0
+tubulin beta-2a chain	MOA_ETOX_SOURCE_2268	MISC	2.0
+tubulin alpha-1c chain	MOA_ETOX_SOURCE_2269	MISC	2.0
+tubb1	MOA_ETOX_SOURCE_2270	MISC	2.0
+tubb2	MOA_ETOX_SOURCE_2271	MISC	2.0
+tubb3	MOA_ETOX_SOURCE_2272	MISC	2.0
+tubb4	MOA_ETOX_SOURCE_2273	MISC	2.0
+tubulin beta-6 chain	MOA_ETOX_SOURCE_2274	MISC	2.0
+tubulin alpha-3e chain	MOA_ETOX_SOURCE_2275	MISC	2.0
+tuba3e	MOA_ETOX_SOURCE_2276	MISC	2.0
+tuba3d	MOA_ETOX_SOURCE_2277	MISC	2.0
+tuba6	MOA_ETOX_SOURCE_2278	MISC	2.0
+tuba3	MOA_ETOX_SOURCE_2279	MISC	2.0
+tubulin alpha-3 chain	MOA_ETOX_SOURCE_2280	MISC	2.0
+tubulin beta-2 chain	MOA_ETOX_SOURCE_2281	MISC	2.0
+tubulin beta-5 chain	MOA_ETOX_SOURCE_2282	MISC	2.0
+tubulin beta-iii	MOA_ETOX_SOURCE_2283	MISC	2.0
+tyrosine kinase	MOA_ETOX_SOURCE_2284	MISC	2.0
+hedgehog pathway	MOA_ETOX_SOURCE_2285	MISC	2.0
+human endogenous peptide hormone	MOA_ETOX_SOURCE_2286	MISC	2.0
+interleukin-1	MOA_ETOX_SOURCE_2287	MISC	2.0
+interleukin-13 receptor	MOA_ETOX_SOURCE_2288	MISC	2.0
+interleukin-4 receptor	MOA_ETOX_SOURCE_2289	MISC	2.0
+liver x receptor	MOA_ETOX_SOURCE_2290	MISC	2.0
+lxr	MOA_ETOX_SOURCE_2291	MISC	2.0
+liver x receptor	MOA_ETOX_SOURCE_2292	MISC	2.0
+matrix metalloproteinase	MOA_ETOX_SOURCE_2293	MISC	2.0
+mitogen-activated protein kinase kinase kinase	MOA_ETOX_SOURCE_2294	MISC	2.0
+h\+\/k\+-exchanging atpase	MOA_ETOX_SOURCE_2295	MISC	2.0
+glucuronosyltransferase	MOA_ETOX_SOURCE_2296	MISC	2.0
+target	MOA_ETOX_SOURCE_2297	MISC	2.0
