@@ -14,7 +14,7 @@ lbtr|T034|Laboratory or Test Result|FINDING
 mamm|T015|Mammal|SPECIES
 mbrt|T063|Molecular Biology Research Technique|LBTEST
 mobd|T048|Mental or Behavioral Dysfunction|DISEASE
-orgm|T001|Organism|SECIES
+orgm|T001|Organism|SPECIES
 patf|T046|Pathologic Function|FINDING
 rept|T014|Reptile|SPECIES
 sosy|T184|Sign or Symptom|FINDING
