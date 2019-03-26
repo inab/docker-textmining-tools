@@ -174,4 +174,4 @@ lowest-observed-adverse-effect level	LOAEL_RISK_LEVEL	MISC	10.0
 lowest-observed-adverse-effect-level	LOAEL_RISK_LEVEL	MISC	10.0
 lowest concentration	LOAEL_RISK_LEVEL	MISC	10.0
 dietary administration	ROUTE_OF_ADMINISTRATION	MISC	10.0
-g|mg|kg|lb|ml|dg|ng|mcg|mcl|mg/kg|mg/kg/day|mg/kg/dose|mg/kg/d|g/day|mcmol/g|mg/m	DOSE_UNIT	MISC	25.0
+g|mg|kg|lb|ml|dg|ng|mcg|mcl|mg/kg|mg/kg/day|mg/kg/dose|mg/kg/d|g/day|mcmol/g|mg/m|pg/kg|pmol/kg	DOSE_UNIT	MISC	25.0

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +23,14 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
 
+import edu.stanford.nlp.ie.util.RelationTriple;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreAnnotations.CharacterOffsetBeginAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.CharacterOffsetEndAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.MentionsAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokenBeginAnnotation;
@@ -37,10 +41,15 @@ import edu.stanford.nlp.ling.tokensregex.CoreMapExpressionExtractor;
 import edu.stanford.nlp.ling.tokensregex.Env;
 import edu.stanford.nlp.ling.tokensregex.MatchedExpression;
 import edu.stanford.nlp.ling.tokensregex.TokenSequencePattern;
+import edu.stanford.nlp.naturalli.NaturalLogicAnnotations;
 import edu.stanford.nlp.objectbank.ObjectBank;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.process.PTBEscapingProcessor;
+import edu.stanford.nlp.semgraph.SemanticGraph;
+import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.util.CoreMap;
 import es.bsc.inb.adestagger.model.EntityInstance;
 import es.bsc.inb.adestagger.model.ReferenceValue;
@@ -141,6 +150,37 @@ public class App {
 	
     }
     
+    /**
+     * Generate NER list for Standford Pipeline 
+     * @param propertiesParameters
+	 * @throws IOException 
+     */
+	private static void generateNERList(Properties propertiesParameters) throws IOException {
+		String etox_send_dict_path = "dict/etox_send_dict.txt";
+		String etox_anatomy_dict_path = "dict/etox_anotomy_dict.txt";
+		String etox_moa_dict_path = "dict/etox_moa_dict.txt";
+		String etox_in_life_obs_dict_path = "dict/etox_in-life-observations_dict.txt";
+		String cdi_send_terminology_dict_path = "dict/cdisc_send_dict.txt";
+		
+		String cdisc_send_ner = "ner_list/cdisc_send_ner.txt";
+		generateNERGazzetterWithPriority(cdi_send_terminology_dict_path, cdiscDictionary, cdisc_send_ner, AnnotationUtil.SOURCE_CDISC_SUFFIX,  "MISC", "20.0");
+		
+		String pk_unit_ner = "ner_list/pkunit_ner.txt";
+		generatePKUNITList(cdi_send_terminology_dict_path, cdiscDictionary, pk_unit_ner, AnnotationUtil.SOURCE_CDISC_SUFFIX,  "MISC", "25.0");
+		
+		String etox_send_codelist_ner = "ner_list/etox_send_codelist_ner.txt";
+		generateNERGazzetterWithPriority(etox_send_dict_path, etoxSENDDictionary, etox_send_codelist_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_SEND, "MISC", "2.0");
+		    
+		String etox_anatomy_ner = "ner_list/etox_anatomy_ner.txt";
+		generateNERGazzetterWithPriority(etox_anatomy_dict_path, etoxAnatomyDictionary,etox_anatomy_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_ANATOMY, "MISC", "2.0");
+		    
+		String etox_moa_ner = "ner_list/etox_moa_ner.txt";
+		generateNERGazzetterWithPriority(etox_moa_dict_path, etoxMOADictionary, etox_moa_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA, "MISC", "2.0");
+		    
+		String etox_in_life_obs_ner = "ner_list/etox_in_life_obs_ner.txt";
+		generateNERGazzetterWithPriority(etox_in_life_obs_dict_path, etoxILODictionary, etox_in_life_obs_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO,  "MISC", "15.0");
+	}
+    
     
     /**
 	 * Save a plain text file from the gate document.
@@ -208,10 +248,20 @@ public class App {
 			long startTime = System.currentTimeMillis();
 			gate.Document gateDocument = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
 			String plainText = gateDocument.getContent().getContent(0l, gate.Utils.lengthLong(gateDocument)).toString();
-			Annotation document = new Annotation(plainText.toLowerCase());
-			//String text = "3.7 ml/g/day pepepep 3.7 mg/m pepep 11 mg  pepepep 400-200 MG/KG, 400 - 200 MG/KG, 400 MG/KG, 01, 02, 03 MG/KG and  Microscopic findings, Altered Consistency, all decreasing amount recovered infinity observed normalized by surface area, severity four out of five, liver cell adenoma, mean ventricular rate by electrocardiogram "; 
-			//String text = "therapeutic finding related effect associated pepepe peppepe therapy pepe shows oooo ramification on the rat";
-			//Annotation document = new Annotation(text.toLowerCase());
+			//Annotation document = new Annotation(plainText.toLowerCase());
+			//unidades dosis
+			//String text = "for 23 days iiiiiii on day 84, 98 and 109 peppepe on day 84 peppepe 10, 40 to 160 ppp/eekiki/oo pepepep 10, 40 or 160 ppp/eekiki/oo 120 fffye/kg pepepep 34 fffff/mol ppppp  34 ffffff/g 160 pmol/kg pepep 123344 umol/kg bw pppdpdp 10, 40 or 160 pmol Gd/kg bw pepepe 1234 pg/kg pepeppepepe 3.7 ml/g/day pepepep 3.7 mg/m pepep 11 mg  pepepep 400-200 MG/KG, 400 - 200 MG/KG, 400 MG/KG, 01, 02, 03 MG/KG and  Microscopic findings, Altered Consistency, all decreasing amount recovered infinity observed normalized by surface area, severity four out of five, liver cell adenoma, mean ventricular rate by electrocardiogram "; 
+			//String text = "associated treatment pepe shows oooo ramification on the rat";
+			//String text = "treatment ppppp connected finding associated pepe treatment oooo ramification on the rat,  lalallala lallala lalala associated treatment pepe shows oooo ramification on the rat";
+			//String text = " body weight gain was observed, supectected to be treatment related, on the 20 day of the compound xxx administration, with the dose of 12 ml once a week for a month, also the compound xxx was administrated twice daily.";
+			//String text = " week 8 (day 52 -53), pepepe 1234 pg/kg ";
+			//String text = "Compound related findings are observerd in the Liver with the dose of 1234 PG/KG";
+			/*String text = "group III and IV \n 890 4.3 45 "
+					+ "pipo the second group pppoooopo group 3, 4 and 6 ooooo hight dose group,  pepep groups 1 pepe group 3 4 and 5  pepepe group 3 4 pepepe group II "
+					+ "peppep dose group pepeppe red group pipo control group pepepepepepp ";*/
+			String text = "Both pepepep Females pepe F pepep Female";
+			//Annotation document = new Annotation(text);
+			Annotation document = new Annotation(text.toLowerCase());
 			pipeline.annotate(document);
 			long endTime = System.currentTimeMillis();
 			log.info(" Annotation document execution time  " + (endTime - startTime) + " milliseconds");
@@ -235,7 +285,9 @@ public class App {
 			        }
 			        List<MatchedExpression> matchedExpressionssentence = extractor.extractExpressions(sentence);
 			        for (MatchedExpression me : matchedExpressionssentence) {
+			        	//si el termino entontrado tiene salto de linea ??? se elimina  ?
 			        	String term = me.getText().replaceAll("\n", " ");
+			        	me.getAnnotation().get(TokensAnnotation.class);
 			        	if(!StopWords.stopWordsEn.contains(term)) {
 			        		Integer termBegin = me.getAnnotation().get(CharacterOffsetBeginAnnotation.class);
 					       	Integer termEnd = me.getAnnotation().get(CharacterOffsetEndAnnotation.class);
@@ -243,6 +295,31 @@ public class App {
 			        		annotate(gateDocument , sentence, termBegin, termEnd, term, label, "rule", tokens, null, me);
 			        	}
 			        }
+			        
+			        //depeer.
+					/*
+					for (CoreLabel token: tokens){
+						String word = token.get(TextAnnotation.class);
+						String pos = token.get(PartOfSpeechAnnotation.class);
+						String ner = token.get(NamedEntityTagAnnotation.class);
+						String lemma = token.get(LemmaAnnotation.class);
+						System.out.print(word + "\t" + token.beginPosition() + "\t" + token.endPosition() + "\t" + pos + "\t" + ner + "\t" + lemma + "\n");
+					}*/
+					// this is the parse tree of the current sentence
+					/*Tree tree = sentence.get(TreeAnnotation.class);
+					System.out.print(tree+"\n");*/
+					/*for (Tree subTree : tree.children()) {
+				        System.err.println(subTree.label());
+				    }*/
+					// this is the Stanford dependency graph of the current sentence
+					/*SemanticGraph dependencies = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
+					System.out.print(dependencies+"\n");
+					Collection<RelationTriple> triples = sentence.get(NaturalLogicAnnotations.RelationTriplesAnnotation.class);
+				    // Print the triples
+				    for (RelationTriple triple : triples) {
+				    	System.out.print(triple.confidence + "\t" + triple.subjectLemmaGloss() + "\t" + triple.relationLemmaGloss() + "\t" + triple.objectLemmaGloss() + "\n");
+				    }*/
+			        
 			    }
 			    
 			    java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
@@ -273,9 +350,34 @@ public class App {
 			String source = "";
 			try {
 				FeatureMap features = Factory.newFeatureMap(); 
-				if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX)) {
+				if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_ANATOMY)) {
+					String internal_code_str = label.substring(label.lastIndexOf("_")+1);
+					Integer internal_code = new Integer(internal_code_str);
+					label = label.substring(0, label.lastIndexOf("_"));
 					source = AnnotationUtil.SOURCE_ETOX;
-					label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX, "");
+					label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_ANATOMY, "");
+					findFeatures(etoxAnatomyDictionary, features, internal_code);
+				}else if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA)) {
+					String internal_code_str = label.substring(label.lastIndexOf("_")+1);
+					Integer internal_code = new Integer(internal_code_str);
+					label = label.substring(0, label.lastIndexOf("_"));
+					source = AnnotationUtil.SOURCE_ETOX;
+					label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA, "");
+					findFeatures(etoxMOADictionary, features, internal_code);
+				}else if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO)) {
+					String internal_code_str = label.substring(label.lastIndexOf("_")+1);
+					Integer internal_code = new Integer(internal_code_str);
+					label = label.substring(0, label.lastIndexOf("_"));
+					source = AnnotationUtil.SOURCE_ETOX;
+					label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO, "");
+					findFeatures(etoxILODictionary, features, internal_code);
+				}else if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_SEND)) {
+					String internal_code_str = label.substring(label.lastIndexOf("_")+1);
+					Integer internal_code = new Integer(internal_code_str);
+					label = label.substring(0, label.lastIndexOf("_"));
+					source = AnnotationUtil.SOURCE_ETOX;
+					label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_SEND, "");
+					findFeatures(etoxSENDDictionary, features, internal_code);
 				}else if(label.contains(AnnotationUtil.SOURCE_CDISC_SUFFIX)){
 					String internal_code_str = label.substring(label.lastIndexOf("_")+1);
 					Integer internal_code = new Integer(internal_code_str);
@@ -290,6 +392,9 @@ public class App {
 				features.put("source", source);
 	    		features.put("annotationMethod", annotationMethod);
 	    		features.put("text", term);
+	    		
+	    		
+	    		
 	    		if(label.contains(AnnotationUtil.STUDY_DOMAIN_SUFFIX) || label.contains("SDOMAIN") || label.contains("CLCAT")){
 	    			features.put("study_domain", label);
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
@@ -329,9 +434,24 @@ public class App {
 	    				//toxicolodyReportWitAnnotations.getAnnotations("STUDY TEST NAME(SRTST) CDISC").add(startOff, endOff,  label, features);
 	    				gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN_TESTCD, features);
 	    			}
-	    		}else if(label.equals("DURATION_DOSIS")) {
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "DURATION_DOSIS", features);
-	    		}else if(label.endsWith("_SEX")|| label.contains("SEXPOP")) {
+	    		}else if(label.equals("DOSE_QUANTITY")) {
+	    			List<CoreLabel> tokens_i = me.getAnnotation().get(TokensAnnotation.class);
+	    			for (CoreLabel coreLabel : tokens_i) {
+						if(coreLabel.get(NamedEntityTagAnnotation.class).contains("DOSE_UNIT")) {
+							features.put("dose_unit", coreLabel.get(TextAnnotation.class));
+						}
+					}
+	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), label, features);
+	    		}else if(label.equals("STUDY_DAY_FINDING")) {
+	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "STUDY_DAY_FINDING", features);
+	    		}else if(label.equals("DOSE_DURATION")) {
+	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "DOSE_DURATION", features);
+	    		}else if(label.equals("DOSE_FREQUENCY")) {
+	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "DOSE_FREQUENCY", features);
+	    		}else if(label.endsWith("_SEX") || label.contains("SEXPOP") && !label.contains("SEXPOP_BOTH")) {
+	    			if(term.length()==1) {
+	    				features.put("abrev", "true");
+	    			}
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SEX, features);
 				}else if(label.contains("ROUTE")) {
 					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.ROUTE_OF_ADMINISTRATION, features);
@@ -346,19 +466,18 @@ public class App {
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "SPECIES", features);
 	    		}else if(label.contains("STATICAL_")) {
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STATISTICAL_SIGNIFICANCE, features);
-	    		}else if(label.equals("DOSE")) {
-	    			List<CoreLabel> tokens_i = me.getAnnotation().get(TokensAnnotation.class);
-	    			for (CoreLabel coreLabel : tokens_i) {
-						if(coreLabel.get(NamedEntityTagAnnotation.class).contains("DOSE_UNIT")) {
-							features.put("dose_unit", coreLabel.get(TextAnnotation.class));
-						}
-					}
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.DOSE, features);
 	    		}else if(label.contains("PKUNIT")) {
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "DOSE", features);
 	    		}else if(label.contains("BODSYS")) {
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SPECIMEN, features);//BODYSYS SPECIMEN IN TEMPLATE
 	    		}else if(label.contains("GROUP")) {
+	    			List<CoreLabel> tokens_i = me.getAnnotation().get(TokensAnnotation.class);
+	    			for (CoreLabel coreLabel : tokens_i) {
+	    				String token = coreLabel.get(TextAnnotation.class);
+						if(!token.contains("group")) {
+							features.put("group_qualified_name", features.get("group_qualified_name")==null?token:features.get("group_qualified_name")+ " " + token);
+						}
+					}
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.GROUP, features);
 	    		}else if(label.contains("FXFINDRS") || label.contains("NONNEO") || label.contains("NEOPLASM") || label.contains("NEOPLASTIC FINDING TYPE") 
 	    				|| label.contains("CSTATE")) {
@@ -407,44 +526,7 @@ public class App {
 	}
 
 
-	/**
-     * Generate NER list for Standford Pipeline 
-     * @param propertiesParameters
-	 * @throws IOException 
-     */
-	private static void generateNERList(Properties propertiesParameters) throws IOException {
-		//Controlled terminology dictionaries
-	    /*String etox_send_dict = propertiesParameters.getProperty("etox_send_dict");
-		String etox_anatomy_dict = propertiesParameters.getProperty("etox_anatomy_dict");
-		String etox_moa_dict = propertiesParameters.getProperty("etox_moa_dict");
-		String etox_in_life_obs_dict = propertiesParameters.getProperty("etox_in_life_obs_dict");
-		String cdi_send_terminology_dict = propertiesParameters.getProperty("cdis_send_terminology_dict");
-	    */
-
-		String etox_send_dict_path = "dict/etox_send_dict.txt";
-		String etox_anatomy_dict_path = "dict/etox_anotomy_dict.txt";
-		String etox_moa_dict_path = "dict/etox_moa_dict.txt";
-		String etox_in_life_obs_dict_path = "dict/etox_in-life-observations_dict.txt";
-		String cdi_send_terminology_dict_path = "dict/cdisc_send_dict.txt";
-		
-		String cdisc_send_ner = "ner_list/cdisc_send_ner.txt";
-		generateNERGazzetterWithPriority(cdi_send_terminology_dict_path, cdiscDictionary, cdisc_send_ner, AnnotationUtil.SOURCE_CDISC_SUFFIX,  "MISC", "20.0");
-		
-		String pk_unit_ner = "ner_list/pkunit_ner.txt";
-		generatePKUNITList(cdi_send_terminology_dict_path, cdiscDictionary, pk_unit_ner, AnnotationUtil.SOURCE_CDISC_SUFFIX,  "MISC", "25.0");
-		
-		String etox_send_codelist_ner = "ner_list/etox_send_codelist_ner.txt";
-		generateNERGazzetterWithPriority(etox_send_dict_path, etoxSENDDictionary, etox_send_codelist_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX, "MISC", "2.0");
-		    
-		String etox_anatomy_ner = "ner_list/etox_anatomy_ner.txt";
-		generateNERGazzetterWithPriority(etox_anatomy_dict_path, etoxAnatomyDictionary,etox_anatomy_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX, "MISC", "2.0");
-		    
-		String etox_moa_ner = "ner_list/etox_moa_ner.txt";
-		generateNERGazzetterWithPriority(etox_moa_dict_path, etoxMOADictionary, etox_moa_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX, "MISC", "2.0");
-		    
-		String etox_in_life_obs_ner = "ner_list/etox_in_life_obs_ner.txt";
-		generateNERGazzetterWithPriority(etox_in_life_obs_dict_path, etoxILODictionary, etox_in_life_obs_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX,  "MISC", "15.0");
-	}
+	
 	
 	/**
 	 * PKUNIT List generation

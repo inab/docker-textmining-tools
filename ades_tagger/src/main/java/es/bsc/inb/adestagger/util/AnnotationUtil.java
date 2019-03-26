@@ -16,7 +16,10 @@ public class AnnotationUtil {
 	
 	//SOURCES
 	//SUFFIX
-	public static final String SOURCE_ETOX_SUFFIX = "_ETOX_SOURCE";
+	public static final String SOURCE_ETOX_SUFFIX_ANATOMY = "_ETOX_SOURCE_AN";
+	public static final String SOURCE_ETOX_SUFFIX_ILO = "_ETOX_SOURCE_ILO";
+	public static final String SOURCE_ETOX_SUFFIX_SEND = "_ETOX_SOURCE_SEND";
+	public static final String SOURCE_ETOX_SUFFIX_MOA = "_ETOX_SOURCE_MOA";
 	public static final String SOURCE_MANUAL_SUFFIX = "_MANUAL_SOURCE";
 	public static final String SOURCE_CDISC_SUFFIX = "_CDISC_SOURCE";
 	
