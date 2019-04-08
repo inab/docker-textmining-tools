@@ -118,9 +118,13 @@ class Wrapper {
 		File inputDirectory = new File(inputDirectoryPath);
 		File[] files =  inputDirectory.listFiles();
 		for (File file : files) {
-			if(file.getName().endsWith(".xml")){
+			if(file.getName().endsWith(".xml")  || file.getName().endsWith(".txt")){
 				log.info("Wrapper::annotateGateDocuments :: processing file : " + file.getAbsolutePath());
-				File outputFile = new File(outputDirectoryPath + File.separator + file.getName());
+				String fileOutPutName = file.getName();
+				if(fileOutPutName.endsWith(".txt")) {
+					fileOutPutName = fileOutPutName.replace(".txt", ".xml");
+				}
+				File outputFile = new File(outputDirectoryPath + File.separator + fileOutPutName);
 				annotateGateDocuemt(file, outputFile, linnaeusOutput);
 			}
 		}
@@ -153,7 +157,7 @@ class Wrapper {
 					    features.put("source", source);
 						features.put("text", text);
 						features.put("ncbi", ncbi_map);
-						toxicolodyReportWitAnnotations.getAnnotations().add(startOff, endOff, "SPECIES", features);
+						toxicolodyReportWitAnnotations.getAnnotations("BSC").add(startOff, endOff, "SPECIES", features);
 					}
 				}
 			    br.close();
@@ -192,7 +196,7 @@ class Wrapper {
 			}
 		    File[] files =  inputDirectory.listFiles();
 			for (File file : files) {
-				if(file.getName().endsWith(".xml")){
+				if(file.getName().endsWith(".xml")  || file.getName().endsWith(".txt")){
 					try {
 						log.info("Wrapper::generatePlainText :: processing file : " + file.getAbsolutePath());
 						gate.Document toxicolodyReportWitAnnotations = Factory.newDocument(file.toURI().toURL(), "UTF-8");

@@ -33,17 +33,18 @@ Robert Leaman and Zhiyong Lu, Automated Disease Normalization with Low Rank Appr
 
 Build and run the docker individually
 	
+	# To build the docker, just go into the linnaeus-gate-wrapper folder and execute
 	docker build -t dnorm-gate-wrapper .
-	
-
-	
+	#To run the docker, just set the input_folder and the output
 	mkdir ${PWD}/dnorm_output; docker run --rm -u $UID -v ${PWD}/input_folder:/in:ro -v ${PWD}/dnorm_output:/out:rw dnorm-gate-wrapper dnorm-gate-wrapper -i /in -o /out
 	
 		
 To parameters:
 <p>
--i input folder with the documents to annotated
-</p><p>-o output folder with the documents annotated in gate format.
+-i input folder with the documents to annotated. The documents could be plain txt or xml gate documents.
+</p>
+<p>
+-o output folder with the documents annotated in gate xml format.
 </p>
 
 		

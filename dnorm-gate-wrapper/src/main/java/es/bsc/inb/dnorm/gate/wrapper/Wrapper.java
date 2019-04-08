@@ -135,10 +135,14 @@ class Wrapper {
 		File inputDirectory = new File(inputDirectoryPath);
 		File[] files =  inputDirectory.listFiles();
 		for (File file : files) {
-			if(file.getName().endsWith(".xml")){
+			if(file.getName().endsWith(".xml")  || file.getName().endsWith(".txt")){
 				log.info("Wrapper::annotateGateDocuments :: processing file : " + file.getAbsolutePath());
-				File outputFile = new File(outputDirectoryPath + File.separator + file.getName());
-				annotateGateDocuemt(file, outputFile, taggedDirectory + File.separator + file.getName().replace(".xml", ".txt.dat"));
+				String fileOutPutName = file.getName();
+				if(fileOutPutName.endsWith(".txt")) {
+					fileOutPutName = fileOutPutName.replace(".txt", ".xml");
+				}
+				File outputFile = new File(outputDirectoryPath + File.separator + fileOutPutName);
+				annotateGateDocuemt(file, outputFile, taggedDirectory + File.separator + file.getName() + ".txt.dat");
 			}
 		}
 		log.info("Wrapper::annotateGateDocuments :: END ");
@@ -212,12 +216,13 @@ class Wrapper {
 			}
 		    File[] files =  inputDirectory.listFiles();
 			for (File file : files) {
-				if(file.getName().endsWith(".xml")){
+				if(file.getName().endsWith(".xml")  || file.getName().endsWith(".txt")){
 					try {
 						log.info("Wrapper::processTagger :: processing file : " + file.getAbsolutePath());
 						gate.Document toxicolodyReportWitAnnotations = Factory.newDocument(file.toURI().toURL(), "UTF-8");
 						String plainText = toxicolodyReportWitAnnotations.getContent().getContent(0l, gate.Utils.lengthLong(toxicolodyReportWitAnnotations)).toString();
-						String plainTextPath = tmpWordDir + File.separator + file.getName().replace(".xml", ".txt");
+						//String plainTextPath = tmpWordDir + File.separator + file.getName().replace(".xml", ".txt");
+						String plainTextPath = tmpWordDir + File.separator + file.getName()+".txt";
 						plainText = plainText.replaceAll("\t", " ").replaceAll("\n", " ").replaceAll("\r", " ");
 						plainText = file.getName()+"\t"+plainText;
 						createTxtFile(plainTextPath, plainText);
