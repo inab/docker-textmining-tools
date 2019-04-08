@@ -175,7 +175,7 @@ class Wrapper {
 							log.warn("Wrapper: annotateGateDocument :: cross referencen different to mesh and omim ");
 						}
 					}
-					toxicolodyReportWitAnnotations.getAnnotations().add(startOff, endOff, "DISEASE", features);
+					toxicolodyReportWitAnnotations.getAnnotations("BSC").add(startOff, endOff, "FINDING", features);
 				}
 			    java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
 				out.write(toxicolodyReportWitAnnotations.toXml());
