@@ -1,22 +1,24 @@
 amph|T011|Amphibian|SPECIES
+vtbt|T010|Vertebrate|SPECIES
+rept|T014|Reptile|SPECIES
+orgm|T001|Organism|SPECIES
+mamm|T015|Mammal|SPECIES
 #anim|T008|Animal|SPECIES --> tag words like animal, animals, showed .... 
 #blor|T029|Body Location or Region|ANATOMY --> tag words like Location, hepatic  
 bpoc|T023|Body Part, Organ, or Organ Component|ANATOMY
-diap|T060|Diagnostic Procedure|LBTEST
-dsyn|T047|Disease or Syndrome|DISEASE
 emst|T018|Embryonic Structure|ANATOMY
 ffas|T021|Fully Formed Anatomical Structure|ANATOMY
+tisu|T024|Tissue|SPECIMEN
 fndg|T033|Finding|FINDING
-grup|T096|Group|GROUP
-inpo|T037|Injury or Poisoning|FINDING
-lbpr|T059|Laboratory Procedure|LBTEST
 lbtr|T034|Laboratory or Test Result|FINDING
-mamm|T015|Mammal|SPECIES
-mbrt|T063|Molecular Biology Research Technique|LBTEST
-mobd|T048|Mental or Behavioral Dysfunction|DISEASE
-orgm|T001|Organism|SPECIES
+inpo|T037|Injury or Poisoning|FINDING
 patf|T046|Pathologic Function|FINDING
-rept|T014|Reptile|SPECIES
 sosy|T184|Sign or Symptom|FINDING
-tisu|T024|Tissue|ANATOMY
-vtbt|T010|Vertebrate|SPECIES
+dsyn|T047|Disease or Syndrome|FINDING
+mobd|T048|Mental or Behavioral Dysfunction|FINDING
+diap|T060|Diagnostic Procedure|LBTEST
+mbrt|T063|Molecular Biology Research Technique|LBTEST
+lbpr|T059|Laboratory Procedure|LBTEST
+grup|T096|Group|GROUP
+
+
