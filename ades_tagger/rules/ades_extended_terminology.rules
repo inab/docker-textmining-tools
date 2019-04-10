@@ -89,3 +89,7 @@ ENV.defaults["stage"] = 4
 { (([{ word:/group[s]*/; tag:/NN.*/}] ([{ner:NUMBER } | {word::IS_NUM} | {word:/^[mdclxvi]+$/}] [{ word:$DOSE_SEP }])* ([{ner:NUMBER } | {word::IS_NUM} | {word:/^[mdclxvi]+$/}]) ) ) => "GROUP" }
 //ojo revisar el NN 
 { ((  [{tag:/JJ.*|NN.*/} ]  [{ word:/group[s]*/; tag:/NN.*/}]  ) ) => "GROUP" }
+
+#SEVERITY
+//{ (( [{ word:/severity/}]  ) ) => "SEVERITY" }
+

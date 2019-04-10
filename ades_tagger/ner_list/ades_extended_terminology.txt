@@ -154,8 +154,8 @@ ecg	ECG_DOMAIN	MISC	10.0
 electrocardiographic	ECG_DOMAIN	MISC	10.0
 laboratory findings	LABORATORY_FINDINGS_DOMAIN	MISC	10.0
 vital signs	VITAL_SIGNS_DOMAIN	MISC	10.0
-male|males|masculine|masculine|macho	MALE_SEX	MISC	10.0
-female|females|feminine|feminines	FEMALE_SEX	MISC	10.0
+masculine|macho|machos	MALE_SEX	MISC	10.0
+feminine|feminines	FEMALE_SEX	MISC	10.0
 noel	NOEL_RISK_LEVEL	MISC	10.0
 no observed effect level	NOEL_RISK_LEVEL	MISC	10.0
 no-observed-effect level	NOEL_RISK_LEVEL	MISC	10.0
