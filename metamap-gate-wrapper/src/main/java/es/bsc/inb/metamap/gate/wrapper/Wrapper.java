@@ -165,7 +165,7 @@ class Wrapper {
 		    String line;
 		    StringJoiner joiner = new StringJoiner(",");
 		    while ((line = br.readLine()) != null) {
-		    	if(!line.startsWith("#")) {
+		    	if(!line.startsWith("#") && !line.trim().equals("")) {
 		    		String[] data = line.split("\\|");
 			    	if(data.length==4) {
 			    		semanticTypesMap.put(data[0], data[3]);
@@ -196,7 +196,6 @@ class Wrapper {
 			for (File file : files) {
 				if(file.getName().endsWith(".xml")){
 					try {
-						log.info("Wrapper::processTagger :: processing file : " + file.getAbsolutePath());
 						System.out.println("Wrapper::processTagger :: processing file : " + file.getAbsolutePath());
 						File outputGATEFile = new File (outputDirectoryPath +  File.separator + file.getName());
 						executeMetaMapTagger(metaMapCongroller, file, outputGATEFile);
@@ -262,9 +261,6 @@ class Wrapper {
      * @throws IOException
      */
     public static SerialAnalyserController init(String pluginDirectory,  String semanticTypes,String server, String port) throws MalformedURLException, GateException {
-    	//Plugin anniePlugin = new Plugin.Maven("uk.ac.gate.plugins", "annie", "8.5"); 
-    	//Gate.getCreoleRegister().registerPlugin(anniePlugin); 
-    	
     	Gate.getCreoleRegister().registerPlugin(new Plugin.Directory(new File(pluginDirectory+"ANNIE/").toURI().toURL()));
     	Gate.getCreoleRegister().registerPlugin(new Plugin.Directory(new File(pluginDirectory+"Tagger_MetaMap/").toURI().toURL()));
     	FeatureMap params = Factory.newFeatureMap(); 
@@ -301,11 +297,17 @@ class Wrapper {
 	  	corpus.add(gateDocument);
 	  	metaMapCongroller.setCorpus(corpus); 
 	  	//Execute in corpus of one document
-	  	metaMapCongroller.execute();
-	  	gate.Document annotatedGateDocument = corpus.get(0);
-	  	java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
-		out.write(annotatedGateDocument.toXml());
-		out.close();
+	  	try {
+	  		metaMapCongroller.execute();
+	  		gate.Document annotatedGateDocument = corpus.get(0);
+		  	java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
+			out.write(annotatedGateDocument.toXml());
+			out.close();
+	  	}catch(Exception e) {
+	  		
+	  	}
+	  	
+	  	
 
 	} 
 

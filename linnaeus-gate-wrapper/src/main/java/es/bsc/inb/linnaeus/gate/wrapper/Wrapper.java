@@ -82,7 +82,6 @@ class Wrapper {
 			log.error("Wrapper::generatePlainText :: Gate Exception  ", e);
 			System.exit(1);
 		}
- 
     	try {
     		String tmpWorkDir = outputFilePath + File.separator + "linnaeus_tmp";
             generatePlainText(inputFilePath, tmpWorkDir);
@@ -93,7 +92,6 @@ class Wrapper {
     		log.error("Exception ocurred see the log for more information", e);
     		System.exit(1);
     	}
-    	
     }   
     
    
@@ -152,7 +150,7 @@ class Wrapper {
 						String source = "LINNEAUS";
 					   	Long startOff = new Long(data[2]);
 			    		Long endOff =  new Long(data[3]);
-					   	String text = data[3].toLowerCase();
+					   	String text = data[4];
 						FeatureMap features = gate.Factory.newFeatureMap();
 					    features.put("source", source);
 						features.put("text", text);

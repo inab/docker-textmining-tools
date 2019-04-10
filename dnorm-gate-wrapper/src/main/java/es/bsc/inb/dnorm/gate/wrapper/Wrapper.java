@@ -9,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -118,10 +119,10 @@ class Wrapper {
     		workdirPath = "";
 		}
     	if(configFile==null) {
-    		configFile=workdirPath+"/config/banner_NCBIDisease_TEST.xml";
+    		configFile=workdirPath+"config/banner_NCBIDisease_TEST.xml";
     	}
     	System.out.println("WorkDirectory : " + workdirPath);
-    	String[] args = {configFile, workdirPath+"/data/CTD_diseases.tsv", workdirPath+"/output/simmatrix_NCBIDisease_e4.bin", inputFile , outputFile};
+    	String[] args = {configFile, workdirPath+"data/CTD_diseases.tsv", workdirPath+"output/simmatrix_NCBIDisease_e4.bin", inputFile , outputFile};
 		RunDNorm.main(args);
 	}
 
@@ -165,7 +166,7 @@ class Wrapper {
 			    	String source = "DNORM";
 					Long startOff = new Long(data[1]);
 					Long endOff =  new Long(data[2]);
-					String text = data[3].toLowerCase();
+					String text = data[3];
 					FeatureMap features = gate.Factory.newFeatureMap();
 					features.put("source", source);
 					features.put("text", text);
@@ -223,7 +224,7 @@ class Wrapper {
 						String plainText = toxicolodyReportWitAnnotations.getContent().getContent(0l, gate.Utils.lengthLong(toxicolodyReportWitAnnotations)).toString();
 						//String plainTextPath = tmpWordDir + File.separator + file.getName().replace(".xml", ".txt");
 						String plainTextPath = tmpWordDir + File.separator + file.getName()+".txt";
-						plainText = plainText.replaceAll("\t", " ").replaceAll("\n", " ").replaceAll("\r", " ");
+						plainText = plainText.replaceAll("\t", " ").replaceAll("\n", " ").replaceAll("\r", " ").replaceAll("\\p{C}", "?");;
 						plainText = file.getName()+"\t"+plainText;
 						createTxtFile(plainTextPath, plainText);
 						executeDnormTagger(plainTextPath, plainTextPath+".dat", workdirPath, configFile);
@@ -237,6 +238,8 @@ class Wrapper {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
 					} catch (IOException e) {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
+					}catch (Exception e) {
+						log.error("Wrapper::processTagger :: uncontrolled error with document " + file.getAbsolutePath(), e);
 					}
 				}
 			}
@@ -254,7 +257,7 @@ class Wrapper {
 	private static void createTxtFile(String path, String plainText) throws FileNotFoundException, IOException {
 		File fout = new File(path);
 		FileOutputStream fos = new FileOutputStream(fout);
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos,StandardCharsets.UTF_8));
 		bw.write(plainText);
 		bw.flush();
 		bw.close();
