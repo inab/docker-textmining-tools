@@ -1,12 +1,15 @@
-On development
+Metamap-Gate-Wrapper
+========================
 
-Project
-=================================
+<b>This component is a Gate wrapper of the Metamap application.  Could be easily downloaded and run as a docker container.
+</b> 
 
-metamap-gate-wrapper is a system that can be build and run as a docker container, which objective is to easily map the UMLS Terminology to a Gate file using the METAMAP API and the Tagger_MetaMap Gate plugin. 
+Metamap-gate-wrapper is a system that can be build and run as a docker container, which objective is to easily map the UMLS Terminology to a Gate file using the METAMAP API and the Tagger_MetaMap Gate plugin.
+ 
 
 MetaMap 
 =================================
+
 
 MetaMap, from the National Library of Medicine (NLM), maps biomedical text to the UMLS Metathesaurus and allows Metathesaurus concepts to be discovered in a text corpus.
 
@@ -28,6 +31,12 @@ Requiered:
 A Metamap Server running in the host machine. 
 
 It's recomended that the server uses the default port 8066. 
+
+For more information go to the Metamap oficial page: 
+https://metamap.nlm.nih.gov/
+
+Tagger_MetaMap Gate plugin:
+https://gate.ac.uk/gate/plugins/Tagger_MetaMap/
 
 Parameters 
 =================================
@@ -56,16 +65,14 @@ https://metamap.nlm.nih.gov/Docs/SemanticTypes_2018AB.txt
 
 With this configuration, for example, Disease or Syndrome will be retrieve and the resulting terms will be mapped as DISEASE Annotation.
 
+These tool was build with specific purposes, and not all the Metamap parameters are mapped to the Metamap server.  These will be done in the future, for now default parameters are used.
+
 Docker Build and Running  
 =================================
 
-To build the docker, in the project folder: 
+Build and run the docker individually
 
-docker build -t metamap-gate-wrapper .
-
-To Run the docker:
-
-docker run -u $UID --rm -ti --network host -v $PWD/input_gate_directory:/in:ro -v $PWD/metamap_output:/out metamap-gate-wrapper metamap-gate-wrapper -i /in -o /out 
-
-TODO add semantic types as parameter
-
+	# To build the docker, just go into the linnaeus-gate-wrapper folder and execute
+	docker build -t metamap-gate-wrapper .
+	#To run the docker, just set the input_folder and the output
+	mkdir metamap_output;docker run -u $UID --rm -ti --network host -v $PWD/dnorm_output:/in:ro -v $PWD/metamap_output:/out metamap-gate-wrapper metamap-gate-wrapper -i /in -o /out

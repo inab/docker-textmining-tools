@@ -39,7 +39,7 @@ Build and run the docker individually
 	mkdir ${PWD}/dnorm_output; docker run --rm -u $UID -v ${PWD}/input_folder:/in:ro -v ${PWD}/dnorm_output:/out:rw dnorm-gate-wrapper dnorm-gate-wrapper -i /in -o /out
 	
 		
-To parameters:
+Parameters:
 <p>
 -i input folder with the documents to annotated. The documents could be plain txt or xml gate documents.
 </p>
@@ -47,5 +47,6 @@ To parameters:
 -o output folder with the documents annotated in gate xml format.
 </p>
 
+<p>If you want, just replace "input_folder" for your directory that contains the files, and execute. You can also replace the name of the output folder "dnorm_output"</p>
 		
 		

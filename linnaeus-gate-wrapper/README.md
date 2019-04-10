@@ -35,5 +35,5 @@ To parameters:
 -o output folder with the documents annotated in gate format.
 </p>
 
-		
+<p>If you want, just replace "input_folder" for your directory that contains the files, and execute. You can also replace the name of the output folder "linnaeus_output"</p>		
 		

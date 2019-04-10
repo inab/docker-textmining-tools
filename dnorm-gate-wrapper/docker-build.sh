@@ -1,7 +1,7 @@
 #!/bin/sh
 
 BASEDIR=/usr/local
-DNORM_HOME="${BASEDIR}/share/dnorm"
+DNORM_HOME="${BASEDIR}/share/dnorm/"
 
 DNORM_GATE_WRAPPER_VERSION=1.0
 
