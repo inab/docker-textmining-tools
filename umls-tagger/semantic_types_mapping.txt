@@ -1,0 +1,40 @@
+#[SOURCE]
+#MDR
+#SNOMEDCT_VET
+#[SEMANTIC_TYPES]
+#This describes the mapping between the UMLS classification of terms and the Labels that the user want to obtain.
+#Each line is a mapping; separated by |.
+#The first element is the UMLS semantic type, the second is only a description of the semantic type from umls; and the 
+#third one is the LABEL that we are going to obtain if a term is reached.
+#SPECIES
+T011|Amphibian|SPECIES
+T010|Vertebrate|SPECIES
+T014|Reptile|SPECIES
+T001|Organism|SPECIES
+T015|Mammal|SPECIES
+T013|Fish|SPECIES
+T005|Virus|SPECIES
+T012|Bird|SPECIES
+#ANATOMY
+T023|Body Part, Organ, or Organ Component|ANATOMY
+T018|Embryonic Structure|ANATOMY
+T021|Fully Formed Anatomical Structure|ANATOMY
+T017|Anatomical Structure|ANATOMY
+T024|Tissue|SPECIMEN
+#FINDINGS
+T033|Finding|FINDING
+T034|Laboratory or Test Result|FINDING
+T037|Injury or Poisoning|FINDING
+T046|Pathologic Function|FINDING
+T184|Sign or Symptom|FINDING
+T047|Disease or Syndrome|FINDING
+T048|Mental or Behavioral Dysfunction|FINDING
+T191|Neoplastic Process|FINDING
+T019|Congenital Abnormality|FINDING
+T020|Acquired Abnormality|FINDING
+T190|Anatomical Abnormality|FINDING
+#TEST
+T060|Diagnostic Procedure|LBTEST
+T063|Molecular Biology Research Technique|LBTEST
+T059|Laboratory Procedure|LBTEST
+#T096|Group|GROUP
