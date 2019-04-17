@@ -15,6 +15,9 @@ compound-related effects	TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
 compound- related	TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
 compound-related	TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
 compound related findings	TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
+compound related finding	TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
+compound-related findings	TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
+compound-related finding	TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
 finding	TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
 findings	TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
 related effect	TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
@@ -68,6 +71,7 @@ depression in body weight gain	BODY_WEIGHT_GAIN_DOMAIN	MISC	10.0
 clinical	CLINICAL_DOMAIN	MISC	10.0
 clinical study	CLINICAL_DOMAIN	MISC	10.0
 clinical findings	CLINICAL_DOMAIN	MISC	10.0
+clinical observations	CLINICAL_DOMAIN	MISC	10.0
 general observation	CLINICAL_DOMAIN	MISC	10.0
 cardiovascular	CARDIOVASCULAR_DOMAIN	MISC	10.0
 heart condition	CARDIOVASCULAR_DOMAIN	MISC	10.0
@@ -175,3 +179,4 @@ lowest-observed-adverse-effect-level	LOAEL_RISK_LEVEL	MISC	10.0
 lowest concentration	LOAEL_RISK_LEVEL	MISC	10.0
 dietary administration	ROUTE_OF_ADMINISTRATION	MISC	10.0
 g|mg|kg|lb|ml|dg|ng|mcg|mcl|mg/kg|mg/kg/day|mg/kg/dose|mg/kg/d|g/day|mcmol/g|mg/m|pg/kg|pmol/kg	DOSE_UNIT	MISC	25.0
+never|neither|nobody|no|none|nor|nothing|nowhere|not|rather	NEGATION_KEYWORD	MISC	25.0 

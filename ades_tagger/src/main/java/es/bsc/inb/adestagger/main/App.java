@@ -2,10 +2,12 @@ package es.bsc.inb.adestagger.main;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,16 +46,27 @@ import es.bsc.inb.adestagger.model.EntityInstance;
 import es.bsc.inb.adestagger.model.ReferenceValue;
 import es.bsc.inb.adestagger.util.AnnotationUtil;
 import es.bsc.inb.adestagger.util.StopWords;
+import gate.Corpus;
 import gate.Document;
 import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
+import gate.LanguageAnalyser;
+import gate.ProcessingResource;
+import gate.creole.Plugin;
 import gate.creole.ResourceInstantiationException;
+import gate.creole.SerialAnalyserController;
+import gate.persist.SerialDataStore;
+import gate.util.ExtensionFileFilter;
 import gate.util.GateException;
 import gate.util.InvalidOffsetException;
 
 /**
  * Adverse Drug Events terminology tagger.
+ * Tag information of preclinical and clinical study reports regarding to the detection of treatment-related findings, or adverse effect. 
+ * Labels:
+ * STUDY REPORTS
+ * STUDY TESTCD
  * 
  * @author jcorvi
  *
@@ -130,16 +143,116 @@ public class App {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        try {
-			processTagger(inputFilePath, outputFilePath);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+       
+			try {
+				processTagger(inputFilePath, outputFilePath);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//processJapeRules(inputFilePath, outputFilePath);
+			
+		
 	
     }
     
-    /**
+    private static void processJapeRules(String inputDirectory, String outputDirectory) throws GateException, IOException {
+    	Corpus corpus = Factory.newCorpus("My XML Files"); 
+    	File directory = new File(inputDirectory); 
+    	ExtensionFileFilter filter = new ExtensionFileFilter("XML files", "xml"); 
+    	URL url = directory.toURL(); 
+    	corpus.populate(url, filter, null, false);
+    	
+    	
+    	
+    	
+    	Plugin anniePlugin = new Plugin.Maven("uk.ac.gate.plugins", "annie", "8.5"); 
+    	  Gate.getCreoleRegister().registerPlugin(anniePlugin); 
+    	  // create a serial analyser controller to run ANNIE with 
+    	  SerialAnalyserController annieController =  (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController",  
+    	      Factory.newFeatureMap(), 
+    	       Factory.newFeatureMap(), "ANNIE"); 
+    	   
+    	  // load each PR as defined in ANNIEConstants 
+    	  // Note this code is for demonstration purposes only, 
+    	  // in practice if you want to load the ANNIE app you 
+    	  // should use the PersistenceManager as shown at the 
+    	  // start of this chapter 
+    	  
+    	   String[] PR_NAMES = {
+    			       "gate.creole.annotdelete.AnnotationDeletePR",
+    			      "gate.creole.tokeniser.DefaultTokeniser",
+    			      "gate.creole.gazetteer.DefaultGazetteer",
+    			     "gate.creole.splitter.SentenceSplitter",
+    			    "gate.creole.POSTagger",
+    			     "gate.creole.ANNIETransducer",
+    			    "gate.creole.orthomatcher.OrthoMatcher"
+    			  };
+    	  
+    	  for(int i = 0; i < PR_NAMES.length; i++) { 
+    	    // use default parameters 
+    	    FeatureMap params = Factory.newFeatureMap(); 
+    	    ProcessingResource pr = (ProcessingResource) 
+    	        Factory.createResource(PR_NAMES[i], 
+    	                               params); 
+    	    // add the PR to the pipeline controller 
+    	    annieController.add(pr); 
+    	  } // for each ANNIE PR 
+    	  
+    	  /*Gate.getCreoleRegister().registerPlugin(new Plugin.Maven( 
+    			 "uk.ac.gate.plugins", "tagger-numbers", "8.5")); 
+    	  Gate.getCreoleRegister().registerPlugin(new Plugin.Maven( 
+    				 "uk.ac.gate.plugins", "tagger-measurements", "8.5"));
+    	  
+    	  ProcessingResource numbers = (ProcessingResource) 
+    	  Factory.createResource("gate.creole.numbers.NumbersTagger");
+    	  annieController.add(numbers);
+    	  ProcessingResource measurements = (ProcessingResource) 
+    	  Factory.createResource("gate.creole.measurements.MeasurementsTagger");
+    	  
+    	  annieController.add(measurements);*/
+    	  
+    	  
+    	  // Tell ANNIE’s controller about the corpus you want to run on 
+    	  annieController.setCorpus(corpus); 
+    	  
+    	  
+    	  FeatureMap params = Factory.newFeatureMap(); 
+    	  try {
+    		params.put("listsURL", new File("/home/jcorvi/eTRANSAFE_DATA/dictionaries/lists.def").toURL());
+    	} catch (MalformedURLException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	  params.put("gazetteerFeatureSeparator", "\t");
+    	  ProcessingResource treatment_related_finding_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params); 
+    	  annieController.add(treatment_related_finding_gazetter);
+    	  // Run ANNIE 
+    	  annieController.execute();
+    	  
+    	  /*try {
+    		LanguageAnalyser jape = (LanguageAnalyser)gate.Factory.createResource(
+    		          "gate.creole.Transducer", gate.Utils.featureMap(
+    		              "grammarURL", new File("/home/jcorvi/eTRANSAFE_DATA/jape_rules/STUDY_DOMAIN.jape").toURI().toURL(),
+    		              "encoding", "UTF-8"));
+    	} catch (MalformedURLException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}*/
+    	
+    	for (Document  document : corpus) {
+    		java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(new File(outputDirectory + File.separator +document.getName()), false)));
+		    out.write(document.toXml());
+		    out.close();
+		}
+    	 
+    	System.out.println("End process");
+    	  
+		
+	}
+
+	/**
      * Generate NER list for Standford Pipeline 
      * @param propertiesParameters
 	 * @throws IOException 
@@ -154,21 +267,19 @@ public class App {
 		String cdisc_send_ner = "ner_list/cdisc_send_ner.txt";
 		generateNERGazzetterWithPriority(cdi_send_terminology_dict_path, cdiscDictionary, cdisc_send_ner, AnnotationUtil.SOURCE_CDISC_SUFFIX,  "MISC", "20.0");
 		
-		//y ojo con generar nuevamente el diccionario ...
 		String pk_unit_ner = "ner_list/pkunit_ner.txt";
 		generatePKUNITList(cdi_send_terminology_dict_path, cdiscDictionary, pk_unit_ner, AnnotationUtil.SOURCE_CDISC_SUFFIX,  "MISC", "25.0");
 		
-		//no esta andando 579 
 		String etox_send_codelist_ner = "ner_list/etox_send_codelist_ner.txt";
 		generateNERGazzetterWithPriority(etox_send_dict_path, etoxSENDDictionary, etox_send_codelist_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_SEND, "MISC", "2.0");
 		
-		String etox_anatomy_ner = "ner_list/etox_anatomy_ner.txt";//mal
+		String etox_anatomy_ner = "ner_list/etox_anatomy_ner.txt";
 		generateNERGazzetterWithPriority(etox_anatomy_dict_path, etoxAnatomyDictionary,etox_anatomy_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_ANATOMY, "MISC", "2.0");
 		    
-		String etox_moa_ner = "ner_list/etox_moa_ner.txt";//mal
+		String etox_moa_ner = "ner_list/etox_moa_ner.txt";
 		generateNERGazzetterWithPriority(etox_moa_dict_path, etoxMOADictionary, etox_moa_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA, "MISC", "2.0");
 		    
-		String etox_in_life_obs_ner = "ner_list/etox_in_life_obs_ner.txt";//mal
+		String etox_in_life_obs_ner = "ner_list/etox_in_life_obs_ner.txt";
 		generateNERGazzetterWithPriority(etox_in_life_obs_dict_path, etoxILODictionary, etox_in_life_obs_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO,  "MISC", "15.0");
 	}
     
@@ -184,10 +295,8 @@ public class App {
 		props.put("regexner.mapping", "ner_list/cdisc_send_ner.txt, ner_list/ades_extended_terminology.txt, ner_list/etox_anatomy_ner.txt, ner_list/etox_moa_ner.txt, "
 				+ "ner_list/etox_in_life_obs_ner.txt, ner_list/etox_send_codelist_ner.txt,ner_list/pkunit_ner.txt,ner_list/treatment_related_triggers.txt");
 		props.put("regexner.posmatchtype", "MATCH_ALL_TOKENS");
-		
 		props.put("rulesFiles", "rules/ades_extended_terminology.rules");
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-		
 		String[] rulesFiles = props.getProperty("rulesFiles").split(",");
 	    // set up an environment with reasonable defaults
 	    Env env = TokenSequencePattern.getNewEnv();
@@ -212,6 +321,9 @@ public class App {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
 					} catch (InvalidOffsetException e) {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
+					} catch (GateException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					} 
 				}
 			}
@@ -239,10 +351,10 @@ public class App {
 			long startTime = System.currentTimeMillis();
 			gate.Document gateDocument = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
 			String plainText = gateDocument.getContent().getContent(0l, gate.Utils.lengthLong(gateDocument)).toString();
-			Annotation document = new Annotation(plainText.toLowerCase());
+			//Annotation document = new Annotation(plainText.toLowerCase());
 			//unidades dosis
 			//String text = "for 23 days iiiiiii on day 84, 98 and 109 peppepe on day 84 peppepe 10, 40 to 160 ppp/eekiki/oo pepepep 10, 40 or 160 ppp/eekiki/oo 120 fffye/kg pepepep 34 fffff/mol ppppp  34 ffffff/g 160 pmol/kg pepep 123344 umol/kg bw pppdpdp 10, 40 or 160 pmol Gd/kg bw pepepe 1234 pg/kg pepeppepepe 3.7 ml/g/day pepepep 3.7 mg/m pepep 11 mg  pepepep 400-200 MG/KG, 400 - 200 MG/KG, 400 MG/KG, 01, 02, 03 MG/KG and  Microscopic findings, Altered Consistency, all decreasing amount recovered infinity observed normalized by surface area, severity four out of five, liver cell adenoma, mean ventricular rate by electrocardiogram "; 
-			//String text = "associated treatment pepe shows oooo ramification on the rat";
+			//String text = "is not consider to be treatment shows angggggggggggggg associated finding este  pepe  oooo on the rat";
 			//String text = "treatment ppppp connected finding associated pepe treatment oooo ramification on the rat,  lalallala lallala lalala associated treatment pepe shows oooo ramification on the rat";
 			//String text = " body weight gain was observed, supectected to be treatment related, on the 20 day of the compound xxx administration, with the dose of 12 ml once a week for a month, also the compound xxx was administrated twice daily.";
 			//String text = " week 8 (day 52 -53), pepepe 1234 pg/kg ";
@@ -252,8 +364,14 @@ public class App {
 					+ "peppep dose group pepeppe red group pipo control group pepepepepepp ";*/
 			//String text = "pepepep Females pepe F pepep Female";
 			//String text = "closing the wall running into the wild showing a finding associated with increased severity pepepep Females pepe F pepep Female severity";
+			//String text = "The observed findings such as thinning of fur, pustules/eczema at the left hand of one animal, injuries or single vomiting were not considered to be compound-related because they were only seen sporadically in single animals, were considered to be incidental or lacked dose dependency.";
+			/*String text = "All other findings such as apathy, stereotypes, tremor, spasmodic twitches, convulsions, masticatory muscle spasm, buphtalmia, "
+					+ "accelerated respiration, blood stained or wet fur, thinning of fur or hairless area at several locations, skin swelling at the hind paw, "
+					+ "scab formation at ear or the lips, absence of the claw or the tip of the tail, palpable mass, reddened encrusted nose and increased sialorrhea"
+					+ " were not regarded as compound-related since they occurred only in single animals (mainly in animal no. 90M) without dose-dependence.";*/
 			//Annotation document = new Annotation(text);
-			//Annotation document = new Annotation(text.toLowerCase());
+			String text = "Animals at the mid and high doses revealed a slight decrease in body weight gain but no effect on food consumption.";
+			Annotation document = new Annotation(text.toLowerCase());
 			pipeline.annotate(document);
 			long endTime = System.currentTimeMillis();
 			log.info(" Annotation document execution time  " + (endTime - startTime) + " milliseconds");
@@ -261,8 +379,7 @@ public class App {
 	        	//List<CoreLabel> tokens= document.get(TokensAnnotation.class);
 			    List<CoreMap> sentences= document.get(SentencesAnnotation.class);
 			    for(CoreMap sentence: sentences) {
-			    	
-			        List<CoreLabel> tokens= sentence.get(TokensAnnotation.class);
+			    	List<CoreLabel> tokens= sentence.get(TokensAnnotation.class);
 			    	//previousSentencences.add(sentence.toString());
 			        Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
 			        Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
@@ -285,7 +402,7 @@ public class App {
 			        		Integer termBegin = me.getAnnotation().get(CharacterOffsetBeginAnnotation.class);
 					       	Integer termEnd = me.getAnnotation().get(CharacterOffsetEndAnnotation.class);
 			        		String label = me.getValue().get().toString().toUpperCase();
-			        		annotate(gateDocument , sentence, termBegin, termEnd, term, label, "rule", tokens, null, me);
+			        		annotate(gateDocument, sentence, termBegin, termEnd, term, label, "rule", tokens, null, me);
 			        	}
 			        }
 			    }
@@ -314,53 +431,9 @@ public class App {
 		 */
 		private static void annotate(Document gateDocument, CoreMap sentence, int meBegin, int meEnd,	String term, String label, 
 				String annotationMethod, List<CoreLabel> tokens,CoreMap entityMention, MatchedExpression me) throws IOException {
-			String source = "";
+			FeatureMap features = Factory.newFeatureMap();
 			try {
-				FeatureMap features = Factory.newFeatureMap(); 
-				if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_ANATOMY)) {
-					String internal_code_str = label.substring(label.lastIndexOf("_")+1);
-					Integer internal_code = new Integer(internal_code_str);
-					label = label.substring(0, label.lastIndexOf("_"));
-					source = AnnotationUtil.SOURCE_ETOX;
-					label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_ANATOMY, "");
-					findFeatures(etoxAnatomyDictionary, features, internal_code);
-				}else if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA)) {
-					String internal_code_str = label.substring(label.lastIndexOf("_")+1);
-					Integer internal_code = new Integer(internal_code_str);
-					label = label.substring(0, label.lastIndexOf("_"));
-					source = AnnotationUtil.SOURCE_ETOX;
-					label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA, "");
-					findFeatures(etoxMOADictionary, features, internal_code);
-				}else if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO)) {
-					String internal_code_str = label.substring(label.lastIndexOf("_")+1);
-					Integer internal_code = new Integer(internal_code_str);
-					label = label.substring(0, label.lastIndexOf("_"));
-					source = AnnotationUtil.SOURCE_ETOX;
-					label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO, "");
-					findFeatures(etoxILODictionary, features, internal_code);
-				}else if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_SEND)) {
-					String internal_code_str = label.substring(label.lastIndexOf("_")+1);
-					Integer internal_code = new Integer(internal_code_str);
-					label = label.substring(0, label.lastIndexOf("_"));
-					source = AnnotationUtil.SOURCE_ETOX;
-					label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_SEND, "");
-					findFeatures(etoxSENDDictionary, features, internal_code);
-				}else if(label.contains(AnnotationUtil.SOURCE_CDISC_SUFFIX)){
-					String internal_code_str = label.substring(label.lastIndexOf("_")+1);
-					Integer internal_code = new Integer(internal_code_str);
-					label = label.substring(0, label.lastIndexOf("_"));
-					source = AnnotationUtil.SOURCE_CDISC;
-					label = label.replaceAll(AnnotationUtil.SOURCE_CDISC_SUFFIX, "");
-					findFeatures(cdiscDictionary, features, internal_code);
-				}else {
-					source =  AnnotationUtil.SOURCE_MANUAL;
-				}
-				
-				features.put("source", source);
-	    		features.put("annotationMethod", annotationMethod);
-	    		features.put("text", term);
-	    		
-	    		
+				label = setGenericFeatures(term, label, annotationMethod, features);
 	    		
 	    		if(label.contains(AnnotationUtil.STUDY_DOMAIN_SUFFIX) || label.contains("SDOMAIN") || label.contains("CLCAT")){
 	    			features.put("study_domain", label);
@@ -389,7 +462,59 @@ public class App {
 	    				String TESTCODEDESCRIPTION =  aux.substring(aux.indexOf("_")+1);
 	    				String label_ = TESTCODE + "=" + TESTCODEVALUE + "("+ TESTCODEDESCRIPTION +")";
 	    				//toxicolodyReportWitAnnotations.getAnnotations("STUDY TEST CODE(SRTSTCD) CDISC").add(startOff, endOff,  label_, features);
-	    				gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN_TESTCD, features);
+	    				if(!TESTCODE.contains("STSPRM")) {
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN_TESTCD, features);
+	    				}
+	    				if(TESTCODE.contains("BGTEST")) {//TEST BODY WEIGHT GAIN, SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("BWTEST")){//TEST BODY WEIGHT, SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("DDTEST")){//TEST DEAD DIAGNOSIS, SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("EGTEST")){//TEST ECG, SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("(FMTEST")){
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("FXTEST")){
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("FWTEST")){//TEST FOOD CONSUMP, SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("LBTEST")){//TEST LBTEST, STUDY DOMAIN ? for now do not set, later in extraction relation
+	    					//gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("MATEST")){//TEST MACROSCOPICAL, SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("OMTEST")){//TEST ORGAN WEIGHT, SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("PHSPRP")){//TEST Physical Properties, for now nothing
+	    					//gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					System.out.println("NO MANAGED");
+	    				}else if(TESTCODE.contains("PYTEST")){//TEST PREGNACY FINDING, SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("SCVTST")){//TEST Cardiovascular , SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("MITEST")){//TEST MICROSCOPICAL , SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("SRETST")){//TEST RESPIRATORY , SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("SBCSND")){//TEST Subject Characteristics  ,for now nothing
+	    					//gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					System.out.println("NO MANAGED");
+	    				}else if(TESTCODE.contains("STSPRMCD")){//TEST Trial Summary Parameter  ,for now nothing
+	    					//Examples: age, Experimental End Date, Method of Termination, and different labels
+	    					//gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					System.out.println("NO MANAGED: Trial Summary Parameter text: " + term );
+	    				}else if(TESTCODE.contains("TFTEST")){//TEST tumor , SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("VSTEST")){//TEST vital signs , SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else if(TESTCODE.contains("VSTEST")){//TEST vital signs , SET STUDY TOO
+	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    				}else {
+	    					System.out.println("NO MANAGED : " + label + "text: " + features.get("text") );
+	    				}
+	    				
+	    				
+	    				
 	    			}else if(label.contains("LBTEST")){
 	    				String label_ = "LBTEST"; // LBTEST FROM ETOX
 	    				//toxicolodyReportWitAnnotations.getAnnotations("STUDY TEST CODE(LBTEST) ETOX").add(startOff, endOff,  label_, features);
@@ -451,8 +576,32 @@ public class App {
 	    			features.put("finding_type", label);
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "FINDING", features);
 	    		}else if(label.contains(AnnotationUtil.NO_TREATMENT_RELATED_EFFECT_DETECTED)) {
+	    			CoreMap coreMap = me.getAnnotation();
+	    			if(coreMap!=null) {
+	    				List<CoreLabel> tokens_i = coreMap.get(TokensAnnotation.class);
+		    			for (CoreLabel coreLabel : tokens_i) {
+		    				String token = coreLabel.get(TextAnnotation.class);
+		    				String token_label = coreLabel.get(NamedEntityTagAnnotation.class);
+		    				if(token_label.equals("NEGATION_KEYWORD") | token_label.equals("FINDING_KEYWORD") | 
+		    						token_label.equals("RELATED_KEYWORD") | token_label.equals("TREATMENT_KEYWORD") | token_label.equals("EFFECT_KEYWORD")){
+		    					features.put(token_label.toLowerCase(), token);
+		    				}	
+		    			}	
+		    		}
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "NO_TREATMENT_RELATED_TRIGGER", features);
 	    		}else if(label.contains(AnnotationUtil.TREATMENT_RELATED_EFFECT_DETECTED)) {
+	    			CoreMap coreMap = me.getAnnotation();
+	    			if(coreMap!=null) {
+	    				List<CoreLabel> tokens_i = me.getAnnotation().get(TokensAnnotation.class);
+		    			for (CoreLabel coreLabel : tokens_i) {
+		    				String token = coreLabel.get(TextAnnotation.class);
+		    				String token_label = coreLabel.get(NamedEntityTagAnnotation.class);
+		    				if(token_label.equals("FINDING_KEYWORD") | 
+		    						token_label.equals("RELATED_KEYWORD") | token_label.equals("TREATMENT_KEYWORD") | token_label.equals("EFFECT_KEYWORD")){
+		    					features.put(token_label.toLowerCase(), token);
+		    				}	
+		    			}
+	    			}
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "TREATMENT_RELATED_TRIGGER", features);
 	    		}else if(label.contains("MOA")) {
 	    			gateDocument.getAnnotations("BSC_OTHERS").add(new Long(meBegin), new Long(meEnd), "MOA", features);
@@ -460,20 +609,76 @@ public class App {
 	    			gateDocument.getAnnotations("BSC_OTHERS").add(new Long(meBegin), new Long(meEnd), "PKPARM", features);
 	    		}else {
 	    			if(!(label.equals("DURATION") || label.equals("SET") || label.equals("NATIONALITY"))){
-	    				System.out.print("");
+	    				System.out.println("NO MANAGED : " + label + "text: " + features.get("text") );
 	    			}
 	    			log.debug("NOT ANNOTATED TERM : " +  term + " , TYPE : " + label);
 	    			gateDocument.getAnnotations("BSC_OTHERS").add(new Long(meBegin), new Long(meEnd), label, features);
 	    		}
-	    			
-	    		
-	    		
-			
-			} catch (InvalidOffsetException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	    	} catch (InvalidOffsetException e) {
+				System.out.println("Invalid Offset " );
+				System.out.println("No controlled exception with label :  " + label + " text:  " + features.get("text"));
+				System.out.println(e);
+			}catch (Exception e) {
+				System.out.println("No controlled exception with label :  " + label + " text:  " + features.get("text"));
+				System.out.println(e);
 			}
 
+		}
+		/**
+		 * Set generic features of findings
+		 * @param term term annotated
+		 * @param label label of the annotated term
+		 * @param annotationMethod method of the 
+		 * @param features
+		 * @return
+		 */
+		private static String setGenericFeatures(String term, String label, String annotationMethod,
+				FeatureMap features) {
+			//Source feature detection
+			String source="";
+			if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_ANATOMY)) {
+				String internal_code_str = label.substring(label.lastIndexOf("_")+1);
+				Integer internal_code = new Integer(internal_code_str);
+				label = label.substring(0, label.lastIndexOf("_"));
+				source = AnnotationUtil.SOURCE_ETOX;
+				label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_ANATOMY, "");
+				findFeatures(etoxAnatomyDictionary, features, internal_code);
+			}else if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA)) {
+				String internal_code_str = label.substring(label.lastIndexOf("_")+1);
+				Integer internal_code = new Integer(internal_code_str);
+				label = label.substring(0, label.lastIndexOf("_"));
+				source = AnnotationUtil.SOURCE_ETOX;
+				label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA, "");
+				findFeatures(etoxMOADictionary, features, internal_code);
+			}else if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO)) {
+				String internal_code_str = label.substring(label.lastIndexOf("_")+1);
+				Integer internal_code = new Integer(internal_code_str);
+				label = label.substring(0, label.lastIndexOf("_"));
+				source = AnnotationUtil.SOURCE_ETOX;
+				label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO, "");
+				findFeatures(etoxILODictionary, features, internal_code);
+			}else if(label.contains(AnnotationUtil.SOURCE_ETOX_SUFFIX_SEND)) {
+				String internal_code_str = label.substring(label.lastIndexOf("_")+1);
+				Integer internal_code = new Integer(internal_code_str);
+				label = label.substring(0, label.lastIndexOf("_"));
+				source = AnnotationUtil.SOURCE_ETOX;
+				label = label.replaceAll(AnnotationUtil.SOURCE_ETOX_SUFFIX_SEND, "");
+				findFeatures(etoxSENDDictionary, features, internal_code);
+			}else if(label.contains(AnnotationUtil.SOURCE_CDISC_SUFFIX)){
+				String internal_code_str = label.substring(label.lastIndexOf("_")+1);
+				Integer internal_code = new Integer(internal_code_str);
+				label = label.substring(0, label.lastIndexOf("_"));
+				source = AnnotationUtil.SOURCE_CDISC;
+				label = label.replaceAll(AnnotationUtil.SOURCE_CDISC_SUFFIX, "");
+				findFeatures(cdiscDictionary, features, internal_code);
+			}else {
+				source =  AnnotationUtil.SOURCE_MANUAL;
+			}
+			
+			features.put("source", source);
+			features.put("annotationMethod", annotationMethod);
+			features.put("text", term);
+			return label;
 		}
 			
 	/**
@@ -538,9 +743,9 @@ public class App {
 					entities.put(new Integer(data[0]), retrieveEntity(data, columnNames));
 				}else {
 					terms.add(getScapedKeyWordNER(data[1].toLowerCase()) + "\t" +  data[2].toUpperCase()+sourcePrefix+"_"+data[0]+ "\t" +  tags_to_overwrite + "\t" +  priority +"\n");
-					if(data[0].equals("579")) {
+					/*if(data[0].equals("579")) {
 						entities.put(new Integer(data[0]), retrieveEntity(data, columnNames));
-					}
+					}*/
 					entities.put(new Integer(data[0]), retrieveEntity(data, columnNames));
 				}
 			}

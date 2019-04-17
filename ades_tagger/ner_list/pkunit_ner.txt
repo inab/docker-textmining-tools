@@ -1,5 +1,4 @@
 percentage	DOSE_UNIT	MISC	25.0
-percentage	DOSE_UNIT	MISC	25.0
 liter per day per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 -LRB-l\/day-RRB-\/-LRB-mg\/day-RRB-	DOSE_UNIT	MISC	25.0
 -LRB-ml\/day-RRB-\/-LRB-ug\/day-RRB-	DOSE_UNIT	MISC	25.0
@@ -133,12 +132,8 @@ milliliter per minute per milligram per meter squared per day	DOSE_UNIT	MISC	25.
 ml\/kg\/min	DOSE_UNIT	MISC	25.0
 milliliter per kilogram per minute	DOSE_UNIT	MISC	25.0
 milliliter per minute per meter squared	DOSE_UNIT	MISC	25.0
-daily	DOSE_UNIT	MISC	25.0
-daily	DOSE_UNIT	MISC	25.0
-per hour	DOSE_UNIT	MISC	25.0
 per hour	DOSE_UNIT	MISC	25.0
 per minute	DOSE_UNIT	MISC	25.0
-day	DOSE_UNIT	MISC	25.0
 day times femtogram per milliliter	DOSE_UNIT	MISC	25.0
 day times femtogram per milliliter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 day times femtogram per milliliter per milligram per gram	DOSE_UNIT	MISC	25.0
@@ -256,7 +251,6 @@ pg\/ml\/mg	DOSE_UNIT	MISC	25.0
 ug\/ml\/kg	DOSE_UNIT	MISC	25.0
 femtogram per milliliter per microgram	DOSE_UNIT	MISC	25.0
 gram	DOSE_UNIT	MISC	25.0
-gram	DOSE_UNIT	MISC	25.0
 g\/24h	DOSE_UNIT	MISC	25.0
 gram per 24 hours	DOSE_UNIT	MISC	25.0
 gram per hour	DOSE_UNIT	MISC	25.0
@@ -267,7 +261,6 @@ g\/ml	DOSE_UNIT	MISC	25.0
 gram\/ml	DOSE_UNIT	MISC	25.0
 kg\/l	DOSE_UNIT	MISC	25.0
 mg\/ul	DOSE_UNIT	MISC	25.0
-kilogram per liter	DOSE_UNIT	MISC	25.0
 gram per milliliter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 g\/ml\/-LRB-mg\/day-RRB-	DOSE_UNIT	MISC	25.0
 mg\/ml\/-LRB-ug\/day-RRB-	DOSE_UNIT	MISC	25.0
@@ -298,10 +291,6 @@ g\/ml\/mg	DOSE_UNIT	MISC	25.0
 mg\/ml\/ug	DOSE_UNIT	MISC	25.0
 gram per milliliter per milligram	DOSE_UNIT	MISC	25.0
 gram per milliliter per microgram	DOSE_UNIT	MISC	25.0
-hours	DOSE_UNIT	MISC	25.0
-h	DOSE_UNIT	MISC	25.0
-hr	DOSE_UNIT	MISC	25.0
-hour	DOSE_UNIT	MISC	25.0
 hour times femtogram per milliliter	DOSE_UNIT	MISC	25.0
 hour times femtogram per milliliter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 hour times femtogram per milliliter per milligram per gram	DOSE_UNIT	MISC	25.0
@@ -443,7 +432,6 @@ ie\/ml	DOSE_UNIT	MISC	25.0
 international unit per milliliter	DOSE_UNIT	MISC	25.0
 kilo international unit per liter	DOSE_UNIT	MISC	25.0
 kiu\/l	DOSE_UNIT	MISC	25.0
-international unit per milliliter	DOSE_UNIT	MISC	25.0
 international unit per milliliter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 iu\/ml\/-LRB-mg\/day-RRB-	DOSE_UNIT	MISC	25.0
 miu\/ml\/-LRB-ug\/day-RRB-	DOSE_UNIT	MISC	25.0
@@ -479,7 +467,6 @@ miu\/ml\/ug	DOSE_UNIT	MISC	25.0
 international unit per milliliter per milligram	DOSE_UNIT	MISC	25.0
 international unit per milliliter per microgram	DOSE_UNIT	MISC	25.0
 liter	DOSE_UNIT	MISC	25.0
-liter	DOSE_UNIT	MISC	25.0
 liter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 ml\/-LRB-ug\/day-RRB-	DOSE_UNIT	MISC	25.0
 liter divided by milligram per day	DOSE_UNIT	MISC	25.0
@@ -509,7 +496,6 @@ liter per milligram	DOSE_UNIT	MISC	25.0
 liter per minute	DOSE_UNIT	MISC	25.0
 liter per microgram	DOSE_UNIT	MISC	25.0
 milligram	DOSE_UNIT	MISC	25.0
-milligram	DOSE_UNIT	MISC	25.0
 milligram per 24 hours	DOSE_UNIT	MISC	25.0
 milligram per hour	DOSE_UNIT	MISC	25.0
 milligram per minute	DOSE_UNIT	MISC	25.0
@@ -521,7 +507,6 @@ g\/l	DOSE_UNIT	MISC	25.0
 kg\/m3	DOSE_UNIT	MISC	25.0
 mg\/ml	DOSE_UNIT	MISC	25.0
 ug\/ul	DOSE_UNIT	MISC	25.0
-kilogram per cubic meter	DOSE_UNIT	MISC	25.0
 milligram per milliliter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 mg\/ml\/-LRB-mg\/day-RRB-	DOSE_UNIT	MISC	25.0
 ug\/ml\/-LRB-ug\/day-RRB-	DOSE_UNIT	MISC	25.0
@@ -539,7 +524,6 @@ mg\/ml\/-LRB-mg\/m2\/day-RRB-	DOSE_UNIT	MISC	25.0
 ug\/ml\/-LRB-ug\/m2\/day-RRB-	DOSE_UNIT	MISC	25.0
 milligram per milliliter per milligram per meter squared per day	DOSE_UNIT	MISC	25.0
 milligram per milliliter per meter squared	DOSE_UNIT	MISC	25.0
-minute	DOSE_UNIT	MISC	25.0
 minute	DOSE_UNIT	MISC	25.0
 minute times femtogram per milliliter	DOSE_UNIT	MISC	25.0
 minute times femtogram per milliliter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
@@ -631,7 +615,6 @@ ie\/l	DOSE_UNIT	MISC	25.0
 iu\/l	DOSE_UNIT	MISC	25.0
 international unit per liter	DOSE_UNIT	MISC	25.0
 miu\/ml	DOSE_UNIT	MISC	25.0
-international unit per liter	DOSE_UNIT	MISC	25.0
 milli-international unit per milliliter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 miu\/ml\/-LRB-mg\/day-RRB-	DOSE_UNIT	MISC	25.0
 uiu\/ml\/-LRB-ug\/day-RRB-	DOSE_UNIT	MISC	25.0
@@ -654,7 +637,6 @@ milli-international unit per milliliter per kilogram	DOSE_UNIT	MISC	25.0
 milli-international unit per milliliter per meter squared	DOSE_UNIT	MISC	25.0
 milliliter	DOSE_UNIT	MISC	25.0
 cm3	DOSE_UNIT	MISC	25.0
-milliliter	DOSE_UNIT	MISC	25.0
 milliliter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 milliliter per milligram per day	DOSE_UNIT	MISC	25.0
 milliliter per milligram per kilogram	DOSE_UNIT	MISC	25.0
@@ -663,11 +645,12 @@ milliliter per milligram per meter squared	DOSE_UNIT	MISC	25.0
 milliliter per milligram per meter squared per day	DOSE_UNIT	MISC	25.0
 milliliter per microgram per kilogram	DOSE_UNIT	MISC	25.0
 milliliter per 24 hours	DOSE_UNIT	MISC	25.0
+cc\/hr	DOSE_UNIT	MISC	25.0
+cm3\/h	DOSE_UNIT	MISC	25.0
 milliliter per hour	DOSE_UNIT	MISC	25.0
 milliliter per kilogram	DOSE_UNIT	MISC	25.0
 milliliter per square meter	DOSE_UNIT	MISC	25.0
 milliliter per minute	DOSE_UNIT	MISC	25.0
-millimole	DOSE_UNIT	MISC	25.0
 millimole	DOSE_UNIT	MISC	25.0
 millimole per hour	DOSE_UNIT	MISC	25.0
 micromole per milliliter	DOSE_UNIT	MISC	25.0
@@ -678,7 +661,6 @@ mmol\/l	DOSE_UNIT	MISC	25.0
 mol\/m3	DOSE_UNIT	MISC	25.0
 nmol\/ul	DOSE_UNIT	MISC	25.0
 umol\/ml	DOSE_UNIT	MISC	25.0
-millimole per liter	DOSE_UNIT	MISC	25.0
 millimole per liter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 mmol\/l\/-LRB-mg\/day-RRB-	DOSE_UNIT	MISC	25.0
 umol\/l\/-LRB-ug\/day-RRB-	DOSE_UNIT	MISC	25.0
@@ -725,13 +707,11 @@ mol\/l\/mg	DOSE_UNIT	MISC	25.0
 millimole per liter per microgram	DOSE_UNIT	MISC	25.0
 millimole per minute	DOSE_UNIT	MISC	25.0
 mole	DOSE_UNIT	MISC	25.0
-mole	DOSE_UNIT	MISC	25.0
 mole per day	DOSE_UNIT	MISC	25.0
 mole per hour	DOSE_UNIT	MISC	25.0
 mole per liter	DOSE_UNIT	MISC	25.0
 mmol\/ml	DOSE_UNIT	MISC	25.0
 mol\/l	DOSE_UNIT	MISC	25.0
-mole per liter	DOSE_UNIT	MISC	25.0
 mole per liter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 mole per liter per microgram per day	DOSE_UNIT	MISC	25.0
 mole per liter per microgram per kilogram	DOSE_UNIT	MISC	25.0
@@ -741,7 +721,6 @@ mole per liter per microgram per meter squared per day	DOSE_UNIT	MISC	25.0
 mole per liter per meter squared	DOSE_UNIT	MISC	25.0
 mole per liter per microgram	DOSE_UNIT	MISC	25.0
 mole per minute	DOSE_UNIT	MISC	25.0
-nanogram	DOSE_UNIT	MISC	25.0
 nanogram	DOSE_UNIT	MISC	25.0
 nanogram per day	DOSE_UNIT	MISC	25.0
 nanogram per hour	DOSE_UNIT	MISC	25.0
@@ -754,7 +733,6 @@ mcg\/l	DOSE_UNIT	MISC	25.0
 mg\/m3	DOSE_UNIT	MISC	25.0
 ng\/ml	DOSE_UNIT	MISC	25.0
 ug\/l	DOSE_UNIT	MISC	25.0
-microgram per liter	DOSE_UNIT	MISC	25.0
 nanogram per milliliter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 ng\/ml\/-LRB-mg\/day-RRB-	DOSE_UNIT	MISC	25.0
 pg\/ml\/-LRB-ug\/day-RRB-	DOSE_UNIT	MISC	25.0
@@ -791,7 +769,6 @@ pg\/ml\/ug	DOSE_UNIT	MISC	25.0
 ug\/ml\/g	DOSE_UNIT	MISC	25.0
 nanogram per milliliter per milligram	DOSE_UNIT	MISC	25.0
 nanomole	DOSE_UNIT	MISC	25.0
-nanomole	DOSE_UNIT	MISC	25.0
 nanomole per day	DOSE_UNIT	MISC	25.0
 nmol\/g	DOSE_UNIT	MISC	25.0
 pmol\/mg	DOSE_UNIT	MISC	25.0
@@ -803,7 +780,6 @@ pmol\/g	DOSE_UNIT	MISC	25.0
 nanomole per kilogram	DOSE_UNIT	MISC	25.0
 nanomole per liter	DOSE_UNIT	MISC	25.0
 pmol\/ml	DOSE_UNIT	MISC	25.0
-nanomole per liter	DOSE_UNIT	MISC	25.0
 nanomole per liter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 nmol\/l\/-LRB-mg\/day-RRB-	DOSE_UNIT	MISC	25.0
 pmol\/l\/-LRB-ug\/day-RRB-	DOSE_UNIT	MISC	25.0
@@ -851,7 +827,6 @@ mcg\/kg	DOSE_UNIT	MISC	25.0
 ng\/g	DOSE_UNIT	MISC	25.0
 pg\/mg	DOSE_UNIT	MISC	25.0
 ug\/kg	DOSE_UNIT	MISC	25.0
-microgram per kilogram	DOSE_UNIT	MISC	25.0
 picogram per minute	DOSE_UNIT	MISC	25.0
 microgram per cubic meter	DOSE_UNIT	MISC	25.0
 ng\/l	DOSE_UNIT	MISC	25.0
@@ -867,11 +842,9 @@ pg\/ml\/-LRB-mg\/kg\/day-RRB-	DOSE_UNIT	MISC	25.0
 picogram per milliliter per milligram per kilogram per day	DOSE_UNIT	MISC	25.0
 picogram per milliliter per meter squared	DOSE_UNIT	MISC	25.0
 picomole	DOSE_UNIT	MISC	25.0
-picomole	DOSE_UNIT	MISC	25.0
 femtomole per milliliter	DOSE_UNIT	MISC	25.0
 picomole per liter	DOSE_UNIT	MISC	25.0
 fmol\/ml	DOSE_UNIT	MISC	25.0
-picomole per liter	DOSE_UNIT	MISC	25.0
 picomole per liter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 picomole per liter per milligram per day	DOSE_UNIT	MISC	25.0
 picomole per liter per milligram per kilogram	DOSE_UNIT	MISC	25.0
@@ -888,7 +861,6 @@ picomole per liter per microgram	DOSE_UNIT	MISC	25.0
 ratio	DOSE_UNIT	MISC	25.0
 microgram	DOSE_UNIT	MISC	25.0
 mcg	DOSE_UNIT	MISC	25.0
-microgram	DOSE_UNIT	MISC	25.0
 mcg\/day	DOSE_UNIT	MISC	25.0
 microgram per day	DOSE_UNIT	MISC	25.0
 mcg\/h	DOSE_UNIT	MISC	25.0
@@ -903,7 +875,6 @@ mcg\/ml	DOSE_UNIT	MISC	25.0
 mg\/l	DOSE_UNIT	MISC	25.0
 ng\/ul	DOSE_UNIT	MISC	25.0
 ug\/ml	DOSE_UNIT	MISC	25.0
-microgram per milliliter	DOSE_UNIT	MISC	25.0
 microgram per milliliter per kilogram per meter squared	DOSE_UNIT	MISC	25.0
 ng\/ml\/-LRB-ug\/kg-RRB-	DOSE_UNIT	MISC	25.0
 ug\/ml\/-LRB-mg\/kg-RRB-	DOSE_UNIT	MISC	25.0
@@ -933,7 +904,6 @@ micro-international units per milliliter per kilogram	DOSE_UNIT	MISC	25.0
 micro-international units per milliliter per meter squared	DOSE_UNIT	MISC	25.0
 micromole	DOSE_UNIT	MISC	25.0
 mcmol	DOSE_UNIT	MISC	25.0
-micromole	DOSE_UNIT	MISC	25.0
 mcmol\/day	DOSE_UNIT	MISC	25.0
 micromole per 24 hours	DOSE_UNIT	MISC	25.0
 micromole per hour	DOSE_UNIT	MISC	25.0
