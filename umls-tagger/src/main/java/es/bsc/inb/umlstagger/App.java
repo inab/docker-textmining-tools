@@ -3,11 +3,14 @@ package es.bsc.inb.umlstagger;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -66,6 +69,8 @@ public class App {
 	
 	static Map<String, EntityInstance> umlsDictionary = new HashMap<String, EntityInstance>();
 	
+	static List<String> sourceList = new ArrayList<String>();
+	
     public static void main( String[] args ){
     	
     	Options options = new Options();
@@ -77,6 +82,15 @@ public class App {
         Option output = new Option("o", "output", true, "output directory path");
         output.setRequired(true);
         options.addOption(output);
+        
+        Option inputUMLSDirectory = new Option("u", "input_umls_directory", true, "input directory where the RRF files are located,  usually are in ... META folder");
+        inputUMLSDirectory.setRequired(true);
+        options.addOption(inputUMLSDirectory);
+        
+        Option configuration_file = new Option("c", "configuration_file", true, "it contains the semantic type mappings and the sources to be used during the mapping. "
+        		+ " If no configuration file is provided, a default one will be used.  ");
+        configuration_file.setRequired(false);
+        options.addOption(configuration_file);
         
         Option workdir = new Option("workdir", "workdir", true, "workDir directory path");
         workdir.setRequired(false);
@@ -96,6 +110,13 @@ public class App {
         String inputFilePath = cmd.getOptionValue("input");
         String outputFilePath = cmd.getOptionValue("output");
         String workdirPath = cmd.getOptionValue("workdir");
+        String umlsDirectoryPath = cmd.getOptionValue("input_umls_directory");
+        String configurationFilePath = cmd.getOptionValue("configuration_file");
+        
+        if (!java.nio.file.Files.isDirectory(Paths.get(umlsDirectoryPath))) {
+    		log.error("Please set the input_umls_directory");
+			System.exit(1);
+    	}
         
         if (!java.nio.file.Files.isDirectory(Paths.get(inputFilePath))) {
     		log.error("Please set the inputDirectoryPath ");
@@ -106,6 +127,25 @@ public class App {
 	    if(!outputDirectory.exists())
 	    	outputDirectory.mkdirs();
 	    
+	    workdirPath="";
+        outputFilePath = workdirPath + "dict" + File.separator + "umls_terminology_.txt";
+	    
+	    
+	    try {
+    		loadConfigurationFile(workdirPath,  configurationFilePath);
+    	}catch(Exception e) {
+    		log.error("Exception ocurred see the log for more information", e);
+    		System.exit(1);
+    	}
+	    
+	    try {
+	    	generateInternalDic(umlsDirectoryPath, outputFilePath);
+    	}catch(Exception e) {
+    		log.error("Exception ocurred see the log for more information", e);
+    		System.exit(1);
+    	}
+	    
+	    
 	    try {
 			Gate.init();
 		} catch (GateException e) {
@@ -113,16 +153,15 @@ public class App {
 			System.exit(1);
 		}
  
-	    try {
-    		loadSemanticTypes(workdirPath);
-    	}catch(Exception e) {
-    		log.error("Exception ocurred see the log for more information", e);
-    		System.exit(1);
-    	}
+//	    try {
+//    		loadSemanticTypes(workdirPath);
+//    	}catch(Exception e) {
+//    		log.error("Exception ocurred see the log for more information", e);
+//    		System.exit(1);
+//    	}
 	    
-	    Properties propertiesParameters = null;
 	    try {
-			generateNERList(propertiesParameters);
+			generateNERList(workdirPath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,12 +180,99 @@ public class App {
      * @param propertiesParameters
 	 * @throws IOException 
      */
-	private static void generateNERList(Properties propertiesParameters) throws IOException {
-		String umls_terminology_path = "dict/umls_full_terminology.txt";
-		String umls_terminology_ner = "ner_list/umls_terminology.txt";
+	private static void generateNERList(String workdirPath) throws IOException {
+		String umls_terminology_path = workdirPath+"dict/umls_terminology_.txt";
+		String umls_terminology_ner = workdirPath+"ner_list/umls_terminology_.txt";
 		generateNERGazzetterWithPriority(umls_terminology_path, umlsDictionary, umls_terminology_ner, "MISC", "10.0");
 	}
     
+	/**
+     * Load semantic type information from the MRSTY file and the given configuration
+     * @param mrstyPath
+     * @return
+     * @throws IOException
+     */
+	private static Map<String, String[]> loadSemanticTypeData(String mrstyPath) throws IOException {
+		HashMap<String, String[]> map = new HashMap<String, String[]>();
+		File mrstyFile = new File(mrstyPath);
+	    BufferedReader brty = new BufferedReader(new FileReader(mrstyFile));
+	    String lineType;
+	    while ((lineType = brty.readLine()) != null) {
+	    	String[] dataType = lineType.split("\\|");
+			//CUI | TUI | STN | STY | ATUI | CVF
+			//if is a semantic type to include
+	    	//The preference is the same as in the umls subset definition.
+	    	if(semanticTypesMap.get(dataType[1])!=null) {
+	    		if(map.get(dataType[0])==null) {
+	    			map.put(dataType[0], new String[]{dataType[1], dataType[3]});
+	    		}
+	    	}
+	    }
+	    brty.close();
+	    return map;
+	}
+	
+	/**
+     * Generates an internal dictionary from the umls rrf files, this is for filer the information with the given configuration file,
+     * also improves the performance.
+     * @param propertiesParameters
+     */
+    private static void generateInternalDic(String inputDirectoryFilePath , String outputFilePath) {
+    	System.out.println("Generating internal dictionary given the configuration");
+    	String mrconsoPath =  inputDirectoryFilePath + File.separator + "MRCONSO.RRF";
+    	String mrstyPath =  inputDirectoryFilePath + File.separator + "MRSTY.RRF";
+    	if (!Files.isRegularFile(Paths.get(mrconsoPath))) {
+    		System.out.println("MRCONSO.RRF not found:  " + mrconsoPath);
+    		System.exit(1);
+    	}
+    	if (!Files.isRegularFile(Paths.get(mrstyPath))) {
+    		System.out.println("MRSTY.RRF not found:  " + mrstyPath);
+    		System.exit(1);
+    	}
+    	try {
+    		//Load semantic type data in memory, for performance reasons.
+    		//key CUI and data TUI
+		    Map<String, String[]> cui_semantyc_type = loadSemanticTypeData(mrstyPath);
+    		
+	    	File fout = new File(outputFilePath);
+			FileOutputStream fos = new FileOutputStream(fout);
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos,StandardCharsets.UTF_8));
+			bw.write("KEYWORD\tAUI\tCUI\tSUI\tSOURCE\tSOURCE_CODE\tSEM_TYPE\tSEM_TYPE_STR\n");
+			bw.flush();
+			
+			File mrconsoFile = new File(mrconsoPath);
+	    	BufferedReader br;
+		    br = new BufferedReader(new FileReader(mrconsoFile));
+			String line;
+			Boolean all_sources = sourceList.isEmpty();
+			while ((line = br.readLine()) != null) {
+				String[] data = line.split("\\|");
+				//CUI | LAT | TS | LUI | STT | SUI | ISPREF | AUI | SAUI | SCUI | SDUI | SAB | TTY | CODE | STR | SRL | SUPPRESS
+				if((all_sources || sourceList.contains(data[11])) && data[6].equals("Y")) {
+					String[] semanticType =  cui_semantyc_type.get(data[0]);
+					//if there is no info in semanticType it mean that the cui it is not in the semantic type given in the configuration.
+					if(semanticType!=null) {
+						bw.write(data[14] + "\t" + data[7] + "\t" + data[0] + "\t" + data[5] + "\t" + data[11] + "\t" + data[13] + "\t" + semanticType[0] + "\t" + semanticType[1] + "\n");
+					}
+				}
+				 bw.flush();
+			 }
+			 bw.close();
+			 br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("FileNotFoundException");
+			e.printStackTrace();
+			System.exit(1);
+			
+		} catch (IOException e) {
+			System.out.println("IOException ");
+			e.printStackTrace();
+			System.exit(1);
+		}
+    	System.out.println("End dictionary generation");
+	}
+    
+	
     /**
      * Load semantic type to retrieve and the corresponding label mapping
      * @throws IOException 
@@ -188,7 +314,7 @@ public class App {
 	public static void processTagger(String inputDirectoryPath, String outputDirectoryPath) throws IOException {
     	Properties props = new Properties();
 		props.put("annotators", "tokenize, ssplit, pos, lemma,  ner, regexner, entitymentions ");
-		props.put("regexner.mapping", "ner_list/umls_terminology.txt");
+		props.put("regexner.mapping", "ner_list/umls_terminology_.txt");
 		props.put("regexner.posmatchtype", "MATCH_ALL_TOKENS");
 		
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
@@ -342,10 +468,10 @@ public class App {
 			}else {
 				String[] data = line.split("\t");
 				//for generate subset taking into account the semantic types indicated
-				if(semanticTypesMap.get(data[6])!=null) {
-					terms.add(getScapedKeyWordNER(data[0].toLowerCase()) + "\t" +  data[6].toUpperCase()+"_"+data[1]+ "\t" +  tags_to_overwrite + "\t" +  priority +"\n");
-					entities.put(data[1], retrieveEntity(data, columnNames));
-				}
+				//if(semanticTypesMap.get(data[6])!=null) {
+				terms.add(getScapedKeyWordNER(data[0].toLowerCase()) + "\t" +  data[6].toUpperCase()+"_"+data[1]+ "\t" +  tags_to_overwrite + "\t" +  priority +"\n");
+				entities.put(data[1], retrieveEntity(data, columnNames));
+				//}
 			}
 		}
 		for (String string : terms) {
@@ -398,6 +524,89 @@ public class App {
 		//replaceAll("\\$", "\\\\$").
 		replaceAll("\\|", "\\\\|");
 		return keyword_esc;
+	}
+	
+	/**
+     * Load semantic type to retrieve and the corresponding label mapping
+     * @throws IOException 
+     * 
+     */
+    private static void loadConfigurationFile(String workdirPath, String  configurationFilePath) throws IOException {
+    	if(workdirPath==null) {
+    		workdirPath = "";
+		}
+    	if(configurationFilePath==null) {
+    		System.out.println("Configuration file not provided, the default one will be used.");
+    		configurationFilePath = workdirPath + "config.properties"; 
+    	}
+    	if (Files.isRegularFile(Paths.get(configurationFilePath))) {
+    		BufferedReader br = new BufferedReader(new FileReader(configurationFilePath));
+		    String line;
+		    Boolean found = false;
+		    Boolean semType = false;
+		    while ((line = br.readLine()) != null) {
+		    	if(!line.startsWith("#") && !line.trim().equals("")) {
+		    		//sources configuration
+		    		if(line.contains("[SOURCES]")) {
+		    			while (!found && (line = br.readLine()) != null) {
+		    				if(line.startsWith("sources=")) {
+		    					found=true;
+		    					String sources = line.substring(line.indexOf('=')+1);
+		    					if(!sources.equals("ALL_SOURCES")) {
+		    						System.out.println("This sources will be use: " + sources);
+		    						String[] data_source = sources.split("\\|");
+		    						for (String string : data_source) {
+		    							sourceList.add(string);
+									}
+		    					}else {
+		    						System.out.println("All sources will be used");
+		    					}
+		    				}
+		    			}
+		    			if(!found) {
+		    				System.out.println("Error reading sources configuration, please review the config.properties");
+		    				System.exit(1);
+		    			}
+		    		}
+		    		//semantic type mapping
+		    		if(line.contains("[SEMANTIC_TYPES]")) {
+		    			System.out.println("Semantic maps:");
+		    			semType = true;
+		    			while ((line = br.readLine()) != null) {
+		    				if(!line.startsWith("#") && !line.trim().equals("")) {
+			    				if(!line.contains("[SEMANTIC_TYPES_END]")) {
+			    					String[] data = line.split("\\|");
+							    	if(data.length==3) {
+							    		System.out.println(line);
+							    		semanticTypesMap.put(data[0], data[2]);
+							    	}else {
+							    		System.out.println("Error reading semantic type, line:  " + line);
+							    		System.exit(1);
+							    	}
+			    				}else {
+			    					break;
+			    				}
+		    					
+		    				}	
+		    			}
+		    		}
+		    	}
+		    }
+		    
+		    if(!found) {
+		    	System.out.println("Error no source configuration finded : "  + configurationFilePath);
+				System.exit(1);
+		    }
+		    if(!semType) {
+		    	System.out.println("Error no semantic mapping configuration found : "  + configurationFilePath);
+				System.exit(1);
+		    }
+		    
+		    br.close();
+    	}else {
+    		System.out.println("Cannot find configuration file: " + configurationFilePath);
+    		System.exit(1);
+    	}
 	}
 	
 }
