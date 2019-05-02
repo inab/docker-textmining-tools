@@ -16,7 +16,7 @@ if [ -f /etc/alpine-release ] ; then
 	# Installing OpenJDK 8
 	apk add --update openjdk8-jre
 	
-	# ades development dependencies
+	# umls-tagger development dependencies
 	apk add openjdk8 git maven
 else
 	# Runtime dependencies
@@ -30,13 +30,13 @@ fi
 mvn clean install -DskipTests
 
 #rename jar
-mv target/umls_tagger-0.0.1-SNAPSHOT-jar-with-dependencies.jar umls-tagger-${UMLS_TAGGER_VERSION}.jar
+mv target/umls-tagger-0.0.1-SNAPSHOT-jar-with-dependencies.jar umls-tagger-${UMLS_TAGGER_VERSION}.jar
 
-cat > /usr/local/bin/umlstagger <<EOF
+cat > /usr/local/bin/umls-tagger <<EOF
 #!/bin/sh
-exec java \$JAVA_OPTS -jar "${ADES_TAGGER_HOME}/umls-tagger-${UMLS_TAGGER_VERSION}.jar" -workdir "${UMLS_TAGGER_HOME}" "\$@"
+exec java \$JAVA_OPTS -jar "${UMLS_TAGGER_HOME}/umls-tagger-${UMLS_TAGGER_VERSION}.jar" -workdir "${UMLS_TAGGER_HOME}" "\$@"
 EOF
-chmod +x /usr/local/bin/umlstagger
+chmod +x /usr/local/bin/umls-tagger
 
 #delete target
 rm -R target src pom.xml

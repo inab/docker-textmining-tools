@@ -54,8 +54,8 @@ unrelated to the treatment	NO_TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
 not to be treatment-related	NO_TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
 not regarded to be treatment-related	NO_TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
 not regarded as being treatment-related	NO_TREATMENT_RELATED_EFFECT_DETECTED	MISC	10.0
-increase|increased|increasing	INCREASE_MANIFESTATION_FINDING	MISC	10.0
-decrease|decreased|decreasing	DECREASE_MANIFESTATION_FINDING	MISC	10.0
+increase|increased|increasing|increment	INCREASE_MANIFESTATION_FINDING	MISC	10.0
+decrease|decreased|decreasing|reduction|loss	DECREASE_MANIFESTATION_FINDING	MISC	10.0
 transitory	TRANSITORY_MANIFESTATION_FINDING	MISC	10.0
 present|observable|observed|showed|show|noticed|detected|detect|recognized|perceived|identified	JUSTPRESENT_MANIFESTATION_FINDING	MISC	10.0
 body weight	BODY_WEIGHT_DOMAIN	MISC	10.0

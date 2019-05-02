@@ -154,8 +154,10 @@ class Wrapper {
 						FeatureMap features = gate.Factory.newFeatureMap();
 					    features.put("source", source);
 						features.put("text", text);
+						features.put("inst", "BSC");
 						features.put("ncbi", ncbi_map);
-						toxicolodyReportWitAnnotations.getAnnotations("BSC").add(startOff, endOff, "SPECIES", features);
+						features.put("original_label", "SPECIES");
+						toxicolodyReportWitAnnotations.getAnnotations("BSC").add(startOff, endOff, "SPECIMEN", features);
 					}
 				}
 			    br.close();

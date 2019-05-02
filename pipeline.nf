@@ -21,15 +21,18 @@ params.forceOCR = "True"
 params.linnaeus_output_folder = "${params.baseDir}/linnaeus_output"
 //Output directory for the dnorm tagger step
 params.dnorm_output_folder = "${params.baseDir}/dnorm_output"
-//Output directory for the metamap tagger step
-params.metamap_output_folder = "${params.baseDir}/metamap_output"
+//Output directory for the umls tagger step
+params.umls_output_folder = "${params.baseDir}/umls_output"
+//Output directory for the ades tagger step
+params.ades_output_folder = "${params.baseDir}/ades_output"
 
 original_pdf_folder_ch = Channel.fromPath( params.original_pdf_folder, type: 'dir' )
 preprocessing_pdf_folder = file(params.preprocessing_pdf_folder)
 grobid_output_folder=file(params.grobid_output_folder)
 linnaeus_output_folder=file(params.linnaeus_output_folder)
 dnorm_output_folder=file(params.dnorm_output_folder)
-metamap_output_folder=file(params.metamap_output_folder)
+umls_output_folder=file(params.umls_output_folder)
+ades_output_folder=file(params.ades_output_folder)
 
 process ocrmypdf {
     input:
@@ -83,15 +86,28 @@ process dnorm_wrapper {
     """
 }
 
-process metamap_wrapper {
+process umls_tagger {
     input:
-    file input_metamap from dnorm_output_folder_ch
+    file input_umls from dnorm_output_folder_ch
     
     output:
-    val metamap_output_folder into metamap_output_folder_ch
+    val umls_output_folder into umls_output_folder_ch
     	
     """
-    metamap-gate-wrapper -i $input_metamap -o $metamap_output_folder
+    umls-tagger -i $input_umls -o $umls_output_folder
+	
+    """
+}
+
+process addes_tagger {
+    input:
+    file input_addes from umls_output_folder_ch
+    
+    output:
+    val ades_output_folder into ades_output_folder_ch
+    	
+    """
+    ades-tagger -i $input_ades -o $ades_output_folder
 	
     """
 }

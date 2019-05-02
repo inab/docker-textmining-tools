@@ -12,6 +12,8 @@ import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -99,7 +101,7 @@ class Wrapper {
     		String tmpWorkDir = outputFilePath + File.separator + "dnorm_tmp";
     		processTagger(inputFilePath, tmpWorkDir, workdirPath, configFilePath);
             annotateGateDocuments(inputFilePath, outputFilePath ,tmpWorkDir);
-            deleteDirectory(new File(tmpWorkDir));
+            //deleteDirectory(new File(tmpWorkDir));
     	}catch(Exception e) {
     		log.error("Exception ocurred see the log for more information", e);
     		System.exit(1);
@@ -170,6 +172,8 @@ class Wrapper {
 					FeatureMap features = gate.Factory.newFeatureMap();
 					features.put("source", source);
 					features.put("text", text);
+					features.put("inst", "BSC");
+					features.put("original_label", "DISEASE");
 					if(data.length==5) {
 						String crossRef= data[4];
 						if(crossRef.startsWith("MESH")) {
@@ -224,8 +228,18 @@ class Wrapper {
 						String plainText = toxicolodyReportWitAnnotations.getContent().getContent(0l, gate.Utils.lengthLong(toxicolodyReportWitAnnotations)).toString();
 						//String plainTextPath = tmpWordDir + File.separator + file.getName().replace(".xml", ".txt");
 						String plainTextPath = tmpWordDir + File.separator + file.getName()+".txt";
-						plainText = plainText.replaceAll("\t", " ").replaceAll("\n", " ").replaceAll("\r", " ").replaceAll("\\p{C}", "?");;
+						plainText = plainText.replaceAll("[\\r\\n\\t]", " ").replaceAll("\\p{C}", "?").replaceAll("[\\p{Cntrl}\\p{Cc}\\p{Cf}\\p{Co}\\p{Cn}]", " ");
+						Pattern p = Pattern.compile("\\p{L}");
+						Matcher m = p.matcher(plainText);
+						m.find();
+						int i =m.start();
+						char[] myNameChars = plainText.toCharArray();
+						for (int j = 0; j < i; j++) {
+							myNameChars[j] = ',';
+						}
+						plainText = String.valueOf(myNameChars);
 						plainText = file.getName()+"\t"+plainText;
+						//System.out.println(plainText);
 						createTxtFile(plainTextPath, plainText);
 						executeDnormTagger(plainTextPath, plainTextPath+".dat", workdirPath, configFile);
 					} catch (ResourceInstantiationException e) {
