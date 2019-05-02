@@ -101,7 +101,7 @@ class Wrapper {
     		String tmpWorkDir = outputFilePath + File.separator + "dnorm_tmp";
     		processTagger(inputFilePath, tmpWorkDir, workdirPath, configFilePath);
             annotateGateDocuments(inputFilePath, outputFilePath ,tmpWorkDir);
-            //deleteDirectory(new File(tmpWorkDir));
+            deleteDirectory(new File(tmpWorkDir));
     	}catch(Exception e) {
     		log.error("Exception ocurred see the log for more information", e);
     		System.exit(1);
