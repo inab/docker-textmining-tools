@@ -16,6 +16,8 @@ params.original_pdf_folder = "${params.inputDir}"
 
 
 //Output directory for the linnaeus tagger step
+params.nlp_standard_preprocessing_output_folder = "${params.baseDir}/nlp_standard_preprocessing_output"
+//Output directory for the linnaeus tagger step
 params.linnaeus_output_folder = "${params.baseDir}/linnaeus_output"
 //Output directory for the dnorm tagger step
 params.dnorm_output_folder = "${params.baseDir}/dnorm_output"
@@ -23,21 +25,32 @@ params.dnorm_output_folder = "${params.baseDir}/dnorm_output"
 params.umls_output_folder = "${params.baseDir}/umls_output"
 //Output directory for the ades tagger step
 params.ades_output_folder = "${params.baseDir}/ades_output"
-//Output directory for the GNormPlus step
-params.gnormplus_output_folder = "${params.baseDir}/gnormplus_output"
 
 original_pdf_folder_ch = Channel.fromPath( params.original_pdf_folder, type: 'dir' )
 
-
+nlp_standard_preprocessing_output_folder=file(params.nlp_standard_preprocessing_output_folder)
 linnaeus_output_folder=file(params.linnaeus_output_folder)
 dnorm_output_folder=file(params.dnorm_output_folder)
 umls_output_folder=file(params.umls_output_folder)
 ades_output_folder=file(params.ades_output_folder)
-gnormplus_output_folder=file(params.gnormplus_output_folder)
+
+
+process nlp_standard_preprocessing {
+    input:
+    file input_nlp_standard_preprocessing from original_pdf_folder_ch
+    
+    output:
+    val nlp_standard_preprocessing_output_folder into nlp_standard_preprocessing_output_folder_ch
+    	
+    """
+    nlp-standard-preprocessing -i $input_nlp_standard_preprocessing -o $nlp_standard_preprocessing_output_folder
+	
+    """
+}
 
 process linnaeus_wrapper {
     input:
-    file input_linnaeus from original_pdf_folder_ch
+    file input_linnaeus from nlp_standard_preprocessing_output_folder_ch
     
     output:
     val linnaeus_output_folder into linnaeus_output_folder_ch
@@ -87,18 +100,7 @@ process ades_tagger {
     """
 }
 
-process gnormplus_wrapper {
-    input:
-    file input_gnormplus from ades_output_folder_ch
-    
-    output:
-    val gnormplus_output_folder into gnormplus_output_folder_ch
-    	
-    """
-    gnormplus-gate-wrapper -i $input_gnormplus -o $gnormplus_output_folder
-	
-    """
-}
+
 
 
 
