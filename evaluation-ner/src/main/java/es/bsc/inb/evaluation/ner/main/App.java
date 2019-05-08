@@ -1,19 +1,8 @@
 package es.bsc.inb.evaluation.ner.main;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Properties;
-import java.util.Random;
-import java.util.Set;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -24,16 +13,10 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
 
-import gate.Annotation;
-import gate.AnnotationSet;
-import gate.Document;
 import gate.Factory;
 import gate.Gate;
 import gate.creole.ResourceInstantiationException;
-import gate.util.AnnotationDiffer;
-import gate.util.ClassificationMeasures;
 import gate.util.GateException;
-import gate.util.InvalidOffsetException;
 
 /**
  * 

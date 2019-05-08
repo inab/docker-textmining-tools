@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -14,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -51,12 +54,10 @@ import gate.Document;
 import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
-import gate.LanguageAnalyser;
 import gate.ProcessingResource;
 import gate.creole.Plugin;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
-import gate.persist.SerialDataStore;
 import gate.util.ExtensionFileFilter;
 import gate.util.GateException;
 import gate.util.InvalidOffsetException;
@@ -84,6 +85,8 @@ public class App {
 	static Map<Integer, EntityInstance> etoxILODictionary = new HashMap<Integer, EntityInstance>();
 	
 	static Map<Integer, EntityInstance> etoxSENDDictionary = new HashMap<Integer, EntityInstance>();
+	
+	static List<String> sentences_triggers = new ArrayList<String>();
 	
     public static void main( String[] args ){
     	
@@ -117,7 +120,7 @@ public class App {
         String workdirPath = cmd.getOptionValue("workdir");
         
         if (!java.nio.file.Files.isDirectory(Paths.get(inputFilePath))) {
-    		log.error("Please set the inputDirectoryPath ");
+    		System.out.println(" Please set the inputDirectoryPath ");
 			System.exit(1);
     	}
     	
@@ -128,7 +131,8 @@ public class App {
 	    try {
 			Gate.init();
 		} catch (GateException e) {
-			log.error("Wrapper::generatePlainText :: Gate Exception  ", e);
+			System.out.println("App :: main :: Gate Exception  ");
+			e.printStackTrace();
 			System.exit(1);
 		}
  
@@ -138,117 +142,21 @@ public class App {
 	    try {
 			generateNERList(workdirPath);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("App :: main :: Generate NER files Error  ");
 			e.printStackTrace();
 		}
        
-			try {
-				processTagger(inputFilePath, outputFilePath,workdirPath);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			//processJapeRules(inputFilePath, outputFilePath);
-			
-		
-	
-    }
-    
-    private static void processJapeRules(String inputDirectory, String outputDirectory) throws GateException, IOException {
-    	Corpus corpus = Factory.newCorpus("My XML Files"); 
-    	File directory = new File(inputDirectory); 
-    	ExtensionFileFilter filter = new ExtensionFileFilter("XML files", "xml"); 
-    	URL url = directory.toURL(); 
-    	corpus.populate(url, filter, null, false);
-    	
-    	
-    	
-    	
-    	Plugin anniePlugin = new Plugin.Maven("uk.ac.gate.plugins", "annie", "8.5"); 
-    	  Gate.getCreoleRegister().registerPlugin(anniePlugin); 
-    	  // create a serial analyser controller to run ANNIE with 
-    	  SerialAnalyserController annieController =  (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController",  
-    	      Factory.newFeatureMap(), 
-    	       Factory.newFeatureMap(), "ANNIE"); 
-    	   
-    	  // load each PR as defined in ANNIEConstants 
-    	  // Note this code is for demonstration purposes only, 
-    	  // in practice if you want to load the ANNIE app you 
-    	  // should use the PersistenceManager as shown at the 
-    	  // start of this chapter 
-    	  
-    	   String[] PR_NAMES = {
-    			       "gate.creole.annotdelete.AnnotationDeletePR",
-    			      "gate.creole.tokeniser.DefaultTokeniser",
-    			      "gate.creole.gazetteer.DefaultGazetteer",
-    			     "gate.creole.splitter.SentenceSplitter",
-    			    "gate.creole.POSTagger",
-    			     "gate.creole.ANNIETransducer",
-    			    "gate.creole.orthomatcher.OrthoMatcher"
-    			  };
-    	  
-    	  for(int i = 0; i < PR_NAMES.length; i++) { 
-    	    // use default parameters 
-    	    FeatureMap params = Factory.newFeatureMap(); 
-    	    ProcessingResource pr = (ProcessingResource) 
-    	        Factory.createResource(PR_NAMES[i], 
-    	                               params); 
-    	    // add the PR to the pipeline controller 
-    	    annieController.add(pr); 
-    	  } // for each ANNIE PR 
-    	  
-    	  /*Gate.getCreoleRegister().registerPlugin(new Plugin.Maven( 
-    			 "uk.ac.gate.plugins", "tagger-numbers", "8.5")); 
-    	  Gate.getCreoleRegister().registerPlugin(new Plugin.Maven( 
-    				 "uk.ac.gate.plugins", "tagger-measurements", "8.5"));
-    	  
-    	  ProcessingResource numbers = (ProcessingResource) 
-    	  Factory.createResource("gate.creole.numbers.NumbersTagger");
-    	  annieController.add(numbers);
-    	  ProcessingResource measurements = (ProcessingResource) 
-    	  Factory.createResource("gate.creole.measurements.MeasurementsTagger");
-    	  
-    	  annieController.add(measurements);*/
-    	  
-    	  
-    	  // Tell ANNIE’s controller about the corpus you want to run on 
-    	  annieController.setCorpus(corpus); 
-    	  
-    	  
-    	  FeatureMap params = Factory.newFeatureMap(); 
-    	  try {
-    		params.put("listsURL", new File("/home/jcorvi/eTRANSAFE_DATA/dictionaries/lists.def").toURL());
-    	} catch (MalformedURLException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    	  params.put("gazetteerFeatureSeparator", "\t");
-    	  ProcessingResource treatment_related_finding_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params); 
-    	  annieController.add(treatment_related_finding_gazetter);
-    	  // Run ANNIE 
-    	  annieController.execute();
-    	  
-    	  /*try {
-    		LanguageAnalyser jape = (LanguageAnalyser)gate.Factory.createResource(
-    		          "gate.creole.Transducer", gate.Utils.featureMap(
-    		              "grammarURL", new File("/home/jcorvi/eTRANSAFE_DATA/jape_rules/STUDY_DOMAIN.jape").toURI().toURL(),
-    		              "encoding", "UTF-8"));
-    	} catch (MalformedURLException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}*/
-    	
-    	for (Document  document : corpus) {
-    		java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(new File(outputDirectory + File.separator +document.getName()), false)));
-		    out.write(document.toXml());
-		    out.close();
+		try {
+			processTagger(inputFilePath, outputFilePath,workdirPath);
+		} catch (IOException e) {
+			System.out.println("App :: main :: Processing Tagger Error   ");
+			e.printStackTrace();
 		}
-    	 
-    	System.out.println("End process");
-    	  
-		
+			
+		//processJapeRules(inputFilePath, outputFilePath);
 	}
+    
+   
 
 	/**
      * Generate NER list for Standford Pipeline 
@@ -289,10 +197,11 @@ public class App {
 	 */
 	public static void processTagger(String inputDirectoryPath, String outputDirectoryPath, String workdir) throws IOException {
     	Properties props = new Properties();
-		String mapping_files = workdir+"ner_list/cdisc_send_ner.txt,"+workdir+" ner_list/ades_extended_terminology.txt,"+workdir+"ner_list/etox_anatomy_ner.txt, "+workdir+"ner_list/etox_moa_ner.txt, "
+		String mapping_files = workdir+"ner_list/cdisc_send_ner.txt,"+workdir+"ner_list/ades_extended_terminology.txt,"+workdir+"ner_list/etox_anatomy_ner.txt, "+workdir+"ner_list/etox_moa_ner.txt, "
 				+ workdir+"ner_list/etox_in_life_obs_ner.txt, "+workdir+"ner_list/etox_send_codelist_ner.txt,"+workdir+"ner_list/pkunit_ner.txt,"+workdir+"ner_list/treatment_related_triggers.txt";
     	
     	props.put("annotators", "tokenize, ssplit, pos, lemma,  ner, regexner, entitymentions ");
+    	props.put("ssplit.newlineIsSentenceBreak", "always");
 		props.put("regexner.mapping", mapping_files);
 		props.put("regexner.posmatchtype", "MATCH_ALL_TOKENS");
 		props.put("rulesFiles", workdir+"rules/ades_extended_terminology.rules");
@@ -321,12 +230,16 @@ public class App {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
 					} catch (InvalidOffsetException e) {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
-					} catch (GateException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} 
+					}
 				}
 			}
+			String plainText="";
+			for (String text : sentences_triggers) {
+				plainText = plainText + text;
+			}
+			
+			createTxtFile("treatment_related_findings_sentences.txt", plainText);
+			
 		}else {
 			System.out.println("No directory :  " + inputDirectoryPath);
 		}
@@ -372,6 +285,7 @@ public class App {
 			//Annotation document = new Annotation(text);
 			//String text = "Animals at the mid and high doses revealed a slight decrease in body weight gain but no effect on food consumption.";
 			//Annotation document = new Annotation(text.toLowerCase());
+			Pattern pattern = Pattern.compile("\n");
 			pipeline.annotate(document);
 			long endTime = System.currentTimeMillis();
 			log.info(" Annotation document execution time  " + (endTime - startTime) + " milliseconds");
@@ -380,31 +294,31 @@ public class App {
 			    List<CoreMap> sentences= document.get(SentencesAnnotation.class);
 			    for(CoreMap sentence: sentences) {
 			    	List<CoreLabel> tokens= sentence.get(TokensAnnotation.class);
-			    	//previousSentencences.add(sentence.toString());
-			        Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
-			        Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
-			        List<CoreMap> entityMentions = sentence.get(MentionsAnnotation.class);
-			        for (CoreMap entityMention : entityMentions) {
-			        	String term = entityMention.get(TextAnnotation.class).replaceAll("\n", " ");
-			        	String label = entityMention.get(CoreAnnotations.EntityTypeAnnotation.class);
-			        	if(!StopWords.stopWordsEn.contains(term) && !AnnotationUtil.entityMentionsToDelete.contains(label)) {
-			        		Integer termBegin = entityMention.get(CharacterOffsetBeginAnnotation.class);
-			        		Integer termEnd = entityMention.get(CharacterOffsetEndAnnotation.class);
-				        	annotate(gateDocument, sentence, termBegin, termEnd, term, label, "dictionary", tokens, entityMention, null);
-			        	}
-			        }
-			        List<MatchedExpression> matchedExpressionssentence = extractor.extractExpressions(sentence);
-			        for (MatchedExpression me : matchedExpressionssentence) {
-			        	//si el termino entontrado tiene salto de linea ??? se elimina  ?
-			        	String term = me.getText().replaceAll("\n", " ");
-			        	me.getAnnotation().get(TokensAnnotation.class);
-			        	if(!StopWords.stopWordsEn.contains(term)) {
-			        		Integer termBegin = me.getAnnotation().get(CharacterOffsetBeginAnnotation.class);
-					       	Integer termEnd = me.getAnnotation().get(CharacterOffsetEndAnnotation.class);
-			        		String label = me.getValue().get().toString().toUpperCase();
-			        		annotate(gateDocument, sentence, termBegin, termEnd, term, label, "rule", tokens, null, me);
-			        	}
-			        }
+				    //previousSentencences.add(sentence.toString());
+				    Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
+				    Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
+				    List<CoreMap> entityMentions = sentence.get(MentionsAnnotation.class);
+				    for (CoreMap entityMention : entityMentions) {
+				    	String term = entityMention.get(TextAnnotation.class).replaceAll("\n", " ");
+				        String label = entityMention.get(CoreAnnotations.EntityTypeAnnotation.class);
+				        if(!StopWords.stopWordsEn.contains(term) && !AnnotationUtil.entityMentionsToDelete.contains(label)) {
+				        	Integer termBegin = entityMention.get(CharacterOffsetBeginAnnotation.class);
+				        	Integer termEnd = entityMention.get(CharacterOffsetEndAnnotation.class);
+					        annotate(gateDocument, sentence, termBegin, termEnd, term, label, "dictionary", tokens, entityMention, null);
+				        }
+				    }
+				    List<MatchedExpression> matchedExpressionssentence = extractor.extractExpressions(sentence);
+				    for (MatchedExpression me : matchedExpressionssentence) {
+				        //si el termino entontrado tiene salto de linea ??? se elimina  ?
+				        String term = me.getText().replaceAll("\n", " ");
+				        me.getAnnotation().get(TokensAnnotation.class);
+				        if(!StopWords.stopWordsEn.contains(term)) {
+				        	Integer termBegin = me.getAnnotation().get(CharacterOffsetBeginAnnotation.class);
+						    Integer termEnd = me.getAnnotation().get(CharacterOffsetEndAnnotation.class);
+				        	String label = me.getValue().get().toString().toUpperCase();
+				        	annotate(gateDocument, sentence, termBegin, termEnd, term, label, "rule", tokens, null, me);
+				        }
+				    }
 			    }
 			    java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
 			    out.write(gateDocument.toXml());
@@ -429,12 +343,11 @@ public class App {
 		 * @param label
 		 * @throws IOException
 		 */
-		private static void annotate(Document gateDocument, CoreMap sentence, int meBegin, int meEnd,	String term, String label, 
+		private static void annotate(Document gateDocument, CoreMap sentence, int meBegin, int meEnd, String term, String label, 
 				String annotationMethod, List<CoreLabel> tokens,CoreMap entityMention, MatchedExpression me) throws IOException {
 			FeatureMap features = Factory.newFeatureMap();
 			try {
 				label = setGenericFeatures(term, label, annotationMethod, features);
-	    		
 	    		if(label.contains(AnnotationUtil.STUDY_DOMAIN_SUFFIX) || label.contains("SDOMAIN") || label.contains("CLCAT")){
 	    			features.put("study_domain", label);
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
@@ -512,9 +425,6 @@ public class App {
 	    				}else {
 	    					System.out.println("NO MANAGED : " + label + "text: " + features.get("text") );
 	    				}
-	    				
-	    				
-	    				
 	    			}else if(label.contains("LBTEST")){
 	    				String label_ = "LBTEST"; // LBTEST FROM ETOX
 	    				//toxicolodyReportWitAnnotations.getAnnotations("STUDY TEST CODE(LBTEST) ETOX").add(startOff, endOff,  label_, features);
@@ -591,7 +501,11 @@ public class App {
 		    				}	
 		    			}	
 		    		}
+	    			Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
+			        Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "NO_TREATMENT_RELATED_TRIGGER", features);
+	    			gateDocument.getAnnotations("BSC").add(new Long(sentenceBegin), new Long(sentenceEnd), "NO_TREATMENT_RELATED_SENTENCE", null);
+	    			sentences_triggers.add(gateDocument.getName() + "\t" + sentence.get(TextAnnotation.class)+ "\t" + term + "\t" + meBegin + "\t" + meEnd + "\t" +"NO_TREATMENT_RELATED_EFFECT_DETECTED_SENTENCE\n");
 	    		}else if(label.contains(AnnotationUtil.TREATMENT_RELATED_EFFECT_DETECTED)) {
 	    			CoreMap coreMap = me.getAnnotation();
 	    			if(coreMap!=null) {
@@ -605,7 +519,11 @@ public class App {
 		    				}	
 		    			}
 	    			}
+	    			sentences_triggers.add(gateDocument.getName() + "\t" + sentence.get(TextAnnotation.class)+ "\t" + term + "\t" + meBegin + "\t" + meEnd + "\t" +"TREATMENT_RELATED_EFFECT_DETECTED_SENTENCE\n");
+	    			Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
+			        Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
 	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "TREATMENT_RELATED_TRIGGER", features);
+	    			gateDocument.getAnnotations("BSC").add(new Long(sentenceBegin), new Long(sentenceEnd), "TREATMENT_RELATED_SENTENCE", null);
 	    		}else if(label.contains("MOA")) {
 	    			//gateDocument.getAnnotations("BSC_OTHERS").add(new Long(meBegin), new Long(meEnd), "MOA", features);
 	    		}else if(label.contains("PKPARM")) {
@@ -625,7 +543,6 @@ public class App {
 				System.out.println("No controlled exception with label :  " + label + " text:  " + features.get("text"));
 				System.out.println(e);
 			}
-
 		}
 		/**
 		 * Set generic features of findings
@@ -790,6 +707,22 @@ public class App {
 		return null;
 	}
 	
+	/**
+	 * Create a plain text file with the given string
+	 * @param path
+	 * @param plainText
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	private static void createTxtFile(String path, String plainText) throws FileNotFoundException, IOException {
+		File fout = new File(path);
+		FileOutputStream fos = new FileOutputStream(fout);
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+		bw.write(plainText);
+		bw.flush();
+		bw.close();
+	}
+	
 	private static String getScapedKeyWordNER(String keyword) {
 		String example ="submandib + % 1.1 - ( $ * [ ] ) { } lan x # ? | javi ";
 		PTBEscapingProcessor esc = new PTBEscapingProcessor();
@@ -805,5 +738,99 @@ public class App {
 		replaceAll("\\|", "\\\\|");
 		return keyword_esc;
 	}
+	
+	
+	 private static void processJapeRules(String inputDirectory, String outputDirectory) throws GateException, IOException {
+	    	Corpus corpus = Factory.newCorpus("My XML Files"); 
+	    	File directory = new File(inputDirectory); 
+	    	ExtensionFileFilter filter = new ExtensionFileFilter("XML files", "xml"); 
+	    	URL url = directory.toURL(); 
+	    	corpus.populate(url, filter, null, false);
+	    	
+	    	Plugin anniePlugin = new Plugin.Maven("uk.ac.gate.plugins", "annie", "8.5"); 
+	    	  Gate.getCreoleRegister().registerPlugin(anniePlugin); 
+	    	  // create a serial analyser controller to run ANNIE with 
+	    	  SerialAnalyserController annieController =  (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController",  
+	    	      Factory.newFeatureMap(), 
+	    	       Factory.newFeatureMap(), "ANNIE"); 
+	    	   
+	    	  // load each PR as defined in ANNIEConstants 
+	    	  // Note this code is for demonstration purposes only, 
+	    	  // in practice if you want to load the ANNIE app you 
+	    	  // should use the PersistenceManager as shown at the 
+	    	  // start of this chapter 
+	    	  
+	    	   String[] PR_NAMES = {
+	    			       "gate.creole.annotdelete.AnnotationDeletePR",
+	    			      "gate.creole.tokeniser.DefaultTokeniser",
+	    			      "gate.creole.gazetteer.DefaultGazetteer",
+	    			     "gate.creole.splitter.SentenceSplitter",
+	    			    "gate.creole.POSTagger",
+	    			     "gate.creole.ANNIETransducer",
+	    			    "gate.creole.orthomatcher.OrthoMatcher"
+	    			  };
+	    	  
+	    	  for(int i = 0; i < PR_NAMES.length; i++) { 
+	    	    // use default parameters 
+	    	    FeatureMap params = Factory.newFeatureMap(); 
+	    	    ProcessingResource pr = (ProcessingResource) 
+	    	        Factory.createResource(PR_NAMES[i], 
+	    	                               params); 
+	    	    // add the PR to the pipeline controller 
+	    	    annieController.add(pr); 
+	    	  } // for each ANNIE PR 
+	    	  
+	    	  /*Gate.getCreoleRegister().registerPlugin(new Plugin.Maven( 
+	    			 "uk.ac.gate.plugins", "tagger-numbers", "8.5")); 
+	    	  Gate.getCreoleRegister().registerPlugin(new Plugin.Maven( 
+	    				 "uk.ac.gate.plugins", "tagger-measurements", "8.5"));
+	    	  
+	    	  ProcessingResource numbers = (ProcessingResource) 
+	    	  Factory.createResource("gate.creole.numbers.NumbersTagger");
+	    	  annieController.add(numbers);
+	    	  ProcessingResource measurements = (ProcessingResource) 
+	    	  Factory.createResource("gate.creole.measurements.MeasurementsTagger");
+	    	  
+	    	  annieController.add(measurements);*/
+	    	  
+	    	  
+	    	  // Tell ANNIE’s controller about the corpus you want to run on 
+	    	  annieController.setCorpus(corpus); 
+	    	  
+	    	  
+	    	  FeatureMap params = Factory.newFeatureMap(); 
+	    	  try {
+	    		params.put("listsURL", new File("/home/jcorvi/eTRANSAFE_DATA/dictionaries/lists.def").toURL());
+	    	} catch (MalformedURLException e) {
+	    		// TODO Auto-generated catch block
+	    		e.printStackTrace();
+	    	}
+	    	  params.put("gazetteerFeatureSeparator", "\t");
+	    	  ProcessingResource treatment_related_finding_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params); 
+	    	  annieController.add(treatment_related_finding_gazetter);
+	    	  // Run ANNIE 
+	    	  annieController.execute();
+	    	  
+	    	  /*try {
+	    		LanguageAnalyser jape = (LanguageAnalyser)gate.Factory.createResource(
+	    		          "gate.creole.Transducer", gate.Utils.featureMap(
+	    		              "grammarURL", new File("/home/jcorvi/eTRANSAFE_DATA/jape_rules/STUDY_DOMAIN.jape").toURI().toURL(),
+	    		              "encoding", "UTF-8"));
+	    	} catch (MalformedURLException e) {
+	    		// TODO Auto-generated catch block
+	    		e.printStackTrace();
+	    	}*/
+	    	
+	    	for (Document  document : corpus) {
+	    		java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(new File(outputDirectory + File.separator +document.getName()), false)));
+			    out.write(document.toXml());
+			    out.close();
+			}
+	    	 
+	    	System.out.println("End process");
+	    	  
+			
+		}
+	
 	
 }

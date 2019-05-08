@@ -110,6 +110,7 @@ public class App {
 	public static void process(String inputDirectoryPath, String outputDirectoryPath, String workdir) throws IOException {
     	Properties props = new Properties();
 		props.put("annotators", "tokenize, ssplit, pos, lemma");
+		props.put("ssplit.newlineIsSentenceBreak", "always");
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 		System.out.println("App::processTagger :: INIT ");
 		if (java.nio.file.Files.isDirectory(Paths.get(inputDirectoryPath))) {
@@ -152,11 +153,12 @@ public class App {
 		long startTime = System.currentTimeMillis();
 		gate.Document gateDocument = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
 		String plainText = gateDocument.getContent().getContent(0l, gate.Utils.lengthLong(gateDocument)).toString();
+		//String plainText = "Header \n Mi sentencia aca mi sentencia.  Mi otra sentencia. ";
 		Annotation document = new Annotation(plainText);
 		pipeline.annotate(document);
 		long endTime = System.currentTimeMillis();
 		System.out.println(" Annotation document execution time  " + (endTime - startTime) + " milliseconds");
-	    try {	
+		try {	
 	      	List<CoreMap> sentences= document.get(SentencesAnnotation.class);
 		    for(CoreMap sentence: sentences) {
 		    	List<CoreLabel> tokens= sentence.get(TokensAnnotation.class);
@@ -182,12 +184,12 @@ public class App {
 		FeatureMap features = Factory.newFeatureMap();
 		Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
 	    Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
-	    gateDocument.getAnnotations().add(new Long(sentenceBegin), new Long(sentenceEnd), "Sentence", features);
+	    gateDocument.getAnnotations("PREPROCESSING").add(new Long(sentenceBegin), new Long(sentenceEnd), "Sentence", features);
 	    for (CoreLabel token : tokens) {
 	    	FeatureMap features_tokens = Factory.newFeatureMap();
 	    	features_tokens.put("word", token.get(TextAnnotation.class));
 	    	features_tokens.put("pos", token.get(PartOfSpeechAnnotation.class));
-	    	gateDocument.getAnnotations().add(new Long(token.beginPosition()), new Long(token.endPosition()), "Token", features_tokens);
+	    	gateDocument.getAnnotations("PREPROCESSING").add(new Long(token.beginPosition()), new Long(token.endPosition()), "Token", features_tokens);
 	    }
 	}
 }
