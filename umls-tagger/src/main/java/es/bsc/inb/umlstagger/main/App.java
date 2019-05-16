@@ -177,7 +177,7 @@ public class App {
 	private static void generateNERList(String workdirPath) throws IOException {
 		String umls_terminology_path = workdirPath+"dict/umls_terminology_.txt";
 		String umls_terminology_ner = workdirPath+"ner_list/umls_terminology_.txt";
-		generateNERGazzetterWithPriority(umls_terminology_path, umlsDictionary, umls_terminology_ner, "MISC", "10.0");
+		generateNERGazzetterWithPriority(umls_terminology_path, umlsDictionary, umls_terminology_ner, "MISC,CAUSE_OF_DEATH", "10.0");
 	}
     
 	/**
