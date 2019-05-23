@@ -187,6 +187,72 @@ public class AnnotationEvaluator {
 	}
 
 	/**
+	 * Retrieve annotation diff results
+	 * 
+	 * @param printByDocument
+	 * @return
+	 */
+	public String getFscoreMeasuresCSV(boolean printByDocument) {
+		StringBuffer retStr = new StringBuffer("");
+		
+		List<String> headerStrList = new ArrayList<String>();
+		headerStrList.add("DOC NAME");
+		headerStrList.add("CorrectMatches");
+		headerStrList.add("Missing");
+		headerStrList.add("Spurious");
+		headerStrList.add("PartiallyCorrectMatches");
+		headerStrList.add("Precision - strict");
+		headerStrList.add("Recall - strict");
+		headerStrList.add("Fmesure - strict");
+		headerStrList.add("Precision - lanient");
+		headerStrList.add("Recall - lanient");
+		headerStrList.add("Fmesure - lanient");
+		headerStrList.add("Precision - average");
+		headerStrList.add("Recall - average");
+		headerStrList.add("Fmesure - average");
+		
+		retStr.append(String.join("\t", headerStrList) + "\n");
+		
+		if(printByDocument) {
+			//retStr.append("###DOCUMENTS_INFORMATION");
+			for(int i = 0; i < documentNames.size(); i++) {
+				List<String> measuresRow = documentDiffer.get(i).getMeasuresRow(measuresDiff, documentNames.get(i));
+				retStr.append(String.join("\t",  measuresRow)  + "\n");
+				//retStr.append("\n\n" + formattedStr(headerStrList.toArray()) + "\n");
+				
+				for(Entry<String, AnnotationDiffer> documentDifferByTypeElem : documentDifferByType.get(i).entrySet()) {
+					List<String> results = documentDifferByTypeElem.getValue().getMeasuresRow(measuresDiff, documentNames.get(i));
+					retStr.append(String.join("\t",  results)  + "\n");
+					//retStr.append("   > " + documentDifferByTypeElem.getKey() + "\n" + formattedStr() + "\n");
+				}
+			}
+		}
+		
+		
+		//retStr.append("###GLOBAL_INFORMATION\n");
+		AnnotationDiffer globalDiff = new AnnotationDiffer(documentDiffer);
+		List<String> measuresRow = globalDiff.getMeasuresRow(measuresDiff, "GLOBAL");
+		retStr.append(String.join("\t", measuresRow)+ "\n");
+		
+		Map<String, List<AnnotationDiffer>> multiDocDifferByType = new HashMap<String, List<AnnotationDiffer>>();
+		for(int i = 0; i < documentNames.size(); i++) {
+			for(Entry<String, AnnotationDiffer> documentDifferByTypeElem : documentDifferByType.get(i).entrySet()) {
+				if(!multiDocDifferByType.containsKey(documentDifferByTypeElem.getKey())) multiDocDifferByType.put(documentDifferByTypeElem.getKey(), new ArrayList<AnnotationDiffer>());
+				multiDocDifferByType.get(documentDifferByTypeElem.getKey()).add(documentDifferByTypeElem.getValue());
+			}
+		}
+		
+		for(Entry<String, List<AnnotationDiffer>> multiDocDifferByTypeEntry : multiDocDifferByType.entrySet()) {
+			List<String> result = (new AnnotationDiffer(multiDocDifferByTypeEntry.getValue()).getMeasuresRow(measuresDiff, "ALL_DOCS_TOGETHER"));
+			result.remove(0);
+			retStr.append(multiDocDifferByTypeEntry.getKey() + "\t" + 
+					String.join("\t",  result)  + "\n");
+		}
+		
+		return retStr.toString();
+	}
+	
+	/**
 	 * Retrieve classification measures results
 	 * 
 	 * @param printByDocument
@@ -268,16 +334,11 @@ public class AnnotationEvaluator {
 	 */
 	public void reset() {
 		documentNames = new ArrayList<String>();
-		
 		documentDiffer = new ArrayList<AnnotationDiffer>();
 		documentDifferByType = new ArrayList<Map<String, AnnotationDiffer>>();
-
 		classificationMeasures = new ArrayList<ClassificationMeasures>();
 		classificationMeasuresByType = new ArrayList<Map<String, ClassificationMeasures>>();
 	}
 
-	public static void main(String[] args) {
-
-
-	}
+	
 }
