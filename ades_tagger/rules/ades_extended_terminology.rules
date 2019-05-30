@@ -8,73 +8,99 @@ $NEGATION_WORD="/no|not|neither|none/"
 
 ENV.defaults["stage"] = 1
 
-//Trigger
+//Treatment related triggers 
 
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:TREATMENT_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,20} [{ner:FINDING_KEYWORD }] ),
-  result: "TREATMENT_RELATED_EFFECT_DETECTED"
-}
+//Basic terminology first from NER
 
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,20} [{ner:TREATMENT_KEYWORD }] ),
-  result: "TREATMENT_RELATED_EFFECT_DETECTED"
-}
+{([{ ner:NO_TREATMENT_RELATED_EFFECT_DETECTED }]+) => "NO_TREATMENT_RELATED_EFFECT_DETECTED" }
+{([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+) => "TREATMENT_RELATED_EFFECT_DETECTED" }
 
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,20} [{ner:EFFECT_KEYWORD }] ),
-  result: "TREATMENT_RELATED_EFFECT_DETECTED"
-}
+//Negation trigger from NER 
 
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:FINDING_KEYWORD } | { ner:EFFECT_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,20} [{ner:RELATED_KEYWORD }] ),
-  result: "TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-//Negation trigger
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB/ }]  [!{ word:/:/}]* [{ ner:TREATMENT_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,20} [{ner:FINDING_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB/ }]  [!{ word:/:/}]* [{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,20} [{ner:TREATMENT_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB/ }]  [!{ word:/:/}]* [{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,20} [{ner:EFFECT_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB/ }]  [!{ word:/:/}]* [{ ner:FINDING_KEYWORD } | { ner:EFFECT_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,20} [{ner:RELATED_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-
+{ ( [{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }]  [!{ word:/:/}]* ([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+)) => "NO_TREATMENT_RELATED_EFFECT_DETECTED" }
 
 ENV.defaults["stage"] = 2
 
-{([{ ner:NO_TREATMENT_RELATED_EFFECT_DETECTED }]+) => "NO_TREATMENT_RELATED_EFFECT_DETECTED" }
+//Negative trigger treatment-related finding with rules
 
-{([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+) => "TREATMENT_RELATED_EFFECT_DETECTED" }
+{
+  ruleType: "tokens",
+  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }]  [!{ word:/:/}]* [{ ner:TREATMENT_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:FINDING_KEYWORD }] ),
+  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+{
+  ruleType: "tokens",
+  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }]  [!{ word:/:/}]* [{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:TREATMENT_KEYWORD }] ),
+  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+{
+  ruleType: "tokens",
+  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }]  [!{ word:/:/}]* [{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:EFFECT_KEYWORD }] ),
+  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+{
+  ruleType: "tokens",
+  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }]  [!{ word:/:/}]* [{ ner:FINDING_KEYWORD } | { ner:EFFECT_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:RELATED_KEYWORD }] ),
+  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+//Negative trigger treatment-related finding with rules, Negation at middle
+
+{
+  ruleType: "tokens",
+  pattern: ( [{ ner:TREATMENT_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,10} [{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }] [!{ word:/\n/}]{0,8} [{ner:FINDING_KEYWORD }] ),
+  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+{
+  ruleType: "tokens",
+  pattern: ([{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }]  [!{ word:/\n/}]{0,10} [{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }] [!{ word:/\n/}]{0,8} [{ner:TREATMENT_KEYWORD }] ),
+  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+{
+  ruleType: "tokens",
+  pattern: ( [{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,10} [{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }] [!{ word:/\n/}]{0,8} [{ner:EFFECT_KEYWORD }] ),
+  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+{
+  ruleType: "tokens",
+  pattern: ( [{ ner:FINDING_KEYWORD } | { ner:EFFECT_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,10} [{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }] [!{ word:/\n/}]{0,8} [{ner:RELATED_KEYWORD }] ),
+  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+//Positive trigger treatment-related finding, with rules
+
+{
+  ruleType: "tokens",
+  pattern: ([{ ner:TREATMENT_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:FINDING_KEYWORD }] ),
+  result: "TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+{
+  ruleType: "tokens",
+  pattern: ([{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:TREATMENT_KEYWORD }] ),
+  result: "TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+{
+  ruleType: "tokens",
+  pattern: ([{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:EFFECT_KEYWORD }] ),
+  result: "TREATMENT_RELATED_EFFECT_DETECTED"
+}
+
+{
+  ruleType: "tokens",
+  pattern: ([{ ner:FINDING_KEYWORD } | { ner:EFFECT_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:RELATED_KEYWORD }] ),
+  result: "TREATMENT_RELATED_EFFECT_DETECTED"
+}
 
 
 ENV.defaults["stage"] = 3
-
-
-//{ ( [{ word:$NEGATION_WORD; tag:/DT|NN.*|RB/ }]  [!{ word:/:/}]* ([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+)) => "NO_TREATMENT_RELATED_EFFECT_DETECTED" }
-
-{ ( [{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB/ }]  [!{ word:/:/}]* ([{ ner:TREATMENT_RELATED_EFFECT_DETECTED }]+)) => "NO_TREATMENT_RELATED_EFFECT_DETECTED" }
 
 
 {([{ ner:INCREASE_MANIFESTATION_FINDING; tag:/VB.*/ }]+) => "INCREASE_MANIFESTATION_FINDING" }
@@ -120,5 +146,5 @@ ENV.defaults["stage"] = 4
 { ((  [{tag:/JJ.*|NN.*/} ]  [{ word:/group[s]*/; tag:/NN.*/}]  ) ) => "GROUP" }
 
 #SEVERITY
-//{ (( [{ word:/severity/}]  ) ) => "SEVERITY" }
-
+{ (( [{ word:/severity|severe/}]* [{ word:/grade/}] [{ner:NUMBER}] ) ) => "SEVERITY" }
+{ (( [{ word:/severity|severe/}] [{ner:NUMBER}] ) ) => "SEVERITY" }

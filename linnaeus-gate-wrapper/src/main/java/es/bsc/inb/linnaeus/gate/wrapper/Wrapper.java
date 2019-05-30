@@ -52,7 +52,11 @@ class Wrapper {
         Option output = new Option("o", "output", true, "output directory path");
         output.setRequired(true);
         options.addOption(output);
-
+        
+        Option set = new Option("a", "annotation_set", true, "Annotation set where the annotation will be included");
+        set.setRequired(true);
+        options.addOption(set);
+        
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd = null;
@@ -66,13 +70,18 @@ class Wrapper {
 
         String inputFilePath = cmd.getOptionValue("input");
         String outputFilePath = cmd.getOptionValue("output");
-    	
+        String annotationSet = cmd.getOptionValue("annotation_set");
         if (!java.nio.file.Files.isDirectory(Paths.get(inputFilePath))) {
     		log.error("Please set the inputDirectoryPath ");
 			System.exit(1);
     	}
     	
-    	File outputDirectory = new File(outputFilePath);
+        if (annotationSet==null) {
+        	System.out.println("Please set the annotation set where the annotation will be included");
+			System.exit(1);
+    	}
+        
+        File outputDirectory = new File(outputFilePath);
 	    if(!outputDirectory.exists())
 	    	outputDirectory.mkdirs();
         
@@ -86,7 +95,7 @@ class Wrapper {
     		String tmpWorkDir = outputFilePath + File.separator + "linnaeus_tmp";
             generatePlainText(inputFilePath, tmpWorkDir);
             executeLinnaeusTagger(tmpWorkDir, tmpWorkDir + File.separator + "linneaus_result.txt");
-            annotateGateDocuments(inputFilePath, outputFilePath ,tmpWorkDir + File.separator + "linneaus_result.txt");
+            annotateGateDocuments(inputFilePath, outputFilePath ,tmpWorkDir + File.separator + "linneaus_result.txt", annotationSet);
             deleteDirectory(new File(tmpWorkDir));
     	}catch(Exception e) {
     		log.error("Exception ocurred see the log for more information", e);
@@ -111,7 +120,7 @@ class Wrapper {
 	 * Save a plain text file from the gate document.
 	 * @param properties_parameters_path
 	 */
-	private static void annotateGateDocuments(String inputDirectoryPath,String outputDirectoryPath,String linnaeusOutput) {
+	private static void annotateGateDocuments(String inputDirectoryPath,String outputDirectoryPath,String linnaeusOutput, String annotationSet) {
 		log.info("Wrapper::annotateGateDocuments :: INIT ");
 		File inputDirectory = new File(inputDirectoryPath);
 		File[] files =  inputDirectory.listFiles();
@@ -123,7 +132,7 @@ class Wrapper {
 					fileOutPutName = fileOutPutName.replace(".txt", ".xml");
 				}
 				File outputFile = new File(outputDirectoryPath + File.separator + fileOutPutName);
-				annotateGateDocuemt(file, outputFile, linnaeusOutput);
+				annotateGateDocuemt(file, outputFile, linnaeusOutput, annotationSet);
 			}
 		}
 		log.info("Wrapper::annotateGateDocuments :: END ");
@@ -134,7 +143,7 @@ class Wrapper {
 	 * @param inputGATEFile
 	 * @param linnaeusOutput
 	 */
-	 public static void annotateGateDocuemt(File inputGATEFile, File outputGATEFile, String linnaeusOutput) {
+	 public static void annotateGateDocuemt(File inputGATEFile, File outputGATEFile, String linnaeusOutput, String annotationSet) {
 		 String docIdGate = inputGATEFile.getName().substring(0, inputGATEFile.getName().lastIndexOf("."));
 		 if (Files.isRegularFile(Paths.get(linnaeusOutput))) {
 			gate.Document toxicolodyReportWitAnnotations;
@@ -157,7 +166,7 @@ class Wrapper {
 						features.put("inst", "BSC");
 						features.put("ncbi", ncbi_map);
 						features.put("original_label", "SPECIES");
-						toxicolodyReportWitAnnotations.getAnnotations("BSC").add(startOff, endOff, "SPECIMEN", features);
+						toxicolodyReportWitAnnotations.getAnnotations(annotationSet).add(startOff, endOff, "SPECIMEN", features);
 					}
 				}
 			    br.close();

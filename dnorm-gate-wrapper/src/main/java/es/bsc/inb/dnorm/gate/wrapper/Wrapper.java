@@ -56,7 +56,11 @@ class Wrapper {
         Option output = new Option("o", "output", true, "output directory path");
         output.setRequired(true);
         options.addOption(output);
-
+        
+        Option set = new Option("a", "annotation_set", true, "Annotation set where the annotation will be included");
+        set.setRequired(true);
+        options.addOption(set);
+        
         Option workdir = new Option("workdir", "workdir", true, "workDir directory path");
         workdir.setRequired(false);
         options.addOption(workdir);
@@ -80,12 +84,17 @@ class Wrapper {
         String outputFilePath = cmd.getOptionValue("output");
         String workdirPath = cmd.getOptionValue("workdir");
         String configFilePath = cmd.getOptionValue("configfile");
-        
+        String annotationSet = cmd.getOptionValue("annotation_set");
         if (!java.nio.file.Files.isDirectory(Paths.get(inputFilePath))) {
     		log.error("Please set the inputDirectoryPath ");
 			System.exit(1);
     	}
     	
+        if (annotationSet==null) {
+        	System.out.println("Please set the annotation set where the annotation will be included");
+			System.exit(1);
+    	}
+        
     	File outputDirectory = new File(outputFilePath);
 	    if(!outputDirectory.exists())
 	    	outputDirectory.mkdirs();
@@ -100,7 +109,7 @@ class Wrapper {
     	try {
     		String tmpWorkDir = outputFilePath + File.separator + "dnorm_tmp";
     		processTagger(inputFilePath, tmpWorkDir, workdirPath, configFilePath);
-            annotateGateDocuments(inputFilePath, outputFilePath ,tmpWorkDir);
+            annotateGateDocuments(inputFilePath, outputFilePath ,tmpWorkDir, annotationSet);
             deleteDirectory(new File(tmpWorkDir));
     	}catch(Exception e) {
     		log.error("Exception ocurred see the log for more information", e);
@@ -133,7 +142,7 @@ class Wrapper {
 	 * Annotate the gates documents with the plain tagged information.
 	 * @param properties_parameters_path
 	 */
-	private static void annotateGateDocuments(String inputDirectoryPath,String outputDirectoryPath,String taggedDirectory) {
+	private static void annotateGateDocuments(String inputDirectoryPath,String outputDirectoryPath,String taggedDirectory, String annotationSet) {
 		log.info("Wrapper::annotateGateDocuments :: INIT ");
 		File inputDirectory = new File(inputDirectoryPath);
 		File[] files =  inputDirectory.listFiles();
@@ -145,7 +154,7 @@ class Wrapper {
 					fileOutPutName = fileOutPutName.replace(".txt", ".xml");
 				}
 				File outputFile = new File(outputDirectoryPath + File.separator + fileOutPutName);
-				annotateGateDocuemt(file, outputFile, taggedDirectory + File.separator + file.getName() + ".txt.dat");
+				annotateGateDocuemt(file, outputFile, taggedDirectory + File.separator + file.getName() + ".txt.dat", annotationSet);
 			}
 		}
 		log.info("Wrapper::annotateGateDocuments :: END ");
@@ -156,7 +165,7 @@ class Wrapper {
 	 * @param inputGATEFile
 	 * @param linnaeusOutput
 	 */
-	 public static void annotateGateDocuemt(File inputGATEFile, File outputGATEFile, String linnaeusOutput) {
+	 public static void annotateGateDocuemt(File inputGATEFile, File outputGATEFile, String linnaeusOutput, String annotationSet) {
 		 if (Files.isRegularFile(Paths.get(linnaeusOutput))) {
 			gate.Document toxicolodyReportWitAnnotations;
 			try {
@@ -184,8 +193,9 @@ class Wrapper {
 							log.warn("Wrapper: annotateGateDocument :: cross referencen different to mesh and omim ");
 						}
 					}
-					toxicolodyReportWitAnnotations.getAnnotations("BSC").add(startOff, endOff, "FINDING", features);
+					toxicolodyReportWitAnnotations.getAnnotations(annotationSet).add(startOff, endOff, "FINDING", features);
 				}
+			    br.close();
 			    java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
 				out.write(toxicolodyReportWitAnnotations.toXml());
 				out.close();

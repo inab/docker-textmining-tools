@@ -10,6 +10,9 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Document;
@@ -194,7 +197,6 @@ public class AnnotationEvaluator {
 	 */
 	public String getFscoreMeasuresCSV(boolean printByDocument) {
 		StringBuffer retStr = new StringBuffer("");
-		
 		List<String> headerStrList = new ArrayList<String>();
 		headerStrList.add("DOC NAME");
 		headerStrList.add("CorrectMatches");
@@ -210,9 +212,7 @@ public class AnnotationEvaluator {
 		headerStrList.add("Precision - average");
 		headerStrList.add("Recall - average");
 		headerStrList.add("Fmesure - average");
-		
 		retStr.append(String.join("\t", headerStrList) + "\n");
-		
 		if(printByDocument) {
 			//retStr.append("###DOCUMENTS_INFORMATION");
 			for(int i = 0; i < documentNames.size(); i++) {
@@ -227,8 +227,6 @@ public class AnnotationEvaluator {
 				}
 			}
 		}
-		
-		
 		//retStr.append("###GLOBAL_INFORMATION\n");
 		AnnotationDiffer globalDiff = new AnnotationDiffer(documentDiffer);
 		List<String> measuresRow = globalDiff.getMeasuresRow(measuresDiff, "GLOBAL");
@@ -241,7 +239,6 @@ public class AnnotationEvaluator {
 				multiDocDifferByType.get(documentDifferByTypeElem.getKey()).add(documentDifferByTypeElem.getValue());
 			}
 		}
-		
 		for(Entry<String, List<AnnotationDiffer>> multiDocDifferByTypeEntry : multiDocDifferByType.entrySet()) {
 			List<String> result = (new AnnotationDiffer(multiDocDifferByTypeEntry.getValue()).getMeasuresRow(measuresDiff, "ALL_DOCS_TOGETHER"));
 			result.remove(0);
@@ -260,7 +257,6 @@ public class AnnotationEvaluator {
 	 */
 	public String getClassificationMeasures(boolean printByDocument) {
 		StringBuffer retStr = new StringBuffer("");
-
 		if(printByDocument) {
 			for(int i = 0; i < documentNames.size(); i++) {
 				List<String> measuresRow = classificationMeasures.get(i).getMeasuresRow(measuresClassification, documentNames.get(i)); 
@@ -271,7 +267,6 @@ public class AnnotationEvaluator {
 				} 
 			}
 		}
-
 		retStr.append("\n\n GLOBAL CLASSIFICAITON MEASURES: \n");
 		ClassificationMeasures globalClassificationMeasures = new ClassificationMeasures(classificationMeasures);
 		List<String> measuresRow = globalClassificationMeasures.getMeasuresRow(measuresClassification, "GLOBAL"); 
@@ -280,13 +275,11 @@ public class AnnotationEvaluator {
 		for (List<String> matrixRow : matrix) { 
 			retStr.append("\n" + Arrays.deepToString(matrixRow.toArray())); 
 		} 
-
 		return retStr.toString();
 	}
 	
 	private static String formattedStr(Object[] objArray) {
 		StringBuffer strBuffer = new StringBuffer("");
-		
 		int maxLen = 0;
 		if(objArray != null && objArray.length > 1) {
 			for(int k = 1; k < objArray.length; k++) {
@@ -297,15 +290,12 @@ public class AnnotationEvaluator {
 				}
 			}
 		}
-		
 		if(objArray != null && objArray.length > 0) {
 			for(int k = 0; k < objArray.length; k++) {
 				Object obj = objArray[k];
 				if(obj != null && obj instanceof String) {
-					
 					String objStr = (String) obj;
 					strBuffer.append(objStr);
-					
 					if(k == 0) {
 						int objStrLen = objStr.length();
 						while(objStrLen < 50) {
@@ -323,7 +313,6 @@ public class AnnotationEvaluator {
 				}
 			}
 		}
-		
 		return strBuffer.toString();
 	}
 	
@@ -338,6 +327,92 @@ public class AnnotationEvaluator {
 		documentDifferByType = new ArrayList<Map<String, AnnotationDiffer>>();
 		classificationMeasures = new ArrayList<ClassificationMeasures>();
 		classificationMeasuresByType = new ArrayList<Map<String, ClassificationMeasures>>();
+	}
+	
+	/**
+	 * 
+	 * @param printByDoc
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public String getFscoreMeasuresJSON() {
+		JSONObject json = new JSONObject();
+		JSONArray json_fields = new JSONArray();
+		StringBuffer retStr = new StringBuffer("");
+		AnnotationDiffer globalDiff = new AnnotationDiffer(documentDiffer);
+		List<String> measuresRow = globalDiff.getMeasuresRow(measuresDiff, "GLOBAL");
+		retStr.append(String.join("\t", measuresRow)+ "\n");
+		Map<String, List<AnnotationDiffer>> multiDocDifferByType = new HashMap<String, List<AnnotationDiffer>>();
+		for(int i = 0; i < documentNames.size(); i++) {
+			for(Entry<String, AnnotationDiffer> documentDifferByTypeElem : documentDifferByType.get(i).entrySet()) {
+				if(!multiDocDifferByType.containsKey(documentDifferByTypeElem.getKey())) multiDocDifferByType.put(documentDifferByTypeElem.getKey(), new ArrayList<AnnotationDiffer>());
+				multiDocDifferByType.get(documentDifferByTypeElem.getKey()).add(documentDifferByTypeElem.getValue());
+			}
+		}
+		
+		for(Entry<String, List<AnnotationDiffer>> multiDocDifferByTypeEntry : multiDocDifferByType.entrySet()) {
+			List<String> result = (new AnnotationDiffer(multiDocDifferByTypeEntry.getValue()).getMeasuresRow(measuresDiff, "ALL_DOCS_TOGETHER"));
+			JSONObject field_json = new JSONObject();
+			field_json.put("Field", multiDocDifferByTypeEntry.getKey());
+			
+			JSONObject q = new JSONObject();
+			q.put("CorrectMatches", result.get(1));
+			q.put("Missing", result.get(2));
+			q.put("Spurious", result.get(3));
+			q.put("PartiallyCorrectMatches", result.get(4));
+			field_json.put("quantity", q);
+			
+			JSONObject s = new JSONObject();
+			s.put("Precision", result.get(5));
+			s.put("Recall", result.get(6));
+			s.put("Fmesure", result.get(7));
+			field_json.put("strict", s);
+			
+			JSONObject l = new JSONObject();
+			l.put("Precision", result.get(8));
+			l.put("Recall", result.get(9));
+			l.put("Fmesure", result.get(10));
+			field_json.put("lanient", l);
+			
+			JSONObject a = new JSONObject();
+			a.put("Precision", result.get(11));
+			a.put("Recall", result.get(12));
+			a.put("Fmesure", result.get(13));
+			field_json.put("average", a);
+			
+			json_fields.add(field_json);
+		}
+		
+		json.put("fields", json_fields);
+		JSONObject field_json = new JSONObject();
+		
+		JSONObject q = new JSONObject();
+		q.put("CorrectMatches", measuresRow.get(1));
+		q.put("Missing", measuresRow.get(2));
+		q.put("Spurious", measuresRow.get(3));
+		q.put("PartiallyCorrectMatches", measuresRow.get(4));
+		field_json.put("quantity", q);
+		
+		JSONObject s = new JSONObject();
+		s.put("Precision", measuresRow.get(5));
+		s.put("Recall", measuresRow.get(6));
+		s.put("Fmesure", measuresRow.get(7));
+		field_json.put("strict", s);
+		
+		JSONObject l = new JSONObject();
+		l.put("Precision", measuresRow.get(8));
+		l.put("Recall", measuresRow.get(9));
+		l.put("Fmesure", measuresRow.get(10));
+		field_json.put("lanient", l);
+		
+		JSONObject a = new JSONObject();
+		a.put("Precision", measuresRow.get(11));
+		a.put("Recall", measuresRow.get(12));
+		a.put("Fmesure", measuresRow.get(13));
+		field_json.put("average", a);
+		
+		json.put("global", field_json);
+		return json.toJSONString();
 	}
 
 	

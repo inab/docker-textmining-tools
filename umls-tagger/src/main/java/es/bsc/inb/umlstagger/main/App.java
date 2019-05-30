@@ -14,11 +14,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.StringJoiner;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -57,7 +57,7 @@ import gate.util.InvalidOffsetException;
 
 /**
  * UMLS Tagger.
- * Given an UMSL Installation these tools execute a NER using the UMLS Terminology. 
+ * Given an UMLS Installation these tools execute a NER using the UMLS Terminology. 
  * 
  * @author jcorvi
  *
@@ -67,6 +67,8 @@ public class App {
 	static final Logger log = Logger.getLogger("log");
 	
 	static Map<String,String> semanticTypesMap = new HashMap<String,String>();
+	
+	static Map<String,String> semanticTypesMapExcluded = new HashMap<String,String>();
 	
 	static Map<String, EntityInstance> umlsDictionary = new HashMap<String, EntityInstance>();
 	
@@ -83,6 +85,10 @@ public class App {
         Option output = new Option("o", "output", true, "output directory path");
         output.setRequired(true);
         options.addOption(output);
+        
+        Option set = new Option("a", "annotation_set", true, "Annotation set where the annotation will be included");
+        set.setRequired(true);
+        options.addOption(set);
         
         Option inputUMLSDirectory = new Option("u", "input_umls_directory", true, "input directory where the RRF files are located,  usually are in ... META folder");
         inputUMLSDirectory.setRequired(true);
@@ -113,9 +119,14 @@ public class App {
         String workdirPath = cmd.getOptionValue("workdir");
         String umlsDirectoryPath = cmd.getOptionValue("input_umls_directory");
         String configurationFilePath = cmd.getOptionValue("configuration_file");
-        
+        String annotationSet = cmd.getOptionValue("annotation_set");
         if (!java.nio.file.Files.isDirectory(Paths.get(umlsDirectoryPath))) {
     		log.error("Please set the input_umls_directory");
+			System.exit(1);
+    	}
+        
+        if (annotationSet==null) {
+        	System.out.println("Please set the annotation set where the annotation will be included");
 			System.exit(1);
     	}
         
@@ -140,7 +151,7 @@ public class App {
     	}
 	    
 	    try {
-	    	String internalDictPath = workdirPath + "dict" + File.separator + "umls_terminology_.txt";
+	    	String internalDictPath = workdirPath + "dict" + File.separator + "umls_terminology.txt";
 		    generateInternalDic(umlsDirectoryPath, internalDictPath);
     	}catch(Exception e) {
     		log.error("Exception ocurred see the log for more information", e);
@@ -162,7 +173,7 @@ public class App {
 		}
        
 		try {
-			processTagger(inputFilePath, outputFilePath, workdirPath);
+			processTagger(inputFilePath, outputFilePath, workdirPath, annotationSet);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -175,8 +186,8 @@ public class App {
 	 * @throws IOException 
      */
 	private static void generateNERList(String workdirPath) throws IOException {
-		String umls_terminology_path = workdirPath+"dict/umls_terminology_.txt";
-		String umls_terminology_ner = workdirPath+"ner_list/umls_terminology_.txt";
+		String umls_terminology_path = workdirPath+"dict/umls_terminology.txt";
+		String umls_terminology_ner = workdirPath+"ner_list/umls_terminology.txt";
 		generateNERGazzetterWithPriority(umls_terminology_path, umlsDictionary, umls_terminology_ner, "MISC,CAUSE_OF_DEATH", "10.0");
 	}
     
@@ -227,8 +238,7 @@ public class App {
     		//Load semantic type data in memory, for performance reasons.
     		//key CUI and data TUI
 		    Map<String, String[]> cui_semantyc_type = loadSemanticTypeData(mrstyPath);
-    		
-	    	File fout = new File(outputFilePath);
+    		File fout = new File(outputFilePath);
 			FileOutputStream fos = new FileOutputStream(fout);
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos,StandardCharsets.UTF_8));
 			bw.write("KEYWORD\tAUI\tCUI\tSUI\tSOURCE\tSOURCE_CODE\tSEM_TYPE\tSEM_TYPE_STR\n");
@@ -244,19 +254,18 @@ public class App {
 				if((all_sources | sourceList.contains(data[11])) && data[6].equals("Y")) {
 					String[] semanticType =  cui_semantyc_type.get(data[0]);
 					//if there is no info in semanticType it mean that the cui it is not in the semantic type given in the configuration.
-					if(semanticType!=null) {
+					if(semanticType!=null && !excludeSemanticTypeBySource(data[11], semanticType[0])) {
 						bw.write(data[14] + "\t" + data[7] + "\t" + data[0] + "\t" + data[5] + "\t" + data[11] + "\t" + data[13] + "\t" + semanticType[0] + "\t" + semanticType[1] + "\n");
 					}
 				}
-				 bw.flush();
-			 }
+				bw.flush();
+			 } 
 			 bw.close();
 			 br.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("FileNotFoundException");
 			e.printStackTrace();
 			System.exit(1);
-			
 		} catch (IOException e) {
 			System.out.println("IOException ");
 			e.printStackTrace();
@@ -266,14 +275,29 @@ public class App {
 	}
     
     /**
+     * 
+     * @param string
+     * @param string2
+     * @return
+     */
+    private static boolean excludeSemanticTypeBySource(String source, String semantiType) {
+		String sourceSemTypes = semanticTypesMapExcluded.get(source);
+		if(sourceSemTypes!=null) {
+			String[] data = sourceSemTypes.split("\\|");
+			return Arrays.asList(data).contains(semantiType);
+		}
+		return false;
+	}
+
+	/**
 	 * Save a plain text file from the gate document.
 	 * @param properties_parameters_path
      * @throws IOException 
 	 */
-	public static void processTagger(String inputDirectoryPath, String outputDirectoryPath, String workdirPath) throws IOException {
+	public static void processTagger(String inputDirectoryPath, String outputDirectoryPath, String workdirPath, String annotationSet) throws IOException {
     	Properties props = new Properties();
 		props.put("annotators", "tokenize, ssplit, pos, lemma,  ner, regexner, entitymentions ");
-		props.put("regexner.mapping", workdirPath+"ner_list/umls_terminology_.txt");
+		props.put("regexner.mapping", workdirPath+"ner_list/umls_terminology.txt");
 		props.put("regexner.posmatchtype", "MATCH_ALL_TOKENS");
 		
 		StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
@@ -283,21 +307,22 @@ public class App {
 			File inputDirectory = new File(inputDirectoryPath);
 			File[] files =  inputDirectory.listFiles();
 			for (File file : files) {
-				if(file.getName().endsWith(".xml")){
+				if(file.getName().endsWith(".xml") || file.getName().endsWith(".txt")){
 					try {
 						System.out.println("Wrapper::processTagger :: processing file : " + file.getAbsolutePath());
-						File outputGATEFile = new File (outputDirectoryPath +  File.separator + file.getName());
-						executeDocument(pipeline, file, outputGATEFile);
+						String fileOutPutName = file.getName();
+						if(fileOutPutName.endsWith(".txt")) {
+							fileOutPutName = fileOutPutName.replace(".txt", ".xml");
+						}
+						File outputFile = new File(outputDirectoryPath + File.separator + fileOutPutName);
+						executeDocument(pipeline, file, outputFile, annotationSet);
 					} catch (ResourceInstantiationException e) {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
 					} catch (MalformedURLException e) {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
 					} catch (InvalidOffsetException e) {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
-					} catch (GateException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} 
+					}
 				}
 			}
 		}else {
@@ -320,15 +345,12 @@ public class App {
 	 * @throws InvalidOffsetException 
 		 * @throws MoreThanOneEntityException
 		 */
-		private static void executeDocument(StanfordCoreNLP pipeline, File inputFile, File outputGATEFile) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException {
+		private static void executeDocument(StanfordCoreNLP pipeline, File inputFile, File outputGATEFile, String annotationSet) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException {
 			long startTime = System.currentTimeMillis();
 			gate.Document gateDocument = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
 			String plainText = gateDocument.getContent().getContent(0l, gate.Utils.lengthLong(gateDocument)).toString();
-			
-//			String text = "Except for thinning of fur, all effects observed at the end of treatment were not observed at the end of "
-//					+ "the recovery period indicating complete reversibility of these effects.";
-			//String text2 = " RCC On completion of treatment THAS all animals were sacrificed under general KetavetÂ® anesthesia by exsanguination via the left and right femoral blood vessels .";
-			
+			//			String text = "Except for thinning of fur, all effects observed at the end of treatment were not observed at the end of "
+			//			+ "the recovery period indicating complete reversibility of these effects.";
 			Annotation document = new Annotation(plainText.toLowerCase());
 			//Annotation document = new Annotation(text2.toLowerCase());
 			pipeline.annotate(document);
@@ -346,7 +368,7 @@ public class App {
 			        	Integer termEnd = entityMention.get(CharacterOffsetEndAnnotation.class);
 				        if(!AnnotationUtil.stopWordsEn.contains(term) && !AnnotationUtil.entityMentionsToDelete.contains(label) && label.startsWith("T") && label.contains("_A") 
 				        		&& term.length()>2) {
-				        	annotate(gateDocument, sentence, termBegin, termEnd, term, label, "dictionary", tokens, entityMention, null);
+				        	annotate(gateDocument, sentence, termBegin, termEnd, term, label, "dictionary", tokens, entityMention, null, annotationSet);
 				        }
 			        }
 			    }
@@ -374,7 +396,7 @@ public class App {
 		 * @throws IOException
 		 */
 		private static void annotate(Document gateDocument, CoreMap sentence, int meBegin, int meEnd,	String term, String label, 
-				String annotationMethod, List<CoreLabel> tokens,CoreMap entityMention, MatchedExpression me) throws IOException {
+				String annotationMethod, List<CoreLabel> tokens,CoreMap entityMention, MatchedExpression me, String annotationSet) throws IOException {
 			FeatureMap features = Factory.newFeatureMap();
 			try {
 				String cui = label.substring(label.lastIndexOf("_")+1);
@@ -385,15 +407,15 @@ public class App {
 				features.put("annotationMethod", annotationMethod);
 				features.put("text", term);
 				//TODO some hardcode filters
-				if((features.get("SEM_TYPE").equals("T033") && features.get("SOURCE").equals("SNOMEDCT_US"))  //the finding semantic type of snomed_us 
+				if(//(features.get("SEM_TYPE").equals("T033") && features.get("SOURCE").equals("SNOMEDCT_US"))  //the finding semantic type of snomed_us. Review this part  
 						//| (features.get("SEM_TYPE").equals("T017") && features.get("SOURCE").equals("SNOMEDCT_VET")) //the anatomical structure semantic type of snomed_vet 
-						| (features.get("SEM_TYPE").equals("T033") && features.get("SOURCE").equals("SNOMEDCT_VET")) //the finding semantic type of snomed_vt  
-						| (StringUtils.isAllUpperCase(features.get("KEYWORD").toString()) & features.get("SOURCE").equals("OMIM")) //OMIM has to many ...  upper case abbreviations 
+						// (features.get("SEM_TYPE").equals("T033") && features.get("SOURCE").equals("SNOMEDCT_VET")) | //the finding semantic type of snomed_vt  
+						 (StringUtils.isAllUpperCase(features.get("KEYWORD").toString()) & features.get("SOURCE").equals("OMIM")) //OMIM has to many ...  upper case abbreviations 
 						)
 				{
 					
 				} else {
-					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), semanticTypesMap.get(label)!=null?semanticTypesMap.get(label):features.get("SEM_TYPE_STR").toString(), features);
+					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), semanticTypesMap.get(label)!=null?semanticTypesMap.get(label):features.get("SEM_TYPE_STR").toString(), features);
 					//gateDocument.getAnnotations(features.get("SOURCE").toString()).add(new Long(meBegin), new Long(meEnd), semanticTypesMap.get(label)!=null?semanticTypesMap.get(label):features.get("SEM_TYPE_STR").toString(), features);
 				}
 			} catch (Exception e) {
@@ -562,6 +584,29 @@ public class App {
 		    				}	
 		    			}
 		    		}
+		    		//semantic type mapping
+		    		if(line.contains("[EXCLUDED_SEMANTIC_TYPES_BY_SOURCE]")) {
+		    			System.out.println("Semantic maps to exclude by source:");
+		    			semType = true;
+		    			while ((line = br.readLine()) != null) {
+		    				if(!line.startsWith("#") && !line.trim().equals("")) {
+			    				if(!line.contains("[EXCLUDED_SEMANTIC_TYPES_BY_SOURCE_END]")) {
+			    					String[] data = line.split("=");
+							    	if(data.length==2) {
+							    		System.out.println(line);
+							    		semanticTypesMapExcluded.put(data[0], data[1]);
+							    	}else {
+							    		System.out.println("Error reading semantic type, line:  " + line);
+							    		System.exit(1);
+							    	}
+			    				}else {
+			    					break;
+			    				}
+		    					
+		    				}	
+		    			}
+		    		}
+		    		
 		    	}
 		    }
 		    

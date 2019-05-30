@@ -29,6 +29,8 @@ params.umls_tagger = [
 	instalation_folder: "/home/jcorvi/umls-2018AB-full/2018AB-full/ADESVERSION/2018AB/META"
 ]
 //instalation_folder: "/home/jcorvi/umls-2018AB-full/2018AB-full/ADESVERSION/2018AB/META"
+//V2 le faltan corpus 
+//V3 tiene todo luego se usara este directamente y se filtrara por el componente.
 params.folders = [
 	//Output directory for the linnaeus tagger step
 	nlp_standard_preprocessing_output_folder: "${params.baseDir}/nlp_standard_preprocessing_output",
@@ -314,9 +316,52 @@ PrintConfiguration()
 SaveParamsToFile()
 
 
+process nlp_standard_preprocessing {
+    input:
+    file input_nlp_standard_preprocessing from original_pdf_folder_ch
+    
+    output:
+    val nlp_standard_preprocessing_output_folder into nlp_standard_preprocessing_output_folder_ch
+    
+    //when:
+    //pipeline[0]=="ALL" || pipeline.contains("PRE")
+    
+    script:
+    """
+    nlp-standard-preprocessing -i $input_nlp_standard_preprocessing -o $nlp_standard_preprocessing_output_folder
+	
+    """
+}
+
+process linnaeus_wrapper {
+    input:
+    file input_linnaeus from nlp_standard_preprocessing_output_folder_ch
+    
+    output:
+    val linnaeus_output_folder into linnaeus_output_folder_ch
+    	
+    """
+    linnaeus-gate-wrapper -i $input_linnaeus -o $linnaeus_output_folder -a BSC
+	
+    """
+}
+
+process dnorm_wrapper {
+    input:
+    file input_dnorm from linnaeus_output_folder_ch
+    
+    output:
+    val dnorm_output_folder into dnorm_output_folder_ch
+    	
+    """
+    dnorm-gate-wrapper -i $input_dnorm -o $dnorm_output_folder -a BSC
+	
+    """
+}
+
 process umls_tagger {
     input:
-    file input_umls from original_pdf_folder_ch
+    file input_umls from dnorm_output_folder_ch
    
     output:
     val umls_output_folder into umls_output_folder_ch

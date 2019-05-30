@@ -2,33 +2,35 @@
 
 log.info """
 The input directory is: ${params.inputDir}, Contains the pdf to be processed.
-Base directory to use: ${params.baseDir}, This directory is used together with the pipeline name (-name parameter) output the results.
-The output will be located at ${params.baseDir}/${workflow.runName}
+Base directory to use: ${params.baseDir}, This directory is used to output all the pipeline results.
+The name of the workflow execution is ${workflow.runName}
 """
 .stripIndent()
 
 //set default parameters
 //pipeline process
-params.pipeline = "PRE,LINN,DNORM,UMLS,ADES,ADES_P"  
+params.pipeline = "PRE,LINN,UMLS,ADES,ADES_P"  
 
 
 //Configuration of the original pdf directory
 params.original_pdf_folder = "${params.inputDir}"
 
 params.general = [
-    paramsout:          "${params.baseDir}/execution-results/params_${workflow.runName}.json",
-    resultout:          "${params.baseDir}/execution-results/results_${workflow.runName}.txt",
-    pipeline:			"${params.pipeline}"
+    paramsout:          "${params.baseDir}/param-files/${workflow.runName}.json",
+    resultout:          "${params.baseDir}/result-files/${workflow.runName}.json",
+    pipeline:			"${params.pipeline}",
+    input_files: 		"${params.inputDir}"
 ]
 
 pipeline = params.general.pipeline.split(',')
+//input_files = params.general.input_files
 
 steps = [:]
 
 params.umls_tagger = [
 	instalation_folder: "/home/jcorvi/umls-2018AB-full/2018AB-full/ADESVERSION/2018AB/META"
 ]
-//instalation_folder: "/home/jcorvi/umls-2018AB-full/2018AB-full/ADESVERSION/2018AB/META"
+
 params.folders = [
 	//Output directory for the linnaeus tagger step
 	nlp_standard_preprocessing_output_folder: "${params.baseDir}/nlp_standard_preprocessing_output",
@@ -56,10 +58,12 @@ params.folders_steps = [
 	//Output directory for the ades tagger step
 	ADES: "${params.baseDir}/ades_output",
 	//Output directory for the post processing ades
-	ADES_P: "${params.baseDir}/ades_ner_postprocessing_output"
+	ADES_P: "${params.baseDir}/ades_ner_postprocessing_output",
+	//Eval output file
+	EVAL: "${params.baseDir}/performance_n.txt"
 ]
 
-original_pdf_folder_ch = Channel.fromPath( params.original_pdf_folder, type: 'dir' )
+//original_pdf_folder_ch = Channel.fromPath(params.original_pdf_folder, type: 'dir' )
 
 nlp_standard_preprocessing_output_folder=file(params.folders.nlp_standard_preprocessing_output_folder)
 linnaeus_output_folder=file(params.folders.linnaeus_output_folder)
@@ -67,7 +71,15 @@ dnorm_output_folder=file(params.folders.dnorm_output_folder)
 umls_output_folder=file(params.folders.umls_output_folder)
 ades_output_folder=file(params.folders.ades_output_folder)
 ades_post_output_folder=file(params.folders.ades_post_output_folder)
-ner_evaluation_output=file(params.general.resultout)
+ner_evaluation_output=file("${params.baseDir}/performance_n.txt")
+
+
+//nlp_standard_preprocessing_output_ch = Channel.fromPath(nlp_standard_preprocessing_output_folder)
+steps_channel=[:]
+steps_channel.putAt("PRE", nlp_standard_preprocessing_output_folder)	
+//println("9999")
+//println(steps_channel["PRE"])
+
 
 original_pdf_folder = params.original_pdf_folder
 
@@ -76,12 +88,13 @@ class StepPipeline {
    String name;
    int order;
    String inputDir;
-   String outputDir;	
+   String outputDir;
    StepPipeline(id, name, inputDir, outputDir) {          
         this.id = id
         this.name = name
         this.inputDir = inputDir
         this.outputDir = outputDir
+        //this.inputChannel = Channel.fromPath( params.original_pdf_folder, type: 'dir' )
    }
    
    String toString(){
@@ -154,7 +167,7 @@ void ProcessPipelineParameters(){
 	    int i = 1
 		for (s in pipeline){
 			if(steps.size()==0){
-		 		stepPip = new StepPipeline(i,s, original_pdf_folder, params.folders_steps[s])
+		 		stepPip = new StepPipeline(i,s, params.general.input_files, params.folders_steps[s])
 				print(stepPip)
 			}else{
 				stepPip = new StepPipeline(i,s,params.folders_steps[pipeline[i-2]], params.folders_steps[s])
@@ -162,7 +175,9 @@ void ProcessPipelineParameters(){
 			}
 			steps.putAt(stepPip.name, stepPip)	
 			i=i+1
-		}	
+		}
+		stepPip = new StepPipeline(i,"EVAL",params.folders_steps[pipeline[i-2]], params.folders_steps["EVAL"])
+		steps.putAt("EVAL", stepPip)	
 	}else{
 		print(pipeline)
 	}
@@ -306,23 +321,71 @@ def SaveParamsToFile() {
 
 
 //Execution Begin
+println("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
 
+
+println(steps_channel["PRE"])
+
+println("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv")
 
 ProcessUserInputArguments()
 ProcessPipelineParameters()
 PrintConfiguration()
 SaveParamsToFile()
 
+process nlp_standard_preprocessing {
+    input:
+    file input_nlp_standard_preprocessing from Channel.fromPath(params.general.input_files)
+	
+	output:
+    val nlp_standard_preprocessing_output_folder into nlp_standard_preprocessing_output_ch
+    
+    //when:
+    //pipeline[0]=="ALL" || pipeline.contains("PRE")
+    
+    script:
+    println(input_nlp_standard_preprocessing)
+    """
+    nlp-standard-preprocessing -i $input_nlp_standard_preprocessing -o $nlp_standard_preprocessing_output_folder
+	
+    """
+}
+
+process linnaeus_wrapper {
+    input:
+    file input_linnaeus from steps_channel["PRE"]
+    
+    output:
+    val linnaeus_output_folder into linnaeus_output_folder_ch
+    	
+    """
+    linnaeus-gate-wrapper -i $input_linnaeus -o $linnaeus_output_folder
+	
+    """
+}
+
+process dnorm_wrapper {
+    input:
+    file input_dnorm from linnaeus_output_folder_ch
+    
+    output:
+    val dnorm_output_folder into dnorm_output_folder_ch
+    	
+    """
+    dnorm-gate-wrapper -i $input_dnorm -o $dnorm_output_folder
+	
+    """
+}
 
 process umls_tagger {
     input:
-    file input_umls from original_pdf_folder_ch
+    file input_umls from dnorm_output_folder_ch
    
     output:
     val umls_output_folder into umls_output_folder_ch
     	
     """
-    umls-tagger -u $params.umls_tagger.instalation_folder -i $input_umls -o $umls_output_folder -a BSC
+    umls-tagger -u $params.umls_tagger.instalation_folder -i $input_umls -o $umls_output_folder
 	
     """
 }
@@ -335,7 +398,7 @@ process ades_tagger {
     val ades_output_folder into ades_output_folder_ch
     	
     """
-    ades-tagger -i $input_ades -o $ades_output_folder -a BSC
+    ades-tagger -i $input_ades -o $ades_output_folder
 	
     """
 }
@@ -348,7 +411,7 @@ process ades_ner_postprocessing {
     val ades_post_output_folder into ades_post_output_folder_ch
     	
     """
-    ades-ner-postprocessing -i $input_ades_post -o $ades_post_output_folder -a BSC
+    ades-ner-postprocessing -i $input_ades_post -o $ades_post_output_folder
 	
     """
 }

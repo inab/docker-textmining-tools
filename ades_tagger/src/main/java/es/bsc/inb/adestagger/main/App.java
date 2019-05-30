@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -100,6 +98,10 @@ public class App {
         output.setRequired(true);
         options.addOption(output);
         
+        Option set = new Option("a", "annotation_set", true, "Annotation set where the annotation will be included");
+        set.setRequired(true);
+        options.addOption(set);
+        
         Option workdir = new Option("workdir", "workdir", true, "workDir directory path");
         workdir.setRequired(false);
         options.addOption(workdir);
@@ -118,9 +120,14 @@ public class App {
         String inputFilePath = cmd.getOptionValue("input");
         String outputFilePath = cmd.getOptionValue("output");
         String workdirPath = cmd.getOptionValue("workdir");
-        
+        String annotationSet = cmd.getOptionValue("annotation_set");
         if (!java.nio.file.Files.isDirectory(Paths.get(inputFilePath))) {
     		System.out.println(" Please set the inputDirectoryPath ");
+			System.exit(1);
+    	}
+        
+        if (annotationSet==null) {
+        	System.out.println("Please set the annotation set where the annotation will be included");
 			System.exit(1);
     	}
     	
@@ -134,7 +141,7 @@ public class App {
 			System.out.println("App :: main :: Gate Exception  ");
 			e.printStackTrace();
 			System.exit(1);
-		}
+		} 
  
 	    if(workdirPath==null) {
 	    	workdirPath="";
@@ -147,7 +154,7 @@ public class App {
 		}
        
 		try {
-			processTagger(inputFilePath, outputFilePath,workdirPath);
+			processTagger(inputFilePath, outputFilePath,workdirPath, annotationSet);
 		} catch (IOException e) {
 			System.out.println("App :: main :: Processing Tagger Error   ");
 			e.printStackTrace();
@@ -186,7 +193,7 @@ public class App {
 		generateNERGazzetterWithPriority(etox_moa_dict_path, etoxMOADictionary, etox_moa_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA, "MISC", "2.0");
 		    
 		String etox_in_life_obs_ner = workdir+"ner_list/etox_in_life_obs_ner.txt";
-		generateNERGazzetterWithPriority(etox_in_life_obs_dict_path, etoxILODictionary, etox_in_life_obs_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO,  "MISC", "15.0");
+		generateNERGazzetterWithPriority(etox_in_life_obs_dict_path, etoxILODictionary, etox_in_life_obs_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO,  "MISC", "26.0");
 	}
     
     
@@ -195,7 +202,7 @@ public class App {
 	 * @param properties_parameters_path
      * @throws IOException 
 	 */
-	public static void processTagger(String inputDirectoryPath, String outputDirectoryPath, String workdir) throws IOException {
+	public static void processTagger(String inputDirectoryPath, String outputDirectoryPath, String workdir, String annotationSet) throws IOException {
     	Properties props = new Properties();
 		String mapping_files = workdir+"ner_list/cdisc_send_ner.txt,"+workdir+"ner_list/ades_extended_terminology.txt,"+workdir+"ner_list/etox_anatomy_ner.txt, "+workdir+"ner_list/etox_moa_ner.txt, "
 				+ workdir+"ner_list/etox_in_life_obs_ner.txt, "+workdir+"ner_list/etox_send_codelist_ner.txt,"+workdir+"ner_list/pkunit_ner.txt,"+workdir+"ner_list/treatment_related_triggers.txt";
@@ -219,11 +226,16 @@ public class App {
 			File inputDirectory = new File(inputDirectoryPath);
 			File[] files =  inputDirectory.listFiles();
 			for (File file : files) {
-				if(file.getName().endsWith(".xml")){
+				if(file.getName().endsWith(".xml") || file.getName().endsWith(".txt")){
 					try {
 						System.out.println("Wrapper::processTagger :: processing file : " + file.getAbsolutePath());
-						File outputGATEFile = new File (outputDirectoryPath +  File.separator + file.getName());
-						executeDocument(pipeline, extractor, file, outputGATEFile);
+						
+						String fileOutPutName = file.getName();
+						if(fileOutPutName.endsWith(".txt")) {
+							fileOutPutName = fileOutPutName.replace(".txt", ".xml");
+						}
+						File outputFile = new File(outputDirectoryPath + File.separator + fileOutPutName);
+						executeDocument(pipeline, extractor, file, outputFile, annotationSet);
 					} catch (ResourceInstantiationException e) {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
 					} catch (MalformedURLException e) {
@@ -260,7 +272,7 @@ public class App {
 	 * @throws InvalidOffsetException 
 		 * @throws MoreThanOneEntityException
 		 */
-		private static void executeDocument(StanfordCoreNLP pipeline, CoreMapExpressionExtractor extractor, File inputFile, File outputGATEFile) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException {
+		private static void executeDocument(StanfordCoreNLP pipeline, CoreMapExpressionExtractor extractor, File inputFile, File outputGATEFile, String annotationSet) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException {
 			long startTime = System.currentTimeMillis();
 			gate.Document gateDocument = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
 			String plainText = gateDocument.getContent().getContent(0l, gate.Utils.lengthLong(gateDocument)).toString();
@@ -283,20 +295,21 @@ public class App {
 					+ "scab formation at ear or the lips, absence of the claw or the tip of the tail, palpable mass, reddened encrusted nose and increased sialorrhea"
 					+ " were not regarded as compound-related since they occurred only in single animals (mainly in animal no. 90M) without dose-dependence.";*/
 			//Annotation document = new Annotation(text);
-			//String text = "Animals at the mid and high doses revealed a slight decrease in body weight gain but no effect on food consumption.";
+			//String text = "severity 1-2 with kdkdkdk grade ten, severe grade one pepepep severe 8 severity grade one findings not treatment,  grade 1 pepeppepe grade one synovial membrane application site Animals at the mid and high doses.  Showed no changes that had to be attributed to dosing with the test compound,  glandular stomach revealed a slight decrease in body weight gain but no effect on food consumption.";
+			/*String text = "No treatment-related findings were observed."
+					+ "Therefore, a treatment-related effect is not assumed. "
+					+ "T3068522 69 BAY 19-8004 Neither quantitative nor semi-quantitative urinalyses gave evidence for treatment- related effects. ";*/
+			//String text = "These animals presented with moderate to severe apathy together with abnormal posture.";		
+			//Dunnett 1980) compares the outcome of each treatment group with the corresponding control group, regardiess of the result of the overall F test (ANOVA).
+			//This finding is regarded the outcome of the treatment.  //sacar outcome sino
 			//Annotation document = new Annotation(text.toLowerCase());
-			Pattern pattern = Pattern.compile("\n");
 			pipeline.annotate(document);
 			long endTime = System.currentTimeMillis();
 			log.info(" Annotation document execution time  " + (endTime - startTime) + " milliseconds");
 	        try {	
-	        	//List<CoreLabel> tokens= document.get(TokensAnnotation.class);
-			    List<CoreMap> sentences= document.get(SentencesAnnotation.class);
+	        	List<CoreMap> sentences= document.get(SentencesAnnotation.class);
 			    for(CoreMap sentence: sentences) {
 			    	List<CoreLabel> tokens= sentence.get(TokensAnnotation.class);
-				    //previousSentencences.add(sentence.toString());
-				    Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
-				    Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
 				    List<CoreMap> entityMentions = sentence.get(MentionsAnnotation.class);
 				    for (CoreMap entityMention : entityMentions) {
 				    	String term = entityMention.get(TextAnnotation.class).replaceAll("\n", " ");
@@ -304,7 +317,7 @@ public class App {
 				        if(!StopWords.stopWordsEn.contains(term) && !AnnotationUtil.entityMentionsToDelete.contains(label)) {
 				        	Integer termBegin = entityMention.get(CharacterOffsetBeginAnnotation.class);
 				        	Integer termEnd = entityMention.get(CharacterOffsetEndAnnotation.class);
-					        annotate(gateDocument, sentence, termBegin, termEnd, term, label, "dictionary", tokens, entityMention, null);
+					        annotate(gateDocument, sentence, termBegin, termEnd, term, label, "dictionary", tokens, entityMention, null, annotationSet);
 				        }
 				    }
 				    List<MatchedExpression> matchedExpressionssentence = extractor.extractExpressions(sentence);
@@ -316,7 +329,7 @@ public class App {
 				        	Integer termBegin = me.getAnnotation().get(CharacterOffsetBeginAnnotation.class);
 						    Integer termEnd = me.getAnnotation().get(CharacterOffsetEndAnnotation.class);
 				        	String label = me.getValue().get().toString().toUpperCase();
-				        	annotate(gateDocument, sentence, termBegin, termEnd, term, label, "rule", tokens, null, me);
+				        	annotate(gateDocument, sentence, termBegin, termEnd, term, label, "rule", tokens, null, me, annotationSet);
 				        }
 				    }
 			    }
@@ -340,32 +353,35 @@ public class App {
 		 * @param meBegin
 		 * @param meEnd
 		 * @param term
-		 * @param label
+		 * @param label 
 		 * @throws IOException
 		 */
 		private static void annotate(Document gateDocument, CoreMap sentence, int meBegin, int meEnd, String term, String label, 
-				String annotationMethod, List<CoreLabel> tokens,CoreMap entityMention, MatchedExpression me) throws IOException {
+				String annotationMethod, List<CoreLabel> tokens,CoreMap entityMention, MatchedExpression me,String annotationSet) throws IOException {
 			FeatureMap features = Factory.newFeatureMap();
-			try {
+			try { 
 				label = setGenericFeatures(term, label, annotationMethod, features);
 	    		if(label.contains(AnnotationUtil.STUDY_DOMAIN_SUFFIX) || label.contains("SDOMAIN") || label.contains("CLCAT")){
 	    			features.put("study_domain", label);
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    			if(features.get("source").equals("ETOX")) {
+	    				gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "FINDING", features);
+	    			}
 	    		}else if(label.endsWith(AnnotationUtil.MANIFESTATION_OF_FINDING)){
 	    			features.put("manifestation_of_finding", label);
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.MANIFESTATION_OF_FINDING, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.MANIFESTATION_OF_FINDING, features);
 	    		}else if(label.endsWith("SEVERITY")){
 	    			features.put("severity", label);
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SEVERITY_FINDING, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SEVERITY_FINDING, features);
 	    		}else if(label.endsWith(AnnotationUtil.RISK_LEVEL)) {
 	    			features.put("risk_level", label);
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.RISK_LEVEL, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.RISK_LEVEL, features);
 	    		}else if(label.contains("SEND SEVERITY")) {
 	    			features.put("severity", label);
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "SEVERITY", features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "SEVERITY", features);
 	    		}else if(label.contains("SEND STUDY TYPE") || label.contains("STCAT")) {
 	    			features.put("study_type", label);
-	    			gateDocument.getAnnotations("BSC_OTHERS").add(new Long(meBegin), new Long(meEnd), "STUDY_TYPE", features);
+	    			//gateDocument.getAnnotations("BSC_OTHERS").add(new Long(meBegin), new Long(meEnd), "STUDY_TYPE", features);
 	    		}else if(label.contains("LBTEST") || label.contains("PKPARMCD_") || label.contains("PKPARM_") || label.endsWith("TEST NAME") || label.endsWith("TEST CODE")) {
 	    			features.put("study_domain_testcd", label);
 	    			if(label.endsWith("TEST CODE")) {//por aca ingresa cdisc test codes
@@ -376,39 +392,39 @@ public class App {
 	    				String label_ = TESTCODE + "=" + TESTCODEVALUE + "("+ TESTCODEDESCRIPTION +")";
 	    				//toxicolodyReportWitAnnotations.getAnnotations("STUDY TEST CODE(SRTSTCD) CDISC").add(startOff, endOff,  label_, features);
 	    				if(!TESTCODE.contains("STSPRM")) {
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN_TESTCD, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN_TESTCD, features);
 	    				}
 	    				if(TESTCODE.contains("BGTEST")) {//TEST BODY WEIGHT GAIN, SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("BWTEST")){//TEST BODY WEIGHT, SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("DDTEST")){//TEST DEAD DIAGNOSIS, SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("EGTEST")){//TEST ECG, SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("(FMTEST")){
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("FXTEST")){
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("FWTEST")){//TEST FOOD CONSUMP, SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("LBTEST")){//TEST LBTEST, STUDY DOMAIN ? for now do not set, later in extraction relation
 	    					//gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("MATEST")){//TEST MACROSCOPICAL, SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("OMTEST")){//TEST ORGAN WEIGHT, SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("PHSPRP")){//TEST Physical Properties, for now nothing
 	    					//gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    					System.out.println("NO MANAGED");
 	    				}else if(TESTCODE.contains("PYTEST")){//TEST PREGNACY FINDING, SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("SCVTST")){//TEST Cardiovascular , SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("MITEST")){//TEST MICROSCOPICAL , SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("SRETST")){//TEST RESPIRATORY , SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("SBCSND")){//TEST Subject Characteristics  ,for now nothing
 	    					//gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    					System.out.println("NO MANAGED");
@@ -417,11 +433,11 @@ public class App {
 	    					//gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    					System.out.println("NO MANAGED: Trial Summary Parameter text: " + term );
 	    				}else if(TESTCODE.contains("TFTEST")){//TEST tumor , SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("VSTEST")){//TEST vital signs , SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else if(TESTCODE.contains("VSTEST")){//TEST vital signs , SET STUDY TOO
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN, features);
 	    				}else {
 	    					System.out.println("NO MANAGED : " + label + "text: " + features.get("text") );
 	    				}
@@ -429,12 +445,12 @@ public class App {
 	    				String label_ = "LBTEST"; // LBTEST FROM ETOX
 	    				//toxicolodyReportWitAnnotations.getAnnotations("STUDY TEST CODE(LBTEST) ETOX").add(startOff, endOff,  label_, features);
 	    				if(term.length()>3) {
-	    					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN_TESTCD, features);
+	    					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN_TESTCD, features);
 	    				}
 	    			}else {
 	    				//String label_ = "TEST_NAME"; //TEST NAME findings ... 
 	    				//toxicolodyReportWitAnnotations.getAnnotations("STUDY TEST NAME(SRTST) CDISC").add(startOff, endOff,  label, features);
-	    				gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN_TESTCD, features);
+	    				gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN_TESTCD, features);
 	    			}
 	    		}else if(label.equals("DOSE_QUANTITY")) {
 	    			List<CoreLabel> tokens_i = me.getAnnotation().get(TokensAnnotation.class);
@@ -443,38 +459,38 @@ public class App {
 							features.put("dose_unit", coreLabel.get(TextAnnotation.class));
 						}
 					}
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), label, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), label, features);
 	    		}else if(label.equals("STUDY_DAY_FINDING")) {
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "STUDY_DAY_FINDING", features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "STUDY_DAY_FINDING", features);
 	    		}else if(label.equals("DOSE_DURATION")) {
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "DOSE_DURATION", features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "DOSE_DURATION", features);
 	    		}else if(label.equals("DOSE_FREQUENCY")) {
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "DOSE_FREQUENCY", features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "DOSE_FREQUENCY", features);
 	    		}else if(label.endsWith("_SEX") || label.contains("SEXPOP") && !label.contains("SEXPOP_BOTH")) {
 	    			if(term.length()==1) {
 	    				features.put("abrev", "true");
 	    			}
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SEX, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SEX, features);
 				}else if(label.contains("ROUTE")) {
-					gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.ROUTE_OF_ADMINISTRATION, features);
+					gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.ROUTE_OF_ADMINISTRATION, features);
 	    		}else if(label.contains("ANATOMY") || label.contains("ANATOMICAL LOCATION")) {
 	    			features.put("original_label", "ANATOMY");
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SPECIMEN, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SPECIMEN, features);
 	    		}else if(label.contains("SPECIMEN") || label.startsWith("SPEC_")) {
 	    			features.put("original_label", "SPECIMEN");
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SPECIMEN, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SPECIMEN, features);
 	    		}else if(label.contains("SPECIES")) {
 	    			features.put("original_label", "SPECIES");
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SPECIMEN, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SPECIMEN, features);
 	    		}else if(label.contains("STRAIN")) {
 	    			features.put("original_label", label);
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SPECIMEN, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SPECIMEN, features);
 	    		}else if(label.contains("STATICAL_")) {
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STATISTICAL_SIGNIFICANCE, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STATISTICAL_SIGNIFICANCE, features);
 	    		}else if(label.contains("PKUNIT")) {
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "DOSE", features);
-	    		}else if(label.contains("BODSYS")) {
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.SPECIMEN, features);//BODYSYS SPECIMEN IN TEMPLATE
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "DOSE", features);
+	    		}else if(label.contains("BODSYS")) { // this is not a specimen is a finding 
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "FINDING", features);
 	    		}else if(label.contains("GROUP")) {
 	    			List<CoreLabel> tokens_i = me.getAnnotation().get(TokensAnnotation.class);
 	    			for (CoreLabel coreLabel : tokens_i) {
@@ -483,11 +499,11 @@ public class App {
 							features.put("group_qualified_name", features.get("group_qualified_name")==null?token:features.get("group_qualified_name")+ " " + token);
 						}
 					}
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), AnnotationUtil.GROUP, features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.GROUP, features);
 	    		}else if(label.contains("FXFINDRS") || label.contains("NONNEO") || label.contains("NEOPLASM") || label.contains("NEOPLASTIC FINDING TYPE") 
 	    				|| label.contains("CSTATE")) {
 	    			features.put("finding_type", label);
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "FINDING", features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "FINDING", features);
 	    		}else if(label.contains(AnnotationUtil.NO_TREATMENT_RELATED_EFFECT_DETECTED)) {
 	    			CoreMap coreMap = me.getAnnotation();
 	    			if(coreMap!=null) {
@@ -503,8 +519,8 @@ public class App {
 		    		}
 	    			Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
 			        Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "NO_TREATMENT_RELATED_TRIGGER", features);
-	    			gateDocument.getAnnotations("BSC").add(new Long(sentenceBegin), new Long(sentenceEnd), "NO_TREATMENT_RELATED_SENTENCE", null);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "NO_TREATMENT_RELATED_TRIGGER", features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(sentenceBegin), new Long(sentenceEnd), "NO_TREATMENT_RELATED_SENTENCE", null);
 	    			sentences_triggers.add(gateDocument.getName() + "\t" + sentence.get(TextAnnotation.class)+ "\t" + term + "\t" + meBegin + "\t" + meEnd + "\t" +"NO_TREATMENT_RELATED_EFFECT_DETECTED_SENTENCE\n");
 	    		}else if(label.contains(AnnotationUtil.TREATMENT_RELATED_EFFECT_DETECTED)) {
 	    			CoreMap coreMap = me.getAnnotation();
@@ -522,8 +538,8 @@ public class App {
 	    			sentences_triggers.add(gateDocument.getName() + "\t" + sentence.get(TextAnnotation.class)+ "\t" + term + "\t" + meBegin + "\t" + meEnd + "\t" +"TREATMENT_RELATED_EFFECT_DETECTED_SENTENCE\n");
 	    			Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
 			        Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
-	    			gateDocument.getAnnotations("BSC").add(new Long(meBegin), new Long(meEnd), "TREATMENT_RELATED_TRIGGER", features);
-	    			gateDocument.getAnnotations("BSC").add(new Long(sentenceBegin), new Long(sentenceEnd), "TREATMENT_RELATED_SENTENCE", null);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "TREATMENT_RELATED_TRIGGER", features);
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(sentenceBegin), new Long(sentenceEnd), "TREATMENT_RELATED_SENTENCE", null);
 	    		}else if(label.contains("MOA")) {
 	    			//gateDocument.getAnnotations("BSC_OTHERS").add(new Long(meBegin), new Long(meEnd), "MOA", features);
 	    		}else if(label.contains("PKPARM")) {
@@ -660,13 +676,10 @@ public class App {
 			}else {
 				String[] data = line.split("\t");
 				if(data[1].toUpperCase().endsWith("TEST CODE")) { // The codes are more important that name.
-					terms.add(getScapedKeyWordNER(data[1].toLowerCase()) + "\t" +  data[2].toUpperCase()+sourcePrefix+"_"+data[0]+ "\t" +  tags_to_overwrite + "\t" +  new Float(priority) * 2 +"\n");
+					terms.add(getScapedKeyWordNER(data[1].toLowerCase()) + "\t" +  data[2].toUpperCase().replaceAll(",", "_")+sourcePrefix+"_"+data[0]+ "\t" +  tags_to_overwrite + "\t" +  new Float(priority) * 2 +"\n");
 					entities.put(new Integer(data[0]), retrieveEntity(data, columnNames));
 				}else {
-					terms.add(getScapedKeyWordNER(data[1].toLowerCase()) + "\t" +  data[2].toUpperCase()+sourcePrefix+"_"+data[0]+ "\t" +  tags_to_overwrite + "\t" +  priority +"\n");
-					/*if(data[0].equals("579")) {
-						entities.put(new Integer(data[0]), retrieveEntity(data, columnNames));
-					}*/
+					terms.add(getScapedKeyWordNER(data[1].toLowerCase()) + "\t" +  data[2].toUpperCase().replaceAll(",", "_")+sourcePrefix+"_"+data[0]+ "\t" +  tags_to_overwrite + "\t" +  priority +"\n");
 					entities.put(new Integer(data[0]), retrieveEntity(data, columnNames));
 				}
 			}

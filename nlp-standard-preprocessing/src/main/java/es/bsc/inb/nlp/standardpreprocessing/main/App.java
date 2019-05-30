@@ -117,10 +117,14 @@ public class App {
 			File inputDirectory = new File(inputDirectoryPath);
 			File[] files =  inputDirectory.listFiles();
 			for (File file : files) {
-				if(file.getName().endsWith(".xml")){
+				if(file.getName().endsWith(".xml") || file.getName().endsWith(".txt")){
 					try {
 						System.out.println("App::process :: processing file : " + file.getAbsolutePath());
-						File outputGATEFile = new File (outputDirectoryPath +  File.separator + file.getName());
+						String fileOutPutName = file.getName();
+						if(fileOutPutName.endsWith(".txt")) {
+							fileOutPutName = fileOutPutName.replace(".txt", ".xml");
+						}
+						File outputGATEFile = new File (outputDirectoryPath +  File.separator + fileOutPutName);
 						processDocument(pipeline, file, outputGATEFile);
 					} catch (ResourceInstantiationException e) {
 						System.out.println("App::process :: error with document " + file.getAbsolutePath());

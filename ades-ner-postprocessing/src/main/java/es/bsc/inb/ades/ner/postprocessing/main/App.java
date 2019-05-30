@@ -16,7 +16,6 @@ import org.apache.commons.cli.ParseException;
 
 import gate.Annotation;
 import gate.AnnotationSet;
-import gate.Document;
 import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
@@ -33,7 +32,7 @@ import gate.util.InvalidOffsetException;
  */
 public class App {
 	
-	public static void main( String[] args ){
+	public static void main(String[] args ){
     	
     	Options options = new Options();
     	
@@ -44,6 +43,10 @@ public class App {
         Option output = new Option("o", "output", true, "output directory path");
         output.setRequired(true);
         options.addOption(output);
+        
+        Option set = new Option("a", "annotation_set", true, "Annotation set where the annotation will be included");
+        set.setRequired(true);
+        options.addOption(set);
         
         Option workdir = new Option("workdir", "workdir", true, "workDir directory path");
         workdir.setRequired(false);
@@ -63,12 +66,17 @@ public class App {
         String inputFilePath = cmd.getOptionValue("input");
         String outputFilePath = cmd.getOptionValue("output");
         String workdirPath = cmd.getOptionValue("workdir");
-        
+        String annotationSet = cmd.getOptionValue("annotation_set");
         if (!java.nio.file.Files.isDirectory(Paths.get(inputFilePath))) {
     		System.out.println("Please set the inputDirectoryPath ");
 			System.exit(1);
     	}
     	
+        if (annotationSet==null) {
+        	System.out.println("Please set the annotation set where the annotation will be included");
+			System.exit(1);
+    	}
+        
     	File outputDirectory = new File(outputFilePath);
 	    if(!outputDirectory.exists())
 	    	outputDirectory.mkdirs();
@@ -86,7 +94,7 @@ public class App {
 	    }
 	    
 		try {
-			process(inputFilePath, outputFilePath,workdirPath);
+			process(inputFilePath, outputFilePath,workdirPath, annotationSet);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -97,7 +105,7 @@ public class App {
 	 * @param properties_parameters_path
      * @throws IOException 
 	 */
-	public static void process(String inputDirectoryPath, String outputDirectoryPath, String workdir) throws IOException {
+	public static void process(String inputDirectoryPath, String outputDirectoryPath, String workdir,String annotationSet) throws IOException {
     	System.out.println("App::processTagger :: INIT ");
 		if (java.nio.file.Files.isDirectory(Paths.get(inputDirectoryPath))) {
 			File inputDirectory = new File(inputDirectoryPath);
@@ -107,7 +115,7 @@ public class App {
 					try {
 						System.out.println("App::process :: processing file : " + file.getAbsolutePath());
 						File outputGATEFile = new File (outputDirectoryPath +  File.separator + file.getName());
-						processDocument(file, outputGATEFile);
+						processDocument(file, outputGATEFile, annotationSet);
 					} catch (ResourceInstantiationException e) {
 						System.out.println("App::process :: error with document " + file.getAbsolutePath());
 						e.printStackTrace();
@@ -135,13 +143,13 @@ public class App {
 	 * @throws MalformedURLException
 	 * @throws InvalidOffsetException
 	 */
-	private static void processDocument(File inputFile, File outputGATEFile) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException {
+	private static void processDocument(File inputFile, File outputGATEFile, String annotationSet) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException {
 		gate.Document gateDocument = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
 		try {	
-			AnnotationSet annSet = gateDocument.getAnnotations("BSC"); 
-			findingsPostprocessing(annSet, gateDocument);
-			specimenPostprocessing(annSet, gateDocument);
-			testCDPostprocessing(annSet, gateDocument);
+			AnnotationSet annSet = gateDocument.getAnnotations(annotationSet); 
+			postprocessing(annSet, gateDocument, "FINDING");
+			postprocessing(annSet, gateDocument, "SPECIMEN");
+			postprocessing(annSet, gateDocument, "STUDY_TESTCD");
 			java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
 			out.write(gateDocument.toXml());
 			out.close();
@@ -150,21 +158,25 @@ public class App {
 			e.printStackTrace();
 		}
 	}
+
+
 	/**
+	 * Annotations post-processing.
+	 * 
+	 * Consensus of FINDING annotations
 	 * 
 	 * @param annSet
-	 * @param gateDocument
 	 */
-	private static void specimenPostprocessing(AnnotationSet annSet, Document gateDocument) {
-		AnnotationSet sentences = annSet.get("SPECIMEN");
+	private static void postprocessing(AnnotationSet annSet, gate.Document gateDocument, String fieldName) {
+		AnnotationSet sentences = annSet.get(fieldName);
 		for (Annotation annotation : sentences) {
 			Boolean process = true;
 			if(annotation.getFeatures().get("stage")==null) {
-				AnnotationSet findings = annSet.get("SPECIMEN", annotation.getStartNode().getOffset(), annotation.getEndNode().getOffset());
+				AnnotationSet findings = annSet.get(fieldName, annotation.getStartNode().getOffset(), annotation.getEndNode().getOffset());
 				if(findings.size()==1) { //Nothing to do, there is no overlaping
 					FeatureMap features = gate.Factory.newFeatureMap();
 					features.put("text", gate.Utils.stringFor(gateDocument, annotation));
-					addSpecimenFeatures(annotation, features);
+					addFeatures(annotation, features);
 					features.put("inst", "BSC");
 					annotation.setFeatures(features);
 				}else if(findings.size()>1) { // overlapping, select the larger annotated finding. 
@@ -175,7 +187,7 @@ public class App {
 							if(selected==null) {
 								selected = fnd;
 								features.put("text", gate.Utils.stringFor(gateDocument, fnd));
-								addSpecimenFeatures(fnd, features);
+								addFeatures(fnd, features);
 							}else if(fnd.getEndNode().getOffset()-fnd.getStartNode().getOffset() > 
 								selected.getEndNode().getOffset()-selected.getStartNode().getOffset()) { // if there is a larger term then
 									features = gate.Factory.newFeatureMap();
@@ -183,10 +195,10 @@ public class App {
 									//remove the shorter annotation
 									annSet.remove(selected);
 									selected = fnd;
-									addSpecimenFeatures(fnd, features);
+									addFeatures(fnd, features);
 							}else if(fnd.getEndNode().getOffset()-fnd.getStartNode().getOffset() == 
 									selected.getEndNode().getOffset()-selected.getStartNode().getOffset()) { //if the terms are equals, add sources and relevant keys to features
-									addSpecimenFeatures(fnd, features);
+									addFeatures(fnd, features);
 									//remove the annotation, the information is already in the featureMap
 									annSet.remove(fnd);
 							} else if(fnd.getEndNode().getOffset()-fnd.getStartNode().getOffset() < 
@@ -205,150 +217,24 @@ public class App {
 						features.put("inst", "BSC");
 						features.put("stage", "PP");
 						selected.setFeatures(features);
-					}
-				}else {
-					System.out.println("ERROR ANOTACION NO PRESENTE ' ");
-				}
-//					if(str.length()>1000 && str.length()<50) {
-//						//delete annotations inside, set as dirty sentence.
-//					}else {
-//						//
-//					}
-			}
-		}
-		
-	}
-
-	
-
-	/**
-	 * STUDY_TESTCD field pre-processing
-	 * @param annSet
-	 * @param gateDocument
-	 */
-	private static void testCDPostprocessing(AnnotationSet annSet, Document gateDocument) {
-		AnnotationSet sentences = annSet.get("STUDY_TESTCD");
-		for (Annotation annotation : sentences) {
-			if(annotation.getFeatures().get("stage")==null) {
-				AnnotationSet findings = annSet.get("STUDY_TESTCD", annotation.getStartNode().getOffset(), annotation.getEndNode().getOffset());
-				if(findings.size()==1) { //Nothing to do, there is no overlaping
-					FeatureMap features = gate.Factory.newFeatureMap();
-					features.put("text", gate.Utils.stringFor(gateDocument, annotation));
-					addStudyTestFeatures(annotation, features);
-					features.put("inst", "BSC");
-					annotation.setFeatures(features);
-				}else if(findings.size()>1) { // overlapping, select the larger annotated finding. 
-					Annotation selected = null;
-					FeatureMap features = gate.Factory.newFeatureMap();
-					for (Annotation fnd : findings) {
-						if(fnd.getFeatures().get("stage")==null) {
-							if(selected==null) {
-								selected = fnd;
-								features.put("text", gate.Utils.stringFor(gateDocument, fnd));
-								addStudyTestFeatures(fnd, features);
-							}else if(fnd.getEndNode().getOffset()-fnd.getStartNode().getOffset() > 
-								selected.getEndNode().getOffset()-selected.getStartNode().getOffset()) { // if there is a larger term then
-									features = gate.Factory.newFeatureMap();
-									features.put("text", gate.Utils.stringFor(gateDocument, fnd));
-									//remove the shorter annotation
-									annSet.remove(selected);
-									selected = fnd;
-									addStudyTestFeatures(fnd, features);
-							}else if(fnd.getEndNode().getOffset()-fnd.getStartNode().getOffset() == 
-									selected.getEndNode().getOffset()-selected.getStartNode().getOffset()) { //if the terms are equals, add sources and relevant keys to features
-								addStudyTestFeatures(fnd, features);
-									//remove the annotation, the information is already in the featureMap
-									annSet.remove(fnd);
-							} else if(fnd.getEndNode().getOffset()-fnd.getStartNode().getOffset() < 
-								selected.getEndNode().getOffset()-selected.getStartNode().getOffset()) {
-								//System.out.println("MENOR " + fnd); // Do not do nothing the annotation is shorter than the selected
-								annSet.remove(fnd);
-							}	
+					}else {
+						if(selected!=null) {
+							annSet.remove(selected);
 						}
 					}
-					//set the joint features to the annotation
-					//set basic feature
-					features.put("inst", "BSC");
-					features.put("stage", "PP");
-					selected.setFeatures(features);
 				}else {
-					System.out.println("ERROR ANOTACION NO PRESENTE ' ");
+					System.out.println("ERROR ANOTACION NO PRESENTE");
 				}
-//					if(str.length()>1000 && str.length()<50) {
-//						//delete annotations inside, set as dirty sentence.
-//					}else {
-//						//
-//					}
 			}
 		}
 	}
 
 	/**
-	 * FINGINS Annotations post-processing.
-	 * 
-	 * Consensus of FINDING annotations
-	 * 
-	 * @param annSet
+	 * Add important key features to annotation
+	 * @param annotation
+	 * @param features
 	 */
-	private static void findingsPostprocessing(AnnotationSet annSet, gate.Document gateDocument) {
-		AnnotationSet sentences = annSet.get("FINDING");
-		for (Annotation annotation : sentences) {
-			if(annotation.getFeatures().get("stage")==null) {
-				AnnotationSet findings = annSet.get("FINDING", annotation.getStartNode().getOffset(), annotation.getEndNode().getOffset());
-				if(findings.size()==1) { //Nothing to do, there is no overlaping
-					FeatureMap features = gate.Factory.newFeatureMap();
-					features.put("text", gate.Utils.stringFor(gateDocument, annotation));
-					addFindingFeatures(annotation, features);
-					features.put("inst", "BSC");
-					annotation.setFeatures(features);
-				}else if(findings.size()>1) { // overlapping, select the larger annotated finding. 
-					Annotation selected = null;
-					FeatureMap features = gate.Factory.newFeatureMap();
-					for (Annotation fnd : findings) {
-						if(fnd.getFeatures().get("stage")==null) {
-							if(selected==null) {
-								selected = fnd;
-								features.put("text", gate.Utils.stringFor(gateDocument, fnd));
-								addFindingFeatures(fnd, features);
-							}else if(fnd.getEndNode().getOffset()-fnd.getStartNode().getOffset() > 
-								selected.getEndNode().getOffset()-selected.getStartNode().getOffset()) { // if there is a larger term then
-									features = gate.Factory.newFeatureMap();
-									features.put("text", gate.Utils.stringFor(gateDocument, fnd));
-									//remove the shorter annotation
-									annSet.remove(selected);
-									selected = fnd;
-									addFindingFeatures(fnd, features);
-							}else if(fnd.getEndNode().getOffset()-fnd.getStartNode().getOffset() == 
-									selected.getEndNode().getOffset()-selected.getStartNode().getOffset()) { //if the terms are equals, add sources and relevant keys to features
-									addFindingFeatures(fnd, features);
-									//remove the annotation, the information is already in the featureMap
-									annSet.remove(fnd);
-							} else if(fnd.getEndNode().getOffset()-fnd.getStartNode().getOffset() < 
-								selected.getEndNode().getOffset()-selected.getStartNode().getOffset()) {
-								//System.out.println("MENOR " + fnd); // Do not do nothing the annotation is shorter than the selected
-								annSet.remove(fnd);
-							}	
-						}
-					}
-					//set the joint features to the annotation
-					//set basic feature
-					features.put("inst", "BSC");
-					features.put("stage", "PP");
-					selected.setFeatures(features);
-				}else {
-					System.out.println("ERROR ANOTACION NO PRESENTE ' ");
-				}
-//					if(str.length()>1000 && str.length()<50) {
-//						//delete annotations inside, set as dirty sentence.
-//					}else {
-//						//
-//					}
-			}
-		}
-	}
-	
-	
-	private static void addSpecimenFeatures(Annotation annotation, FeatureMap features) {
+	private static void addFeatures(Annotation annotation, FeatureMap features) {
 		if(annotation.getFeatures().get("source")!=null) {
 			if(annotation.getFeatures().get("source").equals("CDISC")) {
 				features.put("CDISC_NCI_CODE", annotation.getFeatures().get("EXT_CODE_ID"));
@@ -359,6 +245,12 @@ public class App {
 				features.put("UMLS_CUI", annotation.getFeatures().get("CUI"));
 				features.put("UMLS_SOURCE", annotation.getFeatures().get("SOURCE"));
 				features.put("UMLS_SOURCE_CODE", annotation.getFeatures().get("SOURCE_CODE"));
+				features.put("UMLS_LABEL", annotation.getFeatures().get("SEM_TYPE_STR"));
+			}else if(annotation.getFeatures().get("source").equals("DNORM")) {
+				Object mesh = annotation.getFeatures().get("MESH");
+				if(mesh!=null) {
+					features.put("DNORM_MESH", mesh.toString());
+				}
 			}else if(annotation.getFeatures().get("source").equals("LINNEAUS")) {
 				Object ncbi = annotation.getFeatures().get("ncbi");
 				if(ncbi!=null) {
@@ -371,96 +263,4 @@ public class App {
 			System.out.println();
 		}
 	}
-	
-	private static void addStudyTestFeatures(Annotation annotation, FeatureMap features) {
-		if(annotation.getFeatures().get("source")!=null) {
-			if(annotation.getFeatures().get("source").equals("CDISC")) {
-				features.put("CDISC_NCI_CODE", annotation.getFeatures().get("EXT_CODE_ID"));
-				features.put("CDISC_SEND", annotation.getFeatures().get("OID"));
-			}else if(annotation.getFeatures().get("source").equals("ETOX")) {
-				features.put("ETOX_ILO_ID", annotation.getFeatures().get("TERM_ID"));
-			}else if(annotation.getFeatures().get("source").equals("UMLS")) {
-				features.put("UMLS_CUI", annotation.getFeatures().get("CUI"));
-				features.put("UMLS_SOURCE", annotation.getFeatures().get("SOURCE"));
-				features.put("UMLS_SOURCE_CODE", annotation.getFeatures().get("SOURCE_CODE"));
-			}else {
-				System.out.println();
-			}
-		}else {
-			System.out.println();
-		}
-	}
-	
-	/**
-	 * Add finding features given the annotation
-	 * @param selected
-	 * @param features
-	 */
-	private static void addFindingFeatures(Annotation annotation, FeatureMap features) {
-		if(annotation.getFeatures().get("source")!=null) {
-			if(annotation.getFeatures().get("source").equals("CDISC")) {
-				features.put("CDISC_NCI_CODE", annotation.getFeatures().get("EXT_CODE_ID"));
-				features.put("CDISC_SEND", annotation.getFeatures().get("OID"));
-			}else if(annotation.getFeatures().get("source").equals("ETOX")) {
-				features.put("ETOX_ILO_ID", annotation.getFeatures().get("TERM_ID"));
-			}else if(annotation.getFeatures().get("source").equals("UMLS")) {
-				features.put("UMLS_CUI", annotation.getFeatures().get("CUI"));
-				features.put("UMLS_SOURCE", annotation.getFeatures().get("SOURCE"));
-				features.put("UMLS_SOURCE_CODE", annotation.getFeatures().get("SOURCE_CODE"));
-			}else if(annotation.getFeatures().get("source").equals("DNORM")) {
-				Object mesh = annotation.getFeatures().get("MESH");
-				if(mesh!=null) {
-					features.put("DNORM_MESH", mesh.toString());
-				}
-			}else {
-				System.out.println();
-			}
-		}else {
-			System.out.println();
-		}
-	}
-
-	/**
-	 * 
-	 * @param findings
-	 */
-	private static void consensusFinding(AnnotationSet findings) {
-		
-		
-	}
-	
-//	/**
-//	 * Execute process in a document
-//	 * @param pipeline
-//	 * @param inputFile
-//	 * @param outputGATEFile
-//	 * @throws ResourceInstantiationException
-//	 * @throws MalformedURLException
-//	 * @throws InvalidOffsetException
-//	 */
-//	private static void processDocument(File inputFile, File outputGATEFile) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException {
-//		gate.Document gateDocument = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
-//		try {	
-//			Set<String> annotationsSet = gateDocument.getAnnotationSetNames();
-//			for (String annotationSet : annotationsSet) {
-//				AnnotationSet annSet = gateDocument.getAnnotations(annotationSet); 
-//				AnnotationSet findings = annSet.get("TREATMENT_RELATED_SENTENCE");
-//				for (Annotation annotation : findings) {
-//					AnnotationSet treatmentRelatedAnno = annSet.getContained(annotation.getStartNode().getOffset(), annotation.getEndNode().getOffset());
-//					System.out.println(annotation.getType() + "\t" + gate.Utils.stringFor(gateDocument, annotation));
-//					for (Annotation internalAnnotation : treatmentRelatedAnno) {
-//						System.out.println(internalAnnotation.getType() + "\t" + gate.Utils.stringFor(gateDocument, internalAnnotation));
-//					}
-//				}
-//			}
-//			java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
-//			out.write(gateDocument.toXml());
-//			out.close();
-//		} catch (IOException e) {
-//			System.out.println("App :: executeDocument :: IOException ");
-//			e.printStackTrace();
-//		}
-//	}
-
-	
 }
