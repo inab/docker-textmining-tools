@@ -121,7 +121,7 @@ public class App {
         String configurationFilePath = cmd.getOptionValue("configuration_file");
         String annotationSet = cmd.getOptionValue("annotation_set");
         if (!java.nio.file.Files.isDirectory(Paths.get(umlsDirectoryPath))) {
-    		log.error("Please set the input_umls_directory");
+        	System.out.println("Please set the input_umls_directory");
 			System.exit(1);
     	}
         
@@ -131,7 +131,7 @@ public class App {
     	}
         
         if (!java.nio.file.Files.isDirectory(Paths.get(inputFilePath))) {
-    		log.error("Please set the inputDirectoryPath ");
+        	System.out.println("Please set the inputDirectoryPath ");
 			System.exit(1);
     	}
     	
@@ -146,7 +146,8 @@ public class App {
 	    try {
     		loadConfigurationFile(workdirPath,  configurationFilePath);
     	}catch(Exception e) {
-    		log.error("Exception ocurred see the log for more information", e);
+    		System.out.println("Exception ocurred see the log for more information");
+    		e.printStackTrace();
     		System.exit(1);
     	}
 	    
@@ -154,29 +155,31 @@ public class App {
 	    	String internalDictPath = workdirPath + "dict" + File.separator + "umls_terminology.txt";
 		    generateInternalDic(umlsDirectoryPath, internalDictPath);
     	}catch(Exception e) {
-    		log.error("Exception ocurred see the log for more information", e);
+    		System.out.println("Exception ocurred see the log for more information");
+    		e.printStackTrace();
     		System.exit(1);
     	}
 	    
 	    try {
 			Gate.init();
 		} catch (GateException e) {
-			log.error("Wrapper::generatePlainText :: Gate Exception  ", e);
+			System.out.println("App::main :: Gate Exception  ");
+			e.printStackTrace();
 			System.exit(1);
 		}
 
 	    try {
 			generateNERList(workdirPath);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.exit(1);
 		}
        
 		try {
 			processTagger(inputFilePath, outputFilePath, workdirPath, annotationSet);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.exit(1);
 		}
 	}
     
@@ -451,6 +454,7 @@ public class App {
 	 * @throws IOException
 	 */
 	private static void generateNERGazzetterWithPriority(String dictionaryPath, Map<String,EntityInstance> entities,String outPutNerGazetterPath, String tags_to_overwrite, String priority) throws IOException {
+		System.out.println("App :: generateNERGazzetterWithPriority :: INIT ");
 		BufferedWriter termWriter = new BufferedWriter(new FileWriter(outPutNerGazetterPath));
 		List<String> terms = new ArrayList<String>();
 		String[] columnNames=null;
@@ -462,16 +466,19 @@ public class App {
 			}else {
 				String[] data = line.split("\t");
 				//for generate subset taking into account the semantic types indicated
-				//if(semanticTypesMap.get(data[6])!=null) {
 				terms.add(getScapedKeyWordNER(data[0].toLowerCase()) + "\t" +  data[6].toUpperCase()+"_"+data[1]+ "\t" +  tags_to_overwrite + "\t" +  priority +"\n");
 				entities.put(data[1], retrieveEntity(data, columnNames));
-				//}
 			}
 		}
 		for (String string : terms) {
 			termWriter.write(string);
 			termWriter.flush();
 		}
+		if(terms.size()<10) {
+			System.out.println("App :: generateNERGazzetterWithPriority :: An error ocurr, the terms are empty ");
+			System.exit(1);
+		}
+		
 		termWriter.close();
 	}
 	
@@ -499,7 +506,6 @@ public class App {
 		} catch(Exception e) {
 			System.out.println("Error reading custom tag tagged line " + data);
 			System.out.println(e);
-			log.error("Error reading custom tag tagged line " + data ,e);
 		}
 		return null;
 	}
