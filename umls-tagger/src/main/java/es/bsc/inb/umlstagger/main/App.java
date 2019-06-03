@@ -289,14 +289,14 @@ public class App {
 		return false;
 	}
 
-	/**
+	/** 
 	 * Save a plain text file from the gate document.
 	 * @param properties_parameters_path
      * @throws IOException 
 	 */
 	public static void processTagger(String inputDirectoryPath, String outputDirectoryPath, String workdirPath, String annotationSet) throws IOException {
     	Properties props = new Properties();
-		props.put("annotators", "tokenize, ssplit, pos, lemma,  ner, regexner, entitymentions ");
+		props.put("annotators", "tokenize, ssplit,  pos, lemma, ner, regexner, entitymentions ");
 		props.put("regexner.mapping", workdirPath+"ner_list/umls_terminology.txt");
 		props.put("regexner.posmatchtype", "MATCH_ALL_TOKENS");
 		
@@ -305,7 +305,7 @@ public class App {
 		log.info("App::processTagger :: INIT ");
 		if (java.nio.file.Files.isDirectory(Paths.get(inputDirectoryPath))) {
 			File inputDirectory = new File(inputDirectoryPath);
-			File[] files =  inputDirectory.listFiles();
+			File[] files =  inputDirectory.listFiles(); 
 			for (File file : files) {
 				if(file.getName().endsWith(".xml") || file.getName().endsWith(".txt")){
 					try {
