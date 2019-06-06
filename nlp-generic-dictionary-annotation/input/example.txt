@@ -1,1 +1,7 @@
+<<<<<<< HEAD
+bla bla liver injury bla bla.
+
+Cytochrome-P450,  liver injury with the marker amc logistics program. 
+=======
 bla bla liver injury bla bla 
+>>>>>>> ccc4328f6c2d7cb95c281925d7793617f5c9e20e

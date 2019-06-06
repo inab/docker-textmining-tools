@@ -33,6 +33,7 @@ import gate.util.GateException;
  */
 public class App {
     public static void main( String[] args ){
+
     	Options options = new Options();
     	
         Option input = new Option("i", "input", true, "input directory path");
@@ -111,8 +112,12 @@ public class App {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+
 	    
-    }
+    
+
     
     /**
      * Annotation Process
@@ -122,19 +127,21 @@ public class App {
      * @throws IOException
      */
     private static void process(String inputDirectory, String outputDirectory, String listsDefinitionsPath,String annotationSet) throws GateException, IOException {
-    	Corpus corpus = Factory.newCorpus("My XML Files"); 
+
+    	System.out.println("App :: main :: INIT PROCESS");
+    	Corpus corpus = Factory.newCorpus("My Files"); 
+
     	File directory = new File(inputDirectory); 
     	ExtensionFileFilter filter = new ExtensionFileFilter("Txt files", new String[]{"txt","xml"}); 
     	URL url = directory.toURL(); 
     	corpus.populate(url, filter, null, false);
-    	
     	Plugin anniePlugin = new Plugin.Maven("uk.ac.gate.plugins", "annie", "8.5"); 
     	Gate.getCreoleRegister().registerPlugin(anniePlugin); 
     	// create a serial analyser controller to run ANNIE with 
     	SerialAnalyserController annieController =  (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController",  
     	      Factory.newFeatureMap(), Factory.newFeatureMap(), "ANNIE"); 
     	   
-//    	  String[] PR_NAMES = {
+//    	String[] PR_NAMES = {
 //    			       "gate.creole.annotdelete.AnnotationDeletePR",
 //    			      "gate.creole.tokeniser.DefaultTokeniser",
 //    			      "gate.creole.gazetteer.DefaultGazetteer",
@@ -151,24 +158,24 @@ public class App {
 //    		  annieController.add(pr); 
 //    	  } // for each ANNIE PR 
 //    	  
-    	   
+    	annieController.setCorpus(corpus); 
+    	FeatureMap params = Factory.newFeatureMap(); 
+    	
+    		params.put("listsURL", new File(listsDefinitionsPath).toURL());
+    		//params.put("longestMatchOnly", true);
+    		//params.put("wholeWordsOnly", false);
+
     	annieController.setCorpus(corpus); 
     	  
-    	FeatureMap params = Factory.newFeatureMap(); 
-    	try {
-    		params.put("listsURL", new File(listsDefinitionsPath).toURL());
-    	} catch (MalformedURLException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    	
     	params.put("gazetteerFeatureSeparator", "\t");
     	ProcessingResource treatment_related_finding_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params); 
+    	//treatment_related_finding_gazetter.setParameterValue("longestMatchOnly", true);
+    	//treatment_related_finding_gazetter.setParameterValue("wholeWordsOnly", false);
     	annieController.add(treatment_related_finding_gazetter);
     	
     try {
 		LanguageAnalyser jape = (LanguageAnalyser)gate.Factory.createResource("gate.creole.Transducer", gate.Utils.featureMap(
-		              "grammarURL", new File("jape_rules/basic_mapping.jape").toURI().toURL(),"encoding", "UTF-8"));
+		              "grammarURL", new File("jape_rules/main.jape").toURI().toURL(),"encoding", "UTF-8"));
 		jape.setParameterValue("outputASName", annotationSet);
 		annieController.add(jape);
 		// Run ANNIE 
@@ -188,7 +195,6 @@ public class App {
     System.out.println("App :: main :: END PROCESS");
     	  
 		
-	}
-
-    
+    	
+    }
 }

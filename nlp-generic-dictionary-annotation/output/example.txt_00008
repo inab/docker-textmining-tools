@@ -13,12 +13,22 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">docNewLineType</Name>
+<<<<<<< HEAD
+  <Value className="java.lang.String">LF</Value>
+=======
   <Value className="java.lang.String"></Value>
+>>>>>>> ccc4328f6c2d7cb95c281925d7793617f5c9e20e
 </Feature>
 </GateDocumentFeatures>
 <!-- The document content area with serialized nodes -->
 
+<<<<<<< HEAD
+<TextWithNodes><Node id="0"/>bla bla <Node id="8"/>liver injury<Node id="20"/> bla bla.<Node id="29"/>
+
+<Node id="31"/>Cytochrome-P450<Node id="46"/>,  <Node id="49"/>liver injury<Node id="61"/> with the marker <Node id="78"/>amc logistics program<Node id="99"/>. <Node id="101"/></TextWithNodes>
+=======
 <TextWithNodes><Node id="0"/>bla bla <Node id="8"/>liver injury<Node id="20"/> bla bla <Node id="29"/></TextWithNodes>
+>>>>>>> ccc4328f6c2d7cb95c281925d7793617f5c9e20e
 <!-- The default annotation set -->
 
 <AnnotationSet>
@@ -27,12 +37,83 @@
 <!-- Named annotation set -->
 
 <AnnotationSet Name="BSC">
+<<<<<<< HEAD
+<Annotation Id="7" Type="HEPATOTOXICITY" StartNode="8" EndNode="20">
+<Feature>
+  <Name className="java.lang.String">etox_mapping_id</Name>
+  <Value className="java.lang.String">eTOX:00008</Value>
+</Feature>
+=======
 <Annotation Id="2" Type="HEPATOTOXICITY" StartNode="8" EndNode="20">
+>>>>>>> ccc4328f6c2d7cb95c281925d7793617f5c9e20e
 <Feature>
   <Name className="java.lang.String">majorType</Name>
   <Value className="java.lang.String">HEPATOTOXICITY</Value>
 </Feature>
 <Feature>
+<<<<<<< HEAD
+  <Name className="java.lang.String">minorType</Name>
+  <Value className="java.lang.String">HEPATOTOXICITY</Value>
+</Feature>
+</Annotation>
+<Annotation Id="8" Type="CYPS" StartNode="31" EndNode="46">
+<Feature>
+  <Name className="java.lang.String">type</Name>
+  <Value className="java.lang.String">generic_keyword</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">majorType</Name>
+  <Value className="java.lang.String">HEPATOTOXICITY</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">minorType</Name>
+  <Value className="java.lang.String">CYPS</Value>
+</Feature>
+</Annotation>
+<Annotation Id="9" Type="HEPATOTOXICITY" StartNode="49" EndNode="61">
+<Feature>
+  <Name className="java.lang.String">etox_mapping_id</Name>
+  <Value className="java.lang.String">eTOX:00008</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">majorType</Name>
+  <Value className="java.lang.String">HEPATOTOXICITY</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">minorType</Name>
+  <Value className="java.lang.String">HEPATOTOXICITY</Value>
+</Feature>
+</Annotation>
+<Annotation Id="10" Type="LIVER_MARKER" StartNode="78" EndNode="99">
+<Feature>
+  <Name className="java.lang.String">majorType</Name>
+  <Value className="java.lang.String">HEPATOTOXICITY</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">minorType</Name>
+  <Value className="java.lang.String">LIVER_MARKER</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">marker_identifier</Name>
+  <Value className="java.lang.String">P10696</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">marker_type_name</Name>
+  <Value className="java.lang.String">0</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">marker_normalization</Name>
+  <Value className="java.lang.String">9606</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">marker_namespace</Name>
+  <Value className="java.lang.String">PPBN_HUMAN</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">concept_namespace</Name>
+  <Value className="java.lang.String">liver_marker</Value>
+</Feature>
+=======
   <Name className="java.lang.String">tipo</Name>
   <Value className="java.lang.String">enfermedad</Value>
 </Feature>
@@ -40,6 +121,7 @@
   <Name className="java.lang.String">minorType</Name>
   <Value className="java.lang.String">HEPATOTOXICITY</Value>
 </Feature>
+>>>>>>> ccc4328f6c2d7cb95c281925d7793617f5c9e20e
 </Annotation>
 </AnnotationSet>
 
@@ -48,6 +130,11 @@
 <AnnotationSet Name="Original markups">
 <Annotation Id="0" Type="paragraph" StartNode="0" EndNode="29">
 </Annotation>
+<<<<<<< HEAD
+<Annotation Id="1" Type="paragraph" StartNode="31" EndNode="101">
+</Annotation>
+=======
+>>>>>>> ccc4328f6c2d7cb95c281925d7793617f5c9e20e
 </AnnotationSet>
 
 </GateDocument>
