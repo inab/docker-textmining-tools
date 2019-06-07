@@ -27,22 +27,23 @@ else
 	apt-get install openjdk-8-jdk git maven
 fi
 
-git clone --depth 1 https://github.com/inab/docker-textmining-tools.git hepatotoxicity_annotation 
+git clone --depth 1 https://github.com/inab/docker-textmining-tools.git nlp_generic_annotation
+cd nlp_generic_annotation
 git filter-branch --prune-empty --subdirectory-filter nlp-generic-dictionary-annotation HEAD
-cd hepatotoxicity_annotation
 mvn clean install -DskipTests
-
+mv jape_rules ${HEP_TAGGER_HOME}
+cd ..
 #rename jar
-mv ../target/nlp-generic-dictionary-annotation-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-generic-dictionary-annotation-${HEP_TAGGER_VERSION}.jar
+mv nlp_generic_annotation/target/nlp-generic-dictionary-annotation-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-generic-dictionary-annotation-${HEP_TAGGER_VERSION}.jar
 
-cat > /usr/local/bin/nlp-generic-dictionary-annotation <<EOF
+cat > /usr/local/bin/hepatotoxicity-annotation <<EOF
 #!/bin/sh
-exec java \$JAVA_OPTS -jar "${HEP_TAGGER_HOME}/nlp-generic-dictionary-annotation-${HEP_TAGGER_VERSION}.jar" -workdir "${HEP_TAGGER_HOME}" "\$@"
+exec java \$JAVA_OPTS -jar "${HEP_TAGGER_HOME}/nlp-generic-dictionary-annotation-${HEP_TAGGER_VERSION}.jar" -workdir "${HEP_TAGGER_HOME}" -l dictionaries/lists.def "\$@" 
 EOF
-chmod +x /usr/local/bin/nlp-generic-dictionary-annotation
+chmod +x /usr/local/bin/hepatotoxicity-annotation
 
-#delete target
-rm -R target src pom.xml
+#delete target, do not delete for now because it has the jape rules inside
+#rm -R nlp_generic_annotation
 
 #add bash for nextflow
 apk add bash
