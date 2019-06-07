@@ -299,7 +299,7 @@ public class App {
 			/*String text = "No treatment-related findings were observed."
 					+ "Therefore, a treatment-related effect is not assumed. "
 					+ "T3068522 69 BAY 19-8004 Neither quantitative nor semi-quantitative urinalyses gave evidence for treatment- related effects. ";*/
-			//String text = "These animals presented with moderate to severe apathy together with abnormal posture.";		
+			//String text = "These animals presented with moderate to severe apathy together with abnormal posture, yellow mucous discharge from anus.";		
 			//Dunnett 1980) compares the outcome of each treatment group with the corresponding control group, regardiess of the result of the overall F test (ANOVA).
 			//This finding is regarded the outcome of the treatment.  //sacar outcome sino
 			//Annotation document = new Annotation(text.toLowerCase());
@@ -367,6 +367,9 @@ public class App {
 	    			if(features.get("source").equals("ETOX")) {
 	    				gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "FINDING", features);
 	    			}
+	    		}else if(label.equals("IN_LIFE_OBSERVATION")){
+	    			System.out.println("IN_LIFE_OBSERVATION : text: " + features.get("text") );
+	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "FINDING", features);
 	    		}else if(label.endsWith(AnnotationUtil.MANIFESTATION_OF_FINDING)){
 	    			features.put("manifestation_of_finding", label);
 	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.MANIFESTATION_OF_FINDING, features);

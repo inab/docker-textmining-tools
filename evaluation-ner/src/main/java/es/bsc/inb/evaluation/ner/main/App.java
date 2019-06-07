@@ -148,6 +148,17 @@ public class App {
 				System.out.println("App::processEvaluation :: IOException " + outputPath);
 				System.out.println(e);
 			}
+			String resultsJSON = service.getFscoreMeasuresJSON();
+			System.out.println(resultsJSON);
+			try {
+				createTxtFile(outputPath+".json", resultsJSON);
+			} catch (FileNotFoundException e) {
+				System.out.println("App::processEvaluation :: FileNotFoundException " + outputPath);
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println("App::processEvaluation :: IOException " + outputPath);
+				System.out.println(e);
+			}
 		}else {
 			System.out.println("App::processEvaluation :: No directory :  " + inputDirectoryPath);
 		}
