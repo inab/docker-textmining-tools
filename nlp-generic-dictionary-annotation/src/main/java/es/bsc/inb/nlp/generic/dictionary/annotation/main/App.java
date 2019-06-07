@@ -3,7 +3,6 @@ package es.bsc.inb.nlp.generic.dictionary.annotation.main;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
 
@@ -127,74 +126,49 @@ public class App {
      * @throws IOException
      */
     private static void process(String inputDirectory, String outputDirectory, String listsDefinitionsPath,String annotationSet) throws GateException, IOException {
-
-    	System.out.println("App :: main :: INIT PROCESS");
-    	Corpus corpus = Factory.newCorpus("My Files"); 
-
-    	File directory = new File(inputDirectory); 
-    	ExtensionFileFilter filter = new ExtensionFileFilter("Txt files", new String[]{"txt","xml"}); 
-    	URL url = directory.toURL(); 
-    	corpus.populate(url, filter, null, false);
-    	Plugin anniePlugin = new Plugin.Maven("uk.ac.gate.plugins", "annie", "8.5"); 
-    	Gate.getCreoleRegister().registerPlugin(anniePlugin); 
-    	// create a serial analyser controller to run ANNIE with 
-    	SerialAnalyserController annieController =  (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController",  
-    	      Factory.newFeatureMap(), Factory.newFeatureMap(), "ANNIE"); 
-    	   
-//    	String[] PR_NAMES = {
-//    			       "gate.creole.annotdelete.AnnotationDeletePR",
-//    			      "gate.creole.tokeniser.DefaultTokeniser",
-//    			      "gate.creole.gazetteer.DefaultGazetteer",
-//    			     "gate.creole.splitter.SentenceSplitter",
-//    			    "gate.creole.POSTagger",
-//    			     "gate.creole.ANNIETransducer",
-//    			    "gate.creole.orthomatcher.OrthoMatcher"
-//    			  };
-//    	  
-//    	  for(int i = 0; i < PR_NAMES.length; i++) { 
-//    		  FeatureMap params = Factory.newFeatureMap(); 
-//    		  ProcessingResource pr = (ProcessingResource)Factory.createResource(PR_NAMES[i], params); 
-//    		  // add the PR to the pipeline controller 
-//    		  annieController.add(pr); 
-//    	  } // for each ANNIE PR 
-//    	  
-    	annieController.setCorpus(corpus); 
-    	FeatureMap params = Factory.newFeatureMap(); 
-    	
-    		params.put("listsURL", new File(listsDefinitionsPath).toURL());
-    		//params.put("longestMatchOnly", true);
-    		//params.put("wholeWordsOnly", false);
-
-    	annieController.setCorpus(corpus); 
-    	  
-    	params.put("gazetteerFeatureSeparator", "\t");
-    	ProcessingResource treatment_related_finding_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params); 
-    	//treatment_related_finding_gazetter.setParameterValue("longestMatchOnly", true);
-    	//treatment_related_finding_gazetter.setParameterValue("wholeWordsOnly", false);
-    	annieController.add(treatment_related_finding_gazetter);
-    	
-    try {
-		LanguageAnalyser jape = (LanguageAnalyser)gate.Factory.createResource("gate.creole.Transducer", gate.Utils.featureMap(
-		              "grammarURL", new File("jape_rules/main.jape").toURI().toURL(),"encoding", "UTF-8"));
-		jape.setParameterValue("outputASName", annotationSet);
-		annieController.add(jape);
-		// Run ANNIE 
-    	annieController.execute();
-    	
-	} catch (MalformedURLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
-    for (Document  document : corpus) {
-    	java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(new File(outputDirectory + File.separator +document.getName()), false)));
-	    out.write(document.toXml());
-	    out.close();
-	}
-    	 
-    System.out.println("App :: main :: END PROCESS");
-    	  
-		
-    	
+    	try {
+    		System.out.println("App :: main :: INIT PROCESS");
+	    	Corpus corpus = Factory.newCorpus("My Files"); 
+	    	File directory = new File(inputDirectory); 
+	    	ExtensionFileFilter filter = new ExtensionFileFilter("Txt files", new String[]{"txt","xml"}); 
+	    	URL url = directory.toURL(); 
+	    	corpus.populate(url, filter, null, false);
+	    	Plugin anniePlugin = new Plugin.Maven("uk.ac.gate.plugins", "annie", "8.5"); 
+	    	Gate.getCreoleRegister().registerPlugin(anniePlugin); 
+	    	// create a serial analyser controller to run ANNIE with 
+	    	SerialAnalyserController annieController =  (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController",
+	    			Factory.newFeatureMap(), Factory.newFeatureMap(), "ANNIE"); 
+	    	annieController.setCorpus(corpus); 
+	    	 
+	    	//Gazetter parameters
+	    	FeatureMap params = Factory.newFeatureMap(); 
+	    	params.put("listsURL", new File(listsDefinitionsPath).toURL());
+	    	params.put("gazetteerFeatureSeparator", "\t");
+	    	//params.put("longestMatchOnly", true);
+	    	//params.put("wholeWordsOnly", false);
+	    	ProcessingResource treatment_related_finding_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params); 
+	    	//treatment_related_finding_gazetter.setParameterValue("longestMatchOnly", true);
+	    	//treatment_related_finding_gazetter.setParameterValue("wholeWordsOnly", false);
+	    	annieController.add(treatment_related_finding_gazetter);
+	    	
+		    LanguageAnalyser jape = (LanguageAnalyser)gate.Factory.createResource("gate.creole.Transducer", gate.Utils.featureMap(
+				              "grammarURL", new File("jape_rules/main.jape").toURI().toURL(),"encoding", "UTF-8"));
+			jape.setParameterValue("outputASName", annotationSet);
+			annieController.add(jape);
+			// execute controller 
+		    annieController.execute();
+		    	
+			//Save documents in different output
+		    for (Document  document : corpus) {
+		    	java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(new File(outputDirectory + File.separator +document.getName().substring(0, document.getName().indexOf(".xml")+4) ), false)));
+			    out.write(document.toXml());
+			    out.close();
+			}
+    	}catch(Exception e) {
+    		System.out.println("App :: main :: ERROR ");
+    		e.printStackTrace();
+    		System.exit(1);
+	    }	 
+	    System.out.println("App :: main :: END PROCESS");
     }
 }

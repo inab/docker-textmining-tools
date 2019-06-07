@@ -1,10 +1,7 @@
 Phase:firstphase
 Input: Lookup
-<<<<<<< HEAD
 Options: control = appelt
-=======
-Options: control = all
->>>>>>> ccc4328f6c2d7cb95c281925d7793617f5c9e20e
+
 Rule: basic_mapp
 (
 {Lookup}
