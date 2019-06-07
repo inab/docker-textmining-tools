@@ -5,6 +5,7 @@ ARG	DICT_TAGGER_VERSION=1.0
 COPY	docker-build.sh /usr/local/bin/docker-build.sh
 COPY	src src
 COPY	jape_rules jape_rules
+COPY	dictionaries dictionaries
 COPY	pom.xml .
 
 RUN mkdir logs
