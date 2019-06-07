@@ -1,0 +1,12 @@
+Phase:firstpass
+Input: GROUP
+Options: control = brill //1
+//2
+//3
+Rule: GroupTest
+Priority: 20
+(
+{GROUP}
+): label
+-->
+:label.GroupTest90 = {rule= "GroupTest" }

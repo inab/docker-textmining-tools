@@ -1,0 +1,12 @@
+Phase:firstpass
+Input: Token
+Options: control = brill //1
+//2
+//3
+Rule: tokenTransport
+Priority: 20
+(
+{Token} 
+): label
+-->
+:label.Token = {rule= "tokenTransport" }
