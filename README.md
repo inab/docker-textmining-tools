@@ -1,7 +1,8 @@
 docker-text-mining-tools
 ========================
+This are the collection of components of the inab for text-mining tasks 
 
-<b>Collection of components for text-mining tasks. </b>   
+<b>Collection of components. </b>   
 <ul>
 <li>
 ocfmypdf: Scanned PDF to Readable PDF. 
