@@ -76,6 +76,10 @@ public class App {
 			System.exit(1);
     	}
         
+        if(workdirPath==null) {
+    		workdirPath = "";
+		}
+        listsDefinitionsPath = workdirPath+listsDefinitionsPath;
         if (!java.nio.file.Files.isRegularFile(Paths.get(listsDefinitionsPath))) {
     		System.out.println(" Please set the list of dictionaries to annotate");
 			System.exit(1);
@@ -98,10 +102,6 @@ public class App {
 			System.exit(1);
 		} 
  
-	    if(workdirPath==null) {
-	    	workdirPath="";
-	    }
-
 	    try {
 			process(inputFilePath, outputFilePath, listsDefinitionsPath, annotationSet);
 		} catch (GateException e) {
