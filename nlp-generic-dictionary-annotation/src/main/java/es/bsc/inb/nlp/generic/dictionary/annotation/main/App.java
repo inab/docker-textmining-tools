@@ -104,7 +104,8 @@ public class App {
 		} 
  
 	    try {
-			process(inputFilePath, outputFilePath, listsDefinitionsPath, annotationSet);
+	    	String japeRules = workdirPath+"jape_rules/main.jape";
+	    	process(inputFilePath, outputFilePath, listsDefinitionsPath, japeRules, annotationSet);
 		} catch (GateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -126,7 +127,7 @@ public class App {
      * @throws GateException
      * @throws IOException
      */
-    private static void process(String inputDirectory, String outputDirectory, String listsDefinitionsPath,String annotationSet) throws GateException, IOException {
+    private static void process(String inputDirectory, String outputDirectory, String listsDefinitionsPath, String japeRules, String annotationSet) throws GateException, IOException {
     	try {
     		System.out.println("App :: main :: INIT PROCESS");
 	    	Corpus corpus = Factory.newCorpus("My Files"); 
@@ -153,7 +154,7 @@ public class App {
 	    	annieController.add(treatment_related_finding_gazetter);
 	    	
 		    LanguageAnalyser jape = (LanguageAnalyser)gate.Factory.createResource("gate.creole.Transducer", gate.Utils.featureMap(
-				              "grammarURL", new File("jape_rules/main.jape").toURI().toURL(),"encoding", "UTF-8"));
+				              "grammarURL", new File(japeRules).toURI().toURL(),"encoding", "UTF-8"));
 			jape.setParameterValue("outputASName", annotationSet);
 			annieController.add(jape);
 			// execute controller 
