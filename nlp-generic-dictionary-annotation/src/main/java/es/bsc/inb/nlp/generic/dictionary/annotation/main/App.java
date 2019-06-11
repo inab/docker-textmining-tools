@@ -76,7 +76,11 @@ public class App {
 			System.exit(1);
     	}
         
-        if (!java.nio.file.Files.isRegularFile(Paths.get(listsDefinitionsPath))) {
+        if(workdirPath==null) {
+    		workdirPath = "";
+		}
+        
+        if (!java.nio.file.Files.isRegularFile(Paths.get(workdirPath+listsDefinitionsPath))) {
     		System.out.println(" Please set the list of dictionaries to annotate");
 			System.exit(1);
     	}
