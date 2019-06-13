@@ -320,8 +320,11 @@ public class App {
 			annieController.add(jape);
 			// execute controller 
 		    annieController.execute();
-		    	
-			//Save documents in different output
+		    Factory.deleteResource(treatment_related_finding_gazetter);
+		    Factory.deleteResource(jape);
+		    Factory.deleteResource(annieController);	
+		    Gate.removeKnownPlugin(anniePlugin);
+		    //Save documents in different output
 		    for (Document  document : corpus) {
 		    	String nameOutput = "";
 		    	if(document.getName().indexOf(".txt")!=-1) {
