@@ -36,7 +36,7 @@ mv target/umls-tagger-0.0.1-SNAPSHOT-jar-with-dependencies.jar umls-tagger-${UML
 
 cat > /usr/local/bin/umls-tagger <<EOF
 #!/bin/sh
-exec java -Xmx5g -jar "${UMLS_TAGGER_HOME}/umls-tagger-${UMLS_TAGGER_VERSION}.jar" -workdir "${UMLS_TAGGER_HOME}" "\$@"
+exec java \$JAVA_OPTS -jar "${UMLS_TAGGER_HOME}/umls-tagger-${UMLS_TAGGER_VERSION}.jar" -workdir "${UMLS_TAGGER_HOME}" "\$@"
 EOF
 chmod +x /usr/local/bin/umls-tagger
 
