@@ -90,7 +90,7 @@ Parameters:
 -c configuration file that contains the semantic type mappings and the sources to be used during the mapping.  If no configuration file is provided, a default one will be used.
 </p>
 <p>
--i input folder with the documents to annotated. The documents could be plain txt or xml gate documents.
+-i input folder with the documents to annotated. The documents could be plain txt or xml GATE-formated documents.
 </p>
 <p>
 -o output folder with the documents annotated in gate format.
