@@ -27,7 +27,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
 
-import es.bsc.inb.umlstagger.model.EntityInstance;
 import gate.Corpus;
 import gate.Document;
 import gate.Factory;
@@ -42,7 +41,7 @@ import gate.util.GateException;
 
 /**
  * UMLS Tagger.
- * Given an UMLS Installation these tools execute a NER using the UMLS Terminology. 
+ * Given the UMLS Terminology this tool annotate documents with a given configuration of sources and semantic types. 
  * 
  * @author jcorvi
  *
@@ -54,9 +53,7 @@ public class App {
 	static Map<String,String> semanticTypesMap = new HashMap<String,String>();
 	
 	static Map<String,String> semanticTypesMapExcluded = new HashMap<String,String>();
-	
-	static Map<String, EntityInstance> umlsDictionary = new HashMap<String, EntityInstance>();
-	
+	 
 	static List<String> sourceList = new ArrayList<String>();
 	
     public static void main( String[] args ){
@@ -277,14 +274,13 @@ public class App {
     	System.out.println("End dictionary generation");
 	}
     
-    
-    
-
-    
     /**
      * Annotation Process
      * @param inputDirectory
      * @param outputDirectory
+     * @param listsDefinitionsPath
+     * @param japeRules
+     * @param annotationSet
      * @throws GateException
      * @throws IOException
      */
@@ -320,8 +316,11 @@ public class App {
 			annieController.add(jape);
 			// execute controller 
 		    annieController.execute();
-		    	
-			//Save documents in different output
+		    Factory.deleteResource(treatment_related_finding_gazetter);
+		    Factory.deleteResource(jape);
+		    Factory.deleteResource(annieController);	
+		    Gate.removeKnownPlugin(anniePlugin);
+		    //Save documents in different output
 		    for (Document  document : corpus) {
 		    	String nameOutput = "";
 		    	if(document.getName().indexOf(".txt")!=-1) {
@@ -342,9 +341,9 @@ public class App {
     }
     
     /**
-     * 
-     * @param string
-     * @param string2
+     * Exclude semantic type by source.
+     * @param source 
+     * @param semantiType
      * @return
      */
     private static boolean excludeSemanticTypeBySource(String source, String semantiType) {
@@ -359,7 +358,7 @@ public class App {
 	
 	
 	/**
-     * Load semantic type to retrieve and the corresponding label mapping
+     * Load the configuration: semantic types and sources to be used
      * @throws IOException 
      * 
      */
