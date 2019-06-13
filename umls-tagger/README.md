@@ -71,9 +71,9 @@ One of the important tasks is to analyze and define witch sources and semantic t
 
 For clone this component:
 
-	#git clone --depth 1 https://github.com/inab/docker-textmining-tools.git umls-tagger
-	#cd nlp_generic_annotation
-	#git filter-branch --prune-empty --subdirectory-filter umls-tagger HEAD
+	git clone --depth 1 https://github.com/inab/docker-textmining-tools.git umls-tagger
+	cd umls-tagger
+	git filter-branch --prune-empty --subdirectory-filter umls-tagger HEAD
  
 Build and run the docker individually
 
