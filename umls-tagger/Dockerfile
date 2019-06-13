@@ -4,8 +4,7 @@ WORKDIR /usr/local/share/umlstagger
 ARG	UMLS_TAGGER_VERSION=1.0
 COPY	docker-build.sh /usr/local/bin/docker-build.sh
 COPY	src src
-COPY	dict dict
-COPY	ner_list ner_list
+COPY	jape_rules jape_rules
 COPY	config.properties config.properties
 COPY	pom.xml .
 

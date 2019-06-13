@@ -29,14 +29,18 @@ fi
 
 mvn clean install -DskipTests
 
+
+
 #rename jar
 mv target/umls-tagger-0.0.1-SNAPSHOT-jar-with-dependencies.jar umls-tagger-${UMLS_TAGGER_VERSION}.jar
 
 cat > /usr/local/bin/umls-tagger <<EOF
 #!/bin/sh
-exec java \$JAVA_OPTS -jar "${UMLS_TAGGER_HOME}/umls-tagger-${UMLS_TAGGER_VERSION}.jar" -workdir "${UMLS_TAGGER_HOME}" "\$@"
+exec java -Xmx2048m -jar "${UMLS_TAGGER_HOME}/umls-tagger-${UMLS_TAGGER_VERSION}.jar" -workdir "${UMLS_TAGGER_HOME}" "\$@"
 EOF
 chmod +x /usr/local/bin/umls-tagger
+
+#exec java \$JAVA_OPTS -jar "${UMLS_TAGGER_HOME}/umls-tagger-${UMLS_TAGGER_VERSION}.jar" -workdir "${UMLS_TAGGER_HOME}" "\$@"
 
 #delete target
 rm -R target src pom.xml

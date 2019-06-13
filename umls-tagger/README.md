@@ -55,21 +55,32 @@ T010|Vertebrate|SPECIES
 #ANATOMY
 T018|Embryonic Structure|ANATOMY
 [SEMANTIC_TYPES_END]
+#This are the excluded semantic types by source.
+[EXCLUDED_SEMANTIC_TYPES_BY_SOURCE]
+SNOMEDCT_US=T033
+SNOMEDCT_VET=T033
+[EXCLUDED_SEMANTIC_TYPES_BY_SOURCE_END]
 
 In this example all the sources of the MetamorphoSys subset will be used; and only the semantic types:  Amphibian, Vertebrate and Embryonic Structure will be annotated.  Each of these semantic types will 
-be mapping and annotated with the corresponding label.
+be mapping and annotated with the corresponding label.  And if you consider that a specific source is generating a lot of noise in your tagging task, you can excluded in the [EXCLUDED_SEMANTIC_TYPES_BY_SOURCE].
+In that example the semanticTypes T033 from the source SNOMEDCT_US and SNOMEDCT_VET is excluded.
 
 One of the important tasks is to analyze and define witch sources and semantic types are important to your analysis;  
 
 [SOURCES], [SEMANTIC_TYPES] and [SEMANTIC_TYPES_END] are required and have to be present in the file.
- 
 
+For clone this component:
+
+	#git clone --depth 1 https://github.com/inab/docker-textmining-tools.git umls-tagger
+	#cd nlp_generic_annotation
+	#git filter-branch --prune-empty --subdirectory-filter umls-tagger HEAD
+ 
 Build and run the docker individually
 
 	# To build the docker, just go into the umls-tagger folder and execute
 	docker build -t umls-tagger .
 	#To run the docker, just set the input_folder and the output
-	mkdir ${PWD}/umls_output; docker run --rm -u $UID -v /home/user/2018AB/EXAMPLE/META:/in_umls:ro -v ${PWD}/input_output:/in:ro -v ${PWD}/umls_output:/out:rw umls-tagger umls-tagger -u /in_umls -c /in/config.properties -i /in -o /out
+	mkdir ${PWD}/umls_output; docker run --rm -u $UID -v /home/user/2018AB/EXAMPLE/META:/in_umls:ro -v ${PWD}/input_output:/in:ro -v ${PWD}/umls_output:/out:rw umls-tagger umls-tagger -u /in_umls -c /in/config.properties -i /in -o /out -d /out
 		
 Parameters:
 <p>
@@ -84,6 +95,13 @@ Parameters:
 <p>
 -o output folder with the documents annotated in gate format.
 </p>
+<p>
+-a Annotation set where the annotation will be included.
+</p>
+<p>
+-d Optional destination folder of internal dictionary generated from the umls terminology, if not an internal path is used. This option is recommended if you want to have access to the gazetter generated with your configuration. 
+</p>
+
 
 		
 		
