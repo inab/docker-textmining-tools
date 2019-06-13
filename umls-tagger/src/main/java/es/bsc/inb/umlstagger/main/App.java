@@ -254,15 +254,17 @@ public class App {
 				}
 				bw.flush();
 			 } 
-			 bw.close();
-			 br.close();
+			bw.close();
+			fos.close();
+			br.close();
+			cui_semantyc_type=null;
 			File listDef = new File(listDefPath);
 			FileOutputStream foslistDef = new FileOutputStream(listDef);
 			BufferedWriter bwfoslistDef = new BufferedWriter(new OutputStreamWriter(foslistDef,StandardCharsets.UTF_8));
 			bwfoslistDef.write("terms.lst:UMLS:UMLS");
 			bwfoslistDef.flush();
 			bwfoslistDef.close();
-			 
+			foslistDef.close(); 
 		} catch (FileNotFoundException e) {
 			System.out.println("FileNotFoundException");
 			e.printStackTrace();
