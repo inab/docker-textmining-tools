@@ -1,22 +1,22 @@
 #!/bin/sh
 
 BASEDIR=/usr/local
-DNORM_HOME="${BASEDIR}/share/dnorm/"
+ADES_RELATION_EXTRACTIONHOME="${BASEDIR}/share/ades_relation_extraction/"
 
-DNORM_GATE_WRAPPER_VERSION=1.0
+ADES_RELATION_EXTRACTION_VERSION=1.0
 
 # Exit on error
 set -e
 
 if [ $# -ge 1 ] ; then
-	DNORM_GATE_WRAPPER_VERSION="$1"
+	ADES_RELATION_EXTRACTION_VERSION="$1"
 fi
 
 if [ -f /etc/alpine-release ] ; then
 	# Installing OpenJDK 8
 	apk add --update openjdk8-jre
 	
-	# linneaus_wrapper's development dependencies
+	# dict tagger development dependencies
 	apk add openjdk8 git maven
 else
 	# Runtime dependencies
@@ -27,30 +27,22 @@ else
 	apt-get install openjdk-8-jdk git maven
 fi
 
-#The Dnorm project is not a maven project, some of the libraries that includes are not available in the mavens reporsitory or 
-#the version is not clear.  Installation of the system path libs to maven repository m2
-
-mvn install:install-file -Dfile=libs/dnorm.jar -DgroupId=dnorm.com -DartifactId=dnorm_thirdparty -Dversion=1.0 -Dpackaging=jar
-mvn install:install-file -Dfile=libs/banner.jar -DgroupId=banner.com -DartifactId=banner_thirdparty -Dversion=1.0 -Dpackaging=jar
-mvn install:install-file -Dfile=libs/bioc.jar -DgroupId=bioc.com -DartifactId=bioc_thirdparty -Dversion=1.0 -Dpackaging=jar
-mvn install:install-file -Dfile=libs/heptag.jar -DgroupId=heptag.com -DartifactId=heptag_thirdparty -Dversion=1.0 -Dpackaging=jar
-mvn install:install-file -Dfile=libs/mallet-deps.jar -DgroupId=malletdeps.com -DartifactId=malletdeeps_thirdparty -Dversion=1.0 -Dpackaging=jar
-mvn install:install-file -Dfile=libs/colt.jar -DgroupId=colt.com -DartifactId=colt_thirdparty -Dversion=1.0 -Dpackaging=jar
-
+git clone --depth 1 https://github.com/inab/docker-textmining-tools.git nlp_gate_generic_component
+cd nlp_gate_generic_component
+git filter-branch --prune-empty --subdirectory-filter nlp-gate-generic-component HEAD
 mvn clean install -DskipTests
-
+cd ..
 #rename jar
-mv target/dnorm-gate-wrapper-0.0.1-SNAPSHOT-jar-with-dependencies.jar dnorm-gate-wrapper-${DNORM_GATE_WRAPPER_VERSION}.jar
+mv nlp_gate_generic_component/target/nlp-gate-generic-component-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-gate-generic-component-${ADES_RELATION_EXTRACTION_VERSION}.jar
 
-cat > /usr/local/bin/dnorm-gate-wrapper <<EOF
+cat > /usr/local/bin/ades-relation-extraction <<EOF
 #!/bin/sh
-exec java \$JAVA_OPTS -jar "${DNORM_HOME}/dnorm-gate-wrapper-${DNORM_GATE_WRAPPER_VERSION}.jar" -workdir "${DNORM_HOME}" -configfile "${DNORM_HOME}/config/banner_NCBIDisease_TEST_PROD.xml" "\$@"
+exec java \$JAVA_OPTS -jar "${ADES_RELATION_EXTRACTION_HOME}/nlp-gate-generic-component-${ADES_RELATION_EXTRACTION_VERSION}.jar" -workdir "${ADES_RELATION_EXTRACTION_HOME}" -j jape_rules/main.jape "\$@" 
 EOF
-chmod +x /usr/local/bin/dnorm-gate-wrapper
+chmod +x /usr/local/bin/ades-relation-extraction
 
-
-#delete unnecesary files
-rm -R target src libs pom.xml
+#delete target, do not delete for now because it has the jape rules inside
+#rm -R nlp_generic_annotation
 
 #add bash for nextflow
 apk add bash

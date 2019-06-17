@@ -1,0 +1,20 @@
+Phase:secondphase
+Input: FINDING STUDY_TESTCD
+Options: control = all
+Rule: delete_rule
+(
+{FINDING} | (
+{STUDY_TESTCD}
+)
+)
+:short_annotations_delete
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("short_annotations_delete");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	// get the offsets
+	Long length = lookup.lastNode().getOffset() - lookup.firstNode().getOffset();
+	if (length < 3)  {
+		inputAS.remove(ann);
+ 	}
+}

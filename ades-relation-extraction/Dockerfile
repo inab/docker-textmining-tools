@@ -1,20 +1,11 @@
 FROM alpine:3.9
-WORKDIR /usr/local/share/dnorm
+WORKDIR /usr/local/share/ades_relation_extraction
 
-ARG	DNORM_GATE_WRAPPER_VERSION=1.0
+ARG	ADES_RELATION_EXTRACTION_VERSION=1.0
 
 COPY	docker-build.sh /usr/local/bin/docker-build.sh
-COPY	src src	
-COPY	libs libs	
-COPY	config config
-COPY	data data
-COPY	nlpdata nlpdata
-COPY	output output
-COPY	pom.xml .
+COPY	jape_rules jape_rules
 
-RUN mkdir logs
-RUN chmod u=rx,o=r /usr/local/share/dnorm -R
-RUN chmod u=rx,o=r output -R
-RUN chmod u=rwx,g=rwx,o=rwx logs -R
+RUN chmod u=rx,o=r /usr/local/share/ades_relation_extraction -R
 
-RUN	docker-build.sh ${DNORM_GATE_WRAPPER_VERSION}
+RUN	docker-build.sh ${ADES_RELATION_EXTRACTION_VERSION}

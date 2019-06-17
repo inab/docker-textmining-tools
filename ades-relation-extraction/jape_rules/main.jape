@@ -1,0 +1,4 @@
+MultiPhase: Main
+Phases:
+omim_clean
+clean_short_words
