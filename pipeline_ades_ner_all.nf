@@ -416,6 +416,19 @@ process ades_ner_postprocessing {
     """
 }
 
+process ades_relation_extraction {
+    input:
+    file input_ades_relation_extraction from ades_post_output_folder_ch
+    
+    output:
+    val ades_relation_extraction_output into ades_relation_extraction_output_ch
+    	
+    """
+    ades-relation-extraction -i $input_ades_relation_extraction -o $ades_relation_extraction_output -a BSC
+	
+    """
+}
+
 process evaluation_ner {
     input:
     file input_ner_evaluation from ades_post_output_folder_ch
