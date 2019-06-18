@@ -1,10 +1,18 @@
 package es.bsc.inb.nlp.generic.dictionary.annotation.main;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.InflaterInputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -13,6 +21,12 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
+import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
+import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+import org.apache.commons.compress.utils.IOUtils;
+import org.codehaus.plexus.archiver.tar.TarGZipUnArchiver;
+import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
 
 import gate.Corpus;
 import gate.Document;
@@ -43,7 +57,8 @@ public class App {
         output.setRequired(true);
         options.addOption(output);
         
-        Option listDefinitions = new Option("l", "lists_definitions", true, "Dictionary List definitions, Gate format");
+        Option listDefinitions = new Option("l", "lists_definitions", true, "Dictionary List definitions.  "
+        		+ "A lists.def Gate-formatted file separated by tab can be provided or a zip file that contains the dictionary/gazetteer files including the lists.def ");
         listDefinitions.setRequired(true);
         options.addOption(listDefinitions);
      
@@ -82,16 +97,37 @@ public class App {
 
         listsDefinitionsPath = workdirPath+listsDefinitionsPath;
         if (!java.nio.file.Files.isRegularFile(Paths.get(listsDefinitionsPath))) {
-        	System.out.println(" Please set the list of dictionaries to annotate");
+        	System.out.println(" Please set the list of dictionaries to annotate. You can provide the list.def file or a zip file. Please if you provided a zip file remember that it must contain a list.def file inside");
 			System.exit(1);
     	}
+        
+        if(listsDefinitionsPath.endsWith(".zip")) {
+        	try {
+	       		File file = new File(listsDefinitionsPath);
+	       		String dictionaryFolderPath =  file.getName().substring(0, file.getName().indexOf(".zip"));
+	       		unZipIt(listsDefinitionsPath,  workdirPath  + dictionaryFolderPath );
+	       		listsDefinitionsPath = workdirPath  + dictionaryFolderPath + File.separator + "lists.def";
+	       		if (!java.nio.file.Files.isRegularFile(Paths.get(listsDefinitionsPath))) {
+	               	System.out.println("Please if you provided a zip file remember that it must contain a list.def file inside.");
+	       			System.exit(1);
+	           	}
+        	}catch(Exception e) {
+               	System.out.println("Error unziping directory, please if you provided a zip file remember that it must contain a list.def file inside. ");
+               	System.exit(1);
+            }
+        }else if(listsDefinitionsPath.endsWith(".def")) {
+        	System.out.println(" Please set the list of dictionaries to annotate.  No list.def file or .zip file provided.");
+        	System.exit(1);
+        }
+       
+        
         
         if (annotationSet==null) {
         	System.out.println("Please set the annotation set where the annotation will be included");
 			System.exit(1);
     	}
     	
-    	File outputDirectory = new File(outputFilePath);
+        File outputDirectory = new File(outputFilePath);
 	    if(!outputDirectory.exists())
 	    	outputDirectory.mkdirs();
 	    
@@ -105,7 +141,7 @@ public class App {
  
 	    try {
 	    	String japeRules = workdirPath+"jape_rules/main.jape";
-	    	process(inputFilePath, outputFilePath, listsDefinitionsPath, japeRules, annotationSet);
+	    	process(inputFilePath, outputFilePath, listsDefinitionsPath, japeRules, annotationSet, workdirPath);
 		} catch (GateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,7 +163,7 @@ public class App {
      * @throws GateException
      * @throws IOException
      */
-    private static void process(String inputDirectory, String outputDirectory, String listsDefinitionsPath, String japeRules, String annotationSet) throws GateException, IOException {
+    private static void process(String inputDirectory, String outputDirectory, String listsDefinitionsPath, String japeRules, String annotationSet, String workdirPath) throws GateException, IOException {
     	try {
     		System.out.println("App :: main :: INIT PROCESS");
 	    	Corpus corpus = Factory.newCorpus("My Files"); 
@@ -141,17 +177,17 @@ public class App {
 	    	SerialAnalyserController annieController =  (SerialAnalyserController) Factory.createResource("gate.creole.SerialAnalyserController",
 	    			Factory.newFeatureMap(), Factory.newFeatureMap(), "ANNIE"); 
 	    	annieController.setCorpus(corpus); 
-	    	 
 	    	//Gazetter parameters
 	    	FeatureMap params = Factory.newFeatureMap(); 
+	    	
 	    	params.put("listsURL", new File(listsDefinitionsPath).toURL());
 	    	params.put("gazetteerFeatureSeparator", "\t");
 	    	//params.put("longestMatchOnly", true);
 	    	//params.put("wholeWordsOnly", false);
-	    	ProcessingResource treatment_related_finding_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params); 
-	    	//treatment_related_finding_gazetter.setParameterValue("longestMatchOnly", true);
-	    	//treatment_related_finding_gazetter.setParameterValue("wholeWordsOnly", false);
-	    	annieController.add(treatment_related_finding_gazetter);
+	    	ProcessingResource pr_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params); 
+	    	//pr_gazetter.setParameterValue("longestMatchOnly", true);
+	    	//pr_gazetter.setParameterValue("wholeWordsOnly", false);
+	    	annieController.add(pr_gazetter);
 	    	
 		    LanguageAnalyser jape = (LanguageAnalyser)gate.Factory.createResource("gate.creole.Transducer", gate.Utils.featureMap(
 				              "grammarURL", new File(japeRules).toURI().toURL(),"encoding", "UTF-8"));
@@ -159,10 +195,19 @@ public class App {
 			annieController.add(jape);
 			// execute controller 
 		    annieController.execute();
-		    	
-			//Save documents in different output
+		    Factory.deleteResource(pr_gazetter);
+		    Factory.deleteResource(jape);
+		    Factory.deleteResource(annieController);	
+		    Gate.removeKnownPlugin(anniePlugin);	
+		    //Save documents in different output
 		    for (Document  document : corpus) {
-		    	java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(new File(outputDirectory + File.separator +document.getName().substring(0, document.getName().indexOf(".xml")+4) ), false)));
+		    	String nameOutput = "";
+		    	if(document.getName().indexOf(".txt")!=-1) {
+		    		nameOutput =  document.getName().substring(0, document.getName().indexOf(".txt")+4).replace(".txt", ".xml"); 
+		    	}else {
+		    		nameOutput = document.getName().substring(0, document.getName().indexOf(".xml")+4);
+		    	}
+		    	java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(new File(outputDirectory + File.separator + nameOutput), false)));
 			    out.write(document.toXml());
 			    out.close();
 			}
@@ -172,5 +217,51 @@ public class App {
     		System.exit(1);
 	    }	 
 	    System.out.println("App :: main :: END PROCESS");
+    }
+    
+    /**
+     * Basic unzipping folder method
+     * @param input
+     * @param output
+     * @throws IOException
+     */
+    private static void unZipIt(String zipFile, String outputFolder){
+    	byte[] buffer = new byte[1024];
+        try{
+	       	//create output directory is not exists
+	       	File folder = new File(outputFolder);
+	       	if(!folder.exists()){
+	       		folder.mkdir();
+	       	}
+	       	//get the zip file content
+	       	ZipInputStream zis =
+	       		new ZipInputStream(new FileInputStream(zipFile));
+	       	//get the zipped file list entry
+	       	ZipEntry ze = zis.getNextEntry();
+	       	if(ze==null) {
+	       		System.out.println("Error unziping file, please review if you zip file provided is not corrupt file remember that it must contain a list.def file inside.");
+               	System.exit(1);
+	       	}
+	       	while(ze!=null){
+	       	   String fileName = ze.getName();
+	           File newFile = new File(outputFolder + File.separator + fileName);
+	           System.out.println("file unzip : "+ newFile.getAbsoluteFile());
+	           //create all non exists folders
+	           //else you will hit FileNotFoundException for compressed folder
+	           new File(newFile.getParent()).mkdirs();
+	           FileOutputStream fos = new FileOutputStream(newFile);
+	           int len;
+	           while ((len = zis.read(buffer)) > 0) {
+	        	   fos.write(buffer, 0, len);
+	           }
+	           fos.close();
+	           ze = zis.getNextEntry();
+	       	}
+	       	zis.closeEntry();
+	       	zis.close();
+	       	System.out.println("Done");
+       }catch(IOException ex){
+          ex.printStackTrace();
+       }
     }
 }

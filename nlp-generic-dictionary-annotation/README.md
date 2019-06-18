@@ -36,10 +36,10 @@ Parameters:
 -o output folder with the documents annotated in gate format.
 </p>
 <p>
--a annotation set output
+-a annotation set output.
 </p>
 <p>
--l list definition of the dictionary, with the GATE format.
+-l dictionary List definitions. A lists.def Gate-formatted file separated by tab can be provided or a zip file that contains the dictionary/gazetteer files including the lists.def.
 </p>
 		
 		
