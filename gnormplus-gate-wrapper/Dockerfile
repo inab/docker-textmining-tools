@@ -9,6 +9,7 @@ COPY	libs libs
 COPY	Corpus Corpus
 COPY	CRF CRF
 COPY	Dictionary Dictionary
+#COPY	Dictionary.zip Dictionary.zip
 COPY	tmp tmp
 COPY	pom.xml .
 COPY	setup.txt .
