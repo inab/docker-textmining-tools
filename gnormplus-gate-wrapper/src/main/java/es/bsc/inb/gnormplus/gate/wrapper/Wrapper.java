@@ -117,7 +117,7 @@ class Wrapper {
     		String tmpWorkDirDat = outputFilePath + File.separator + "gnormplus_tmp_dat";
     		createGNormFormat(inputFilePath, tmpWorkDir, workdirPath);
     		executeGNormPlusTagger(tmpWorkDir, tmpWorkDirDat, workdirPath);
-    		annotateGateDocuments(inputFilePath, outputFilePath ,tmpWorkDirDat);
+    		annotateGateDocuments(inputFilePath, outputFilePath ,tmpWorkDirDat, annotationSet);
             deleteDirectory(new File(tmpWorkDir));
             deleteDirectory(new File(tmpWorkDirDat));
     	}catch(Exception e) {
@@ -169,7 +169,7 @@ class Wrapper {
 	 * Annotate the gates documents with the plain tagged information.
 	 * @param properties_parameters_path
 	 */
-	private static void annotateGateDocuments(String inputDirectoryPath,String outputDirectoryPath,String taggedDirectory) {
+	private static void annotateGateDocuments(String inputDirectoryPath,String outputDirectoryPath,String taggedDirectory, String annotationSet) {
 		System.out.println("Wrapper::annotateGateDocuments :: INIT ");
 		File inputDirectory = new File(inputDirectoryPath);
 		File[] files =  inputDirectory.listFiles();
@@ -181,7 +181,7 @@ class Wrapper {
 					fileOutPutName = fileOutPutName.replace(".txt", ".xml");
 				}
 				File outputFile = new File(outputDirectoryPath + File.separator + fileOutPutName);
-				annotateGateDocuemt(file, outputFile, taggedDirectory + File.separator + file.getName() + ".txt");
+				annotateGateDocuemt(file, outputFile, taggedDirectory + File.separator + file.getName() + ".txt", annotationSet);
 			}
 		}
 		System.out.println("Wrapper::annotateGateDocuments :: END ");
@@ -192,7 +192,7 @@ class Wrapper {
 	 * @param inputGATEFile
 	 * @param linnaeusOutput
 	 */
-	 public static void annotateGateDocuemt(File inputGATEFile, File outputGATEFile, String gnormPlusOutput) {
+	 public static void annotateGateDocuemt(File inputGATEFile, File outputGATEFile, String gnormPlusOutput, String annotationSet) {
 		 if (Files.isRegularFile(Paths.get(gnormPlusOutput))) {
 			gate.Document toxicolodyReportWitAnnotations;
 			try {
@@ -212,12 +212,13 @@ class Wrapper {
 						FeatureMap features = gate.Factory.newFeatureMap();
 						features.put("source", source);
 						features.put("text", text);
-						features.put("inst", "BSC");
+						//features.put("inst", "BSC");
 						if(source_id!=null && !source_id.trim().equals("")) {
 							features.put("ncbi", source_id);
 						}
-						toxicolodyReportWitAnnotations.getAnnotations("BSC").add(startOff, endOff, label, features);
+						toxicolodyReportWitAnnotations.getAnnotations(annotationSet).add(startOff, endOff, label, features);
 					}
+			    	br.close();
 			    	java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
 					out.write(toxicolodyReportWitAnnotations.toXml());
 					out.close();
