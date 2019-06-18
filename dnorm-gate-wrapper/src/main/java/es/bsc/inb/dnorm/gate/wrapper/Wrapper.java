@@ -251,6 +251,7 @@ class Wrapper {
 						plainText = file.getName()+"\t"+plainText;
 						//System.out.println(plainText);
 						createTxtFile(plainTextPath, plainText);
+						plainText=null;
 						executeDnormTagger(plainTextPath, plainTextPath+".dat", workdirPath, configFile);
 					} catch (ResourceInstantiationException e) {
 						log.error("Wrapper::processTagger :: error with document " + file.getAbsolutePath(), e);
