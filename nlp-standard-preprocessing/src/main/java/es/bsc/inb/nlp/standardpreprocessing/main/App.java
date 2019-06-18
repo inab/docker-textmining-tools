@@ -55,6 +55,10 @@ public class App {
         output.setRequired(true);
         options.addOption(output);
         
+        Option set = new Option("a", "annotation_set", true, "Annotation set where the annotation will be included");
+        set.setRequired(true);
+        options.addOption(set);
+        
         Option workdir = new Option("workdir", "workdir", true, "workDir directory path");
         workdir.setRequired(false);
         options.addOption(workdir);
@@ -73,12 +77,18 @@ public class App {
         String inputFilePath = cmd.getOptionValue("input");
         String outputFilePath = cmd.getOptionValue("output");
         String workdirPath = cmd.getOptionValue("workdir");
+        String annotationSet = cmd.getOptionValue("annotation_set");
         
         if (!java.nio.file.Files.isDirectory(Paths.get(inputFilePath))) {
     		System.out.println("Please set the inputDirectoryPath ");
 			System.exit(1);
     	}
     	
+        if (annotationSet==null) {
+        	System.out.println("Please set the annotation set where the annotation will be included");
+			System.exit(1);
+    	}
+        
     	File outputDirectory = new File(outputFilePath);
 	    if(!outputDirectory.exists())
 	    	outputDirectory.mkdirs();
@@ -96,7 +106,7 @@ public class App {
 	    }
 	    
 		try {
-			process(inputFilePath, outputFilePath,workdirPath);
+			process(inputFilePath, outputFilePath,workdirPath, annotationSet);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -107,7 +117,7 @@ public class App {
 	 * @param properties_parameters_path
      * @throws IOException 
 	 */
-	public static void process(String inputDirectoryPath, String outputDirectoryPath, String workdir) throws IOException {
+	public static void process(String inputDirectoryPath, String outputDirectoryPath, String workdir, String annotationSet) throws IOException {
     	Properties props = new Properties();
 		props.put("annotators", "tokenize, ssplit, pos, lemma");
 		props.put("ssplit.newlineIsSentenceBreak", "always");
@@ -125,7 +135,7 @@ public class App {
 							fileOutPutName = fileOutPutName.replace(".txt", ".xml");
 						}
 						File outputGATEFile = new File (outputDirectoryPath +  File.separator + fileOutPutName);
-						processDocument(pipeline, file, outputGATEFile);
+						processDocument(pipeline, file, outputGATEFile, annotationSet);
 					} catch (ResourceInstantiationException e) {
 						System.out.println("App::process :: error with document " + file.getAbsolutePath());
 						e.printStackTrace();
@@ -153,7 +163,7 @@ public class App {
 	 * @throws MalformedURLException
 	 * @throws InvalidOffsetException
 	 */
-	private static void processDocument(StanfordCoreNLP pipeline,File inputFile, File outputGATEFile) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException {
+	private static void processDocument(StanfordCoreNLP pipeline,File inputFile, File outputGATEFile, String annotationSet) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException {
 		long startTime = System.currentTimeMillis();
 		gate.Document gateDocument = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
 		String plainText = gateDocument.getContent().getContent(0l, gate.Utils.lengthLong(gateDocument)).toString();
@@ -166,7 +176,7 @@ public class App {
 	      	List<CoreMap> sentences= document.get(SentencesAnnotation.class);
 		    for(CoreMap sentence: sentences) {
 		    	List<CoreLabel> tokens= sentence.get(TokensAnnotation.class);
-		    	annotateTokensAndSentences(gateDocument, sentence, tokens);
+		    	annotateTokensAndSentences(gateDocument, sentence, tokens, annotationSet);
 		    }
 		    java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
 		    out.write(gateDocument.toXml());
@@ -184,16 +194,16 @@ public class App {
 	* @param tokens
 	* @throws InvalidOffsetException
 	*/
-	private static void annotateTokensAndSentences(gate.Document gateDocument, CoreMap sentence, List<CoreLabel> tokens) throws InvalidOffsetException {
+	private static void annotateTokensAndSentences(gate.Document gateDocument, CoreMap sentence, List<CoreLabel> tokens, String annotationSet) throws InvalidOffsetException {
 		FeatureMap features = Factory.newFeatureMap();
 		Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
 	    Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
-	    gateDocument.getAnnotations("PREPROCESSING").add(new Long(sentenceBegin), new Long(sentenceEnd), "Sentence", features);
+	    gateDocument.getAnnotations(annotationSet).add(new Long(sentenceBegin), new Long(sentenceEnd), "Sentence", features);
 	    for (CoreLabel token : tokens) {
 	    	FeatureMap features_tokens = Factory.newFeatureMap();
 	    	features_tokens.put("word", token.get(TextAnnotation.class));
 	    	features_tokens.put("pos", token.get(PartOfSpeechAnnotation.class));
-	    	gateDocument.getAnnotations("PREPROCESSING").add(new Long(token.beginPosition()), new Long(token.endPosition()), "Token", features_tokens);
+	    	gateDocument.getAnnotations(annotationSet).add(new Long(token.beginPosition()), new Long(token.endPosition()), "Token", features_tokens);
 	    }
 	}
 }
