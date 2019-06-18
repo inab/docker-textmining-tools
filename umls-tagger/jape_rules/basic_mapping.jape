@@ -1,3 +1,6 @@
+Imports: {
+import static gate.Utils.*;
+}
 Phase:firstphase
 Input: Lookup
 Options: control = appelt
@@ -11,10 +14,16 @@ Rule: basic_mapp
 {
 	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
  	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	String content = stringFor(doc, ann);
  	FeatureMap lookupFeatures = ann.getFeatures();
  	gate.FeatureMap features = Factory.newFeatureMap();
+ 	lookupFeatures.remove("majorType");
+ 	lookupFeatures.remove("minorType");
+ 	features.put("source","UMLS");
+ 	features.put("text",content);
+ 	String minorType = lookupFeatures.get("LABEL").toString();
+ 	lookupFeatures.remove("LABEL");
  	features.putAll(lookupFeatures);
- 	String minorType = features.get("LABEL").toString();
  	try{
    		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(),minorType, features);
  	}catch(InvalidOffsetException e){
