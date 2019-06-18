@@ -38,6 +38,8 @@ params.folders = [
 	linnaeus_output_folder: "${params.baseDir}/linnaeus_output",
 	//Output directory for the dnorm tagger step
 	dnorm_output_folder: "${params.baseDir}/dnorm_output",
+	//Output directory for the hepatotoxicity tagger step
+	hepatotoxicity_output_folder: "${params.baseDir}/hepatotoxicity_output",
 	//Output directory for the umls tagger step
 	umls_output_folder: "${params.baseDir}/umls_output",
 	//Output directory for the ades tagger step
@@ -53,6 +55,8 @@ params.folders_steps = [
 	LINN: "${params.baseDir}/linnaeus_output",
 	//Output directory for the dnorm tagger step
 	DNORM: "${params.baseDir}/dnorm_output",
+	//Output directory for the hepatotoxicity step
+	HEP: "${params.baseDir}/hepatotoxicity_output",
 	//Output directory for the umls tagger step
 	UMLS: "${params.baseDir}/umls_output",
 	//Output directory for the ades tagger step
@@ -66,6 +70,7 @@ original_pdf_folder_ch = Channel.fromPath( params.original_pdf_folder, type: 'di
 nlp_standard_preprocessing_output_folder=file(params.folders.nlp_standard_preprocessing_output_folder)
 linnaeus_output_folder=file(params.folders.linnaeus_output_folder)
 dnorm_output_folder=file(params.folders.dnorm_output_folder)
+hepatotoxicity_output_folder=file(params.folders.hepatotoxicity_output_folder)
 umls_output_folder=file(params.folders.umls_output_folder)
 ades_output_folder=file(params.folders.ades_output_folder)
 ades_post_output_folder=file(params.folders.ades_post_output_folder)
@@ -328,7 +333,7 @@ process nlp_standard_preprocessing {
     
     script:
     """
-    nlp-standard-preprocessing -i $input_nlp_standard_preprocessing -o $nlp_standard_preprocessing_output_folder
+    nlp-standard-preprocessing -i $input_nlp_standard_preprocessing -o $nlp_standard_preprocessing_output_folder -a BSC
 	
     """
 }
@@ -359,9 +364,22 @@ process dnorm_wrapper {
     """
 }
 
+process hepatotoxicity_annotation {
+    input:
+    file input_hepatotoxicity from dnorm_output_folder_ch
+    
+    output:
+    val hepatotoxicity_output_folder into hepatotoxicity_output_folder_ch
+    	
+    """
+    hepatotoxicity-annotation -i $input_hepatotoxicity -o $hepatotoxicity_output_folder -a BSC
+	
+    """
+}
+
 process umls_tagger {
     input:
-    file input_umls from dnorm_output_folder_ch
+    file input_umls from hepatotoxicity_output_folder_ch
    
     output:
     val umls_output_folder into umls_output_folder_ch
