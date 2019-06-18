@@ -12,8 +12,24 @@ if [ $# -ge 1 ] ; then
 	GNORMPLUS_GATE_WRAPPER_VERSION="$1"
 fi
 
-# Runtime dependencies
 apt-get update
+
+apt-get install -y wget
+
+#Download GNormPlus
+echo "Download GNormPlus ..."
+wget https://www.ncbi.nlm.nih.gov/CBBresearch/Lu/Demo/tmTools/download/GNormPlus/GNormPlusJava.zip
+
+apt-get install -y unzip
+
+echo "Unzip GNormPlus ..."
+unzip GNormPlusJava.zip
+echo "Copy to home directory..."
+cp -r ${GNORMPLUS_HOME}GNormPlusJava/. ${GNORMPLUS_HOME}
+echo "Delete Temporal ..."
+rm -r ${GNORMPLUS_HOME}GNormPlusJava
+# Runtime dependencies
+
 apt-get install -y openjdk-8-jre 
 	
 # The development dependencies
@@ -22,7 +38,7 @@ apt-get install -y openjdk-8-jdk git maven make g++
 
 #The GnormPlus project is not a maven project, some of the libraries that includes are not available in the mavens reporsitory or 
 #the version is not clear.  Installation of the system path libs to maven repository m2
-mvn install:install-file -Dfile=libs/GNormPlus.jar -DgroupId=gnormplus.com -DartifactId=gnormplus_thirdparty -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=GNormPlus.jar -DgroupId=gnormplus.com -DartifactId=gnormplus_thirdparty -Dversion=1.0 -Dpackaging=jar
 
 
 mvn clean install -DskipTests
