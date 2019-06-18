@@ -246,7 +246,7 @@ public class App {
 					//if there is no info in semanticType it mean that the cui it is not in the semantic type given in the configuration.
 					if(semanticType!=null && !excludeSemanticTypeBySource(data[11], semanticType[0])) {
 						//bw.write(data[14] + "\tAUI=" + data[7] + "\tCUI=" + data[0] + "\tSUI=" + data[5] + "\tSOURCE=" + data[11] + "\tSOURCE_CODE=" + data[13] + "\tSEM_TYPE=" + semanticType[0] + "\tSEM_TYPE_STR=" + semanticType[1] + "\tLABEL=" + semanticTypesMap.get( semanticType[0]) + "\n");
-						bw.write(data[14] + "\tCUI=" + data[0] + "\tSOURCE=" + data[11] + "\tSOURCE_CODE=" + data[13] + "\tSEM_TYPE=" + semanticType[0] + "\tSEM_TYPE_STR=" + semanticType[1] + "\tLABEL=" + semanticTypesMap.get( semanticType[0]) + "\n");
+						bw.write(data[14] + "\tCUI=" + data[0] + "\tUMLS_SOURCE=" + data[11] + "\tUMLS_SOURCE_CODE=" + data[13] + "\tSEM_TYPE=" + semanticType[0] + "\tSEM_TYPE_STR=" + semanticType[1] + "\tLABEL=" + semanticTypesMap.get( semanticType[0]) + "\n");
 					}
 				}
 				bw.flush();
