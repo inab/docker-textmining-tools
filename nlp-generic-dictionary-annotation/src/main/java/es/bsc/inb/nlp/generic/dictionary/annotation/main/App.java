@@ -57,7 +57,7 @@ public class App {
         output.setRequired(true);
         options.addOption(output);
         
-        Option listDefinitions = new Option("l", "lists_definitions", true, "Dictionary List definitions.  "
+        Option listDefinitions = new Option("l", "lists_definitions", true, "Dictionary List definitions. "
         		+ "A lists.def Gate-formatted file separated by tab can be provided or a zip file that contains the dictionary/gazetteer files including the lists.def ");
         listDefinitions.setRequired(true);
         options.addOption(listDefinitions);
