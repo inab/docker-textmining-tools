@@ -31,7 +31,6 @@ rm -r ${GNORMPLUS_HOME}GNormPlusJava
 
 chmod u=rwx,g=rwx,o=rwx ${GNORMPLUS_HOME} -R
 
-# Runtime dependencies
 apt-get install -y openjdk-8-jre 
 	
 # The development dependencies
