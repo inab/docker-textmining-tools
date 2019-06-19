@@ -38,7 +38,7 @@ mv nlp_generic_annotation/target/nlp-generic-dictionary-annotation-0.0.1-SNAPSHO
 
 cat > /usr/local/bin/hepatotoxicity-annotation <<EOF
 #!/bin/sh
-exec java \$JAVA_OPTS -jar "${HEP_TAGGER_HOME}/nlp-generic-dictionary-annotation-${HEP_TAGGER_VERSION}.jar" -workdir "${HEP_TAGGER_HOME}" -l dictionaries/lists.def "\$@" 
+exec java \$JAVA_OPTS -jar "${HEP_TAGGER_HOME}/nlp-generic-dictionary-annotation-${HEP_TAGGER_VERSION}.jar" -workdir "${HEP_TAGGER_HOME}" -l dictionaries/hepatotoxicity.zip "\$@" 
 EOF
 chmod +x /usr/local/bin/hepatotoxicity-annotation
 

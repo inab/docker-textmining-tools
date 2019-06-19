@@ -33,16 +33,16 @@ mv target/ades-ner-postprocessing-0.0.1-SNAPSHOT-jar-with-dependencies.jar ades-
 
 git clone --depth 1 https://github.com/inab/docker-textmining-tools.git nlp_gate_generic_component
 cd nlp_gate_generic_component
-git filter-branch --prune-empty --subdirectory-filter nlp-gate-generic-wrapper HEAD
+git filter-branch --prune-empty --subdirectory-filter nlp-gate-generic-component HEAD
 mvn clean install -DskipTests
 echo "pepe2"
 cd ..
 #rename jar
-mv nlp_gate_generic_component/target/nlp-gate-generic-wrapper-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-gate-generic-wrapper-${ADES_POSTPROCESSING_VERSION}.jar
+mv nlp_gate_generic_component/target/nlp-gate-generic-component-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-gate-generic-component-${ADES_POSTPROCESSING_VERSION}.jar
 
 cat > /usr/local/bin/ades-ner-postprocessing <<EOF
 #!/bin/sh
-exec java \$JAVA_OPTS -jar "${ADES_POSTPROCESSING_HOME}/nlp-gate-generic-wrapper-${ADES_POSTPROCESSING_VERSION}.jar" -workdir "${ADES_POSTPROCESSING_HOME}" -j jape_rules/main.jape "\$@"
+exec java \$JAVA_OPTS -jar "${ADES_POSTPROCESSING_HOME}/nlp-gate-generic-component-${ADES_POSTPROCESSING_VERSION}.jar" -workdir "${ADES_POSTPROCESSING_HOME}" -j jape_rules/main.jape "\$@"
 exec java \$JAVA_OPTS -jar "${ADES_POSTPROCESSING_HOME}/ades-ner-postprocessing-${ADES_POSTPROCESSING_VERSION}.jar" -workdir "${ADES_POSTPROCESSING_HOME}" "\$@"
 EOF
 chmod +x /usr/local/bin/ades-ner-postprocessing
