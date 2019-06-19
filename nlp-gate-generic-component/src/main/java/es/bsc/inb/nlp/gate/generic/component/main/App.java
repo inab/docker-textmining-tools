@@ -132,7 +132,6 @@ public class App {
 		} 
  
 	    try {
-	    	japeMainPath = workdirPath+japeMainPath;
 	    	process(inputFilePath, outputFilePath, listsDefinitionsPath, japeMainPath, annotationSet, workdirPath);
 		} catch (GateException e) {
 			// TODO Auto-generated catch block
