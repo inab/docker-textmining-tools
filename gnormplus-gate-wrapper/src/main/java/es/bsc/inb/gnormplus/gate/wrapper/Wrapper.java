@@ -3,7 +3,6 @@ package es.bsc.inb.gnormplus.gate.wrapper;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -13,8 +12,6 @@ import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -95,15 +92,6 @@ class Wrapper {
 	    if(!outputDirectory.exists())
 	    	outputDirectory.mkdirs();
         
-//	    //unzip Dictionary Gnorm files 
-//	    System.out.println("Unzip GNorm Dictionary ... ");
-//	    String dictionary_zip = "Dictionary.zip";
-//	    String dictionary_folder_path = "Dictionary";
-//	    File dictionary_folder = new File(dictionary_folder_path);
-//	    if(!dictionary_folder.exists())
-//	    	dictionary_folder.mkdirs();
-//	    unZipIt(dictionary_zip, dictionary_folder_path );
-//	    System.out.println("Unzip End ");
     	try {
 			Gate.init();
 		} catch (GateException e) {
@@ -132,7 +120,7 @@ class Wrapper {
    
 
 	/**
-     * Execute DNorm Tagger
+     * Execute GNormPlus Tagger
      * @param tmpWorkDir
      * @param outputFile
      */
@@ -292,54 +280,7 @@ class Wrapper {
 		}
 		System.out.println("Wrapper::createGNormFormat :: END ");
 	}
-	
-	/**
-     * Basic unzipping folder method
-     * @param input
-     * @param output
-     * @throws IOException
-     */
-    private static void unZipIt(String zipFile, String outputFolder){
-    	byte[] buffer = new byte[1024];
-        try{
-	       	//create output directory is not exists
-	       	File folder = new File(outputFolder);
-	       	if(!folder.exists()){
-	       		folder.mkdir();
-	       	}
-	       	//get the zip file content
-	       	ZipInputStream zis =
-	       		new ZipInputStream(new FileInputStream(zipFile));
-	       	//get the zipped file list entry
-	       	ZipEntry ze = zis.getNextEntry();
-	       	if(ze==null) {
-	       		System.out.println("Error unziping file, please review if you zip file provided is not corrupt file remember that it must contain a list.def file inside.");
-               	System.exit(1);
-	       	}
-	       	while(ze!=null){
-	       	   String fileName = ze.getName();
-	           File newFile = new File(outputFolder + File.separator + fileName);
-	           System.out.println("file unzip : "+ newFile.getAbsoluteFile());
-	           //create all non exists folders
-	           //else you will hit FileNotFoundException for compressed folder
-	           new File(newFile.getParent()).mkdirs();
-	           FileOutputStream fos = new FileOutputStream(newFile);
-	           int len;
-	           while ((len = zis.read(buffer)) > 0) {
-	        	   fos.write(buffer, 0, len);
-	           }
-	           fos.close();
-	           ze = zis.getNextEntry();
-	       	}
-	       	zis.closeEntry();
-	       	zis.close();
-	       	System.out.println("Done");
-       }catch(IOException ex){
-          ex.printStackTrace();
-       }
-    }
-	
-	
+
 	/**
 	 * Create a plain text file with the given string
 	 * @param path

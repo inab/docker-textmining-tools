@@ -1,7 +1,7 @@
-GNormPlus-Gate-Wrapper
+gnormplus-gate-wrapper
 ========================
 
-<b>This component is a Gate wrapper of the GNormPlus application.  Could be easily downloaded and run as a docker container.
+<b>This component is a Gate Wrapper of the GNormPlus application. Could be easily download and the main objective is to run as a docker container inside a batch pipeline.
 </b>   
 
 ========================
@@ -26,7 +26,7 @@ Build and run the docker individually
 	# To build the docker, just go into the gnormplus-gate-wrapper folder and execute
 	docker build -t gnormplus-gate-wrapper .
 	#To run the docker, just set the input_folder and the output
-	mkdir ${PWD}/gnormplus_output; docker run --rm -u $UID -v ${PWD}/input_folder:/in:ro -v ${PWD}/gnormplus_output:/out:rw gnormplus-gate-wrapper gnormplus-gate-wrapper -i /in -o /out
+	mkdir ${PWD}/gnormplus_output; docker run --rm -u $UID -v ${PWD}/input_folder:/in:ro -v ${PWD}/gnormplus_output:/out:rw gnormplus-gate-wrapper gnormplus-gate-wrapper -i /in -o /out -a MY_SET
 	
 		
 Parameters:
@@ -35,6 +35,9 @@ Parameters:
 </p>
 <p>
 -o output folder with the documents annotated in gate xml format.
+</p>
+<p>
+-a annotation set output. 
 </p>
 
 <p>If you want, just replace "input_folder" for your directory that contains the files, and execute. You can also replace the name of the output folder "dnorm_output"</p>
