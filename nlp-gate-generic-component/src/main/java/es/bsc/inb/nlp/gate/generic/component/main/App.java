@@ -29,7 +29,7 @@ import gate.util.GateException;
 /**
  * Generic Library for execute GATE Dictionary/Gazetteer and JAPE rules processing in batch mode.
  *
- */
+ */ 
 public class App {
     public static void main( String[] args ){
 
