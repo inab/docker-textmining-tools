@@ -1,0 +1,73 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:firstphase
+Input: Lookup
+Options: control = appelt
+
+Rule: etox_ilo_mapping
+(
+{Lookup.minorType=="SEND_ETOX"}
+)
+:lookup
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	FeatureMap lookupFeatures = ann.getFeatures();
+ 	String label = lookupFeatures.get("LABEL").toString();
+ 	String content = stringFor(doc, ann);
+ 	gate.FeatureMap features = Factory.newFeatureMap();
+ 	lookupFeatures.remove("majorType");
+	lookupFeatures.remove("minorType");
+ 	features.put("text",content);
+	features.put("SOURCE","ETOX");
+	//lookupFeatures.remove("LABEL");
+	features.putAll(lookupFeatures);
+ 	if(label.equals("ROUTE")){
+	 	try{
+	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "ROUTE_OF_ADMINISTRATION", features);
+	   	}catch(InvalidOffsetException e){
+	   		throw new LuckyException(e);
+	 	}
+	 	//remove old lookup
+	 	inputAS.remove(ann);
+	 }else if(label.equals("LBTEST") &&  content.length() > 3){
+	 	try{
+	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "STUDY_TESTCD", features);
+	   	}catch(InvalidOffsetException e){
+	   		throw new LuckyException(e);
+	 	}
+	 	//remove old lookup
+	 	inputAS.remove(ann);
+	 }else if(label.equals("SEXPOP")){
+	 	if(content.length()==1) {
+	    	features.put("abrev", "true");
+	    }
+	 	try{
+	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "SEX", features);
+	   	}catch(InvalidOffsetException e){
+	   		throw new LuckyException(e);
+	 	}
+	 	//remove old lookup
+	 	inputAS.remove(ann);
+	 }else if(label.equals("STRAIN")){
+	 	features.put("original_label", label);
+	 	try{
+	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "SPECIMEN", features);
+	   	}catch(InvalidOffsetException e){
+	   		throw new LuckyException(e);
+	 	}
+	 	//remove old lookup
+	 	inputAS.remove(ann);
+	 }else if(label.equals("SPECIES")){
+	 	features.put("original_label", label);
+	 	try{
+	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "SPECIMEN", features);
+	   	}catch(InvalidOffsetException e){
+	   		throw new LuckyException(e);
+	 	}
+	 	//remove old lookup
+	 	inputAS.remove(ann);
+	 }
+}

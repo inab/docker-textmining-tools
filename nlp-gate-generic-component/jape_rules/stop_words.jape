@@ -1,0 +1,13 @@
+Phase:secondphase
+Input: Lookup
+Options: control = all
+Rule: removeStopwords
+(
+  {Lookup.majorType == "stopword"}
+) :stop
+-->
+{
+    gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("stop");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	outputAS.remove(ann);
+}
