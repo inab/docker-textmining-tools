@@ -3,11 +3,12 @@ Input: Lookup
 Options: control = all
 Rule: removeStopwords
 (
-  {Lookup.majorType == "stopword"}
+  {Lookup.majorType == "STOP_WORD"}
 ) :stop
 -->
 {
     gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("stop");
  	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
- 	outputAS.remove(ann);
+ 	outputAS.removeAll(outputAS.get(ann.getStartNode().getOffset(), ann.getEndNode().getOffset()));
+ 	
 }

@@ -7,7 +7,7 @@ Options: control = appelt
 
 Rule: cdisc_finding_mapping
 (
-{Lookup.minorType=="SEND_CIDSC"}
+{Token.string []}
 )
 :lookup
 -->

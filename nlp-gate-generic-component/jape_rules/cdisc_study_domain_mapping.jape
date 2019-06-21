@@ -24,8 +24,9 @@ Rule: cdisc_study_domain_mapping
 	 	features.put("RULE","cdisc_study_domain_mapping");
 	 	features.put("study_domain", label);
 	 	features.putAll(lookupFeatures);
-	 	lookupFeatures.remove("majorType");
- 		lookupFeatures.remove("minorType");
+	 	features.remove("majorType");
+ 		features.remove("minorType");
+ 		features.remove("INTERNAL_CODE");
  		try{
 			outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "STUDY_DOMAIN", features);
 		}catch(InvalidOffsetException e){
@@ -34,6 +35,6 @@ Rule: cdisc_study_domain_mapping
 		//remove old lookup
 	 	inputAS.remove(ann);
 	 }else{
-	 	System.out.println(" Not a domain : " + label + " term : " + content);
+	 	//System.out.println(" Not a domain : " + label + " term : " + content);
 	 }
 }

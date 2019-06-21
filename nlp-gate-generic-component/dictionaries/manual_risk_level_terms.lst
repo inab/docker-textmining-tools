@@ -1,0 +1,17 @@
+noel	CODE=NOEL
+no observed effect level	CODE=NOEL
+no-observed-effect level	CODE=NOEL
+no-observed-effect-level	CODE=NOEL
+loel	CODE=NOEL
+lowest observed effect level	CODE=LOEL
+lowest-observed-effect level	CODE=LOEL
+lowest-observed-effect-level	CODE=LOEL
+noael	CODE=NOAEL
+no observed adverse effect level	CODE=NOAEL
+no-observed-adverse-effect level	CODE=NOAEL
+no-observed-adverse-effect-level	CODE=NOAEL
+loael	CODE=LOAEL
+lowest observed adverse effect level	CODE=LOAEL
+lowest-observed-adverse-effect level	CODE=LOAEL
+lowest-observed-adverse-effect-level	CODE=LOAEL
+lowest concentration	CODE=LOAEL

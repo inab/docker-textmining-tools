@@ -5,7 +5,7 @@ Phase:firstphase
 Input: Lookup
 Options: control = appelt
 
-Rule: etox_ilo_mapping
+Rule: etox_send_mapping
 (
 {Lookup.minorType=="SEND_ETOX"}
 )
@@ -22,7 +22,9 @@ Rule: etox_ilo_mapping
 	lookupFeatures.remove("minorType");
  	features.put("text",content);
 	features.put("SOURCE","ETOX");
-	//lookupFeatures.remove("LABEL");
+	features.put("RULE","etox_send_mapping");
+	lookupFeatures.remove("SYNONYM_DAT");
+	lookupFeatures.remove("INTERNAL_CODE");
 	features.putAll(lookupFeatures);
  	if(label.equals("ROUTE")){
 	 	try{
@@ -64,6 +66,15 @@ Rule: etox_ilo_mapping
 	 	features.put("original_label", label);
 	 	try{
 	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "SPECIMEN", features);
+	   	}catch(InvalidOffsetException e){
+	   		throw new LuckyException(e);
+	 	}
+	 	//remove old lookup
+	 	inputAS.remove(ann);
+	 } else if(label.equals("PKPARM")){
+	 	features.put("original_label", label);
+	 	try{
+	 		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "STUDY_TESTCD", features);
 	   	}catch(InvalidOffsetException e){
 	   		throw new LuckyException(e);
 	 	}

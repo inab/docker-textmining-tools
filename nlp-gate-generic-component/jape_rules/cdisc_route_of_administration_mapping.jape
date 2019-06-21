@@ -5,7 +5,7 @@ Phase:firstphase
 Input: Lookup
 Options: control = appelt
 
-Rule: cdisc_spec_mapping
+Rule: cdisc_route_of_administration_mapping
 (
 {Lookup.minorType=="SEND_CIDSC"}
 )
@@ -21,14 +21,13 @@ Rule: cdisc_spec_mapping
 	 	gate.FeatureMap features = Factory.newFeatureMap();
 	 	features.put("text",content);
 	 	features.put("SOURCE","CDISC");
-	 	features.put("RULE","cdisc_spec_rule");
-	 	features.put("study_domain", label);
+	 	features.put("RULE","cdisc_route_of_administration_mapping");
 	 	features.putAll(lookupFeatures);
 	 	features.remove("majorType");
  		features.remove("minorType");
  		features.remove("INTERNAL_CODE");
  		try{
-			outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "SPECIMEN", features);
+			outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "ROUTE_OF_ADMINISTRATION", features);
 		}catch(InvalidOffsetException e){
 			throw new LuckyException(e);
 		}

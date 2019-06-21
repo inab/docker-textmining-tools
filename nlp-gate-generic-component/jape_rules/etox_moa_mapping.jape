@@ -21,6 +21,8 @@ Rule: etox_moa_mapping
 	lookupFeatures.remove("minorType");
 	features.put("text",content);
 	features.put("SOURCE","ETOX");
+	lookupFeatures.remove("SYNONYM_DAT");
+	lookupFeatures.remove("INTERNAL_CODE");
 	features.put("RULE","etox_moa_rule");
 	features.putAll(lookupFeatures);
 	try{

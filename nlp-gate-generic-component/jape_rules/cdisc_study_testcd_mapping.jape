@@ -23,8 +23,9 @@ Rule: cdisc_study_testcd_mapping
 	 	features.put("SOURCE","CDISC");
 	 	features.put("RULE","cdisc_study_testcd_rule");
 	 	features.putAll(lookupFeatures);
-	 	lookupFeatures.remove("majorType");
- 		lookupFeatures.remove("minorType");
+	 	features.remove("majorType");
+ 		features.remove("minorType");
+ 		features.remove("INTERNAL_CODE");
  		if(label.endsWith("TEST CODE")) {
 	 		if(!label.contains("STSPRM")){
 	 			try{
@@ -68,6 +69,6 @@ Rule: cdisc_study_testcd_mapping
 	 	//remove old lookup
 	 	inputAS.remove(ann);
 	 }else{
-	 	System.out.println(" Not a domain : " + label + " term : " + content);
+	 	//System.out.println(" Not a domain : " + label + " term : " + content);
 	 }
 }

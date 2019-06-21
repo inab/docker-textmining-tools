@@ -23,7 +23,9 @@ Rule: etox_ilo_domain_mapping
 	 	lookupFeatures.remove("minorType");
 	 	features.put("text",content);
 	 	features.put("SOURCE","ETOX");
-	 	//lookupFeatures.remove("LABEL");
+	 	lookupFeatures.remove("SYNONYM_DAT");
+		lookupFeatures.remove("INTERNAL_CODE");
+		features.put("RULE","etox_ilo_domain_mapping");
 	 	features.putAll(lookupFeatures);
 	 	try{
 	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "STUDY_DOMAIN", features);
@@ -34,6 +36,6 @@ Rule: etox_ilo_domain_mapping
 	 	//remove old lookup
 	 	inputAS.remove(ann);
 	 }else{
-	 	System.out.println(" Not a domain : " + label + " term : " + content);
+	 	//System.out.println(" Not a domain : " + label + " term : " + content);
 	 }
 }

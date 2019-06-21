@@ -23,9 +23,10 @@ Rule: cdisc_finding_mapping
 	 	features.put("SOURCE","CDISC");
 	 	features.put("RULE","cdisc_finding_mapping");
 	 	features.putAll(lookupFeatures);
-	 	lookupFeatures.remove("majorType");
- 		lookupFeatures.remove("minorType");
+	 	features.remove("majorType");
+ 		features.remove("minorType");
  		features.put("finding_type", label);
+ 		features.remove("INTERNAL_CODE");
  		try{
 			outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "FINDING", features);
 		}catch(InvalidOffsetException e){

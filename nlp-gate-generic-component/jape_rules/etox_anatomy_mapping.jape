@@ -5,7 +5,7 @@ Phase:firstphase
 Input: Lookup
 Options: control = appelt
 
-Rule: etox_ilo_domain_mapping
+Rule: etox_anatomy_mapping
 (
 {Lookup.minorType=="ANATOMY_ETOX" , Lookup.LABEL=="ANATOMY"}
 )
@@ -20,8 +20,11 @@ Rule: etox_ilo_domain_mapping
  	gate.FeatureMap features = Factory.newFeatureMap();
 	lookupFeatures.remove("majorType");
 	lookupFeatures.remove("minorType");
+	lookupFeatures.remove("SYNONYM_DAT");
+	lookupFeatures.remove("INTERNAL_CODE");
 	features.put("text",content);
 	features.put("SOURCE","ETOX");
+	features.put("RULE","etox_anatomy_mapping");
 	features.putAll(lookupFeatures);
 	try{
 		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "SPECIMEN", features);

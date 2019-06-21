@@ -5,7 +5,7 @@ Phase:firstphase
 Input: Lookup
 Options: control = appelt
 
-Rule: etox_ilo_mapping
+Rule: etox_ilo_trigger_mapping
 (
 {Lookup.minorType=="ETOX_ILO", Lookup.LABEL=="NO_TREATMENT_RELATED_EFFECT_DETECTED"}
 )
@@ -22,7 +22,10 @@ Rule: etox_ilo_mapping
 	lookupFeatures.remove("minorType");
 	features.put("text",content);
 	features.put("SOURCE","ETOX");
-	//lookupFeatures.remove("LABEL");
+	features.put("RULE","etox_ilo_trigger_mapping");
+	lookupFeatures.remove("SYNONYM_DAT");
+	lookupFeatures.remove("INTERNAL_CODE");
+	
 	features.putAll(lookupFeatures);
 	try{
 	   outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "NO_TREATMENT_RELATED_TRIGGER", features);
