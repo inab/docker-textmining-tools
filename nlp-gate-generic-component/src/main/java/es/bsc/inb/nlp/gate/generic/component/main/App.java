@@ -51,11 +51,11 @@ public class App {
         japeMain.setRequired(false);
         options.addOption(japeMain);
         
-        Option set = new Option("a", "annotation_set", true, "Output Annotation Set. Annotation set where the annotation will be included");
+        Option set = new Option("a", "annotation_set", true, "Output Annotation Set. Annotation set where the annotation will be included for the gazetter lookup and for the Jape Rules");
         set.setRequired(true);
         options.addOption(set);
         
-        Option iset = new Option("ia", "input_annotation_set", true, "Input Annotation Set");
+        Option iset = new Option("ia", "input_annotation_set", true, "Input Annotation Set. If you want to provided different input annotation set this parameter.  By default the -a output annotation set is used as input.");
         iset.setRequired(false);
         options.addOption(iset);
         
@@ -92,7 +92,8 @@ public class App {
     	}
         
         if (inputAnnotationSet==null) {
-        	System.out.println("The input annotation set not set, default is selected");
+        	System.out.println("The input annotation set not set, same as output is selected");
+        	inputAnnotationSet = annotationSet;
 		}
         
         if(workdirPath==null) {
@@ -194,8 +195,9 @@ public class App {
 	    	if(japeRules!=null) {
 	    		jape = (LanguageAnalyser)gate.Factory.createResource("gate.creole.Transducer", gate.Utils.featureMap(
 			              "grammarURL", new File(japeRules).toURI().toURL(),"encoding", "UTF-8"));
-				jape.setParameterValue("inputASName", inputAnnotationSet);
+	    		jape.setParameterValue("inputASName", inputAnnotationSet);
 				jape.setParameterValue("outputASName", outAnnotationSet);
+
 				annieController.add(jape);
 			}
 		    

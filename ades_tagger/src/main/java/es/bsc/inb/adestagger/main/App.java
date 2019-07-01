@@ -204,9 +204,12 @@ public class App {
 	 */
 	public static void processTagger(String inputDirectoryPath, String outputDirectoryPath, String workdir, String annotationSet) throws IOException {
     	Properties props = new Properties();
-		String mapping_files = workdir+"ner_list/cdisc_send_ner.txt,"+workdir+"ner_list/ades_extended_terminology.txt,"+workdir+"ner_list/etox_anatomy_ner.txt, "+workdir+"ner_list/etox_moa_ner.txt, "
-				+ workdir+"ner_list/etox_in_life_obs_ner.txt, "+workdir+"ner_list/etox_send_codelist_ner.txt,"+workdir+"ner_list/pkunit_ner.txt,"+workdir+"ner_list/treatment_related_triggers.txt";
+		/*String mapping_files = workdir+"ner_list/cdisc_send_ner.txt,"+workdir+"ner_list/ades_extended_terminology.txt,"+workdir+"ner_list/etox_anatomy_ner.txt, "+workdir+"ner_list/etox_moa_ner.txt, "
+				+ workdir+"ner_list/etox_in_life_obs_ner.txt, "+workdir+"ner_list/etox_send_codelist_ner.txt,"+workdir+"ner_list/pkunit_ner.txt,"+workdir+"ner_list/treatment_related_triggers.txt";*/
     	
+		
+		String mapping_files = workdir+"ner_list/ades_extended_terminology.txt,"+workdir+"ner_list/pkunit_ner.txt,"+workdir+"ner_list/treatment_related_triggers.txt";
+		
     	props.put("annotators", "tokenize, ssplit, pos, lemma,  ner, regexner, entitymentions ");
     	props.put("ssplit.newlineIsSentenceBreak", "always");
 		props.put("regexner.mapping", mapping_files);
@@ -299,7 +302,7 @@ public class App {
 			/*String text = "No treatment-related findings were observed."
 					+ "Therefore, a treatment-related effect is not assumed. "
 					+ "T3068522 69 BAY 19-8004 Neither quantitative nor semi-quantitative urinalyses gave evidence for treatment- related effects. ";*/
-			//String text = "These animals presented with moderate to severe apathy together with abnormal posture, yellow mucous discharge from anus.";		
+			//String text = " During necropsy no findings were recorded, which were considered to be related to the treatment";		
 			//Dunnett 1980) compares the outcome of each treatment group with the corresponding control group, regardiess of the result of the overall F test (ANOVA).
 			//This finding is regarded the outcome of the treatment.  //sacar outcome sino
 			//Annotation document = new Annotation(text.toLowerCase());
@@ -508,43 +511,48 @@ public class App {
 	    			features.put("finding_type", label);
 	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "FINDING", features);
 	    		}else if(label.contains(AnnotationUtil.NO_TREATMENT_RELATED_EFFECT_DETECTED)) {
-	    			CoreMap coreMap = me.getAnnotation();
-	    			if(coreMap!=null) {
-	    				List<CoreLabel> tokens_i = coreMap.get(TokensAnnotation.class);
-		    			for (CoreLabel coreLabel : tokens_i) {
-		    				String token = coreLabel.get(TextAnnotation.class);
-		    				String token_label = coreLabel.get(NamedEntityTagAnnotation.class);
-		    				if(token_label.equals("NEGATION_KEYWORD") | token_label.equals("FINDING_KEYWORD") | 
-		    						token_label.equals("RELATED_KEYWORD") | token_label.equals("TREATMENT_KEYWORD") | token_label.equals("EFFECT_KEYWORD")){
-		    					features.put(token_label.toLowerCase(), token);
-		    				}	
-		    			}	
-		    		}
+	    			if(me!=null) {
+	    				CoreMap coreMap = me.getAnnotation();
+		    			if(coreMap!=null) {
+		    				List<CoreLabel> tokens_i = coreMap.get(TokensAnnotation.class);
+			    			for (CoreLabel coreLabel : tokens_i) {
+			    				String token = coreLabel.get(TextAnnotation.class);
+			    				String token_label = coreLabel.get(NamedEntityTagAnnotation.class);
+			    				if(token_label.equals("NEGATION_KEYWORD") | token_label.equals("FINDING_KEYWORD") | 
+			    						token_label.equals("RELATED_KEYWORD") | token_label.equals("TREATMENT_KEYWORD") | token_label.equals("EFFECT_KEYWORD")){
+			    					features.put(token_label.toLowerCase(), token);
+			    				}	
+			    			}	
+			    		}
+	    			}
 	    			Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
 			        Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
 	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "NO_TREATMENT_RELATED_TRIGGER", features);
 	    			gateDocument.getAnnotations(annotationSet).add(new Long(sentenceBegin), new Long(sentenceEnd), "NO_TREATMENT_RELATED_SENTENCE", null);
 	    			sentences_triggers.add(gateDocument.getName() + "\t" + sentence.get(TextAnnotation.class)+ "\t" + term + "\t" + meBegin + "\t" + meEnd + "\t" +"NO_TREATMENT_RELATED_EFFECT_DETECTED_SENTENCE\n");
 	    		}else if(label.contains(AnnotationUtil.TREATMENT_RELATED_EFFECT_DETECTED)) {
-	    			CoreMap coreMap = me.getAnnotation();
-	    			if(coreMap!=null) {
-	    				List<CoreLabel> tokens_i = me.getAnnotation().get(TokensAnnotation.class);
-		    			for (CoreLabel coreLabel : tokens_i) {
-		    				String token = coreLabel.get(TextAnnotation.class);
-		    				String token_label = coreLabel.get(NamedEntityTagAnnotation.class);
-		    				if(token_label.equals("FINDING_KEYWORD") | 
-		    						token_label.equals("RELATED_KEYWORD") | token_label.equals("TREATMENT_KEYWORD") | token_label.equals("EFFECT_KEYWORD")){
-		    					features.put(token_label.toLowerCase(), token);
-		    				}	
+	    			if(me!=null) {
+	    				CoreMap coreMap = me.getAnnotation();
+		    			if(coreMap!=null) {
+		    				List<CoreLabel> tokens_i = me.getAnnotation().get(TokensAnnotation.class);
+			    			for (CoreLabel coreLabel : tokens_i) {
+			    				String token = coreLabel.get(TextAnnotation.class);
+			    				String token_label = coreLabel.get(NamedEntityTagAnnotation.class);
+			    				if(token_label.equals("FINDING_KEYWORD") | 
+			    						token_label.equals("RELATED_KEYWORD") | token_label.equals("TREATMENT_KEYWORD") | token_label.equals("EFFECT_KEYWORD")){
+			    					features.put(token_label.toLowerCase(), token);
+			    				}	
+			    			}
 		    			}
 	    			}
+	    			
 	    			sentences_triggers.add(gateDocument.getName() + "\t" + sentence.get(TextAnnotation.class)+ "\t" + term + "\t" + meBegin + "\t" + meEnd + "\t" +"TREATMENT_RELATED_EFFECT_DETECTED_SENTENCE\n");
 	    			Integer sentenceBegin = sentence.get(CharacterOffsetBeginAnnotation.class);
 			        Integer sentenceEnd = sentence.get(CharacterOffsetEndAnnotation.class);
 	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "TREATMENT_RELATED_TRIGGER", features);
 	    			gateDocument.getAnnotations(annotationSet).add(new Long(sentenceBegin), new Long(sentenceEnd), "TREATMENT_RELATED_SENTENCE", null);
 	    		}else if(label.contains("MOA")) {
-	    			//gateDocument.getAnnotations("BSC_OTHERS").add(new Long(meBegin), new Long(meEnd), "MOA", features);
+	    			gateDocument.getAnnotations("BSC_OTHERS").add(new Long(meBegin), new Long(meEnd), "MOA", features);
 	    		}else if(label.contains("PKPARM")) {
 	    			//gateDocument.getAnnotations("BSC_OTHERS").add(new Long(meBegin), new Long(meEnd), "PKPARM", features);
 	    		}else {

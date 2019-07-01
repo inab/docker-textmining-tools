@@ -171,6 +171,7 @@ public class App {
 	    	
 	    	params.put("listsURL", new File(listsDefinitionsPath).toURL());
 	    	params.put("gazetteerFeatureSeparator", "\t");
+	    	params.put("caseSensitive",false);
 	    	//params.put("longestMatchOnly", true);
 	    	//params.put("wholeWordsOnly", false);
 	    	ProcessingResource pr_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params); 
