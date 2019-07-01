@@ -51,9 +51,13 @@ public class App {
         japeMain.setRequired(false);
         options.addOption(japeMain);
         
-        Option set = new Option("a", "annotation_set", true, "Annotation set where the annotation will be included");
+        Option set = new Option("a", "annotation_set", true, "Output Annotation Set. Annotation set where the annotation will be included");
         set.setRequired(true);
         options.addOption(set);
+        
+        Option iset = new Option("ia", "input_annotation_set", true, "Input Annotation Set");
+        iset.setRequired(false);
+        options.addOption(iset);
         
         Option workdir = new Option("w", "workdir", true, "workDir directory path");
         workdir.setRequired(false);
@@ -74,6 +78,7 @@ public class App {
         String outputFilePath = cmd.getOptionValue("output");
         String workdirPath = cmd.getOptionValue("workdir");
         String annotationSet = cmd.getOptionValue("annotation_set");
+        String inputAnnotationSet = cmd.getOptionValue("input_annotation_set");
         String listsDefinitionsPath = cmd.getOptionValue("lists_definitions");
         String japeMainPath = cmd.getOptionValue("jape_main");
         if (!java.nio.file.Files.isDirectory(Paths.get(inputFilePath))) {
@@ -85,6 +90,10 @@ public class App {
         	System.out.println("Please set the annotation set where the annotation will be included");
 			System.exit(1);
     	}
+        
+        if (inputAnnotationSet==null) {
+        	System.out.println("The input annotation set not set, default is selected");
+		}
         
         if(workdirPath==null) {
     		workdirPath = "";
@@ -132,7 +141,7 @@ public class App {
 		} 
  
 	    try {
-	    	process(inputFilePath, outputFilePath, listsDefinitionsPath, japeMainPath, annotationSet, workdirPath);
+	    	process(inputFilePath, outputFilePath, listsDefinitionsPath, japeMainPath, inputAnnotationSet, annotationSet, workdirPath);
 		} catch (GateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -154,7 +163,7 @@ public class App {
      * @throws GateException
      * @throws IOException
      */
-    private static void process(String inputDirectory, String outputDirectory, String listsDefinitionsPath, String japeRules, String annotationSet, String workdirPath) throws GateException, IOException {
+    private static void process(String inputDirectory, String outputDirectory, String listsDefinitionsPath, String japeRules, String inputAnnotationSet, String outAnnotationSet,  String workdirPath) throws GateException, IOException {
     	try {
     		System.out.println("App :: main :: INIT PROCESS");
 	    	Corpus corpus = Factory.newCorpus("My Files"); 
@@ -175,7 +184,9 @@ public class App {
 		    	FeatureMap params = Factory.newFeatureMap(); 
 		    	params.put("listsURL", new File(listsDefinitionsPath).toURL());
 		    	params.put("gazetteerFeatureSeparator", "\t");
-		    	pr_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params); 
+		    	params.put("caseSensitive",false);
+		    	pr_gazetter = (ProcessingResource) Factory.createResource("gate.creole.gazetteer.DefaultGazetteer", params);
+		    	pr_gazetter.setParameterValue("annotationSetName", outAnnotationSet);
 		    	annieController.add(pr_gazetter);
 	    	}
 	    	
@@ -183,8 +194,8 @@ public class App {
 	    	if(japeRules!=null) {
 	    		jape = (LanguageAnalyser)gate.Factory.createResource("gate.creole.Transducer", gate.Utils.featureMap(
 			              "grammarURL", new File(japeRules).toURI().toURL(),"encoding", "UTF-8"));
-				jape.setParameterValue("outputASName", annotationSet);
-				jape.setParameterValue("inputASName", annotationSet);
+				jape.setParameterValue("inputASName", inputAnnotationSet);
+				jape.setParameterValue("outputASName", outAnnotationSet);
 				annieController.add(jape);
 			}
 		    
