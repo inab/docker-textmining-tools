@@ -194,8 +194,9 @@ public class App {
 	    	if(japeRules!=null) {
 	    		jape = (LanguageAnalyser)gate.Factory.createResource("gate.creole.Transducer", gate.Utils.featureMap(
 			              "grammarURL", new File(japeRules).toURI().toURL(),"encoding", "UTF-8"));
-				jape.setParameterValue("inputASName", inputAnnotationSet);
+	    		jape.setParameterValue("inputASName", inputAnnotationSet);
 				jape.setParameterValue("outputASName", outAnnotationSet);
+
 				annieController.add(jape);
 			}
 		    
