@@ -1,22 +1,22 @@
 #!/bin/sh
 
 BASEDIR=/usr/local
-ADES_TAGGER_HOME="${BASEDIR}/share/ades/"
+CDISC_ETOX_TAGGER_HOME="${BASEDIR}/share/cdisc_etox_annotation/"
 
-ADES_TAGGER_VERSION=1.0
+CDISC_ETOX_TAGGER_VERSION=1.0
 
 # Exit on error
 set -e
 
 if [ $# -ge 1 ] ; then
-	ADES_TAGGER_VERSION="$1"
+	CDISC_ETOX_TAGGER_VERSION="$1"
 fi
 
 if [ -f /etc/alpine-release ] ; then
 	# Installing OpenJDK 8
 	apk add --update openjdk8-jre
 	
-	# ades development dependencies
+	# dict tagger development dependencies
 	apk add openjdk8 git maven
 else
 	# Runtime dependencies
@@ -27,31 +27,22 @@ else
 	apt-get install openjdk-8-jdk git maven
 fi
 
-mvn clean install -DskipTests
-
-#rename jar
-mv target/ades_tagger-0.0.1-SNAPSHOT-jar-with-dependencies.jar ades-tagger-${ADES_TAGGER_VERSION}.jar
-
 git clone --depth 1 https://github.com/inab/docker-textmining-tools.git nlp_gate_generic_component
 cd nlp_gate_generic_component
 git filter-branch --prune-empty --subdirectory-filter nlp-gate-generic-component HEAD
 mvn clean install -DskipTests
-
 cd ..
 #rename jar
-mv nlp_gate_generic_component/target/nlp-gate-generic-component-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-gate-generic-component-${ADES_TAGGER_VERSION}.jar
+mv nlp_gate_generic_component/target/nlp-gate-generic-component-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-gate-generic-component-${CDISC_ETOX_TAGGER_VERSION}.jar
 
-
-cat > /usr/local/bin/ades-tagger <<EOF
+cat > /usr/local/bin/cdisc-etox-annotation <<EOF
 #!/bin/sh
-exec java \$JAVA_OPTS -jar "${ADES_TAGGER_HOME}/ades-tagger-${ADES_TAGGER_VERSION}.jar" -workdir "${ADES_TAGGER_HOME}" "\$@"
+exec java \$JAVA_OPTS -jar "${CDISC_ETOX_TAGGER_HOME}/nlp-gate-generic-component-${CDISC_ETOX_TAGGER_VERSION}.jar" -workdir "${CDISC_ETOX_TAGGER_HOME}" -l dictionaries/lists.def -j jape_rules/main.jape "\$@" 
 EOF
-chmod +x /usr/local/bin/ades-tagger
+chmod +x /usr/local/bin/cdisc-etox-annotation
 
-#exec java \$JAVA_OPTS -jar "${ADES_TAGGER_HOME}/nlp-gate-generic-component-${ADES_TAGGER_VERSION}.jar" -workdir "${ADES_TAGGER_HOME}" -j dictionaries/lists.def "\$@"
-
-#delete target
-rm -R target src pom.xml
+#delete target, do not delete for now because it has the jape rules inside
+#rm -R nlp_generic_annotation
 
 #add bash for nextflow
 apk add bash

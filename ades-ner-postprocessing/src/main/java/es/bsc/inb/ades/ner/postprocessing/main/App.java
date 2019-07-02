@@ -213,7 +213,7 @@ public class App {
 					}
 					//set the joint features to the annotation
 					//set basic feature
-					if(process) {
+					if(process) { 
 						features.put("inst", "BSC");
 						features.put("stage", "PP");
 						selected.setFeatures(features);
@@ -235,25 +235,25 @@ public class App {
 	 * @param features
 	 */
 	private static void addFeatures(Annotation annotation, FeatureMap features) {
-		if(annotation.getFeatures().get("source")!=null) {
-			if(annotation.getFeatures().get("source").equals("CDISC")) {
+		if(annotation.getFeatures().get("SOURCE")!=null) {
+			if(annotation.getFeatures().get("SOURCE").equals("CDISC")) {
 				features.put("CDISC_NCI_CODE", annotation.getFeatures().get("EXT_CODE_ID"));
 				features.put("CDISC_SEND", annotation.getFeatures().get("OID"));
-			}else if(annotation.getFeatures().get("source").equals("ETOX")) {
+			}else if(annotation.getFeatures().get("SOURCE").equals("ETOX")) {
 				features.put("ETOX_ILO_ID", annotation.getFeatures().get("TERM_ID"));
-			}else if(annotation.getFeatures().get("source").equals("UMLS")) {
+			}else if(annotation.getFeatures().get("SOURCE").equals("UMLS")) {
 				features.put("UMLS_CUI", annotation.getFeatures().get("CUI"));
 				features.put("UMLS_SOURCE", annotation.getFeatures().get("UMLS_SOURCE"));
 				features.put("UMLS_SOURCE_CODE", annotation.getFeatures().get("UMLS_SOURCE_CODE"));
 				features.put("UMLS_SEM_TYPE_STR", annotation.getFeatures().get("SEM_TYPE_STR"));
 				features.put("UMLS_SEM_TYPE", annotation.getFeatures().get("SEM_TYPE"));
-			}else if(annotation.getFeatures().get("source").equals("DNORM")) {
+			}else if(annotation.getFeatures().get("SOURCE").equals("DNORM")) {
 				Object mesh = annotation.getFeatures().get("MESH");
 				if(mesh!=null) {
 					features.put("DNORM_MESH", mesh.toString());
 				}
-			}else if(annotation.getFeatures().get("source").equals("LINNEAUS")) {
-				Object ncbi = annotation.getFeatures().get("ncbi");
+			}else if(annotation.getFeatures().get("SOURCE").equals("LINNEAUS")) {
+				Object ncbi = annotation.getFeatures().get("NCBI");
 				if(ncbi!=null) {
 					features.put("LINNAEUS_NCBI", ncbi.toString());
 				}

@@ -1,0 +1,38 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:firstphase
+Input: Lookup
+Options: control = appelt
+
+Rule: etox_ilo_trigger_mapping
+(
+{Lookup.minorType=="ETOX_ILO", Lookup.LABEL=="NO_TREATMENT_RELATED_EFFECT_DETECTED"}
+)
+:lookup
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	FeatureMap lookupFeatures = ann.getFeatures();
+ 	String label = lookupFeatures.get("LABEL").toString();
+ 	String content = stringFor(doc, ann);
+ 	gate.FeatureMap features = Factory.newFeatureMap();
+	lookupFeatures.remove("majorType");
+	lookupFeatures.remove("minorType");
+	features.put("text",content);
+	features.put("SOURCE","ETOX");
+	features.put("RULE","etox_ilo_trigger_mapping");
+	lookupFeatures.remove("SYNONYM_DAT");
+	lookupFeatures.remove("INTERNAL_CODE");
+	
+	features.putAll(lookupFeatures);
+	try{
+	   outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "NO_TREATMENT_RELATED_TRIGGER", features);
+	}catch(InvalidOffsetException e){
+		throw new LuckyException(e);
+	}
+	//remove old lookup
+	inputAS.remove(ann);
+	
+}

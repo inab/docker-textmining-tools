@@ -1,5 +1,10 @@
 #!/usr/bin/env nextflow
 
+
+//./nextflow run /home/jcorvi/projects/pdf_preprocessing/docker-textmining-tools/pipeline_ades_ner_all_ocr_grob.nf  --inputDir /home/jcorvi/eTRANSAFE_DATA/evaluation/nextflow_test/grobid_error/ --baseDir /home/jcorvi/eTRANSAFE_DATA/evaluation/nextflow_test/
+//./nextflow run /home/jcorvi/projects/pdf_preprocessing/docker-textmining-tools/pipeline_ades_ner_all.nf -name 17_06_2019_1 --inputDir /home/jcorvi/eTRANSAFE_DATA/evaluation/eTransafe_table_based_gold_standard_v2/ --baseDir /home/jcorvi/eTRANSAFE_DATA/evaluation/eTransafe_table_based_gold_standard_v2
+//./nextflow run /home/jcorvi/projects/pdf_preprocessing/docker-textmining-tools/pipeline_ades_ner_all.nf -name 17_06_2019_1 --inputDir /home/jcorvi/eTRANSAFE_DATA/evaluation/nextflow_test/corpus_gate/ --baseDir /home/jcorvi/eTRANSAFE_DATA/evaluation/nextflow_test
+
 log.info """
 The input directory is: ${params.inputDir}, Contains the pdf to be processed.
 Base directory to use: ${params.baseDir}, This directory is used together with the pipeline name (-name parameter) output the results.
@@ -42,10 +47,14 @@ params.folders = [
 	hepatotoxicity_output_folder: "${params.baseDir}/hepatotoxicity_output",
 	//Output directory for the umls tagger step
 	umls_output_folder: "${params.baseDir}/umls_output",
+	//Output directory for the umls tagger step
+	cdisc_etox_output_folder: "${params.baseDir}/cdisc_etox_output",
 	//Output directory for the ades tagger step
 	ades_output_folder: "${params.baseDir}/ades_output",
 	//Output directory for the post processing ades
-	ades_post_output_folder: "${params.baseDir}/ades_ner_postprocessing_output"
+	ades_post_output_folder: "${params.baseDir}/ades_ner_postprocessing_output",
+	//Output directory for the post processing ades
+	ades_relation_extraction_output_folder: "${params.baseDir}/ades_relation_extraction_output"
 ]
 
 params.folders_steps = [
@@ -59,10 +68,14 @@ params.folders_steps = [
 	HEP: "${params.baseDir}/hepatotoxicity_output",
 	//Output directory for the umls tagger step
 	UMLS: "${params.baseDir}/umls_output",
+	//Output directory for the cdisc_etox tagger step
+	CDISC_ETOX: "${params.baseDir}/cdisc_etox_output",
 	//Output directory for the ades tagger step
 	ADES: "${params.baseDir}/ades_output",
 	//Output directory for the post processing ades
-	ADES_P: "${params.baseDir}/ades_ner_postprocessing_output"
+	ADES_P: "${params.baseDir}/ades_ner_postprocessing_output",
+	//Output directory for the post processing ades
+	ADES_REL_EXT: "${params.baseDir}/ades_relation_extraction_output"
 ]
 
 original_pdf_folder_ch = Channel.fromPath( params.original_pdf_folder, type: 'dir' )
@@ -72,8 +85,10 @@ linnaeus_output_folder=file(params.folders.linnaeus_output_folder)
 dnorm_output_folder=file(params.folders.dnorm_output_folder)
 hepatotoxicity_output_folder=file(params.folders.hepatotoxicity_output_folder)
 umls_output_folder=file(params.folders.umls_output_folder)
+cdisc_etox_output_folder=file(params.folders.cdisc_etox_output_folder)
 ades_output_folder=file(params.folders.ades_output_folder)
 ades_post_output_folder=file(params.folders.ades_post_output_folder)
+ades_relation_extraction_output_folder=file(params.folders.ades_relation_extraction_output_folder)
 ner_evaluation_output=file(params.general.resultout)
 
 original_pdf_folder = params.original_pdf_folder
@@ -234,7 +249,7 @@ String parseElement(element){
     else 
     {
         if (element.value instanceof String || element.value instanceof GString ) 
-            return "\"" + element.key + "\": \"" + element.value + "\""            
+            return "\"" + element.key + "\": \"" + element.value +ades_post_output_folder +"\""            
 
         else if (element.value instanceof ArrayList)
         {
@@ -338,9 +353,22 @@ process nlp_standard_preprocessing {
     """
 }
 
+process cdisc_etox_annotation {
+    input:
+    file input_cdisc_etox from nlp_standard_preprocessing_output_folder_ch
+    
+    output:
+    val cdisc_etox_output_folder into cdisc_etox_output_folder_ch
+    	
+    """
+    cdisc-etox-annotation -i $input_cdisc_etox -o $cdisc_etox_output_folder -a BSC -ia BSC
+	
+    """
+}
+
 process linnaeus_wrapper {
     input:
-    file input_linnaeus from nlp_standard_preprocessing_output_folder_ch
+    file input_linnaeus from cdisc_etox_output_folder_ch
     
     output:
     val linnaeus_output_folder into linnaeus_output_folder_ch
@@ -390,6 +418,8 @@ process umls_tagger {
     """
 }
 
+
+
 process ades_tagger {
     input:
     file input_ades from umls_output_folder_ch
@@ -416,31 +446,31 @@ process ades_ner_postprocessing {
     """
 }
 
-process ades_relation_extraction {
-    input:
-    file input_ades_relation_extraction from ades_post_output_folder_ch
+//process ades_relation_extraction {
+//    input:
+//    file input_ades_relation_extraction from ades_post_output_folder_ch
     
-    output:
-    val ades_relation_extraction_output into ades_relation_extraction_output_ch
+//    output:
+//    val ades_relation_extraction_output_folder into ades_relation_extraction_output_ch
     	
-    """
-    ades-relation-extraction -i $input_ades_relation_extraction -o $ades_relation_extraction_output -a BSC
+//    """
+//    ades-relation-extraction -i $input_ades_relation_extraction -o $ades_relation_extraction_output_folder -a BSC
 	
-    """
-}
+//    """
+//}
 
-process evaluation_ner {
-    input:
-    file input_ner_evaluation from ades_post_output_folder_ch
+//process evaluation_ner {
+//    input:
+//    file input_ner_evaluation from ades_post_output_folder_ch
     
-    output:
-    val ner_evaluation_output into ner_validation_output_ch
+//    output:
+//    val ner_evaluation_output into ner_validation_output_ch
     	
-    """
-    evaluation-ner -i $input_ner_evaluation -o $ner_evaluation_output -k EVALUATION -e BSC
+//    """
+//    evaluation-ner -i $input_ner_evaluation -o $ner_evaluation_output -k EVALUATION -e BSC
 	
-    """
-}
+//    """
+//}
 
 workflow.onComplete { 
 	println ("Workflow Done !!! ")

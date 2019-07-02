@@ -179,10 +179,9 @@ class Wrapper {
 					Long endOff =  new Long(data[2]);
 					String text = data[3];
 					FeatureMap features = gate.Factory.newFeatureMap();
-					features.put("source", source);
+					features.put("SOURCE", source);
 					features.put("text", text);
-					features.put("inst", "BSC");
-					features.put("original_label", "DISEASE");
+					features.put("ORIGINAL_LABEL", "DISEASE");
 					if(data.length==5) {
 						String crossRef= data[4];
 						if(crossRef.startsWith("MESH")) {

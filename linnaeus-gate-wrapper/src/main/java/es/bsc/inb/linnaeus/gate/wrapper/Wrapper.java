@@ -161,10 +161,9 @@ class Wrapper {
 			    		Long endOff =  new Long(data[3]);
 					   	String text = data[4];
 						FeatureMap features = gate.Factory.newFeatureMap();
-					    features.put("source", source);
+					    features.put("SOURCE", source);
 						features.put("text", text);
-						features.put("inst", "BSC");
-						features.put("ncbi", ncbi_map);
+						features.put("NCBI", ncbi_map);
 						features.put("original_label", "SPECIES");
 						toxicolodyReportWitAnnotations.getAnnotations(annotationSet).add(startOff, endOff, "SPECIMEN", features);
 					}

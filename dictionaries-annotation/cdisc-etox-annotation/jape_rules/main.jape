@@ -1,0 +1,14 @@
+MultiPhase: Main
+Phases:
+etox_ilo_trigger_mapping
+etox_ilo_domain_mapping
+etox_anatomy_mapping
+etox_send_mapping
+etox_moa_mapping
+cdisc_study_testcd_mapping
+cdisc_study_domain_mapping
+cdisc_finding_mapping
+cdisc_spec_mapping
+cdisc_anatomical_location_mapping
+cdisc_route_of_administration_mapping
+basic_mapping

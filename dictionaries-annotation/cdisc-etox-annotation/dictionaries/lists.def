@@ -1,0 +1,5 @@
+etox_in-life-observations_dict.lst:ETOX_ILO:ETOX_ILO
+etox_anatomy_dict.lst:ANATOMY_ETOX:ANATOMY_ETOX
+etox_send_dict.lst:SEND_ETOX:SEND_ETOX
+etox_moa_dict.lst:MOA_ETOX:MOA_ETOX
+cdisc_send_dict.lst:SEND_CIDSC:SEND_CIDSC

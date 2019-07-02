@@ -1,0 +1,36 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:firstphase
+Input: Lookup
+Options: control = appelt
+
+Rule: etox_moa_mapping
+(
+{Lookup.minorType=="MOA_ETOX"}
+)
+:lookup
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	FeatureMap lookupFeatures = ann.getFeatures();
+ 	String content = stringFor(doc, ann);
+ 	gate.FeatureMap features = Factory.newFeatureMap();
+	lookupFeatures.remove("majorType");
+	lookupFeatures.remove("minorType");
+	features.put("text",content);
+	features.put("SOURCE","ETOX");
+	lookupFeatures.remove("SYNONYM_DAT");
+	lookupFeatures.remove("INTERNAL_CODE");
+	features.put("RULE","etox_moa_rule");
+	features.putAll(lookupFeatures);
+	try{
+		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "MODE_OF_ACTION", features);
+	}catch(InvalidOffsetException e){
+		throw new LuckyException(e);
+	}
+	//remove old lookup
+	inputAS.remove(ann);
+	 
+}
