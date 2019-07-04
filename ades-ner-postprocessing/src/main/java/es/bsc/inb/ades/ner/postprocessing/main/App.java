@@ -240,20 +240,20 @@ public class App {
 				features.put("CDISC_NCI_CODE", annotation.getFeatures().get("EXT_CODE_ID"));
 				features.put("CDISC_SEND", annotation.getFeatures().get("OID"));
 			}else if(annotation.getFeatures().get("SOURCE").equals("ETOX")) {
-				features.put("ETOX_ILO_ID", annotation.getFeatures().get("TERM_ID"));
+				features.put("ETOX_ILO_ID", annotation.getFeatures().get("ETOX_TERM_ID"));
 			}else if(annotation.getFeatures().get("SOURCE").equals("UMLS")) {
-				features.put("UMLS_CUI", annotation.getFeatures().get("CUI"));
+				features.put("UMLS_CUI", annotation.getFeatures().get("UMLS_CUI"));
 				features.put("UMLS_SOURCE", annotation.getFeatures().get("UMLS_SOURCE"));
 				features.put("UMLS_SOURCE_CODE", annotation.getFeatures().get("UMLS_SOURCE_CODE"));
-				features.put("UMLS_SEM_TYPE_STR", annotation.getFeatures().get("SEM_TYPE_STR"));
-				features.put("UMLS_SEM_TYPE", annotation.getFeatures().get("SEM_TYPE"));
+				features.put("UMLS_SEM_TYPE_STR", annotation.getFeatures().get("UMLS_SEM_TYPE_STR"));
+				features.put("UMLS_SEM_TYPE", annotation.getFeatures().get("UMLS_SEM_TYPE"));
 			}else if(annotation.getFeatures().get("SOURCE").equals("DNORM")) {
-				Object mesh = annotation.getFeatures().get("MESH");
+				Object mesh = annotation.getFeatures().get("DNORM_MESH");
 				if(mesh!=null) {
 					features.put("DNORM_MESH", mesh.toString());
 				}
-			}else if(annotation.getFeatures().get("SOURCE").equals("LINNEAUS")) {
-				Object ncbi = annotation.getFeatures().get("NCBI");
+			}else if(annotation.getFeatures().get("SOURCE").equals("LINNAEUS")) {
+				Object ncbi = annotation.getFeatures().get("LINNAEUS_NCBI");
 				if(ncbi!=null) {
 					features.put("LINNAEUS_NCBI", ncbi.toString());
 				}

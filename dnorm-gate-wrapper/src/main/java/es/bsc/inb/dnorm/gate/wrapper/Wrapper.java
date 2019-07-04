@@ -181,13 +181,13 @@ class Wrapper {
 					FeatureMap features = gate.Factory.newFeatureMap();
 					features.put("SOURCE", source);
 					features.put("text", text);
-					features.put("ORIGINAL_LABEL", "DISEASE");
+					features.put("DNORM_ORIGINAL_LABEL", "DISEASE");
 					if(data.length==5) {
 						String crossRef= data[4];
 						if(crossRef.startsWith("MESH")) {
-							features.put("MESH", crossRef.substring(crossRef.indexOf("MESH:")));
+							features.put("DNORM_MESH", crossRef.substring(crossRef.indexOf("MESH:")));
 						}else if(crossRef.startsWith("OMIM")) {
-							features.put("OMIM", crossRef.substring(crossRef.indexOf("OMIM:")));
+							features.put("DNORM_OMIM", crossRef.substring(crossRef.indexOf("OMIM:")));
 						}else {
 							log.warn("Wrapper: annotateGateDocument :: cross referencen different to mesh and omim ");
 						}

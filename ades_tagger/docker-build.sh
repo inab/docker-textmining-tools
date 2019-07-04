@@ -32,23 +32,11 @@ mvn clean install -DskipTests
 #rename jar
 mv target/ades_tagger-0.0.1-SNAPSHOT-jar-with-dependencies.jar ades-tagger-${ADES_TAGGER_VERSION}.jar
 
-git clone --depth 1 https://github.com/inab/docker-textmining-tools.git nlp_gate_generic_component
-cd nlp_gate_generic_component
-git filter-branch --prune-empty --subdirectory-filter nlp-gate-generic-component HEAD
-mvn clean install -DskipTests
-
-cd ..
-#rename jar
-mv nlp_gate_generic_component/target/nlp-gate-generic-component-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-gate-generic-component-${ADES_TAGGER_VERSION}.jar
-
-
 cat > /usr/local/bin/ades-tagger <<EOF
 #!/bin/sh
 exec java \$JAVA_OPTS -jar "${ADES_TAGGER_HOME}/ades-tagger-${ADES_TAGGER_VERSION}.jar" -workdir "${ADES_TAGGER_HOME}" "\$@"
 EOF
 chmod +x /usr/local/bin/ades-tagger
-
-#exec java \$JAVA_OPTS -jar "${ADES_TAGGER_HOME}/nlp-gate-generic-component-${ADES_TAGGER_VERSION}.jar" -workdir "${ADES_TAGGER_HOME}" -j dictionaries/lists.def "\$@"
 
 #delete target
 rm -R target src pom.xml

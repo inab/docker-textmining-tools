@@ -156,15 +156,15 @@ class Wrapper {
 				    String ncbi_map = data[0];
 					String docId =  data[1];
 					if(docId.equals(docIdGate)) {
-						String source = "LINNEAUS";
+						String source = "LINNAEUS";
 					   	Long startOff = new Long(data[2]);
 			    		Long endOff =  new Long(data[3]);
 					   	String text = data[4];
 						FeatureMap features = gate.Factory.newFeatureMap();
 					    features.put("SOURCE", source);
 						features.put("text", text);
-						features.put("NCBI", ncbi_map);
-						features.put("original_label", "SPECIES");
+						features.put("LINNAEUS_NCBI", ncbi_map);
+						features.put("LINNAEUS_ORIGINAL_LABEL", "SPECIES");
 						toxicolodyReportWitAnnotations.getAnnotations(annotationSet).add(startOff, endOff, "SPECIMEN", features);
 					}
 				}

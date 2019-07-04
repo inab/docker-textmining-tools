@@ -43,9 +43,10 @@ mv nlp_gate_generic_component/target/nlp-gate-generic-component-0.0.1-SNAPSHOT-j
 cat > /usr/local/bin/ades-ner-postprocessing <<EOF
 #!/bin/sh
 exec java \$JAVA_OPTS -jar "${ADES_POSTPROCESSING_HOME}/nlp-gate-generic-component-${ADES_POSTPROCESSING_VERSION}.jar" -workdir "${ADES_POSTPROCESSING_HOME}" -l dictionaries/lists.def -j jape_rules/main.jape "\$@"
-exec java \$JAVA_OPTS -jar "${ADES_POSTPROCESSING_HOME}/ades-ner-postprocessing-${ADES_POSTPROCESSING_VERSION}.jar" -workdir "${ADES_POSTPROCESSING_HOME}" "\$@"
 EOF
 chmod +x /usr/local/bin/ades-ner-postprocessing
+
+#exec java \$JAVA_OPTS -jar "${ADES_POSTPROCESSING_HOME}/ades-ner-postprocessing-${ADES_POSTPROCESSING_VERSION}.jar" -workdir "${ADES_POSTPROCESSING_HOME}" "\$@"
 
 #delete target
 rm -R target src pom.xml
