@@ -1,4 +1,5 @@
 MultiPhase: Main
 Phases:
-basic_mapping
-delete_lookups
+stop_words
+omim_clean
+clean_short_words
