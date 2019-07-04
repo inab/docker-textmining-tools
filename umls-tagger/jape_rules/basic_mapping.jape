@@ -7,7 +7,7 @@ Options: control = appelt
 
 Rule: basic_mapp
 (
-{Lookup}
+{Lookup.majorType=="UMLS"}
 )
 :lookup
 -->
