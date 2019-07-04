@@ -4,7 +4,6 @@ WORKDIR /usr/local/share/ades
 ARG	ADES_TAGGER_VERSION=1.0
 COPY	docker-build.sh /usr/local/bin/docker-build.sh
 COPY	src src
-COPY	dictionaries dictionaries
 COPY	dict dict
 COPY	ner_list ner_list
 COPY	rules rules	

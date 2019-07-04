@@ -19,7 +19,7 @@ Rule: basic_mapp
  	gate.FeatureMap features = Factory.newFeatureMap();
  	lookupFeatures.remove("majorType");
  	lookupFeatures.remove("minorType");
- 	features.put("source","UMLS");
+ 	features.put("SOURCE","UMLS");
  	features.put("text",content);
  	String minorType = lookupFeatures.get("LABEL").toString();
  	lookupFeatures.remove("LABEL");
