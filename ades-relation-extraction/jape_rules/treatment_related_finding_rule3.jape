@@ -1,0 +1,30 @@
+Imports: {
+  import gate.relations.RelationSet;
+}
+Phase:firstpass
+Input: TREATMENT_RELATED_TRIGGER FINDING Sentence
+Options: control = all
+
+//Esta regla seleccion cuando en una sentencia (ver input) existe un trigger y un finding
+Rule: ruleone
+(
+	(
+		{TREATMENT_RELATED_TRIGGER} ({Token})* {FINDING}
+	) |
+	
+	(
+		{FINDING} ({Token})* {TREATMENT_RELATED_TRIGGER}
+	)
+	
+
+): trfs
+-->
+{ 
+  
+  AnnotationSet YtagAS = (AnnotationSet) bindings.get("trfs");
+  //Annotation  treatmentRelatedFindingSentence   = YtagAS.iterator().next();
+  System.out.println(YtagAS);
+  System.out.println("**********************************************************************************************************");
+  
+
+}

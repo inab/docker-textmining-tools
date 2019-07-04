@@ -1,4 +1,3 @@
 MultiPhase: Main
 Phases:
-omim_clean
-clean_short_words
+treatment_related_finding_rule5

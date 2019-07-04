@@ -3,3 +3,4 @@ Phases:
 stop_words
 omim_clean
 clean_short_words
+merge_annotations

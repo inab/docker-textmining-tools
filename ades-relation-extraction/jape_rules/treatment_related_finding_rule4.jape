@@ -1,0 +1,51 @@
+Imports: {
+  import gate.relations.RelationSet;
+  import java.util.Random;
+  import static gate.Utils.*;
+}
+Phase:firstpass
+Input: FINDING SPECIMEN MANIFESTATION_FINDING SEX Sentence
+Options: control = appelt
+
+//Esta regla seleccion cuando en una sentencia (ver input) existe un finding y un specimen
+Rule: rule_finding_specimen
+( 
+	(
+		({SPECIMEN})? ({Token})* {FINDING} ({Token})* ({MANIFESTATION_FINDING})? 
+	) 
+	
+	|
+	
+	(
+		 ({MANIFESTATION_FINDING})? ({Token})* {FINDING} ({Token})* ({SPECIMEN})?
+	)
+	
+	|
+	
+	(
+		{FINDING} ({Token})* ({MANIFESTATION_FINDING})? ({Token})* ({SPECIMEN})?
+	)
+	
+): trfs
+-->
+{ 
+  
+  AnnotationSet YtagAS = (AnnotationSet) bindings.get("trfs");
+  System.out.println(YtagAS);
+  System.out.println("**********************************************rule_finding_specimen************************************************************");
+  //this is for 
+  Random rand = new Random();
+  AnnotationSet sentences = inputAS.get("Sentence", YtagAS.firstNode().getOffset(), YtagAS.lastNode().getOffset());
+  for (Annotation sentence : sentences){
+  		String content = stringFor(doc, sentence);
+  		System.out.println("Sentencia:");
+  		System.out.println(content);
+  }
+  int id = rand.nextInt(100000);
+  for (Annotation annotation : YtagAS){
+  		System.out.println(annotation.getType() + "|" + annotation.getStartNode().getOffset() + "|" + annotation.getEndNode().getOffset() + "|" +  stringFor(doc, annotation));
+  		outputAS.add(annotation.getStartNode(), annotation.getEndNode(), "Z_FINDING_FIELDS_"+id, annotation.getFeatures());
+  }
+  
+
+}

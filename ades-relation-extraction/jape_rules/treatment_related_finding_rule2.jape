@@ -2,10 +2,12 @@ Imports: {
   import gate.relations.RelationSet;
 }
 Phase:firstpass
-Input: TREATMENT_RELATED_SENTENCE 
-Options: control = brill
-
+Input: TREATMENT_RELATED_SENTENCE
+Options: control = brill //1
+//2
+//3
 Rule: tokenTransport
+Priority: 20
 (
 {TREATMENT_RELATED_SENTENCE} 
 ): trfs
@@ -16,7 +18,7 @@ Rule: tokenTransport
   Annotation  treatmentRelatedFindingSentence   = YtagAS.iterator().next();
   
   FeatureMap additionalFeatures = Factory.newFeatureMap();   
-  //additionalFeatures.put("id_treatment_related_finding", 1);
+  additionalFeatures.put("id_treatment_related_finding", 1);
   
   RelationSet relSet = inputAS.getRelations();  	
   
@@ -25,14 +27,6 @@ Rule: tokenTransport
 
   // get findings
   AnnotationSet findings = inputAS.get("FINDING", YtagAS.firstNode().getOffset(), YtagAS.lastNode().getOffset());	
-  for (Annotation trigger : triggers){
-  	for (Annotation finding : findings) {
-     finding.getFeatures().putAll(additionalFeatures);	
-     //relSet.addRelation("trigger-finding", new int[] {treatmentRelatedFindingSentence.getId(), finding.getId(), specimenId }); 
-     relSet.addRelation("trigger-finding", new int[] {trigger.getId(), finding.getId()});
-  }
-  }
-  
   
   // get study test cd 
   //AnnotationSet tests = inputAS.get("STUDY_TESTCD", YtagAS.firstNode().getOffset(), YtagAS.lastNode().getOffset());
@@ -40,7 +34,7 @@ Rule: tokenTransport
   // get specimen
   AnnotationSet specimens = inputAS.get("SPECIMEN", YtagAS.firstNode().getOffset(), YtagAS.lastNode().getOffset());
   
-  /*
+  
   int specimenId = -1;
   Annotation specimen = null;
   for (Annotation spec : specimens) {
@@ -48,7 +42,27 @@ Rule: tokenTransport
      	specimen.getFeatures().putAll(additionalFeatures);	
      	specimenId = spec.getId();
   }
-  */
-  //outputAS.add(XtagAS.firstNode(), XtagAS.lastNode(), "TREATMENT_RELATED_FINDING", featuresNewAnnotation);
+    
+  
+  for (Annotation trigger : triggers){
+  		/*for (Annotation finding : findings) {
+     		finding.getFeatures().putAll(additionalFeatures);	
+     		//relSet.addRelation("trigger-finding", new int[] {treatmentRelatedFindingSentence.getId(), finding.getId(), specimenId }); 
+     		relSet.addRelation("trigger-finding", new int[] {trigger.getId(), finding.getId()});
+  		}*/
+  		
+  		/*for (Annotation test : tests) {
+     		test.getFeatures().putAll(additionalFeatures);	
+     		relSet.addRelation("trigger-testcd", new int[] {trigger.getId(), test.getId()});
+  		}*/
+  		
+  }
+  
+
+  // create new annotation              
+  FeatureMap featuresNewAnnotation = Factory.newFeatureMap();    
+  featuresNewAnnotation.put("id", 1);                
+  
+  outputAS.add(XtagAS.firstNode(), XtagAS.lastNode(), "TREATMENT_RELATED_FINDING", featuresNewAnnotation);
 
 }

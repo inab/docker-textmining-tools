@@ -1,0 +1,45 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:secondphase
+Input: FINDING STUDY_TESTCD SPECIMEN
+Options: control = appelt
+
+Rule: merge_annotations
+(
+{FINDING} | {STUDY_TESTCD} | {SPECIMEN} | {STUDY_DOMAIN}
+)
+:lookup
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	String content = stringFor(doc, ann);
+ 	System.out.println(content);
+ 	gate.AnnotationSet  to_merge = inputAS.get(ann.getType(),ann.getStartNode().getOffset(), ann.getEndNode().getOffset());
+ 	FeatureMap lookupFeatures = ann.getFeatures();
+ 	gate.FeatureMap features = Factory.newFeatureMap();
+ 	features.putAll(lookupFeatures);
+ 	for (Annotation merge : to_merge) {
+ 		if(!merge.getId().equals(ann.getId())){
+ 			if(merge.getEndNode().getOffset()-merge.getStartNode().getOffset() == 
+									ann.getEndNode().getOffset()-ann.getStartNode().getOffset()){
+				System.out.println("same offset merge the features, what to do ? for now stay  : "  + stringFor(doc, merge));
+				//features.putAll(merge.getFeatures());
+				//outputAS.remove(merge);
+			}else if(merge.getEndNode().getOffset()-merge.getStartNode().getOffset() < 
+								ann.getEndNode().getOffset()-ann.getStartNode().getOffset()){
+				System.out.println("smaller term what to do ? for now stay   : "  + stringFor(doc, merge));
+				//outputAS.remove(merge);
+			}
+ 		} 
+ 	}
+ 	
+ 	try{
+ 		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(),ann.getType(), features);
+ 	}catch(InvalidOffsetException e){
+   		throw new LuckyException(e);
+ 	}
+ 	//remove old lookup
+ 	inputAS.remove(ann);
+}
