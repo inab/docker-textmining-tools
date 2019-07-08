@@ -21,7 +21,7 @@ Rule: cdisc_spec_mapping
 	 	gate.FeatureMap features = Factory.newFeatureMap();
 	 	features.put("text",content);
 	 	features.put("SOURCE","CDISC");
-	 	features.put("RULE","cdisc_spec_rule");
+	 	features.put("RULE","CDISC_SPEC_RULE");
 	 	features.put("study_domain", label);
 	 	features.putAll(lookupFeatures);
 	 	features.remove("majorType");

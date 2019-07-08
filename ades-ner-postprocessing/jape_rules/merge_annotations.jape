@@ -2,8 +2,8 @@ Imports: {
 import static gate.Utils.*;
 }
 Phase:secondphase
-Input: FINDING STUDY_TESTCD SPECIMEN
-Options: control = appelt
+Input: FINDING STUDY_TESTCD SPECIMEN STUDY_DOMAIN
+Options: control = all
 
 Rule: merge_annotations
 (
@@ -15,31 +15,62 @@ Rule: merge_annotations
 	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
  	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
  	String content = stringFor(doc, ann);
- 	System.out.println(content);
- 	gate.AnnotationSet  to_merge = inputAS.get(ann.getType(),ann.getStartNode().getOffset(), ann.getEndNode().getOffset());
+ 	System.out.println("RULE EXECUTION");
  	FeatureMap lookupFeatures = ann.getFeatures();
- 	gate.FeatureMap features = Factory.newFeatureMap();
- 	features.putAll(lookupFeatures);
- 	for (Annotation merge : to_merge) {
- 		if(!merge.getId().equals(ann.getId())){
- 			if(merge.getEndNode().getOffset()-merge.getStartNode().getOffset() == 
+ 	if(lookupFeatures.get("processed")==null){
+	 	//System.out.println(ann);
+	 	gate.AnnotationSet  to_merge = inputAS.get(ann.getType(),ann.getStartNode().getOffset(), ann.getEndNode().getOffset());
+	 	gate.FeatureMap features = Factory.newFeatureMap();
+	 	features.putAll(lookupFeatures);
+	 	
+		features.put("processed", "true");
+		String sources = "";
+		if(features.get("SOURCE")!=null){
+			sources = 	features.get("SOURCE").toString();
+		}
+		//System.out.println(to_merge);
+		for (Annotation merge : to_merge) {
+			if(!merge.getId().equals(ann.getId())){
+	 			//System.out.println("Anotacion distinta a la encontrada");
+	 			//System.out.println(merge);
+	 			if(merge.getEndNode().getOffset()-merge.getStartNode().getOffset() == 
+										ann.getEndNode().getOffset()-ann.getStartNode().getOffset()){
+					System.out.println("Same offset merge the features, what to do ? for now stay: " + stringFor(doc, merge));
+					features.putAll(merge.getFeatures());
+					//System.out.println(merge.getFeatures());
+					if(merge.getFeatures().get("SOURCE")!=null){
+						sources = sources+","+	merge.getFeatures().get("SOURCE").toString();
+					}else{
+						//System.out.println("NO ENTRO NO TIENE SOURCE");
+					}
+					merge.getFeatures().put("processed", "true");
+					outputAS.remove(merge);
+					inputAS.remove(merge);
+				}else if(merge.getEndNode().getOffset()-merge.getStartNode().getOffset() < 
 									ann.getEndNode().getOffset()-ann.getStartNode().getOffset()){
-				System.out.println("same offset merge the features, what to do ? for now stay  : "  + stringFor(doc, merge));
-				//features.putAll(merge.getFeatures());
-				//outputAS.remove(merge);
-			}else if(merge.getEndNode().getOffset()-merge.getStartNode().getOffset() < 
-								ann.getEndNode().getOffset()-ann.getStartNode().getOffset()){
-				System.out.println("smaller term what to do ? for now stay   : "  + stringFor(doc, merge));
-				//outputAS.remove(merge);
-			}
- 		} 
- 	}
- 	
- 	try{
- 		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(),ann.getType(), features);
- 	}catch(InvalidOffsetException e){
-   		throw new LuckyException(e);
- 	}
- 	//remove old lookup
- 	inputAS.remove(ann);
+					System.out.println("Smaller term what to do ? for now stay: "  + stringFor(doc, merge));
+					//outputAS.remove(merge);
+				}
+	 		} 
+	 	}
+	 	try{
+	 		//remove features
+	 		features.put("RULE","MERGE_ANNOTATIONS");
+	 		features.put("SOURCES",sources);
+	 		features.remove("LABEL");
+	 		features.remove("SOURCE");
+			features.remove("IS_PART_OF");
+			features.remove("KEYWORD_TYPE");	
+			features.remove("finding_type");
+	 		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(),ann.getType(), features);
+	 	}catch(InvalidOffsetException e){
+	   		throw new LuckyException(e);
+	 	}
+	 	//remove old lookup
+	 	inputAS.remove(ann);
+	 	System.out.println("END RULE EXECUTION");
+ 	}/*else{
+ 		System.out.println("Anotacion procesada");
+ 		System.out.println(ann);
+ 	}*/
 }

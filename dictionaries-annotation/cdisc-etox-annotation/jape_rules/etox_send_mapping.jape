@@ -22,11 +22,12 @@ Rule: etox_send_mapping
 	lookupFeatures.remove("minorType");
  	features.put("text",content);
 	features.put("SOURCE","ETOX");
-	features.put("RULE","etox_send_mapping");
+	features.put("RULE","ETOX_SEND_MAPPING");
 	lookupFeatures.remove("SYNONYM_DAT");
 	lookupFeatures.remove("INTERNAL_CODE");
 	features.putAll(lookupFeatures);
  	if(label.equals("ROUTE")){
+ 		features.put("ETOX_ORIGINAL_LABEL", label);
 	 	try{
 	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "ROUTE_OF_ADMINISTRATION", features);
 	   	}catch(InvalidOffsetException e){
@@ -35,6 +36,7 @@ Rule: etox_send_mapping
 	 	//remove old lookup
 	 	inputAS.remove(ann);
 	 }else if(label.equals("LBTEST") &&  content.length() > 3){
+	 	features.put("ETOX_ORIGINAL_LABEL", label);
 	 	try{
 	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "STUDY_TESTCD", features);
 	   	}catch(InvalidOffsetException e){
@@ -54,7 +56,7 @@ Rule: etox_send_mapping
 	 	//remove old lookup
 	 	inputAS.remove(ann);
 	 }else if(label.equals("STRAIN")){
-	 	features.put("original_label", label);
+	 	features.put("ETOX_ORIGINAL_LABEL", label);
 	 	try{
 	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "SPECIMEN", features);
 	   	}catch(InvalidOffsetException e){
@@ -63,7 +65,7 @@ Rule: etox_send_mapping
 	 	//remove old lookup
 	 	inputAS.remove(ann);
 	 }else if(label.equals("SPECIES")){
-	 	features.put("original_label", label);
+	 	features.put("ETOX_ORIGINAL_LABEL", label);
 	 	try{
 	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "SPECIMEN", features);
 	   	}catch(InvalidOffsetException e){
@@ -72,7 +74,7 @@ Rule: etox_send_mapping
 	 	//remove old lookup
 	 	inputAS.remove(ann);
 	 } else if(label.equals("PKPARM")){
-	 	features.put("original_label", label);
+	 	features.put("ETOX_ORIGINAL_LABEL", label);
 	 	try{
 	 		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "STUDY_TESTCD", features);
 	   	}catch(InvalidOffsetException e){

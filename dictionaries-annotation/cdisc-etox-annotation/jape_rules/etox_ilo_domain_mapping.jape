@@ -25,7 +25,7 @@ Rule: etox_ilo_domain_mapping
 	 	features.put("SOURCE","ETOX");
 	 	lookupFeatures.remove("SYNONYM_DAT");
 		lookupFeatures.remove("INTERNAL_CODE");
-		features.put("RULE","etox_ilo_domain_mapping");
+		features.put("RULE","ETOX_ILO_DOMAIN_MAPPING");
 	 	features.putAll(lookupFeatures);
 	 	try{
 	   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "STUDY_DOMAIN", features);

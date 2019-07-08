@@ -21,7 +21,7 @@ Rule: cdisc_study_testcd_mapping
 	 	gate.FeatureMap features = Factory.newFeatureMap();
 	 	features.put("text",content);
 	 	features.put("SOURCE","CDISC");
-	 	features.put("RULE","cdisc_study_testcd_rule");
+	 	features.put("RULE","CDISC_STUDY_TESTCD_RULE");
 	 	features.putAll(lookupFeatures);
 	 	features.remove("majorType");
  		features.remove("minorType");

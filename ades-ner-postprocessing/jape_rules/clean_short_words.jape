@@ -3,9 +3,7 @@ Input: FINDING STUDY_TESTCD
 Options: control = all
 Rule: delete_rule
 (
-{FINDING} | (
-{STUDY_TESTCD}
-)
+{FINDING} | {STUDY_TESTCD}
 )
 :short_annotations_delete
 -->

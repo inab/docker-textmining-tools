@@ -21,13 +21,13 @@ Rule: cdisc_route_of_administration_mapping
 	 	gate.FeatureMap features = Factory.newFeatureMap();
 	 	features.put("text",content);
 	 	features.put("SOURCE","CDISC");
-	 	features.put("RULE","cdisc_route_of_administration_mapping");
+	 	features.put("RULE","CDISC_SPEC_MAPPING");
 	 	features.putAll(lookupFeatures);
 	 	features.remove("majorType");
  		features.remove("minorType");
  		features.remove("INTERNAL_CODE");
  		try{
-			outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "ROUTE_OF_ADMINISTRATION", features);
+			outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "ROUTE_OF_ADMINISTRATION222", features);
 		}catch(InvalidOffsetException e){
 			throw new LuckyException(e);
 		}
