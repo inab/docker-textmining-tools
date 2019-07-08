@@ -24,7 +24,7 @@ Rule: etox_anatomy_mapping
 	lookupFeatures.remove("INTERNAL_CODE");
 	features.put("text",content);
 	features.put("SOURCE","ETOX");
-	features.put("RULE","etox_anatomy_mapping");
+	features.put("RULE","ETOX_ANATOMY_MAPPING");
 	features.putAll(lookupFeatures);
 	try{
 		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), "SPECIMEN", features);

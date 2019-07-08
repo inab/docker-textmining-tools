@@ -22,7 +22,7 @@ Rule: etox_ilo_trigger_mapping
 	lookupFeatures.remove("minorType");
 	features.put("text",content);
 	features.put("SOURCE","ETOX");
-	features.put("RULE","etox_ilo_trigger_mapping");
+	features.put("RULE","ETOX_ILO_TRIGGER_MAPPING");
 	lookupFeatures.remove("SYNONYM_DAT");
 	lookupFeatures.remove("INTERNAL_CODE");
 	

@@ -11,4 +11,4 @@ cdisc_finding_mapping
 cdisc_spec_mapping
 cdisc_anatomical_location_mapping
 cdisc_route_of_administration_mapping
-basic_mapping
+delete_lookups

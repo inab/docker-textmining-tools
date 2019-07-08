@@ -46,7 +46,7 @@ public class App {
         Option listDefinitions = new Option("l", "lists_definitions", true, "Dictionary List definitions, Gate format.");
         listDefinitions.setRequired(false);
         options.addOption(listDefinitions);
-     
+        
         Option japeMain = new Option("j", "jape_main", true, "Jape Main file for processing rules");
         japeMain.setRequired(false);
         options.addOption(japeMain);
@@ -153,10 +153,6 @@ public class App {
 
 	}
 
-	    
-    
-
-    
     /**
      * Annotation Process
      * @param inputDirectory
