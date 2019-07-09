@@ -1,0 +1,49 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:secondphase
+Input: LIVER_MARKER
+Options: control = appelt
+
+Rule: merge_hepatotoxicity
+(
+{LIVER_MARKER}
+)
+:lookup
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	String content = stringFor(doc, ann);
+ 	gate.AnnotationSet  to_merge = inputAS.get("STUDY_TESTCD",ann.getStartNode().getOffset(), ann.getEndNode().getOffset());
+ 	gate.FeatureMap features = Factory.newFeatureMap();
+ 	features.putAll(ann.getFeatures());
+ 	features.remove("majorType");
+	features.remove("minorType");
+	Boolean create = true;
+ 	for (Annotation merge : to_merge) {
+ 		if(!merge.getId().equals(ann.getId())){
+ 			if(merge.getEndNode().getOffset()-merge.getStartNode().getOffset() == 
+									ann.getEndNode().getOffset()-ann.getStartNode().getOffset()){
+				System.out.println("Hepatotoxicity finding with same offset merge the features: "  + stringFor(doc, merge));
+				merge.getFeatures().put("LIMTOX_LIVERMARKER","YES");
+				merge.getFeatures().put("SOURCES", merge.getFeatures().get("SOURCES") + "," + "LIMTOX");
+				create = false;
+			}
+ 		} 
+ 	}
+ 	if(create){
+ 		features.put("LIMTOX_LIVERMARKER","YES");
+	 	try{
+	 		features.put("SOURCES","LIMTOX");
+ 			features.remove("SOURCE");
+	 		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(),"STUDY_TESTCD", features);
+	 	}catch(InvalidOffsetException e){
+	   		throw new LuckyException(e);
+	 	}
+ 	}
+ 	
+ 	inputAS.remove(ann);
+ 	
+
+}

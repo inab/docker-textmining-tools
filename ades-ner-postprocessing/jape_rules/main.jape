@@ -5,3 +5,4 @@ omim_clean
 clean_short_words
 merge_annotations
 merge_hepatotoxicity
+merge_livermarker
