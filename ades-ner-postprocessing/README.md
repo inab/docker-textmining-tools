@@ -1,34 +1,23 @@
-NLP-STANDARD-PREPROCESSING (TODO)
+ADES-NER-POSTPROCESSING
 ========================
 
-<b>Tagger of adverse effects (ades)</b>   
-
-========================
-
-ADES NER: Adverse drugs effects name entity recognition
-
-The ADES tagger is a text mining component that retrieves treatment-related effect or adverse effects at pre-clinical level.
-To that aim the NER Tagger detect:
-
-
-
-
+<b>Postprocessing for Preclinical Adverse Drug Effect Name Entity Recognition</b>   
 
 ========================
 
-Build and run the docker individually
+Internal project. Specific for the preclinical ADES NER postprocessing.  
 
-	# To build the docker, just go into the ades-tagger folder and execute
-	docker build -t nlp-standard-preprocessing .
-	#To run the docker, just set the input_folder and the output
-	mkdir ${PWD}/nlp_preprocessing_output; docker run --rm -u $UID -v ${PWD}/input_output:/in:ro -v ${PWD}/nlp_preprocessing_output:/out:rw nlp-standard-preprocessing nlp-standard-preprocessing -i /in -o /out	
-Parameters:
-<p>
--i input folder with the documents to annotated. The documents could be plain txt or xml gate documents.
-</p>
-<p>
--o output folder with the documents annotated in gate format.
-</p>
+It uses the nlp-gate-generic-component; and contains specific stop words and jape rules for the postprocessing ner step. 
+
+This project it uses gate formated documents as input and output.  
+
+The most important information is that this project is only usefull inside the preclinical adverse drug effect pipeline.
+
+The main objective is to clean and merge relevant annotation generated in the Preclinical Adverse Drug Effect Name Entity Recognition pipeline.
+
+========================
+
+
 
 		
 		

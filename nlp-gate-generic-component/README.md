@@ -1,33 +1,33 @@
-nlp-generic-dictionary-annotation (TODO)
+nlp-gate-generic-component
 ========================
 
-<b>Generic library for dictionary mapping in text</b>   
+<b>Text mining GATE generic component for run in Batch/Pipeline mode</b>   
 
 ========================
 
-This library annotated text with terms present in a dictionary using the GATE format.  Is a wrapper that execute the ANNIE DefaultGazeteer and basics JAPE rules that annotated text with given dictionaries. 
+This library is a docker wrapper that execute the GATE ANNIE DefaultGazeteer and JAPE rules in batch mode. 
 
-One of the input is the list of the dictionaries/gazeteers entries, has to be provided as in the GATE DefaultGazzeteer format. More information here:
+The tool execute the Default Gazeteer Lookup given the dictionaries information and after that execute also JAPE rules given a main.jape file.
+
+The list of the dictionaries/gazeteers entries has to be provided as in the GATE DefaultGazzeteer format. 
+
+More information about ANNIE DefaultGazeteer: 
 https://gate.ac.uk/sale/tao/splitch13.html#x18-32200013.2
 
-After the execution of the DefaultGazetter, the tool executes a JAPE rule to detect the Lookup annotations and generate the corresponding annotation taking into account the minorType of the configuration, and copy all the features present in the Lookup annotation. 
-For example:
+More information about JAPE rules:  
+https://gate.ac.uk/sale/thakker-jape-tutorial/GATE%20JAPE%20manual.pdf
 
-hepatotoxicity.lst:TOXICOLOGY:HEPATOTOXICITY  
-
-The name of the annotation will be HEPATOTOXICITY and is going to be set into the annotationSet given as parameter. 
-This tool remove the Basic Lookup annotation from the DefaultGazeteer.
-
-This library is very use full if we need to run batch mode, generating the software container.
+This library is very use full if you need to run gazeteer lookup and JAPE rules in batch mode, inside a Nextflow pipeline for example.  
+All this encapsulation is inside a docker container and is very ease to install and execute
 
 ========================
 
 Build and run the docker individually
 
 	# To build the docker, just go into the ades-tagger folder and execute
-	docker build -t nlp-generic-dictionary-annotation .
+	docker build -t nlp-gate-generic-component .
 	#To run the docker, just set the input_folder and the output
-	mkdir ${PWD}/output_annoation; docker run --rm -u $UID -v ${PWD}/input_folder:/in:ro -v ${PWD}/output_annoation:/out:rw nlp-generic-dictionary-annotation nlp-generic-dictionary-annotation -i /in -o /out	
+	mkdir ${PWD}/output_folder; docker run --rm -u $UID -v ${PWD}/input_folder:/in:ro -v ${PWD}/output_folder:/out:rw nlp-gate-generic-component nlp-gate-generic-component -i /in -o /out	-a ANNOTATION_SET -l in/dictionaries/lists.def -j in/jape_rules/main.jape
 Parameters:
 <p>
 -i input folder with the documents to annotated. The documents could be plain txt or xml gate documents.
@@ -36,10 +36,16 @@ Parameters:
 -o output folder with the documents annotated in gate format.
 </p>
 <p>
--a annotation set output
+-a Output Annotation Set. Annotation set where the annotation will be included for the gazetter lookup and for the Jape Rules
 </p>
 <p>
--l list definition of the dictionary, with the GATE format.
+-ia Input Annotation Set. If you want to provided different input annotation set this parameter.  By default the -a output annotation set is used as input.  
 </p>
+<p>
+-l list definition of the dictionary in GATE format.
+</p>
+<p>
+-j main.jape path with the JAPE rules to be executed.
+</p>	
 		
-		
+In this example the dictionaries/gazeteers and the jape rules are in the input folder.
