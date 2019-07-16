@@ -5,8 +5,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.cli.CommandLine;
@@ -166,8 +168,13 @@ public class App {
 	    anns.put("MODE_OF_ACTION", as.get("MODE_OF_ACTION"));
 	    anns.put("STATISTICAL_SIGNIFICANCE", as.get("STATISTICAL_SIGNIFICANCE"));
 	    anns.put("CYPS", as.get("CYPS"));
+	    
 	    AnnotationSet as2 = doc.getAnnotations("TREATMENT_RELATED_FINDINGS");
-	    anns.put("TREATMENT_RELATED_FINDINGS", as2.inDocumentOrder());
+	    Collection<Annotation> coll = new ArrayList<Annotation>();
+	    for (String finding : as2.getAllTypes()) {
+	    	coll.addAll(as2.get(finding));
+	    }
+	    anns.put("TREATMENT_RELATED_FINDINGS", coll);
 	    java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
     	gate.corpora.DocumentJsonUtils.writeDocument(doc, anns, out);
 		out.close();
