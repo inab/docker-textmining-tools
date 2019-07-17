@@ -169,12 +169,14 @@ public class App {
 	    anns.put("STATISTICAL_SIGNIFICANCE", as.get("STATISTICAL_SIGNIFICANCE"));
 	    anns.put("CYPS", as.get("CYPS"));
 	    
+	    
 	    AnnotationSet as2 = doc.getAnnotations("TREATMENT_RELATED_FINDINGS");
-	    Collection<Annotation> coll = new ArrayList<Annotation>();
+	    //Map<String, Collection<Annotation>> anns_findings = new HashMap<String, Collection<Annotation>>();
+	    //Collection<Annotation> coll = new ArrayList<Annotation>();
 	    for (String finding : as2.getAllTypes()) {
-	    	coll.addAll(as2.get(finding));
+	    	anns.put(finding, as2.get(finding));
 	    }
-	    anns.put("TREATMENT_RELATED_FINDINGS", coll);
+	    //anns.put("TREATMENT_RELATED_FINDINGS", coll);
 	    java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
     	gate.corpora.DocumentJsonUtils.writeDocument(doc, anns, out);
 		out.close();
