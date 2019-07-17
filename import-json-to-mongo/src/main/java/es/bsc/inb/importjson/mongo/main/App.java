@@ -19,6 +19,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoTimeoutException;
 
 
 
@@ -42,6 +43,14 @@ public class App {
         workdir.setRequired(false);
         options.addOption(workdir);
         
+        Option mongoServer = new Option("m", "mongoServer", true, "Mongo server ip");
+        mongoServer.setRequired(false);
+        options.addOption(mongoServer);
+        
+        Option mongoPort = new Option("p", "mongoPort", true, "Mongo server port");
+        mongoPort.setRequired(false);
+        options.addOption(mongoPort);
+        
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd = null;
@@ -55,6 +64,10 @@ public class App {
     	
         String inputFilePath = cmd.getOptionValue("input");
         String workdirPath = cmd.getOptionValue("workdir");
+        String mongoServerIp = cmd.getOptionValue("mongoServer");
+        String mongoPortStr = cmd.getOptionValue("mongoPort");
+        
+        
         if (!java.nio.file.Files.isDirectory(Paths.get(inputFilePath))) {
     		System.out.println("Please set the inputDirectoryPath ");
 			System.exit(1);
@@ -63,14 +76,33 @@ public class App {
         if(workdirPath==null) {
 	    	workdirPath="";
 	    }
-	    MongoClient mongoClient = new MongoClient("localhost", 27017);
-	    DB db = mongoClient.getDB("ADES");
-	    try {
-			process(inputFilePath, workdirPath, db);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	    mongoClient.close();
+        
+        if(mongoServerIp==null) {
+        	System.out.println("No mongo IP was configured, use 127.0.0.1 by default");
+        	mongoServerIp = "127.0.0.1";
+        }
+        Integer mongoPortNumber = 27017;
+        if(mongoPortStr!=null) {
+        	try {
+        		mongoPortNumber = new Integer(mongoPortStr);
+        	}catch(NumberFormatException e) {
+        		System.out.println("Please the mongo port has to be a number");
+    			System.exit(1);
+        	}
+        }else {
+        	System.out.println("No mongo port was configured, use 27017 by default");
+        }
+        
+        try {
+        	MongoClient mongoClient = new MongoClient(mongoServerIp, mongoPortNumber);
+    	    DB db = mongoClient.getDB("ADES");
+    	    process(inputFilePath, workdirPath, db);
+    		mongoClient.close();
+    	}catch(Exception e) {
+    		System.out.println("ERROR: App ");
+    		e.printStackTrace();
+    		System.exit(1);
+        }
 	}
     
 	/**
@@ -88,14 +120,17 @@ public class App {
 					try {
 						System.out.println("App::process :: document: " + file);
 						processDocument(file, mongoDB);
+					} catch (MongoTimeoutException e) {
+						System.out.println("App::process :: MongoTimeoutException ERROR " + file.getAbsolutePath());
+						System.exit(1);
 					} catch (Exception e) {
-						System.out.println("App::process :: error with document " + file.getAbsolutePath());
+						System.out.println("App::process :: Error with document " + file.getAbsolutePath());
 						e.printStackTrace();
 					} 
 				}
 			}
 		}else {
-			System.out.println("No directory :  " + inputDirectoryPath);
+			System.out.println("App::process :: No directory :  " + inputDirectoryPath);
 		}
 		System.out.println("App::process :: END ");
 	}
@@ -109,19 +144,12 @@ public class App {
 	 * @throws JsonGenerationException 
 	 * @throws InvalidOffsetException
 	 */
-	private static void processDocument(File inputFile, DB mongoDB){
+	private static void processDocument(File inputFile, DB mongoDB) throws IOException{
 		DBCollection collection = mongoDB.getCollection("reports");
-		try {
-			String jsonString = FileUtils.readFileToString(inputFile, "UTF-8");
-			DBObject dbo = (DBObject) com.mongodb.util.JSON.parse(jsonString);
-			List<DBObject> list = new ArrayList<DBObject>();
-			list.add(dbo);
-			collection.insert(list);
-		} catch (IOException e) {
-			System.out.println("App::process::ERROR document " + inputFile);
-			e.printStackTrace();
-		}
+		String jsonString = FileUtils.readFileToString(inputFile, "UTF-8");
+		DBObject dbo = (DBObject) com.mongodb.util.JSON.parse(jsonString);
+		List<DBObject> list = new ArrayList<DBObject>();
+		list.add(dbo);
+		collection.insert(list);
 	}
-	
-
 }

@@ -1,15 +1,15 @@
 #!/bin/sh
 
 BASEDIR=/usr/local
-ADES_EXPORT_JSON_HOME="${BASEDIR}/share/adesexporttojson/"
+IMPORT_JSON_TO_MONGO_HOME="${BASEDIR}/share/import_json_to_mongo"
 
-ADES_EXPORT_JSON_VERSION=1.0
+IMPORT_JSON_TO_MONGO_VERSION=1.0
 
 # Exit on error
 set -e
  
 if [ $# -ge 1 ] ; then
-	ADES_EXPORT_JSON_VERSION="$1"
+	IMPORT_JSON_TO_MONGO_VERSION="$1"
 fi
 
 if [ -f /etc/alpine-release ] ; then
@@ -30,13 +30,13 @@ fi
 mvn clean install -DskipTests
 
 #rename jar
-mv target/ades-export-to-json-0.0.1-SNAPSHOT-jar-with-dependencies.jar ades-export-to-json-${ADES_EXPORT_JSON_VERSION}.jar
+mv target/import-json-to-mongo-0.0.1-SNAPSHOT-jar-with-dependencies.jar import-json-to-mongo-${IMPORT_JSON_TO_MONGO_VERSION}.jar
 
-cat > /usr/local/bin/ades-export-to-json <<EOF
+cat > /usr/local/bin/import-json-to-mongo <<EOF
 #!/bin/sh
-exec java \$JAVA_OPTS -jar "${ADES_EXPORT_JSON_HOME}/ades-export-to-json-${ADES_EXPORT_JSON_VERSION}.jar" -workdir "${ADES_EXPORT_JSON_HOME}" "\$@"
+exec java \$JAVA_OPTS -jar "${IMPORT_JSON_TO_MONGO_HOME}/import-json-to-mongo-${IMPORT_JSON_TO_MONGO_VERSION}.jar" -workdir "${IMPORT_JSON_TO_MONGO_HOME}" "\$@"
 EOF
-chmod +x /usr/local/bin/ades-export-to-json
+chmod +x /usr/local/bin/import-json-to-mongo
 
 #delete target
 rm -R target src pom.xml

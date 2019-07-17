@@ -49,7 +49,7 @@
 			                <archive>
 			                <manifest>
 			                    <mainClass>
-			                        es.bsc.inb.import.json.mongo.App
+			                        es.bsc.inb.importjson.mongo.main.App
 			                    </mainClass>
 			                </manifest>
 			                </archive>

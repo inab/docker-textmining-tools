@@ -1,12 +1,12 @@
 FROM alpine:3.9
-WORKDIR /usr/local/share/adesexporttojson
+WORKDIR /usr/local/share/import_json_to_mongo
 
-ARG	ADES_EXPORT_JSON_VERSION=1.0
+ARG	IMPORT_JSON_TO_MONGO_VERSION=1.0
 COPY	docker-build.sh /usr/local/bin/docker-build.sh
 COPY	src src	
 COPY	pom.xml .
 
-RUN chmod u=rwx,g=rwx,o=r /usr/local/share/adesexporttojson -R
+RUN chmod u=rwx,g=rwx,o=r /usr/local/share/import_json_to_mongo -R
 
-RUN	docker-build.sh ${ADES_EXPORT_JSON_VERSION}
+RUN	docker-build.sh ${IMPORT_JSON_TO_MONGO_VERSION}
 
