@@ -4,6 +4,7 @@
 //./nextflow run /home/jcorvi/projects/pdf_preprocessing/docker-textmining-tools/pipeline_ades_ner_all_ocr_grob.nf  --inputDir /home/jcorvi/eTRANSAFE_DATA/evaluation/nextflow_test/grobid_error/ --baseDir /home/jcorvi/eTRANSAFE_DATA/evaluation/nextflow_test/
 //./nextflow run /home/jcorvi/projects/pdf_preprocessing/docker-textmining-tools/pipeline_ades_ner_all.nf -name 17_06_2019_1 --inputDir /home/jcorvi/eTRANSAFE_DATA/evaluation/eTransafe_table_based_gold_standard_v2/ --baseDir /home/jcorvi/eTRANSAFE_DATA/evaluation/eTransafe_table_based_gold_standard_v2
 //./nextflow run /home/jcorvi/projects/pdf_preprocessing/docker-textmining-tools/pipeline_ades_ner_all.nf -name 17_06_2019_1 --inputDir /home/jcorvi/eTRANSAFE_DATA/evaluation/nextflow_test/corpus_gate/ --baseDir /home/jcorvi/eTRANSAFE_DATA/evaluation/nextflow_test
+//./nextflow run /home/jcorvi/projects/pdf_preprocessing/docker-textmining-tools/pipeline_ades_ner_all.nf -name 17_06_2019_1 --inputDir /home/jcorvi/eTRANSAFE_DATA/evaluation/bayer_curation_internal/test/ --baseDir /home/jcorvi/eTRANSAFE_DATA/evaluation/bayer_curation_internal/test/
 
 log.info """
 The input directory is: ${params.inputDir}, Contains the pdf to be processed.
@@ -54,7 +55,9 @@ params.folders = [
 	//Output directory for the post processing ades
 	ades_post_output_folder: "${params.baseDir}/ades_ner_postprocessing_output",
 	//Output directory for the post processing ades
-	ades_relation_extraction_output_folder: "${params.baseDir}/ades_relation_extraction_output"
+	ades_relation_extraction_output_folder: "${params.baseDir}/ades_relation_extraction_output",
+	//Output directory for the post processing ades
+	ades_export_to_json_output_folder: "${params.baseDir}/ades_export_to_json_output"
 ]
 
 params.folders_steps = [
@@ -75,7 +78,9 @@ params.folders_steps = [
 	//Output directory for the post processing ades
 	ADES_P: "${params.baseDir}/ades_ner_postprocessing_output",
 	//Output directory for the post processing ades
-	ADES_REL_EXT: "${params.baseDir}/ades_relation_extraction_output"
+	ADES_REL_EXT: "${params.baseDir}/ades_relation_extraction_output",
+	//Output directory for export json
+	ADES_JSON: "${params.baseDir}/ades_export_to_json_output"
 ]
 
 original_pdf_folder_ch = Channel.fromPath( params.original_pdf_folder, type: 'dir' )
@@ -89,6 +94,7 @@ cdisc_etox_output_folder=file(params.folders.cdisc_etox_output_folder)
 ades_output_folder=file(params.folders.ades_output_folder)
 ades_post_output_folder=file(params.folders.ades_post_output_folder)
 ades_relation_extraction_output_folder=file(params.folders.ades_relation_extraction_output_folder)
+ades_export_to_json_output_folder=file(params.folders.ades_export_to_json_output_folder)
 ner_evaluation_output=file(params.general.resultout)
 
 original_pdf_folder = params.original_pdf_folder
@@ -446,18 +452,41 @@ process ades_ner_postprocessing {
     """
 }
 
-//process ades_relation_extraction {
-//    input:
-//    file input_ades_relation_extraction from ades_post_output_folder_ch
+process ades_relation_extraction {
+    input:
+    file input_ades_relation_extraction from ades_post_output_folder_ch
     
-//    output:
-//    val ades_relation_extraction_output_folder into ades_relation_extraction_output_ch
+    output:
+    val ades_relation_extraction_output_folder into ades_relation_extraction_output_ch
     	
-//    """
-//    ades-relation-extraction -i $input_ades_relation_extraction -o $ades_relation_extraction_output_folder -a BSC
+    """
+    ades-relation-extraction -i $input_ades_relation_extraction -o $ades_relation_extraction_output_folder -a BSC
 	
-//    """
-//}
+    """
+}
+
+process ades_export_to_json {
+    input:
+    file input_ades_to_json from ades_relation_extraction_output_ch
+    
+    output:
+    val ades_export_to_json_output_folder into ades_export_to_json_output_ch
+    	
+    """
+    ades-export-to-json -i $input_ades_to_json -o $ades_export_to_json_output_folder
+	
+    """
+}
+
+process import_json_to_mongo {
+    input:
+    file input_import_json_to_mongo from ades_export_to_json_output_ch
+    	
+    """
+    import-json-to-mongo -i $input_import_json_to_mongo
+	
+    """
+}
 
 //process evaluation_ner {
 //    input:
@@ -467,7 +496,7 @@ process ades_ner_postprocessing {
 //    val ner_evaluation_output into ner_validation_output_ch
     	
 //    """
-//    evaluation-ner -i $input_ner_evaluation -o $ner_evaluation_output -k EVALUATION -e BSC
+//    evaluation-ner -i $input_ner_evaluation -oades_export_to_json_output_folder $ner_evaluation_output -k EVALUATION -e BSC
 	
 //    """
 //}

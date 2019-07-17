@@ -8,5 +8,7 @@ docker build -t ades-tagger:1.0 ades_tagger
 docker build -t ades-ner-postprocessing:1.0 ades-ner-postprocessing
 docker build -t ades-relation-extraction:1.0 ades-relation-extraction
 docker build -t ades-export-to-json:1.0 ades-export-to-json
-docker pull mongo:4.0.4
-docker run -d -p 27017-27019:27017-27019 -v ~/mongo-data:/data/db --name mongodb mongo:4.0.4
+docker build -t import-json-to-mongo:1.0 import-json-to-mongo
+
+#docker pull mongo:4.0.4
+#docker run -d -p 27017-27019:27017-27019 -v ~/mongo-data:/data/db --name mongodb mongo:4.0.4
