@@ -5,11 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -20,6 +22,10 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import gate.Annotation;
 import gate.AnnotationSet;
@@ -115,7 +121,7 @@ public class App {
 						System.out.println("App::process :: processing file : " + file.getAbsolutePath());
 						String fileOutPutName = file.getName().replace(".xml", ".json");
 						File outputGATEFile = new File (outputDirectoryPath +  File.separator + fileOutPutName);
-						processDocument(file, outputGATEFile);
+						processDocument2(file, outputGATEFile);
 					} catch (ResourceInstantiationException e) {
 						System.out.println("App::process :: error with document " + file.getAbsolutePath());
 						e.printStackTrace();
@@ -181,4 +187,88 @@ public class App {
     	gate.corpora.DocumentJsonUtils.writeDocument(doc, anns, out);
 		out.close();
     }
+	
+	/**
+	 * Execute process in a document
+	 * @param inputFile
+	 * @param outputGATEFile
+	 * @throws ResourceInstantiationException
+	 * @throws IOException 
+	 * @throws JsonGenerationException 
+	 * @throws InvalidOffsetException
+	 */
+	private static void processDocument2(File inputFile, File outputGATEFile) throws ResourceInstantiationException, JsonGenerationException, IOException, InvalidOffsetException{
+		gate.Document doc = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
+		Gson gsonBuilder = new GsonBuilder().create();
+		JsonObject document = new JsonObject();
+		document.addProperty("name", doc.getName().substring(0, doc.getName().indexOf(".xml")+4));
+		String plainText = doc.getContent().getContent(0l, gate.Utils.lengthLong(doc)).toString();
+		document.addProperty("text", plainText);
+		document.addProperty("id", System.currentTimeMillis());
+		JsonObject section = new JsonObject();
+		section.addProperty("name", "document");
+		Set<String> types = Stream.of("FINDING","SEX","SPECIMEN","GROUP","DOSE_DURATION","DOSE_QUANTITY","DOSE_FREQUENCY","MANIFESTATION_FINDING","RISK_LEVEL","NO_TREATMENT_RELATED_TRIGGER",
+				"TREATMENT_RELATED_TRIGGER","STUDY_DOMAIN","STUDY_DAY_FINDING","STUDY_TESTCD", "ROUTE_OF_ADMINISTRATION","MODE_OF_ACTION","STATISTICAL_SIGNIFICANCE","CYPS").collect(Collectors.toCollection(HashSet::new));
+		JsonObject entities = new JsonObject();
+		AnnotationSet as = doc.getAnnotations("BSC").get(types);
+	    for (String type : as.getAllTypes()) {
+	    	JsonArray type_array = new JsonArray();
+	    	for (Annotation annotation : as.get(type)) {
+		    	JsonObject annotationObject = new JsonObject();
+		    	annotationObject.addProperty("type", annotation.getType());
+		    	annotationObject.addProperty("text", gate.Utils.stringFor(doc, annotation));
+		    	annotationObject.addProperty("startOffset", annotation.getStartNode().getOffset());
+		    	annotationObject.addProperty("endOffset", annotation.getEndNode().getOffset());
+		    	JsonArray features = new JsonArray();
+		    	for (Object key : annotation.getFeatures().keySet()) {
+		    		JsonObject feature = new JsonObject();
+		    		feature.addProperty("name", key.toString());
+		    		feature.addProperty("value", annotation.getFeatures().get(key).toString());
+		    		features.add(feature);
+				}
+		    	annotationObject.add("features", features);
+		    	type_array.add(annotationObject);
+		    }
+	    	entities.add(type, type_array);
+		}
+		
+	    document.add("annotations", entities);
+	    JsonArray findings = new JsonArray();
+	    AnnotationSet as2 = doc.getAnnotations("TREATMENT_RELATED_FINDINGS");
+	    int id = 0;
+	    for (String finding : as2.getAllTypes()) {
+	    	JsonObject findingObject = new JsonObject();
+	    	id = id +1;
+	    	findingObject.addProperty("id", id);
+	    	JsonArray findingsElements = new JsonArray();
+	    	for (Annotation findingElement : as2.get(finding)) {
+	    		JsonObject findingElementObject = new JsonObject();
+	    		Object annotationType = findingElement.getFeatures().get("ANNOTATION_TYPE");
+	    		if(annotationType!=null) {
+	    			findingElementObject.addProperty("type", annotationType.toString());
+	    		}
+	    		findingElementObject.addProperty("text", gate.Utils.stringFor(doc, findingElement));
+	    		findingElementObject.addProperty("startOffset", findingElement.getStartNode().getOffset());
+	    		findingElementObject.addProperty("endOffset", findingElement.getEndNode().getOffset());
+	    		JsonArray features = new JsonArray();
+		    	for (Object key : findingElement.getFeatures().keySet()) {
+		    		JsonObject feature = new JsonObject();
+		    		feature.addProperty("name", key.toString());
+		    		feature.addProperty("value", findingElement.getFeatures().get(key).toString());
+		    		features.add(feature);
+				}
+		    	findingElementObject.add("features", features);
+		    	findingsElements.add(findingElementObject);
+		    	findingObject.add("finding_fields", findingsElements);
+		    }
+	    	findings.add(findingObject);
+	    }
+	    
+	    document.add("findings", findings);
+	    
+	    java.io.Writer out = new java.io.BufferedWriter(new java.io.OutputStreamWriter(new FileOutputStream(outputGATEFile, false)));
+	    out.write(gsonBuilder.toJson(document));
+	    out.close();
+    }
+	
 }
