@@ -1,8 +1,6 @@
 package es.bsc.inb.ades.rest.api.repository;
 
-import java.util.List;
-
-import es.bsc.inb.ades.rest.api.model.Document;
+import es.bsc.inb.ades.rest.api.model.Finding;
 
 /**
  * Custom Interface for Document
@@ -11,9 +9,9 @@ import es.bsc.inb.ades.rest.api.model.Document;
  */
 public interface DocumentRepositoryCustom {
 	/**
-	 * Method example for Custom
+	 * 
 	 * @return
 	 */
-	List<Document> findByComplexCustom();
+	Finding findByDocumentIdAndFindingId(Long id);
  	
 }

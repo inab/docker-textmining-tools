@@ -1,0 +1,33 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:firstphase
+Input: Lookup
+Options: control = appelt
+
+Rule: basic_mapp
+(
+{Lookup.majorType=="MY_ONTOLOGY"}
+)
+:lookup
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	String content = stringFor(doc, ann);
+ 	FeatureMap lookupFeatures = ann.getFeatures();
+ 	gate.FeatureMap features = Factory.newFeatureMap();
+ 	lookupFeatures.remove("majorType");
+ 	features.put("SOURCE","MY_ONTOLOGY");
+ 	features.put("text",content);
+ 	String minorType = lookupFeatures.get("minorType").toString();
+ 	lookupFeatures.remove("minorType");
+ 	features.putAll(lookupFeatures);
+ 	try{
+   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(), minorType, features);
+ 	}catch(InvalidOffsetException e){
+   		throw new LuckyException(e);
+ 	}
+ 	//remove old lookup
+ 	inputAS.remove(ann);
+}

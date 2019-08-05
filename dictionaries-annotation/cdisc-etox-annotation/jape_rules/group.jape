@@ -1,0 +1,30 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:firstphase
+Input: Token
+Options: control = appelt
+
+Rule: etox_send_mapping
+(
+{Token.word=="group"}
+)
+
+:lookup
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	FeatureMap lookupFeatures = ann.getFeatures();
+ 	gate.FeatureMap features = Factory.newFeatureMap();
+ 	features.putAll(lookupFeatures);
+ 	try{
+   		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(),"GROUP_JAPE", features);
+ 	}catch(InvalidOffsetException e){
+   		throw new LuckyException(e);
+ 	}
+	#GROUP RULES
+	//{ (([{ word:/group[s]*/; tag:/NN.*/}] ([{ner:NUMBER } | {word::IS_NUM} | {word:/^[mdclxvi]+$/}] [{ word:$DOSE_SEP }])* ([{ner:NUMBER } | {word::IS_NUM} | {word:/^[mdclxvi]+$/}]) ) ) => "GROUP" }
+	//ojo revisar el NN 
+	//{ ((  [{tag:/JJ.*|NN.*/} ]  [{ word:/group[s]*/; tag:/NN.*/}]  ) ) => "GROUP" }
+}

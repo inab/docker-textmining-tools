@@ -1,5 +1,7 @@
 package es.bsc.inb.ades.rest.api.model;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -9,11 +11,15 @@ public class Document{
 	private ObjectId _id;
 	
 	@Field("id")
-	private Long id;
+	private Long documentId;
 	
 	private String name;
 	
 	private String text;
+	
+	//private String textWithAnnotations;
+	
+	private List<Finding> findings;
 	
 	public Document() {
 		super();
@@ -30,18 +36,22 @@ public class Document{
 	public void set_id(ObjectId _id) {
 		this._id = _id;
 	}
+	
+	
+
+	public Long getDocumentId() {
+		return documentId;
+	}
+
+
+
+	public void setDocumentId(Long documentId) {
+		this.documentId = documentId;
+	}
 
 	
 
-	public Long getId() {
-		return id;
-	}
-
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 
 
 
@@ -61,5 +71,18 @@ public class Document{
 		this.name = name;
 	}
 
+
+
+	public List<Finding> getFindings() {
+		return findings;
+	}
+
+
+
+	public void setFindings(List<Finding> findings) {
+		this.findings = findings;
+	}
+
+	
 
 }

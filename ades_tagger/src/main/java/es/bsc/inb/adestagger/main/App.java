@@ -146,12 +146,12 @@ public class App {
 	    if(workdirPath==null) {
 	    	workdirPath="";
 	    }
-	    try {
-			generateNERList(workdirPath);
-		} catch (IOException e) {
-			System.out.println("App :: main :: Generate NER files Error  ");
-			e.printStackTrace();
-		}
+//	    try {
+//			generateNERList(workdirPath);
+//		} catch (IOException e) {
+//			System.out.println("App :: main :: Generate NER files Error  ");
+//			e.printStackTrace();
+//		}
        
 		try {
 			processTagger(inputFilePath, outputFilePath,workdirPath, annotationSet);
@@ -163,38 +163,38 @@ public class App {
 		//processJapeRules(inputFilePath, outputFilePath);
 	}
     
-   
-
-	/**
-     * Generate NER list for Standford Pipeline 
-     * @param propertiesParameters
-	 * @throws IOException 
-     */
-	private static void generateNERList(String workdir) throws IOException {
-		String etox_send_dict_path = workdir+"dict/etox_send_dict.txt";
-		String etox_anatomy_dict_path = workdir+"dict/etox_anotomy_dict.txt";
-		String etox_moa_dict_path = workdir+"dict/etox_moa_dict.txt";
-		String etox_in_life_obs_dict_path = workdir+"dict/etox_in-life-observations_dict.txt";
-		String cdi_send_terminology_dict_path = workdir+"dict/cdisc_send_dict.txt";
-		
-		String cdisc_send_ner = workdir+"ner_list/cdisc_send_ner.txt";
-		generateNERGazzetterWithPriority(cdi_send_terminology_dict_path, cdiscDictionary, cdisc_send_ner, AnnotationUtil.SOURCE_CDISC_SUFFIX,  "MISC", "20.0");
-		
-		String pk_unit_ner = workdir+"ner_list/pkunit_ner.txt";
-		generatePKUNITList(cdi_send_terminology_dict_path, cdiscDictionary, pk_unit_ner, AnnotationUtil.SOURCE_CDISC_SUFFIX,  "MISC", "25.0");
-		
-		String etox_send_codelist_ner = workdir+"ner_list/etox_send_codelist_ner.txt";
-		generateNERGazzetterWithPriority(etox_send_dict_path, etoxSENDDictionary, etox_send_codelist_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_SEND, "MISC", "2.0");
-		
-		String etox_anatomy_ner = workdir+"ner_list/etox_anatomy_ner.txt";
-		generateNERGazzetterWithPriority(etox_anatomy_dict_path, etoxAnatomyDictionary,etox_anatomy_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_ANATOMY, "MISC", "2.0");
-		    
-		String etox_moa_ner = workdir+"ner_list/etox_moa_ner.txt";
-		generateNERGazzetterWithPriority(etox_moa_dict_path, etoxMOADictionary, etox_moa_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA, "MISC", "2.0");
-		    
-		String etox_in_life_obs_ner = workdir+"ner_list/etox_in_life_obs_ner.txt";
-		generateNERGazzetterWithPriority(etox_in_life_obs_dict_path, etoxILODictionary, etox_in_life_obs_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO,  "MISC", "26.0");
-	}
+//   
+//
+//	/**
+//     * Generate NER list for Standford Pipeline 
+//     * @param propertiesParameters
+//	 * @throws IOException 
+//     */
+//	private static void generateNERList(String workdir) throws IOException {
+//		String etox_send_dict_path = workdir+"dict/etox_send_dict.txt";
+//		String etox_anatomy_dict_path = workdir+"dict/etox_anotomy_dict.txt";
+//		String etox_moa_dict_path = workdir+"dict/etox_moa_dict.txt";
+//		String etox_in_life_obs_dict_path = workdir+"dict/etox_in-life-observations_dict.txt";
+//		String cdi_send_terminology_dict_path = workdir+"dict/cdisc_send_dict.txt";
+//		
+//		String cdisc_send_ner = workdir+"ner_list/cdisc_send_ner.txt";
+//		generateNERGazzetterWithPriority(cdi_send_terminology_dict_path, cdiscDictionary, cdisc_send_ner, AnnotationUtil.SOURCE_CDISC_SUFFIX,  "MISC", "20.0");
+//		
+//		String pk_unit_ner = workdir+"ner_list/pkunit_ner.txt";
+//		generatePKUNITList(cdi_send_terminology_dict_path, cdiscDictionary, pk_unit_ner, AnnotationUtil.SOURCE_CDISC_SUFFIX,  "MISC", "25.0");
+//		
+//		String etox_send_codelist_ner = workdir+"ner_list/etox_send_codelist_ner.txt";
+//		generateNERGazzetterWithPriority(etox_send_dict_path, etoxSENDDictionary, etox_send_codelist_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_SEND, "MISC", "2.0");
+//		
+//		String etox_anatomy_ner = workdir+"ner_list/etox_anatomy_ner.txt";
+//		generateNERGazzetterWithPriority(etox_anatomy_dict_path, etoxAnatomyDictionary,etox_anatomy_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_ANATOMY, "MISC", "2.0");
+//		    
+//		String etox_moa_ner = workdir+"ner_list/etox_moa_ner.txt";
+//		generateNERGazzetterWithPriority(etox_moa_dict_path, etoxMOADictionary, etox_moa_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_MOA, "MISC", "2.0");
+//		    
+//		String etox_in_life_obs_ner = workdir+"ner_list/etox_in_life_obs_ner.txt";
+//		generateNERGazzetterWithPriority(etox_in_life_obs_dict_path, etoxILODictionary, etox_in_life_obs_ner, AnnotationUtil.SOURCE_ETOX_SUFFIX_ILO,  "MISC", "26.0");
+//	}
     
     
     /**
@@ -280,31 +280,6 @@ public class App {
 			gate.Document gateDocument = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
 			String plainText = gateDocument.getContent().getContent(0l, gate.Utils.lengthLong(gateDocument)).toString();
 			Annotation document = new Annotation(plainText.toLowerCase());
-			//unidades dosis
-			//String text = "for 23 days iiiiiii on day 84, 98 and 109 peppepe on day 84 peppepe 10, 40 to 160 ppp/eekiki/oo pepepep 10, 40 or 160 ppp/eekiki/oo 120 fffye/kg pepepep 34 fffff/mol ppppp  34 ffffff/g 160 pmol/kg pepep 123344 umol/kg bw pppdpdp 10, 40 or 160 pmol Gd/kg bw pepepe 1234 pg/kg pepeppepepe 3.7 ml/g/day pepepep 3.7 mg/m pepep 11 mg  pepepep 400-200 MG/KG, 400 - 200 MG/KG, 400 MG/KG, 01, 02, 03 MG/KG and  Microscopic findings, Altered Consistency, all decreasing amount recovered infinity observed normalized by surface area, severity four out of five, liver cell adenoma, mean ventricular rate by electrocardiogram "; 
-			//String text = "is not consider to be treatment shows angggggggggggggg associated finding este  pepe  oooo on the rat";
-			//String text = "treatment ppppp connected finding associated pepe treatment oooo ramification on the rat,  lalallala lallala lalala associated treatment pepe shows oooo ramification on the rat";
-			//String text = " body weight gain was observed, supectected to be treatment related, on the 20 day of the compound xxx administration, with the dose of 12 ml once a week for a month, also the compound xxx was administrated twice daily.";
-			//String text = " week 8 (day 52 -53), pepepe 1234 pg/kg ";
-			//String text = "Compound related findings are observerd in the Liver with the dose of 1234 PG/KG";
-			/*String text = "group III and IV \n 890 4.3 45 "
-					+ "pipo the second group pppoooopo group 3, 4 and 6 ooooo hight dose group,  pepep groups 1 pepe group 3 4 and 5  pepepe group 3 4 pepepe group II "
-					+ "peppep dose group pepeppe red group pipo control group pepepepepepp ";*/
-			//String text = "pepepep Females pepe F pepep Female";
-			//String text = "closing the wall running into the wild showing a finding associated with increased severity pepepep Females pepe F pepep Female severity";
-			//String text = "The observed findings such as thinning of fur, pustules/eczema at the left hand of one animal, injuries or single vomiting were not considered to be compound-related because they were only seen sporadically in single animals, were considered to be incidental or lacked dose dependency.";
-			/*String text = "All other findings such as apathy, stereotypes, tremor, spasmodic twitches, convulsions, masticatory muscle spasm, buphtalmia, "
-					+ "accelerated respiration, blood stained or wet fur, thinning of fur or hairless area at several locations, skin swelling at the hind paw, "
-					+ "scab formation at ear or the lips, absence of the claw or the tip of the tail, palpable mass, reddened encrusted nose and increased sialorrhea"
-					+ " were not regarded as compound-related since they occurred only in single animals (mainly in animal no. 90M) without dose-dependence.";*/
-			//Annotation document = new Annotation(text);
-			//String text = "severity 1-2 with kdkdkdk grade ten, severe grade one pepepep severe 8 severity grade one findings not treatment,  grade 1 pepeppepe grade one synovial membrane application site Animals at the mid and high doses.  Showed no changes that had to be attributed to dosing with the test compound,  glandular stomach revealed a slight decrease in body weight gain but no effect on food consumption.";
-			/*String text = "No treatment-related findings were observed."
-					+ "Therefore, a treatment-related effect is not assumed. "
-					+ "T3068522 69 BAY 19-8004 Neither quantitative nor semi-quantitative urinalyses gave evidence for treatment- related effects. ";*/
-			//String text = " During necropsy no findings were recorded, which were considered to be related to the treatment";		
-			//Dunnett 1980) compares the outcome of each treatment group with the corresponding control group, regardiess of the result of the overall F test (ANOVA).
-			//This finding is regarded the outcome of the treatment.  //sacar outcome sino
 			//Annotation document = new Annotation(text.toLowerCase());
 			pipeline.annotate(document);
 			long endTime = System.currentTimeMillis();
@@ -371,7 +346,7 @@ public class App {
 	    				gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "FINDING", features);
 	    			}
 	    		}else if(label.equals("IN_LIFE_OBSERVATION")){
-	    			System.out.println("IN_LIFE_OBSERVATION : text: " + features.get("text") );
+	    			System.out.println("IN_LIFE_OBSERVATION : text: " + features.get("text"));
 	    			gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), "FINDING", features);
 	    		}else if(label.endsWith(AnnotationUtil.MANIFESTATION_OF_FINDING)){
 	    			features.put("manifestation_of_finding", label);

@@ -1,15 +1,15 @@
 #!/bin/sh
 
 BASEDIR=/usr/local
-CDISC_ETOX_TAGGER_HOME="${BASEDIR}/share/cdisc_etox_annotation/"
+OWN_TERMS_TAGGER_HOME="${BASEDIR}/share/own_terms_annotation/"
 
-CDISC_ETOX_TAGGER_VERSION=1.0
+OWN_TERMS_TAGGER_VERSION=1.0
 
-# Exit on error 
+# Exit on error
 set -e
 
 if [ $# -ge 1 ] ; then
-	CDISC_ETOX_TAGGER_VERSION="$1"
+	OWN_TERMS_TAGGER_VERSION="$1"
 fi
 
 if [ -f /etc/alpine-release ] ; then
@@ -33,13 +33,13 @@ git filter-branch --prune-empty --subdirectory-filter nlp-gate-generic-component
 mvn clean install -DskipTests
 cd ..
 #rename jar
-mv nlp_gate_generic_component/target/nlp-gate-generic-component-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-gate-generic-component-${CDISC_ETOX_TAGGER_VERSION}.jar
+mv nlp_gate_generic_component/target/nlp-gate-generic-component-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-gate-generic-component-${OWN_TERMS_TAGGER_VERSION}.jar
 
-cat > /usr/local/bin/cdisc-etox-annotation <<EOF
+cat > /usr/local/bin/own-ades-terminology-annotation <<EOF
 #!/bin/sh
-exec java \$JAVA_OPTS -jar "${CDISC_ETOX_TAGGER_HOME}/nlp-gate-generic-component-${CDISC_ETOX_TAGGER_VERSION}.jar" -workdir "${CDISC_ETOX_TAGGER_HOME}" -l dictionaries/lists.def -j jape_rules/main.jape "\$@" 
+exec java \$JAVA_OPTS -jar "${OWN_TERMS_TAGGER_HOME}/nlp-gate-generic-component-${OWN_TERMS_TAGGER_VERSION}.jar" -workdir "${OWN_TERMS_TAGGER_HOME}" -l dictionaries/lists.def -j jape_rules/main.jape "\$@" 
 EOF
-chmod +x /usr/local/bin/cdisc-etox-annotation
+chmod +x /usr/local/bin/own-ades-terminology-annotation
 
 #delete target, do not delete for now because it has the jape rules inside
 #rm -R nlp_generic_annotation

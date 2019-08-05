@@ -1,5 +1,6 @@
 MultiPhase: Main
 Phases:
+remove_dnorm_false_positives
 stop_words
 omim_clean
 clean_short_words

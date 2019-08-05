@@ -2,6 +2,7 @@ Imports: {
   import gate.relations.RelationSet;
   import java.util.Random;
   import static gate.Utils.*;
+  import es.bsc.inb.ades.relation.extraction.util.*;
 }
 Phase:firstpass
 Input: FINDING Sentence
@@ -22,6 +23,7 @@ Rule: rule_finding
   
   for (Annotation finding : findings){
   	    int id = rand.nextInt(100000);
+  	    //Integer id = FINDING_COUNTER.next();
   		String str_finding = stringFor(doc, finding);
   		System.out.println(str_finding);
   		AnnotationSet sentences = inputAS.get("Sentence", findings.firstNode().getOffset(), findings.lastNode().getOffset());
@@ -29,7 +31,7 @@ Rule: rule_finding
 	  		String str_sentence = stringFor(doc, sentence);
 	  		System.out.println("Sentencia:");
 	  		System.out.println(str_sentence);
-	  		//outputAS.add(finding.getStartNode(), finding.getEndNode(), "Z_FINDING_FIELDS_"+id, finding.getFeatures());
+	  		finding.getFeatures().put("ANNOTATION_TYPE","FINDING");
 	  		doc.getAnnotations("TREATMENT_RELATED_FINDINGS").add(finding.getStartNode(), finding.getEndNode(), "FINDING_"+id, finding.getFeatures());
 	  		AnnotationSet fields = inputAS.get(sentences.firstNode().getOffset(), sentences.lastNode().getOffset()); 
 	  		for (Annotation annotation : fields){
@@ -48,8 +50,6 @@ Rule: rule_finding
 			  			annotation.getFeatures().put("ANNOTATION_TYPE",annotation.getType());
 			  			doc.getAnnotations("TREATMENT_RELATED_FINDINGS").add(annotation.getStartNode(), annotation.getEndNode(), "FINDING_"+id, annotation.getFeatures());
 			  			//outputAS.add(annotation.getStartNode(), annotation.getEndNode(), "Z_FINDING_FIELDS_"+id, annotation.getFeatures());
-			  			
-			  			
 			  		}
 			}
 	  	}	

@@ -13,4 +13,8 @@ public interface DocumentRepository extends DocumentRepositoryCustom, MongoRepos
 	
 	Document findByName(String name);
 	
+	Document findByDocumentId(Long id);
+
+	
+	
 }

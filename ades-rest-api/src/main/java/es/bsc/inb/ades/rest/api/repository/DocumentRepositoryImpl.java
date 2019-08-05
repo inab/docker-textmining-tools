@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import es.bsc.inb.ades.rest.api.model.Document;
+import es.bsc.inb.ades.rest.api.model.Finding;
 
 /**
  * Custom implementation of DocumentRepository
@@ -16,9 +17,10 @@ public class DocumentRepositoryImpl implements DocumentRepositoryCustom{
 
 	@Autowired
     MongoTemplate mongoTemplate;
-	
-	public List<Document> findByComplexCustom() {
-		// TODO Auto-generated method stub
+
+	@Override
+	public Finding findByDocumentIdAndFindingId(Long id) {
+		//mongoTemplate.find({ status: "D" }); 
 		return null;
 	}
 	

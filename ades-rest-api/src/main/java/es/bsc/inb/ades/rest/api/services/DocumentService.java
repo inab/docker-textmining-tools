@@ -9,4 +9,8 @@ public interface DocumentService  {
 
 	List<Document> findAll();
 
+	Document findByDocumentId(Long id);
+
+	String findTextSnippetByDocumentIdAndFindingId(Long id, Integer findingId);
+	
 }

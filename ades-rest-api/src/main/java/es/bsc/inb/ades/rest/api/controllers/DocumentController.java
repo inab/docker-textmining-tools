@@ -22,9 +22,13 @@ public class DocumentController {
     public List<Document> findAll() {
         return documentService.findAll();
     }
-	@RequestMapping("/documents/find/{id}")
-	public List<Document> find(@PathVariable(value="id") String id) {
-		return null;
+	@RequestMapping("/documents/{id}")
+	public Document find(@PathVariable(value="id") Long id) {
+		return documentService.findByDocumentId(id);
 	}
-	
+	@RequestMapping("/documents/{id}/finding/{findingId}")
+	public String findFinding(@PathVariable(value="id") Long id, @PathVariable(value="findingId") Integer findingId) {
+		String snippet = documentService.findTextSnippetByDocumentIdAndFindingId(id, findingId);
+		return snippet;
+	}
 }
