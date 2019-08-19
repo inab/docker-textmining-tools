@@ -1,0 +1,26 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:secondphase
+Input: FINDING
+Options: control = all
+
+Rule: merge_annotations
+(
+{FINDING.SOURCE=="DNORM"}
+)
+:lookup
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	String content = stringFor(doc, ann);
+ 	System.out.println(content);
+ 	FeatureMap lookupFeatures = ann.getFeatures();
+ 	gate.AnnotationSet  to_merge = inputAS.get("SPECIMEN",ann.getStartNode().getOffset(), ann.getEndNode().getOffset());
+	if(to_merge!=null && !to_merge.isEmpty()){
+		inputAS.remove(ann);
+	}
+	System.out.println("END RULE EXECUTION");
+ 	
+}

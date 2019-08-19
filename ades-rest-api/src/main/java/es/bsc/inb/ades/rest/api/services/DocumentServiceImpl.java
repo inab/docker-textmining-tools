@@ -30,7 +30,6 @@ public class DocumentServiceImpl implements DocumentService {
 
 	static final Map<String, String> ANNOTATION_CLASS_STYLE = createMap();
 	
-	
 	@Override
 	public String findTextSnippetByDocumentIdAndFindingId(Long id, Integer findingId) {
 		Document document = this.findByDocumentId(id);
@@ -56,8 +55,16 @@ public class DocumentServiceImpl implements DocumentService {
 	private String generateFindingSnippet(String text, Finding findingSelected) {
 		System.out.println(text);
 		Integer offsetSlicing = 0;
+		
 		List<Annotation> all = findingSelected.generateSortedAnnotations();
 		Collections.sort(all);
+		
+		Annotation relevant_text = findingSelected.getRelevant_text();
+		String init_ = "<span class='relevant_text'>";
+		String end_ = "</span>"; 
+		
+		text = text.toString().substring(0, relevant_text.getStartOffset()) + init_ + relevant_text.getText() +  end_ + text.toString().substring(relevant_text.getEndOffset());
+		offsetSlicing = init_.length();
 		Object[] data = {text, offsetSlicing};
 		for (Annotation annotation : all) {
 			if(!annotationSuperposition(annotation, all)) {
@@ -74,6 +81,9 @@ public class DocumentServiceImpl implements DocumentService {
 	 * @return
 	 */
 	private boolean annotationSuperposition(Annotation annotation, List<Annotation> all) {
+		for (Annotation annotation2 : all) {
+			
+		}
 		return false;
 	}
 
@@ -98,10 +108,31 @@ public class DocumentServiceImpl implements DocumentService {
 	 * @param endOffset
 	 * @return
 	 */
-	private Object[] addColorToAnnotation(Object[] data, String className, Annotation annotation) {
+	private Object[] addColorToAnnotation2(Object[] data, String className, Annotation annotation) {
 		/*String init_ = "<div onmouseover=\"document.getElementById('hoverShow2').style.display = 'inline'\"> <span title=\"pepe\" class="+"\""+className+"\">";
 		String end_ = " <div style=\"display:none\" id='hoverShow2' onmouseout=\"this.style.display='none'\"><a href='http://google.com'>Google</a></div>\n" + 
 				"</div></span>";*/
+		String init_ = "<span onmouseout=\"document.getElementById('hoverShow"+annotation.getStartOffset()+annotation.getEndOffset()+"').style.display = 'none'\" onmouseover=\"document.getElementById('hoverShow"+annotation.getStartOffset()+annotation.getEndOffset()+"').style.display = 'inline-block'\" class="+"\""+className+"\">";
+		String end_ = "<div class=\"tooltip_finding\"  id=\"hoverShow"+annotation.getStartOffset()+annotation.getEndOffset()+"\" onmouseout=\"this.style.display='none'\">"+annotation.generateHTMLFeatures()+"</div>" + 
+				"</span>";
+		//init_ ="<span class="+"\""+className+"\">";
+		//end_ = 	"</span>";
+		data[0] = data[0].toString().substring(0, annotation.getStartOffset() + new Integer(data[1].toString())) + init_ + annotation.getText() +  end_ + data[0].toString().substring(annotation.getEndOffset() + new Integer(data[1].toString()));
+		data[1] = new Integer(data[1].toString()) + (init_ +  end_).length();
+		annotation.setProcessed(true);
+		return data;
+	}
+	
+	/**
+	 * 
+	 * @param string
+	 * @param startOffset
+	 * @param endOffset
+	 * @return
+	 */
+	private Object[] addColorToAnnotation(Object[] data, String className, Annotation annotation) {
+		//System.out.println(data[0]);
+		//System.out.println(annotation);
 		String init_ = "<span onmouseout=\"document.getElementById('hoverShow"+annotation.getStartOffset()+annotation.getEndOffset()+"').style.display = 'none'\" onmouseover=\"document.getElementById('hoverShow"+annotation.getStartOffset()+annotation.getEndOffset()+"').style.display = 'inline-block'\" class="+"\""+className+"\">";
 		String end_ = "<div class=\"tooltip_finding\"  id=\"hoverShow"+annotation.getStartOffset()+annotation.getEndOffset()+"\" onmouseout=\"this.style.display='none'\">"+annotation.generateHTMLFeatures()+"</div>" + 
 				"</span>";
@@ -128,6 +159,7 @@ public class DocumentServiceImpl implements DocumentService {
         result.put("DOSE_DURATION", "class_k");
         result.put("TREATMENT_RELATED_TRIGGER", "class_l");
         result.put("ROUTE_OF_ADMINISTRATION", "class_h");
+        result.put("RELEVANT_TEXT", "class_a");
         return Collections.unmodifiableMap(result);
     }
 	

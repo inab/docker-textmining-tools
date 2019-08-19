@@ -14,51 +14,52 @@ public class Finding {
 	@Field("id")
 	private Integer findingId;
 	
-	private List<Annotation> finding_fields;
+	private Annotation finding_field;
 
 	@Field("FINDING")
-	private List<Annotation> findings;
+	private Annotation finding;
 	
 	@Field("SPECIMEN")
-	private List<Annotation> specimens;
+	private Annotation specimen;
 	
 	@Field("SEX")
-	private List<Annotation> sexs;
+	private Annotation sex;
 	
 	@Field("MANIFESTATION_FINDING")
-	private List<Annotation> manifestations_finding;
+	private Annotation manifestation_finding;
 
 	@Field("GROUP")
-	private List<Annotation> groups;
+	private Annotation group;
 	
 	@Field("STUDY_TESTCD")
-	private List<Annotation> study_testcds;
+	private Annotation study_testcd;
 	
 	@Field("STUDY_DOMAIN")
-	private List<Annotation> study_domains;
+	private Annotation study_domain;
 	
-	@Field("TREATMENT_RELATED_TRIGGER")
-	private List<Annotation> treatment_related_triggers;
-	
-	@Field("NO_TREATMENT_RELATED_TRIGGER")
-	private List<Annotation> no_treatment_related_triggers;
+	@Field("IS_TREATMENT_RELATED")
+	private Annotation is_treatment_related;
 	
 	@Field("RISK_LEVEL")
-	private List<Annotation> risk_levels;
+	private Annotation risk_level;
 	
 	@Field("ROUTE_OF_AMINISTRATION")
-	private List<Annotation> routes_of_administration;
+	private Annotation route_of_administration;
 	
 	@Field("DOSE_QUANTITY")
-	private List<Annotation> dose_quantitys;
+	private Annotation dose_quantity;
 	
 	@Field("DOSE_FREQUENCY")
-	private List<Annotation> dose_frequencys;
+	private Annotation dose_frequency;
 	
 	@Field("DOSE_DURATION")
-	private List<Annotation> dose_durations;
+	private Annotation dose_duration;
+	
+	@Field("RELEVANT_TEXT")
+	private Annotation relevant_text;
 	
 	public Finding() {}
+	
 	
 	public Integer getFindingId() {
 		return findingId;
@@ -68,178 +69,252 @@ public class Finding {
 		this.findingId = findingId;
 	}
 
-	public List<Annotation> getFinding_fields() {
-		return finding_fields;
+
+
+
+	public Annotation getFinding_field() {
+		return finding_field;
 	}
 
-	public void setFinding_fields(List<Annotation> finding_fields) {
-		this.finding_fields = finding_fields;
+
+
+
+	public void setFinding_field(Annotation finding_field) {
+		this.finding_field = finding_field;
 	}
 
-	public List<Annotation> getFindings() {
-		return findings;
+
+
+
+	public Annotation getFinding() {
+		return finding;
 	}
 
-	public void setFindings(List<Annotation> findings) {
-		this.findings = findings;
+
+
+
+	public void setFinding(Annotation finding) {
+		this.finding = finding;
 	}
 
-	public List<Annotation> getSpecimens() {
-		return specimens;
+
+
+
+	public Annotation getSpecimen() {
+		return specimen;
 	}
 
-	public void setSpecimens(List<Annotation> specimens) {
-		this.specimens = specimens;
+
+
+
+	public void setSpecimen(Annotation specimen) {
+		this.specimen = specimen;
 	}
 
-	public List<Annotation> getSexs() {
-		return sexs;
+
+
+
+	public Annotation getSex() {
+		return sex;
 	}
 
-	public void setSexs(List<Annotation> sexs) {
-		this.sexs = sexs;
+
+
+
+	public void setSex(Annotation sex) {
+		this.sex = sex;
 	}
 
-	public List<Annotation> getManifestations_finding() {
-		return manifestations_finding;
+
+
+
+	public Annotation getManifestation_finding() {
+		return manifestation_finding;
 	}
 
-	public void setManifestations_finding(List<Annotation> manifestations_finding) {
-		this.manifestations_finding = manifestations_finding;
+
+
+
+	public void setManifestation_finding(Annotation manifestation_finding) {
+		this.manifestation_finding = manifestation_finding;
 	}
 
-	public List<Annotation> getGroups() {
-		return groups;
+
+
+
+	public Annotation getGroup() {
+		return group;
 	}
 
-	public void setGroups(List<Annotation> groups) {
-		this.groups = groups;
+
+
+
+	public void setGroup(Annotation group) {
+		this.group = group;
 	}
 
-	public List<Annotation> getStudy_testcds() {
-		return study_testcds;
+
+
+
+	public Annotation getStudy_testcd() {
+		return study_testcd;
 	}
 
-	public void setStudy_testcds(List<Annotation> study_testcds) {
-		this.study_testcds = study_testcds;
+
+
+
+	public void setStudy_testcd(Annotation study_testcd) {
+		this.study_testcd = study_testcd;
 	}
 
-	public List<Annotation> getStudy_domains() {
-		return study_domains;
+
+
+
+	public Annotation getStudy_domain() {
+		return study_domain;
 	}
 
-	public void setStudy_domains(List<Annotation> study_domains) {
-		this.study_domains = study_domains;
+
+
+
+	public void setStudy_domain(Annotation study_domain) {
+		this.study_domain = study_domain;
 	}
 
-	public List<Annotation> getTreatment_related_triggers() {
-		return treatment_related_triggers;
-	}
 
-	public void setTreatment_related_triggers(List<Annotation> treatment_related_triggers) {
-		this.treatment_related_triggers = treatment_related_triggers;
-	}
 
-	public List<Annotation> getNo_treatment_related_triggers() {
-		return no_treatment_related_triggers;
-	}
-
-	public void setNo_treatment_related_triggers(List<Annotation> no_treatment_related_triggers) {
-		this.no_treatment_related_triggers = no_treatment_related_triggers;
-	}
-
-	public List<Annotation> getRisk_levels() {
-		return risk_levels;
-	}
-
-	public void setRisk_levels(List<Annotation> risk_levels) {
-		this.risk_levels = risk_levels;
-	}
-
-	public List<Annotation> getRoutes_of_administration() {
-		return routes_of_administration;
-	}
-
-	public void setRoutes_of_administration(List<Annotation> routes_of_administration) {
-		this.routes_of_administration = routes_of_administration;
-	}
-
-	public List<Annotation> getDose_quantitys() {
-		return dose_quantitys;
-	}
-
-	public void setDose_quantitys(List<Annotation> dose_quantitys) {
-		this.dose_quantitys = dose_quantitys;
-	}
-
-	public List<Annotation> getDose_frequencys() {
-		return dose_frequencys;
-	}
-
-	public void setDose_frequencys(List<Annotation> dose_frequencys) {
-		this.dose_frequencys = dose_frequencys;
-	}
-
-	public List<Annotation> getDose_durations() {
-		return dose_durations;
-	}
-
-	public void setDose_durations(List<Annotation> dose_durations) {
-		this.dose_durations = dose_durations;
-	}
 	
 	
+
+
+
+	public Annotation getRelevant_text() {
+		return relevant_text;
+	}
+
+
+	public void setRelevant_text(Annotation relevant_text) {
+		this.relevant_text = relevant_text;
+	}
+
+
+	public Annotation getIs_treatment_related() {
+		return is_treatment_related;
+	}
+
+
+	public void setIs_treatment_related(Annotation is_treatment_related) {
+		this.is_treatment_related = is_treatment_related;
+	}
+
+
+	public Annotation getRisk_level() {
+		return risk_level;
+	}
+
+
+
+
+	public void setRisk_level(Annotation risk_level) {
+		this.risk_level = risk_level;
+	}
+
+
+
+
+	public Annotation getRoute_of_administration() {
+		return route_of_administration;
+	}
+
+
+
+
+	public void setRoute_of_administration(Annotation route_of_administration) {
+		this.route_of_administration = route_of_administration;
+	}
+
+
+
+
+	public Annotation getDose_quantity() {
+		return dose_quantity;
+	}
+
+
+
+
+	public void setDose_quantity(Annotation dose_quantity) {
+		this.dose_quantity = dose_quantity;
+	}
+
+
+
+
+	public Annotation getDose_frequency() {
+		return dose_frequency;
+	}
+
+
+
+
+	public void setDose_frequency(Annotation dose_frequency) {
+		this.dose_frequency = dose_frequency;
+	}
+
+
+
+
+	public Annotation getDose_duration() {
+		return dose_duration;
+	}
+
+
+
+
+	public void setDose_duration(Annotation dose_duration) {
+		this.dose_duration = dose_duration;
+	}
+
+
+
+
 	/**
 	 * 
 	 * @return
 	 */
 	public List<Annotation> generateSortedAnnotations() {
 		List<Annotation> all = new ArrayList<Annotation>();
-		all.addAll(this.getFindings());
-		if(this.getSpecimens()!=null) {
-			all.addAll(this.getSpecimens());
-		}
-		if(this.getSexs()!=null) {
-			all.addAll(this.getSexs());
-		}
-		if(this.getRisk_levels()!=null) {
-			all.addAll(this.getRisk_levels());
-		}
-		if(this.getManifestations_finding()!=null) {
-			all.addAll(this.getManifestations_finding());
-		}
-		if(this.getRoutes_of_administration()!=null) {
-			all.addAll(this.getRoutes_of_administration());
-		}
-		if(this.getGroups()!=null) {
-			all.addAll(this.getGroups());
-		}
-		if(this.getDose_durations()!=null) {
-			all.addAll(this.getDose_durations());
-		}
-		if(this.getDose_quantitys()!=null) {
-			all.addAll(this.getDose_quantitys());
-		}
-		if(this.getDose_frequencys()!=null) {
-			all.addAll(this.getDose_frequencys());
-		}
-		if(this.getTreatment_related_triggers()!=null) {
-			all.addAll(this.getTreatment_related_triggers());
-		}
-		if(this.getStudy_testcds()!=null) {
-			all.addAll(this.getStudy_testcds());
-		}
-		
-		
-//		if(this.getStudy_domains()!=null) {
-//			//all.addAll(this.getStudy_domains());
+		all.add(this.getFinding());
+//		if(this.getSpecimen()!=null) {
+//			all.add(this.getSpecimen());
 //		}
-
-
-
-
-		
-		
+//		if(this.getSex()!=null) {
+//			all.add(this.getSex());
+//		}
+//		if(this.getRisk_level()!=null) {
+//			all.add(this.getRisk_level());
+//		}
+//		if(this.getManifestation_finding()!=null) {
+//			all.add(this.getManifestation_finding());
+//		}
+//		if(this.getRoute_of_administration()!=null) {
+//			all.add(this.getRoute_of_administration());
+//		}
+//		if(this.getGroup()!=null) {
+//			all.add(this.getGroup());
+//		}
+//		if(this.getDose_duration()!=null) {
+//			all.add(this.getDose_duration());
+//		}
+//		if(this.getDose_quantity()!=null) {
+//			all.add(this.getDose_quantity());
+//		}
+//		if(this.getDose_frequency()!=null) {
+//			all.add(this.getDose_frequency());
+//		}
+//		if(this.getStudy_testcd()!=null) {
+//			all.add(this.getStudy_testcd());
+//		}
 		return all;
 	}
 	

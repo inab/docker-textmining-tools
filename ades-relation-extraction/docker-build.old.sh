@@ -27,14 +27,17 @@ else
 	apt-get install openjdk-8-jdk git maven
 fi
 
+git clone --depth 1 https://github.com/inab/docker-textmining-tools.git nlp_gate_generic_component
+cd nlp_gate_generic_component
+git filter-branch --prune-empty --subdirectory-filter nlp-gate-generic-component HEAD
 mvn clean install -DskipTests
-
+cd ..
 #rename jar
-mv target/ades-relation-extraction-0.0.1-SNAPSHOT-jar-with-dependencies.jar ades-relation-extraction-${ADES_RELATION_EXTRACTION_VERSION}.jar
+mv nlp_gate_generic_component/target/nlp-gate-generic-component-0.0.1-SNAPSHOT-jar-with-dependencies.jar nlp-gate-generic-component-${ADES_RELATION_EXTRACTION_VERSION}.jar
 
 cat > /usr/local/bin/ades-relation-extraction <<EOF
 #!/bin/sh
-exec java \$JAVA_OPTS -jar "${ADES_TAGGER_HOME}/ades-relation-extraction-${ADES_RELATION_EXTRACTION_VERSION}.jar" -workdir "${ADES_RELATION_EXTRACTION_HOME}" "\$@" 
+exec java \$JAVA_OPTS -jar "${ADES_RELATION_EXTRACTION_HOME}/nlp-gate-generic-component-${ADES_RELATION_EXTRACTION_VERSION}.jar" -workdir "${ADES_RELATION_EXTRACTION_HOME}" -j jape_rules/main.jape "\$@" 
 EOF
 chmod +x /usr/local/bin/ades-relation-extraction
 

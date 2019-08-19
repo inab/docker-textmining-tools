@@ -4,7 +4,8 @@ WORKDIR /usr/local/share/ades_relation_extraction
 ARG	ADES_RELATION_EXTRACTION_VERSION=1.0
 
 COPY	docker-build.sh /usr/local/bin/docker-build.sh
-COPY	jape_rules jape_rules
+COPY	src src
+COPY	pom.xml .
 
 RUN chmod u=rx,o=r /usr/local/share/ades_relation_extraction -R
 

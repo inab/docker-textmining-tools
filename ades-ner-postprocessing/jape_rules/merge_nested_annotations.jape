@@ -1,0 +1,37 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:secondphase
+Input: FINDING STUDY_TESTCD SPECIMEN STUDY_DOMAIN SEX MANIFESTATION_FINDING ROUTE_OF_ADMINISTRATION DOSE_QUANTITY DOSE_FREQUENCY DOSE_DURATION
+Options: control = all
+
+Rule: merge_annotations
+(
+{FINDING} 
+)
+:lookup
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	String content = stringFor(doc, ann);
+ 	FeatureMap lookupFeatures = ann.getFeatures();
+ 	gate.AnnotationSet  to_merge = inputAS.get(ann.getStartNode().getOffset(), ann.getEndNode().getOffset());
+	gate.FeatureMap features = Factory.newFeatureMap();
+	features.putAll(lookupFeatures);
+	features.put("processed", "true");
+	String sources = "";
+	if(features.get("SOURCE")!=null){
+		sources = 	features.get("SOURCE").toString();
+	}
+	//System.out.println(to_merge);
+	for (Annotation merge : to_merge) {
+		if(!merge.getId().equals(ann.getId())){
+			features.put("NESTED_"+merge.getType().toString(), );
+				
+	 	}
+	 	//remove old lookup
+	 	inputAS.remove(ann);
+	 	System.out.println("END RULE EXECUTION");
+ 	}
+}

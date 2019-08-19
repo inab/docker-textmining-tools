@@ -12,6 +12,8 @@ import es.bsc.inb.ades.rest.api.util.VisualizationHTMLUtil;
 public class Annotation implements Comparable<Annotation> {
 
 	private String text;
+	
+	private String value;
 
 	private Integer startOffset;
 	
@@ -58,8 +60,31 @@ public class Annotation implements Comparable<Annotation> {
 		return this.getStartOffset() > arg0.getStartOffset() ? 1 : this.getStartOffset() < arg0.getStartOffset() ? -1 : 0;
 	}
 	
+	public String getValue() {
+		return value;
+	}
 	
 	
+	
+//	private String getSendCode() {
+//		for (Feature feature : features) {
+//			if(feature.getName().equals("CDISC_SEND_CODE")) {
+//				return feature.getValue();
+//			}
+//		}
+//		for (Feature feature : features) {
+//			if(feature.getName().equals("ETOX_SEND_CODE")  || feature.getName().equals("ETOX_SEND_DOMAIN_CODE")) {
+//				return feature.getValue();
+//			}
+//		}
+//		for (Feature feature : features) {
+//			if(feature.getName().equals("MANUAL_SEND_CODE")) {
+//				return feature.getValue();
+//			}
+//		}
+//		return text;
+//	}
+
 	public Boolean getProcessed() {
 		return processed;
 	}
@@ -68,6 +93,10 @@ public class Annotation implements Comparable<Annotation> {
 		this.processed = processed;
 	}
 
+	public void setValue(String value) {
+		this.value = value;
+	}
+	
 	/**
 	 * Return feature
 	 * @param string
@@ -116,5 +145,9 @@ public class Annotation implements Comparable<Annotation> {
 		}
 		return htmlFeatures.toString();
 	}
+
+	
+	
+	
 
 }
