@@ -1,12 +1,13 @@
 FROM alpine:3.9
-WORKDIR /usr/local/share/ades_relation_extraction
+WORKDIR /usr/local/share/ades_relation
 
-ARG	ADES_RELATION_EXTRACTION_VERSION=1.0
-
+ARG	ADES_RELATION_VERSION=1.0
 COPY	docker-build.sh /usr/local/bin/docker-build.sh
 COPY	src src
 COPY	pom.xml .
 
-RUN chmod u=rx,o=r /usr/local/share/ades_relation_extraction -R
+RUN mkdir logs
+RUN chmod u=rwx,g=rwx,o=r /usr/local/share/ades_relation -R
 
-RUN	docker-build.sh ${ADES_RELATION_EXTRACTION_VERSION}
+RUN	docker-build.sh ${ADES_RELATION_VERSION}
+

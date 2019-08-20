@@ -50,6 +50,8 @@ params.folders = [
 	umls_output_folder: "${params.baseDir}/umls_output",
 	//Output directory for the umls tagger step
 	cdisc_etox_output_folder: "${params.baseDir}/cdisc_etox_output",
+	//Output directory for the umls tagger step
+	own_ades_terms_output_folder: "${params.baseDir}/own_ades_output",
 	//Output directory for the ades tagger step
 	ades_output_folder: "${params.baseDir}/ades_output",
 	//Output directory for the post processing ades
@@ -73,6 +75,8 @@ params.folders_steps = [
 	UMLS: "${params.baseDir}/umls_output",
 	//Output directory for the cdisc_etox tagger step
 	CDISC_ETOX: "${params.baseDir}/cdisc_etox_output",
+	//Output directory for the cdisc_etox tagger step
+	OWN_TERMS: "${params.baseDir}/own_ades_terms_output",
 	//Output directory for the ades tagger step
 	ADES: "${params.baseDir}/ades_output",
 	//Output directory for the post processing ades
@@ -91,6 +95,7 @@ dnorm_output_folder=file(params.folders.dnorm_output_folder)
 hepatotoxicity_output_folder=file(params.folders.hepatotoxicity_output_folder)
 umls_output_folder=file(params.folders.umls_output_folder)
 cdisc_etox_output_folder=file(params.folders.cdisc_etox_output_folder)
+own_ades_terms_output_folder=file(params.folders.own_ades_terms_output_folder)
 ades_output_folder=file(params.folders.ades_output_folder)
 ades_post_output_folder=file(params.folders.ades_post_output_folder)
 ades_relation_extraction_output_folder=file(params.folders.ades_relation_extraction_output_folder)
@@ -372,9 +377,23 @@ process cdisc_etox_annotation {
     """
 }
 
+process own_ades_terms_annotation {
+    input:
+    file input_own_ades_terms from cdisc_etox_output_folder_ch
+    
+    output:
+    val own_ades_terms_output_folder into own_ades_terms_output_folder_ch
+    	
+    """
+    own-ades-terminology-annotation -i $input_own_ades_terms -o $own_ades_terms_output_folder -a BSC -ia BSC
+	
+    """
+}
+
+
 process linnaeus_wrapper {
     input:
-    file input_linnaeus from cdisc_etox_output_folder_ch
+    file input_linnaeus from own_ades_terms_output_folder_ch
     
     output:
     val linnaeus_output_folder into linnaeus_output_folder_ch
@@ -460,7 +479,7 @@ process ades_relation_extraction {
     val ades_relation_extraction_output_folder into ades_relation_extraction_output_ch
     	
     """
-    ades-relation-extraction -i $input_ades_relation_extraction -o $ades_relation_extraction_output_folder -a BSC
+    ades-relation-extraction -i $input_ades_relation_extraction -o $ades_relation_extraction_output_folder -a BSC -ar TREATMENT_RELATED_FINDINGS
 	
     """
 }
@@ -473,7 +492,7 @@ process ades_export_to_json {
     val ades_export_to_json_output_folder into ades_export_to_json_output_ch
     	
     """
-    ades-export-to-json -i $input_ades_to_json -o $ades_export_to_json_output_folder
+    ades-export-to-json -i $input_ades_to_json -o $ades_export_to_json_output_folder -a BSC -ar TREATMENT_RELATED_FINDINGS
 	
     """
 }
