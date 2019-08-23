@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Paths;
-import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
@@ -24,22 +23,9 @@ import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
-import edu.stanford.nlp.naturalli.NaturalLogicAnnotations;
-import edu.stanford.nlp.ie.machinereading.structure.EntityMention;
-import edu.stanford.nlp.ie.util.RelationTriple;
-import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.CoreEntityMention;
-import edu.stanford.nlp.pipeline.DependencyParseAnnotator;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.semgraph.SemanticGraph;
-import edu.stanford.nlp.semgraph.SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation;
-import edu.stanford.nlp.semgraph.SemanticGraphEdge;
-import edu.stanford.nlp.trees.EnglishGrammaticalRelations;
-import edu.stanford.nlp.trees.Tree;
-import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.util.CoreMap;
 import gate.Factory;
 import gate.FeatureMap;
@@ -184,6 +170,8 @@ public class App {
 		gate.Document gateDocument = Factory.newDocument(inputFile.toURI().toURL(), "UTF-8");
 		String plainText = gateDocument.getContent().getContent(0l, gate.Utils.lengthLong(gateDocument)).toString();
 		//String plainText = "Reversible effects on the liver with hepatocellular hypertrophy were found from the lowest dose upwards together with changes in coagulation parameters and fibrinogen at the high dose.";
+		/*String plainText = "Hepatocellular hypertrophy were found from the lowest dose upwards together with changes in coagulation parameters and fibrinogen at the high dose, suspected to be a treatment related finding;"
+				+ " by the other hand the decrease in food consumption were not related to the treatment.";*/
 		Annotation document = new Annotation(plainText);
 		pipeline.annotate(document);
 		long endTime = System.currentTimeMillis();
@@ -193,39 +181,37 @@ public class App {
 		    for(CoreMap sentence: sentences) {
 		    	List<CoreLabel> tokens= sentence.get(TokensAnnotation.class);
 		    	annotateTokensAndSentences(gateDocument, sentence, tokens, annotationSet);
-		    	
 		    	//sentence.get(DependencyParseAnnotator.class);
-				
-		    	// this is the parse tree of the current sentence this is with ----> parse. this is not included in depparse
-				//Tree tree = sentence.get(TreeAnnotation.class);
-				//System.out.println(tree+"\n");
-				/*for (Tree subTree : tree.children()) {
-			        System.err.println(subTree.label());
-			    }*/
-				
-				// this is the Stanford dependency graph of the current sentence with depparse.  parse include depparse
-				//SemanticGraph graph = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
-				
-				/*
-				for (SemanticGraphEdge edge : graph.edgeIterable()) {
-					  int headIndex = edge.getGovernor().get(TokensAnnotation.class);
-					  int depIndex = edge.getDependent().index();
-					  
-					  System.out.printf("%d %d %d%n", headIndex, depIndex, edge.getWeight());
-					}
-				*/
-				/*List<SemanticGraphEdge> edges = graph.getOutEdgesSorted(graph.getFirstRoot());
-			    for (SemanticGraphEdge e : edges) {
-			    	e.getSource().backingLabel();
-			        System.out.println(e.getGovernor()  + " relacion: "+ e.getRelation() + " dependent: " + e.getDependent());
-			    }
-				//EnglishGrammaticalRelations
-				
-				System.out.println(sentence);
-				System.out.println(graph+"\n");
-				Collection<RelationTriple> triples = sentence.get(NaturalLogicAnnotations.RelationTriplesAnnotation.class);
+				// this is the parse tree of the current sentence this is with ----> parse. this is not included in depparse
+//				Tree tree = sentence.get(TreeAnnotation.class);
+//				System.out.println(tree+"\n");
+//				for (Tree subTree : tree.children()) {
+//			        System.err.println(subTree.label());
+//			    }
+//				
+//				// this is the Stanford dependency graph of the current sentence with depparse.  parse include depparse
+//				SemanticGraph graph = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
+//				
+//				
+//				/*for (SemanticGraphEdge edge : graph.edgeIterable()) {
+//					  int headIndex = edge.getGovernor().get(TokensAnnotation.class);
+//					  int depIndex = edge.getDependent().index();
+//					  
+//					  System.out.printf("%d %d %d%n", headIndex, depIndex, edge.getWeight());
+//					}*/
+//				
+//				List<SemanticGraphEdge> edges = graph.getOutEdgesSorted(graph.getFirstRoot());
+//			    for (SemanticGraphEdge e : edges) {
+//			    	e.getSource().backingLabel();
+//			        System.out.println(e.getGovernor()  + " relacion: "+ e.getRelation() + " dependent: " + e.getDependent());
+//			    }
+//				//EnglishGrammaticalRelations
+//				
+//				System.out.println(sentence);
+//				System.out.println(graph+"\n");
+				//Collection<RelationTriple> triples = sentence.get(NaturalLogicAnnotations.RelationTriplesAnnotation.class);
 			    // Print the triples
-			    for (RelationTriple triple : triples) {
+			   /* for (RelationTriple triple : triples) {
 			    	System.out.println(triple.confidence + "\t" + triple.subjectLemmaGloss() + "\t" + triple.relationLemmaGloss() + "\t" + triple.objectLemmaGloss() + "\n");
 			    }*/
 			}
