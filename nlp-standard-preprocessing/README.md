@@ -1,7 +1,7 @@
 # nlp-standard-preprocessing
 
-This component runs a standard preprocessing nlp process
-
+This component runs a standard preprocessing nlp process. 
+Sentence Splitting, Tokenization, Part of Speech (POS), other features: word types and formats.
 
 ## Getting Started
 
@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 Build and run the docker individually
 
-	#To build the docker, just go into the ades-tagger folder and execute
+	#To build the docker, just go into the nlp-standard-preprocessing folder and execute
 	docker build -t nlp-standard-preprocessing .
 	#To run the docker, just set the input_folder and the output
 	mkdir ${PWD}/nlp_preprocessing_output; docker run --rm -u $UID -v ${PWD}/input_output:/in:ro -v ${PWD}/nlp_preprocessing_output:/out:rw nlp-standard-preprocessing nlp-standard-preprocessing -i /in -o /out	
@@ -41,7 +41,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Javier Corvi** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Javier Corvi** 
 
 
 ## License
