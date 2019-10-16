@@ -4,7 +4,7 @@ This component export the treatment-related findings annotated in XML GATE forma
 
 ## Description 
 
-This component is only used inside the pipeline it is tired up to the treament-related findings pipeline.
+This component is only used inside the treatment-related findings pipeline because is tired up to that specific domain.
 
 ## For clone this component
 
