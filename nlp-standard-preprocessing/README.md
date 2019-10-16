@@ -24,9 +24,6 @@ Parameters:
 -o output folder with the documents annotated in gate format.
 </p>
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
@@ -37,7 +34,7 @@ Add additional notes about how to deploy this on a live system
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/inab/docker-textmining-tools/edit/master/nlp-standard-preprocessing/tags). 
 
 ## Authors
 
