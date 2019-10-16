@@ -20,8 +20,6 @@ https://www.nlm.nih.gov/research/umls/implementation_resources/metamorphosys/hel
 
 The output of the tagger will be GATE files with the given annotated terminology. 
 
-========================
-
 ## Requirements
 
 The installation of UMLS throught MetamorphoSys.   
@@ -29,8 +27,6 @@ The installation of UMLS throught MetamorphoSys.
 With the execution and installation of MetamorphoSys a subset of terminologies will be generated given your own configuration.  For more information go to https://www.nlm.nih.gov/research/umls/implementation_resources/metamorphosys/help.html
 
 The installation directory has to be provided for the execution of the tagger, has to be the META directory that contains the RRF files of Metathesaurus.
-
-========================
 
 ## Configuration
 
