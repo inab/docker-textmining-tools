@@ -2,7 +2,7 @@
 
 This component is a Gate wrapper of the Dnorm application.  Could be easily downloaded and run as a docker container.
 
-# Description
+## Description
 
 Dnorm: Disease name normalization with pairwise learning to rank.
 
