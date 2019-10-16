@@ -69,13 +69,13 @@ One of the important tasks is to analyze and define witch sources and semantic t
 
 [SOURCES], [SEMANTIC_TYPES] and [SEMANTIC_TYPES_END] are required and have to be present in the file.
 
-For clone this component:
+### For clone this component
 
 	git clone --depth 1 https://github.com/inab/docker-textmining-tools.git umls-tagger
 	cd umls-tagger
 	git filter-branch --prune-empty --subdirectory-filter umls-tagger HEAD
- 
-Build and run the docker individually
+
+### Build and Run the Docker 
 
 	# To build the docker, just go into the umls-tagger folder and execute
 	docker build -t umls-tagger .
