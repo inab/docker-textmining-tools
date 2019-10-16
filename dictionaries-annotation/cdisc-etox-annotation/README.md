@@ -2,7 +2,7 @@
 
 This component annotated text using CDISC SEND and eTOX (OntoBrowser) terminologies. These terminologies are oriented to the preclinical study reports.  
 
-# Description 
+## Description 
 
 This component annotated several entities related to the treatment-related findings:
 FINDINGS.
