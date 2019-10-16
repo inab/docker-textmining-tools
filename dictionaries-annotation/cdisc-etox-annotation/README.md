@@ -1,29 +1,28 @@
-hepatotoxicity-annotation (CDISC and eTOX)
-========================
+# cdisc-etox-annotation
 
-<b>Hepatotoxicity annotator component: Hepatotoxicity, Liver Markers and CYPs genes</b>   
+This component annotated text using CDISC SEND and eTOX (OntoBrowser) terminologies. These terminologies are oriented to the preclinical study reports.  
 
-========================
+# Description 
 
-This library annotated text with hepatotoxicity terms related to liver findings, liver markers and CYPs genes that are relevant in hepatotoxicity events.  
+This component annotated several entities related to the treatment-related findings:
+FINDINGS.
+STUDY_TESTCDS.
+SPECIMEN.
 
-It uses data that were obtained in a previous work: The LIMTOX system http://limtox.bioinfo.cnio.es/
+CDISC SEND controlled terminology:  CDISC maintain and develop the official SEND terminology, available at: https://evs.nci.nih.gov/ftp1/CDISC/SEND/.
 
-<p>Dictionaries used:</p>
-<b>Hepatotoxicity keywords:</b> 
-<p>Terms related to hepatotoxicity triggers, hepatobiliary triggers  and toxicity/adverse event trigger.</p> 
-<b>CYPs protein:</b>
-<p>In order to develop a CYPs tagger its necessary to define the search criteria on the Uniprot database to obtain all the CYPs protein family.   For this aim we automatically search the query: “family:cytochrome p450 family taxonomy:eutheria”.  Selecting a taxonomic subset corresponding to Eutheria.  The result is 5,835 proteins.
-To increase recall, we applied an automatic expansion of the CYP gene names using manual rules to account for typographical variations: hyphenation, lower and upper case variations, and Roman and Arabic numeric expressions. </p>
- 
-======================== 
+ETOX terminology:  Information available from the Ontobrowser system was used to increase the terminology. The primary objective of these system was to provide an online collaborative solution for expert curators to map report terms (from the eTOX database) to preferred ontology (or controlled terminology) terms.
 
-Internally, the hepatotoxicity-annotation library uses the generic nlp-generic-dictionary-annotation https://github.com/inab/docker-textmining-tools/tree/
-master/nlp-generic-dictionary-annotation. This library is a generic component that annotate text with parametrices GATE-formatted gazetters/dictionaries. In other words, the hepatotoxicity-annotation library is an instance of the nlp-generic-dictionary-annotation with the hepatotoxicity dictionaries.
+The cdisc-etox-annotation component uses the generic nlp-generic-dictionary-annotation https://github.com/inab/docker-textmining-tools/tree/master/nlp-generic-dictionary-annotation. This library is a generic component that annotate text with parametrices GATE-formatted gazetters/dictionaries. In other words, the hepatotoxicity-annotation library is an instance of the nlp-generic-dictionary-annotation with the hepatotoxicity dictionaries.
 
-========================
 
-Build and run the docker individually
+## For clone this component
+
+	git clone --depth 1 https://github.com/inab/docker-textmining-tools.git cdisc-etox-annotation
+	cd cdisc-etox-annotation
+	git filter-branch --prune-empty --subdirectory-filter cdisc-etox-annotation HEAD
+
+## Build and Run the Docker 
 
 	# To build the docker, just go into the cdisc-etox-annotation folder and execute
 	docker build -t cdisc-etox-annotation .
@@ -40,5 +39,23 @@ Parameters:
 -a annotation set output
 </p>
 
-		
+## Built With
+
+* [Docker](https://www.docker.com/) - Docker Containers
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [GATE](https://gate.ac.uk/overview.html) - GATE: a full-lifecycle open source solution for text processing
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/inab/docker-textmining-tools/edit/master/nlp-standard-preprocessing/tags). 
+
+## Authors
+
+* **Javier Corvi** 
+
+
+## License
+
+This project is licensed under the GNU GENERAL PUBLIC LICENSE Version 3 - see the [LICENSE.md](LICENSE.md) file for details
+	
 		
