@@ -1,10 +1,8 @@
-Dnorm-Gate-Wrapper
-========================
+# dnorm-gate-wrapper
 
-<b>This component is a Gate wrapper of the Dnorm application.  Could be easily downloaded and run as a docker container.
-</b>   
+This component is a Gate wrapper of the Dnorm application.  Could be easily downloaded and run as a docker container.
 
-========================
+# Description
 
 Dnorm: Disease name normalization with pairwise learning to rank.
 
@@ -29,9 +27,13 @@ Robert Leaman and Zhiyong Lu, Automated Disease Normalization with Low Rank Appr
 </li>
 </ul>
 
-========================
+## For clone this component
 
-Build and run the docker individually
+	git clone --depth 1 https://github.com/inab/docker-textmining-tools.git dnorm-gate-wrapper
+	cd dnorm-gate-wrapper
+	git filter-branch --prune-empty --subdirectory-filter dnorm-gate-wrapper HEAD
+
+## Build and Run the Docker 
 	
 	# To build the docker, just go into the linnaeus-gate-wrapper folder and execute
 	docker build -t dnorm-gate-wrapper .
@@ -49,4 +51,22 @@ Parameters:
 
 <p>If you want, just replace "input_folder" for your directory that contains the files, and execute. You can also replace the name of the output folder "dnorm_output"</p>
 		
-		
+## Built With
+
+* [Docker](https://www.docker.com/) - Docker Containers
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [StanfordCoreNLP](https://stanfordnlp.github.io/CoreNLP/) - Stanford CoreNLP – Natural language software
+* [GATE](https://gate.ac.uk/overview.html) - GATE: a full-lifecycle open source solution for text processing
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/inab/docker-textmining-tools/edit/master/nlp-standard-preprocessing/tags). 
+
+## Authors
+
+* **Javier Corvi** 
+
+
+## License
+
+This project is licensed under the GNU GENERAL PUBLIC LICENSE Version 3 - see the [LICENSE.md](LICENSE.md) file for details
