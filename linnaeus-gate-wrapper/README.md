@@ -34,7 +34,7 @@ These instructions will get you a copy of the project up and running on your loc
 	#To run the docker, just set the input_folder and the output
 	mkdir ${PWD}/linnaeus_output; docker run --rm -u $UID -v ${PWD}/input_folder:/in:ro -v ${PWD}/linnaeus_output:/out:rw linnaeus-gate-wrapper linnaeus-gate-wrapper -i /in -o /out
 		
-To parameters:
+Parameters:
 <p>
 -i input folder with the documents to annotated. The documents could be plain txt or xml gate documents.
 </p>
