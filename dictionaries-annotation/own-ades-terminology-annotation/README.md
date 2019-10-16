@@ -1,8 +1,12 @@
 # own-ades-terminology-annotation
 
-treatment-related findings related facets annotator component: manifestations of findings, 
+Annotation of secondary facets related to treatment-related findings.
 
 ## Description
+
+Annotation of manifestations of findins, observation qualification, negation keywords, etc.
+
+This component is a step ot the treatment-related findings.
 
 Internally, the own-ades-terminology-annotation library uses the generic nlp-generic-dictionary-annotation https://github.com/inab/docker-textmining-tools/tree/
 master/nlp-generic-dictionary-annotation. This library is a generic component that annotate text with parametrices GATE-formatted gazetters/dictionaries. In other words, the hepatotoxicity-annotation library is an instance of the nlp-generic-dictionary-annotation with the hepatotoxicity dictionaries.
