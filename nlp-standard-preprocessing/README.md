@@ -7,13 +7,13 @@ Sentence Splitting, Tokenization, Part of Speech (POS), other features: word typ
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### For clone this component
+## For clone this component
 
 	git clone --depth 1 https://github.com/inab/docker-textmining-tools.git nlp-standard-preprocessing
 	cd nlp-standard-preprocessing
 	git filter-branch --prune-empty --subdirectory-filter nlp-standard-preprocessing HEAD
 
-### Build and Run the Docker 
+## Build and Run the Docker 
 
 	#To build the docker, just go into the nlp-standard-preprocessing folder and execute
 	docker build -t nlp-standard-preprocessing .
