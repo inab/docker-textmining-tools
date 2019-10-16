@@ -1,7 +1,6 @@
 # nlp-gate-generic-component
-========================
 
-<b>Text mining GATE generic component for run in Batch/Pipeline mode</b>   
+Text mining GATE generic component for run in Batch/Pipeline mode.
 
 ## Description
 
