@@ -284,7 +284,12 @@ public class Finding {
 	 */
 	public List<Annotation> generateSortedAnnotations() {
 		List<Annotation> all = new ArrayList<Annotation>();
-		all.add(this.getFinding());
+		if(this.getFinding()!=null) {
+			all.add(this.getFinding());
+		}
+		if(this.getStudy_testcd()!=null) {
+			all.add(this.getStudy_testcd());
+		}
 //		if(this.getSpecimen()!=null) {
 //			all.add(this.getSpecimen());
 //		}
