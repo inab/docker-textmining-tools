@@ -1,18 +1,16 @@
-UMLS-TAGGER
-========================
+# umls-tagger
 
 <b>Tagger of UMLS terminology</b>   
 
-========================
+# Description
 
 UMLS integrates and distributes key terminology, classification and coding standards, and associated resources to promote creation of more effective and interoperable biomedical information systems and services, including electronic health records. 
 
 The Metathesaurus, which contains over one million biomedical concepts from over 100 source vocabularies is used by the UMLS-TAGGER.
 
-The UMLS-TAGGER annotate documents with the UMLS Metathesaurus terminology, given a configuration file indicating the sources and the semantic types to be used.  
+The umls-tagger annotate documents with the UMLS Metathesaurus terminology, given a configuration file indicating the sources and the semantic types to be used.  
 
-Takes the Metathesaurus Data Files, the RRF files (Rich Release Format) generated after the execution of MetamorphoSys witch is the installation and customization tool of UMLS.
-MetamorphoSys comes together with the UMLS download.
+Uses the Metathesaurus Data Files, the RRF files (Rich Release Format) generated after the execution of MetamorphoSys witch is the installation and customization tool of UMLS. MetamorphoSys comes together with the UMLS download.
 
 To overview UMLS please go to: 
 https://www.nlm.nih.gov/research/umls/new_users/online_learning/OVR_001.html 
@@ -22,9 +20,7 @@ https://www.nlm.nih.gov/research/umls/implementation_resources/metamorphosys/hel
 
 The output of the tagger will be GATE files with the given annotated terminology. 
 
-========================
-
-<b>Requirements:</b>
+## Requirements
 
 The installation of UMLS throught MetamorphoSys.   
 
@@ -32,9 +28,7 @@ With the execution and installation of MetamorphoSys a subset of terminologies w
 
 The installation directory has to be provided for the execution of the tagger, has to be the META directory that contains the RRF files of Metathesaurus.
 
-========================
-
-<b>Configuration:</b>
+## Configuration
 
 A configuration file has to be provided, if not a default one will be used, that contains information regarding with the sources and the semantic type that will be used during the tagging process.
 Here an example:
@@ -69,13 +63,13 @@ One of the important tasks is to analyze and define witch sources and semantic t
 
 [SOURCES], [SEMANTIC_TYPES] and [SEMANTIC_TYPES_END] are required and have to be present in the file.
 
-For clone this component:
+### For clone this component
 
 	git clone --depth 1 https://github.com/inab/docker-textmining-tools.git umls-tagger
 	cd umls-tagger
 	git filter-branch --prune-empty --subdirectory-filter umls-tagger HEAD
- 
-Build and run the docker individually
+
+### Build and Run the Docker 
 
 	# To build the docker, just go into the umls-tagger folder and execute
 	docker build -t umls-tagger .
@@ -102,6 +96,25 @@ Parameters:
 -d Optional destination folder of internal dictionary generated from the umls terminology, if not an internal path is used. This option is recommended if you want to have access to the gazetter generated with your configuration. 
 </p>
 
+## Built With
+
+* [Docker](https://www.docker.com/) - Docker Containers
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [StanfordCoreNLP](https://stanfordnlp.github.io/CoreNLP/) - Stanford CoreNLP – Natural language software
+* [GATE](https://gate.ac.uk/overview.html) - GATE: a full-lifecycle open source solution for text processing
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/inab/docker-textmining-tools/edit/master/nlp-standard-preprocessing/tags). 
+
+## Authors
+
+* **Javier Corvi** 
+
+
+## License
+
+This project is licensed under the GNU GENERAL PUBLIC LICENSE Version 3 - see the [LICENSE.md](LICENSE.md) file for details
 
 		
 		
