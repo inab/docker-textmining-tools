@@ -2,4 +2,5 @@ manifestation_finding.lst:MY_ONTOLOGY:MANIFESTATION_FINDING
 observation_qualification.lst:MY_ONTOLOGY:OBSERVATION_QUALIFICATION
 risk_level.lst:MY_ONTOLOGY:RISK_LEVEL
 sdomain.lst:MY_ONTOLOGY:STUDY_DOMAIN
+findings.lst:MY_ONTOLOGY:FINDING
 negation.lst:MY_ONTOLOGY:NEGATION

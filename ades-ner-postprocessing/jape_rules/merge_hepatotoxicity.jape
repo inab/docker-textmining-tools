@@ -29,6 +29,19 @@ Rule: merge_hepatotoxicity
 				merge.getFeatures().put("LIMTOX_HEPATOTOXICITY","YES");
 				merge.getFeatures().put("SOURCES", merge.getFeatures().get("SOURCES") + "," + "LIMTOX");
 				create = false;
+			}else if(merge.getEndNode().getOffset()-merge.getStartNode().getOffset() > 
+									ann.getEndNode().getOffset()-ann.getStartNode().getOffset()){
+				System.out.println("Hepatotoxicity finding smaller than finding the features: "  + stringFor(doc, merge));
+				merge.getFeatures().put("LIMTOX_HEPATOTOXICITY","YES");
+				merge.getFeatures().put("SOURCES", merge.getFeatures().get("SOURCES") + "," + "LIMTOX");
+				merge.getFeatures().put("LIMTOX_EVIDENCE", content);
+				create = false;
+			}else if(merge.getEndNode().getOffset()-merge.getStartNode().getOffset() < 
+									ann.getEndNode().getOffset()-ann.getStartNode().getOffset()){
+				System.out.println("Si hay un finding mas chico lo elimino por ahora : "  + stringFor(doc, merge));
+				inputAS.remove(merge);
+				outputAS.remove(merge);
+				create = true;
 			}
  		} 
  	}

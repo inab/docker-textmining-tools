@@ -17,6 +17,7 @@ Rule: merge_annotations
  	String content = stringFor(doc, ann);
  	System.out.println("RULE EXECUTION");
  	FeatureMap lookupFeatures = ann.getFeatures();
+ 	Boolean add = true;
  	if(lookupFeatures.get("processed")==null){
 	 	//System.out.println(ann);
 	 	gate.AnnotationSet  to_merge = inputAS.get(ann.getType(),ann.getStartNode().getOffset(), ann.getEndNode().getOffset());
@@ -48,21 +49,32 @@ Rule: merge_annotations
 					inputAS.remove(merge);
 				}else if(merge.getEndNode().getOffset()-merge.getStartNode().getOffset() < 
 									ann.getEndNode().getOffset()-ann.getStartNode().getOffset()){
-					System.out.println("Smaller term what to do ? for now stay: "  + stringFor(doc, merge));
-					//outputAS.remove(merge);
+					System.out.println("Smaller term what to do ? for now stay pero delete: "  + stringFor(doc, merge));
+					merge.getFeatures().put("processed", "true");
+					outputAS.remove(merge);
+					inputAS.remove(merge);
+				}else if(ann.getEndNode().getOffset()-ann.getStartNode().getOffset() < 
+									merge.getEndNode().getOffset()-merge.getStartNode().getOffset()){
+					System.out.println("Bigger term what to do ? delete the annotation: "  + stringFor(doc, ann));
+					System.out.println("Merge is bigger : "  + stringFor(doc, merge));
+					//do not add the annotation
+					add=false;
 				}
 	 		} 
 	 	}
 	 	try{
 	 		//remove features
-	 		features.put("RULE","MERGE_ANNOTATIONS");
-	 		features.put("SOURCES",sources);
-	 		features.remove("LABEL");
-	 		features.remove("SOURCE");
-			features.remove("IS_PART_OF");
-			features.remove("KEYWORD_TYPE");	
-			features.remove("finding_type");
-	 		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(),ann.getType(), features);
+	 		if(add){
+	 			features.put("RULE","MERGE_ANNOTATIONS");
+		 		features.put("SOURCES",sources);
+		 		features.remove("LABEL");
+		 		features.remove("SOURCE");
+				features.remove("IS_PART_OF");
+				features.remove("KEYWORD_TYPE");	
+				features.remove("finding_type");
+		 		outputAS.add(lookup.firstNode().getOffset(),lookup.lastNode().getOffset(),ann.getType(), features);
+	 		}
+	 		
 	 	}catch(InvalidOffsetException e){
 	   		throw new LuckyException(e);
 	 	}

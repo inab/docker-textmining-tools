@@ -1,0 +1,16 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:secondphase
+Input: STUDY_DOMAIN TREATMENT_RELATED_SENTENCE NO_TREATMENT_RELATED_SENTENCE ROUTE_OF_ADMINISTRATION MODE_OF_ACTION NEGATION
+Options: control = all
+Rule: removeStopwords
+(
+  {STUDY_DOMAIN} | {TREATMENT_RELATED_SENTENCE} | {NO_TREATMENT_RELATED_SENTENCE}  | {ROUTE_OF_ADMINISTRATION} | {MODE_OF_ACTION} | {NEGATION}
+) :stop
+-->
+{
+    gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("stop");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	outputAS.remove(ann); 	
+}

@@ -30,5 +30,5 @@ Rule: basic_mapp
    		throw new LuckyException(e);
  	}
  	//remove old lookup
- 	inputAS.remove(ann);
+ 	//inputAS.remove(ann);
 }
