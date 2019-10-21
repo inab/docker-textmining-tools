@@ -433,7 +433,7 @@ public class App {
 	    				//toxicolodyReportWitAnnotations.getAnnotations("STUDY TEST NAME(SRTST) CDISC").add(startOff, endOff,  label, features);
 	    				gateDocument.getAnnotations(annotationSet).add(new Long(meBegin), new Long(meEnd), AnnotationUtil.STUDY_DOMAIN_TESTCD, features);
 	    			}
-	    		}else if(label.equals("DOSE_QUANTITY")) {
+	    		}else if(label.equals("DOSE")) {
 	    			List<CoreLabel> tokens_i = me.getAnnotation().get(TokensAnnotation.class);
 	    			for (CoreLabel coreLabel : tokens_i) {
 						if(coreLabel.get(NamedEntityTagAnnotation.class).contains("DOSE_UNIT")) {

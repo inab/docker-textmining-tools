@@ -21,96 +21,6 @@ ENV.defaults["stage"] = 1
 
 ENV.defaults["stage"] = 2
 
-//Negative trigger treatment-related finding with rules
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }]  [!{ word:/:/}]* [{ ner:TREATMENT_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:FINDING_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }]  [!{ word:/:/}]* [{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:TREATMENT_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }]  [!{ word:/:/}]* [{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:EFFECT_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }]  [!{ word:/:/}]* [{ ner:FINDING_KEYWORD } | { ner:EFFECT_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:RELATED_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-//Negative trigger treatment-related finding with rules, Negation at middle
-
-{
-  ruleType: "tokens",
-  pattern: ( [{ ner:TREATMENT_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,10} [{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }] [!{ word:/\n/}]{0,8} [{ner:FINDING_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }]  [!{ word:/\n/}]{0,10} [{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }] [!{ word:/\n/}]{0,8} [{ner:TREATMENT_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ( [{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,10} [{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }] [!{ word:/\n/}]{0,8} [{ner:EFFECT_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ( [{ ner:FINDING_KEYWORD } | { ner:EFFECT_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,10} [{ ner:NEGATION_KEYWORD; tag:/DT|NN.*|RB|CC|IN/ }] [!{ word:/\n/}]{0,8} [{ner:RELATED_KEYWORD }] ),
-  result: "NO_TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-//Positive trigger treatment-related finding, with rules
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:TREATMENT_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:FINDING_KEYWORD }] ),
-  result: "TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:EFFECT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:TREATMENT_KEYWORD }] ),
-  result: "TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:FINDING_KEYWORD } | { ner:RELATED_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:EFFECT_KEYWORD }] ),
-  result: "TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-{
-  ruleType: "tokens",
-  pattern: ([{ ner:FINDING_KEYWORD } | { ner:EFFECT_KEYWORD } | { ner:TREATMENT_KEYWORD }] [!{ word:/\n/}]{0,8} [{ner:RELATED_KEYWORD }] ),
-  result: "TREATMENT_RELATED_EFFECT_DETECTED"
-}
-
-
-ENV.defaults["stage"] = 3
-
-
-{([{ ner:INCREASE_MANIFESTATION_FINDING; tag:/VB.*/ }]+) => "INCREASE_MANIFESTATION_FINDING" }
-{([{ ner:DECREASE_MANIFESTATION_FINDING; tag:/VB.*/ }]+) => "DECREASE_MANIFESTATION_FINDING" }
-{([{ ner:TRANSITORY_MANIFESTATION_FINDING; tag:/VB.*/ }]+) => "TRANSITORY_MANIFESTATION_FINDING" }
-{([{ ner:JUSTPRESENT_MANIFESTATION_FINDING; tag:/VB.*/ }]+) => "JUSTPRESENT_MANIFESTATION_FINDING" }
-
-
-ENV.defaults["stage"] = 4
-
 
 //STATICAL SIGNIFICANCE
 {(/p/ $STATICAL_SYMBOL ([{ner:NUMBER }])) => "STATICAL_SIGNIFICANCE" }
@@ -118,22 +28,21 @@ ENV.defaults["stage"] = 4
 { (( [/\**/] $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) ) $PARENTESIS ) => "STATICAL_SIGNIFICANCE" }
 { (( [/\**/] $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) ) $PARENTESIS $STATICAL_SEP_KEY* ( [/\**/] $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) ) $PARENTESIS ) => "STATICAL_SIGNIFICANCE" }
 {(([{word::IS_NUM}]) $PERCENTAJE $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) $PARENTESIS ) => "STATICAL_SIGNIFICANCE" }
-{(([{word::IS_NUM}]) $PERCENTAJE $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) $PARENTESIS $STATICAL_SEP_KEY ([{word::IS_NUM}]) $PERCENTAJE $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) $PARENTESIS ) => "STATICAL_SIGNIFICANCE2" }
-{( ([{ner:NUMBER }]) /\%/ /\(/ /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) /\)/ ) => "STATICAL_SIGNIFICANCE2222" }
+{(([{word::IS_NUM}]) $PERCENTAJE $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) $PARENTESIS $STATICAL_SEP_KEY ([{word::IS_NUM}]) $PERCENTAJE $PARENTESIS /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) $PARENTESIS ) => "STATICAL_SIGNIFICANCE" }
+{( ([{ner:NUMBER }]) /\%/ /\(/ /p/ $STATICAL_SYMBOL ([{ner:NUMBER }]) /\)/ ) => "STATICAL_SIGNIFICANCE" }
 
 //DOSE_QUANTITY
-{(( ([{ner:NUMBER} | {word::IS_NUM}] [{ word:$DOSE_SEP }])* [{ner:NUMBER} | {word::IS_NUM}] [{word:$DOSE_SEP}]* [{ner:DOSE_UNIT} | {ner:DOSE_UNIT_MANUAL} | word:/\D+\/\D+/ | word:/\D+\/\D+\/\D+/] )) => "DOSE_QUANTITY" } 
+{(( ([{ner:NUMBER} | {word::IS_NUM}] [{ word:$DOSE_SEP }])* [{ner:NUMBER} | {word::IS_NUM}] [{word:$DOSE_SEP}]* [{ner:DOSE_UNIT} | {ner:DOSE_UNIT_MANUAL} | word:/\D+\/\D+/ | word:/\D+\/\D+\/\D+/] )) => "DOSE" } 
 
 //DOSE_DURATION
-{( /for/  ([{word::IS_NUM} | {ner:NUMBER}]) ([{ner:DURATION}])) => "DOSE_DURATION" }
-{( ([{word::IS_NUM} | {ner:NUMBER}]) ([{ner:DURATION}]+)) => "DOSE_DURATION" }
-{( ([{ner:DURATION}]+) ([{word::IS_NUM} | {ner:NUMBER}])) => "DOSE_DURATION" }
-
+//{( /for/  ([{word::IS_NUM} | {ner:NUMBER}]) ([{ner:DURATION}])) => "DOSE_DURATION" }
+//{( ([{word::IS_NUM} | {ner:NUMBER}]) ([{ner:DURATION}]+)) => "DOSE_DURATION" }
+//{( ([{ner:DURATION}]+) ([{word::IS_NUM} | {ner:NUMBER}])) => "DOSE_DURATION" }
 
 
 //DOSE_FREQUENCY
-{( ([{ner:DATE}]) ([{ner:DURATION}]+)) => "DOSE_FREQUENCY" }
-{( ([{ner:SET}])) => "DOSE_FREQUENCY" }
+//{( ([{ner:DATE}]) ([{ner:DURATION}]+)) => "DOSE_FREQUENCY" }
+//{( ([{ner:SET}])) => "DOSE_FREQUENCY" }
 
 //STUDY_DAY_FINDING
 //{( /on/ ([{ner:DURATION}]) ([{word::IS_NUM} | {ner:NUMBER}])) => "STUDY_DAY_FINDING" }
@@ -144,6 +53,7 @@ ENV.defaults["stage"] = 4
 { (([{ word:/group[s]*/; tag:/NN.*/}] ([{ner:NUMBER } | {word::IS_NUM} | {word:/^[mdclxvi]+$/}] [{ word:$DOSE_SEP }])* ([{ner:NUMBER } | {word::IS_NUM} | {word:/^[mdclxvi]+$/}]) ) ) => "GROUP" }
 //ojo revisar el NN 
 { ((  [{tag:/JJ.*/} ] [{tag:/JJ.*|NN.*/} ]  [{ word:/group[s]*/; tag:/NN.*/}]  ) ) => "GROUP" }
+{ ((  [{tag:/JJ.*|NN.*/} ]  [{ word:/group[s]*/; tag:/NN.*/}]  ) ) => "GROUP" }
 
 #SEVERITY
 { (( [{ word:/severity|severe/}]* [{ word:/grade/}] [{ner:NUMBER}] ) ) => "SEVERITY" }
