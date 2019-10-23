@@ -1,0 +1,32 @@
+Imports: {
+import static gate.Utils.*;
+import java.util.*;
+
+}
+Phase:secondphase
+Input: MANIFESTATION_FINDING
+Options: control = all
+Rule: delete_rule
+(
+{MANIFESTATION_FINDING} 
+)
+:manifestation
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("manifestation");
+	gate.Annotation manifestation = (gate.Annotation) lookup.iterator().next();
+ 	String content = stringFor(doc, manifestation);
+	System.out.println(content);
+	Set<String> types = new HashSet<String>();
+	types.add("FINDING");
+	types.add("STUDY_TESTCD");
+	AnnotationSet sentences = inputAS.get("Sentence", manifestation.getStartNode().getOffset(), manifestation.getEndNode().getOffset());
+	for (Annotation sentence : sentences){
+		AnnotationSet sentenceFields = inputAS.get(sentence.getStartNode().getOffset(), sentence.getEndNode().getOffset());	
+		AnnotationSet annotations_type = sentenceFields.get(types);
+		if(annotations_type==null || annotations_type.size()==0){
+			System.out.println("The manifestation of finding is alone, no finding or study test cd is present in the sentece.");
+			outputAS.remove(manifestation);
+		}
+	}
+}

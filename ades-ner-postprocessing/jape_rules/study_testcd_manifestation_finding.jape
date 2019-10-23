@@ -1,0 +1,40 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:thirdphase
+Input: STUDY_TESTCD
+Options: control = all
+
+Rule: study_testcd_manifestation
+(
+{STUDY_TESTCD}
+)
+:lookup
+-->
+{
+	//Basic rule for remove false STUDY_TESTCD findings, that do not contain MANIFESTATION FINDING in the same sentence.  No dependency parser.
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("lookup");
+ 	gate.Annotation study_testcd = (gate.Annotation) lookup.iterator().next();
+ 	String content = stringFor(doc, study_testcd);
+ 	if((study_testcd.getFeatures().get("ETOX_CODELIST")!=null && study_testcd.getFeatures().get("ETOX_CODELIST").equals("PKPARM")) ||
+ 	   (study_testcd.getFeatures().get("CDISC_CODELIST")!=null && study_testcd.getFeatures().get("CDISC_CODELIST").equals("PKPARM")) 
+ 	){
+ 		System.out.println("PKPARAM, no revision of manifestation of finding:  " + content );
+ 	} else {
+ 		System.out.println(content);
+	 	AnnotationSet sentences = inputAS.get("Sentence", study_testcd.getStartNode().getOffset(), study_testcd.getEndNode().getOffset());
+	 	for (Annotation sentence : sentences){
+	 		System.out.println(sentence);
+	 		AnnotationSet sentenceFields = inputAS.get(sentence.getStartNode().getOffset(), sentence.getEndNode().getOffset());	
+	 		AnnotationSet annotations_type = sentenceFields.get("MANIFESTATION_FINDING");
+	 		System.out.println("MANIFESTATIONS : " + annotations_type);
+	 		if(annotations_type==null || annotations_type.size()==0){
+	 			System.out.println("NO HAY MANIFESTATIONS EN LA ORACION QUE BORRO EL STUDY_TESTCD ");
+	 			inputAS.remove(study_testcd);
+	 			outputAS.remove(study_testcd);
+	 		}else{
+	 			System.out.println("Hay manifestations of findings with study test cd");
+	 		}
+	 	}
+ 	}	
+}

@@ -1,0 +1,17 @@
+Phase:secondphase
+Input: MANIFESTATION_FINDING
+Options: control = all
+Rule: delete_rule
+(
+{MANIFESTATION_FINDING} 
+)
+:manifestation_dose
+-->
+{
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("manifestation_dose");
+ 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+ 	System.out.println("ACA HAY UN FINDING Y DOSE");
+ 	System.out.println(ann);
+ 	//inputAS.remove(ann);
+ 	
+}

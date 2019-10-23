@@ -8,3 +8,6 @@ merge_annotations
 merge_hepatotoxicity
 merge_livermarker
 remove_study_domain
+remove_manifestation_findings_false_positive_dose
+remove_manifestation_findings_false_positive_no_finding
+study_testcd_manifestation_finding
