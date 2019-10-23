@@ -27,10 +27,6 @@ else
 	apt-get install openjdk-8-jdk git maven
 fi
 
-mvn clean install -DskipTests
-#rename jar
-mv target/ades-ner-postprocessing-0.0.1-SNAPSHOT-jar-with-dependencies.jar ades-ner-postprocessing-${ADES_POSTPROCESSING_VERSION}.jar
-
 git clone --depth 1 https://github.com/inab/docker-textmining-tools.git nlp_gate_generic_component
 cd nlp_gate_generic_component
 git filter-branch --prune-empty --subdirectory-filter nlp-gate-generic-component HEAD
@@ -46,10 +42,6 @@ exec java \$JAVA_OPTS -jar "${ADES_POSTPROCESSING_HOME}/nlp-gate-generic-compone
 EOF
 chmod +x /usr/local/bin/ades-ner-postprocessing
 
-#exec java \$JAVA_OPTS -jar "${ADES_POSTPROCESSING_HOME}/ades-ner-postprocessing-${ADES_POSTPROCESSING_VERSION}.jar" -workdir "${ADES_POSTPROCESSING_HOME}" "\$@"
-
-#delete target
-rm -R target src pom.xml
 
 #add bash for nextflow
 apk add bash
