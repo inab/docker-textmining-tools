@@ -460,13 +460,13 @@ public class App {
 					doc.getAnnotations(annotationSetRelationExtraction).add(specimen.getStartNode(), specimen.getEndNode(), "FINDING_"+finding_id, specimen.getFeatures());
 				}
 				
-				Annotation STUDY_TESTCD = getClosestAnnotation(doc,  sentenceFields, finding, "STUDY_TESTCD");
-				if(STUDY_TESTCD!=null) {
-					System.out.println("STUDY_TESTCD: " + gate.Utils.stringFor(doc, STUDY_TESTCD));
-					STUDY_TESTCD.getFeatures().put("ANNOTATION_TYPE",STUDY_TESTCD.getType());
-					STUDY_TESTCD.getFeatures().put(template_value_name, getSendCode(STUDY_TESTCD, gate.Utils.stringFor(doc, STUDY_TESTCD)));
-					doc.getAnnotations(annotationSetRelationExtraction).add(STUDY_TESTCD.getStartNode(), STUDY_TESTCD.getEndNode(), "FINDING_"+finding_id, STUDY_TESTCD.getFeatures());
-				}
+//				Annotation STUDY_TESTCD = getClosestAnnotation(doc,  sentenceFields, finding, "STUDY_TESTCD");
+//				if(STUDY_TESTCD!=null) {
+//					System.out.println("STUDY_TESTCD: " + gate.Utils.stringFor(doc, STUDY_TESTCD));
+//					STUDY_TESTCD.getFeatures().put("ANNOTATION_TYPE",STUDY_TESTCD.getType());
+//					STUDY_TESTCD.getFeatures().put(template_value_name, getSendCode(STUDY_TESTCD, gate.Utils.stringFor(doc, STUDY_TESTCD)));
+//					doc.getAnnotations(annotationSetRelationExtraction).add(STUDY_TESTCD.getStartNode(), STUDY_TESTCD.getEndNode(), "FINDING_"+finding_id, STUDY_TESTCD.getFeatures());
+//				}
 				
 				Annotation STUDY_DOMAIN = getClosestAnnotation(doc,  sentenceFields, finding, "STUDY_DOMAIN");
 				if(STUDY_DOMAIN!=null) {
@@ -566,15 +566,17 @@ public class App {
 	    out.write(doc.toXml());
 		out.close();
     }
-
+	
+	/**
+	 * Get Findings.  Could be a FINDING or a STUDY_TESTCD
+	 * @param as
+	 * @return
+	 */
 	private static List<Annotation> getFindings(AnnotationSet as) {
 		List<Annotation> findings_to_process = new ArrayList<>();
 		Set<String> types = Stream.of("FINDING","STUDY_TESTCD").collect(Collectors.toCollection(HashSet::new));
 	    AnnotationSet findings = (AnnotationSet) as.get(types);
 		for (Annotation finding : findings.inDocumentOrder()){
-			/*if(finding.getFeatures().get("text").toString().startsWith("Pale")) {
-				System.out.println("Smaller term do nothing ");
-			}*/
 			if(finding.getType().equals("FINDING")) {
 				AnnotationSet findings_to_merge = as.get("FINDING", finding.getStartNode().getOffset(), finding.getEndNode().getOffset());
 				if(!findings_to_merge.isEmpty() && findings_to_merge.size()>1) {
@@ -615,6 +617,15 @@ public class App {
 					findings_to_process.add(finding);
 				}
 			}else {//study test
+				/*AnnotationSet sentences = as.get("Sentence", finding.getStartNode().getOffset(), finding.getEndNode().getOffset());
+				Annotation manifestation_finding = getClosestAnnotation(doc,  sentenceFields, finding, "MANIFESTATION_FINDING");
+				if(manifestation_finding!=null) {
+					System.out.println("MANIFESTATION OF FINDING: " + gate.Utils.stringFor(doc, manifestation_finding));
+					manifestation_finding.getFeatures().put(template_value_name, getSendCode(manifestation_finding, gate.Utils.stringFor(doc, manifestation_finding)));
+					manifestation_finding.getFeatures().put("ANNOTATION_TYPE",manifestation_finding.getType());
+					doc.getAnnotations(annotationSetRelationExtraction).add(manifestation_finding.getStartNode(), manifestation_finding.getEndNode(), "FINDING_"+finding_id, manifestation_finding.getFeatures());
+					
+				}*/
 				findings_to_process.add(finding);
 			}
 		}
@@ -939,32 +950,6 @@ public class App {
 			}
 		}
 		return closest;
-	}
-	
-	private static Annotation getClosestAnnotationSpecimen(gate.Document doc, AnnotationSet fields, Annotation finding, String type) {
-		//AnnotationSet treatment_related_triggers = fields.get(type, sentence.getStartNode().getOffset(), sentence.getEndNode().getOffset());
-				AnnotationSet annotations_type = fields.get(type);
-				Annotation closest = null;
-				Integer token_between_closest = 10000;
-				for (Annotation annotation_type : annotations_type) {
-					//System.out.println(type + ": " + gate.Utils.stringFor(doc, annotation_type));
-					//si el finding esta despues del trigger
-					AnnotationSet token_between = null;
-					if (finding.getStartNode().getOffset() > annotation_type.getEndNode().getOffset()) {
-						token_between =  fields.get("Token", annotation_type.getEndNode().getOffset(), finding.getStartNode().getOffset());
-					}else if (annotation_type.getStartNode().getOffset() > finding.getEndNode().getOffset()) {
-						token_between =  fields.get("Token", finding.getEndNode().getOffset(), annotation_type.getStartNode().getOffset());
-					}else {
-						closest = annotation_type;
-						token_between_closest = 0;
-					}
-					if(token_between!=null && token_between.size()<token_between_closest) {
-						//token_between.inDocumentOrder();
-						closest = annotation_type;
-						token_between_closest = token_between.size();
-					}
-				}
-				return closest;
 	}
 
 }
