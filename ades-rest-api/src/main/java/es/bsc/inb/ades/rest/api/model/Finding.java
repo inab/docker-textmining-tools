@@ -31,6 +31,9 @@ public class Finding {
 	@Field("GROUP")
 	private Annotation group;
 	
+	@Field("DOSE")
+	private Annotation dose;
+	
 	@Field("STUDY_TESTCD")
 	private Annotation study_testcd;
 	
@@ -181,13 +184,6 @@ public class Finding {
 		this.study_domain = study_domain;
 	}
 
-
-
-	
-	
-
-
-
 	public Annotation getRelevant_text() {
 		return relevant_text;
 	}
@@ -212,71 +208,50 @@ public class Finding {
 		return risk_level;
 	}
 
-
-
-
 	public void setRisk_level(Annotation risk_level) {
 		this.risk_level = risk_level;
 	}
-
-
-
 
 	public Annotation getRoute_of_administration() {
 		return route_of_administration;
 	}
 
-
-
-
 	public void setRoute_of_administration(Annotation route_of_administration) {
 		this.route_of_administration = route_of_administration;
 	}
-
-
-
 
 	public Annotation getDose_quantity() {
 		return dose_quantity;
 	}
 
-
-
-
 	public void setDose_quantity(Annotation dose_quantity) {
 		this.dose_quantity = dose_quantity;
 	}
-
-
-
 
 	public Annotation getDose_frequency() {
 		return dose_frequency;
 	}
 
 
-
-
 	public void setDose_frequency(Annotation dose_frequency) {
 		this.dose_frequency = dose_frequency;
 	}
-
-
-
 
 	public Annotation getDose_duration() {
 		return dose_duration;
 	}
 
-
-
-
 	public void setDose_duration(Annotation dose_duration) {
 		this.dose_duration = dose_duration;
 	}
 
+	public Annotation getDose() {
+		return dose;
+	}
 
-
+	public void setDose(Annotation dose) {
+		this.dose = dose;
+	}
 
 	/**
 	 * 
