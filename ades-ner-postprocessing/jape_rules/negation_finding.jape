@@ -2,22 +2,50 @@ Imports: {
 import static gate.Utils.*;
 }
 Phase:secondphase
-Input: Lookup
-Options: control = all
+Input: FINDING NEGATION Token Sentence
+Options: control = appelt
 Rule: removeStopwords
 (
-  {Lookup.majorType == "STOP_WORD"} //realizar negacion de finding, manifestation of finding y treatment-related trigger.
-) :stop
+  {FINDING} | {STUDY_TESTCD}
+) :no_finding
 -->
 {
-    gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("stop");
- 	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
- 	gate.AnnotationSet  to_remove = outputAS.get(ann.getStartNode().getOffset(), ann.getEndNode().getOffset());
- 	for (Annotation rem : to_remove) {
- 		//remove only the stop word, this is for cases in where a stop word is inside a bigger term annotated
- 		if(ann.getStartNode().getOffset()==rem.getStartNode().getOffset() && ann.getEndNode().getOffset()==rem.getEndNode().getOffset() && !rem.getType().equals("Token") && !rem.getType().equals("Sentence")){
- 			System.out.println(rem.getType() + " : " + stringFor(doc, rem));
- 			outputAS.remove(rem);
- 		}
+
+	gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("no_finding");
+	gate.Annotation ann = (gate.Annotation) lookup.iterator().next();
+	gate.AnnotationSet  sentence_set = outputAS.get("Sentence",ann.getStartNode().getOffset(), ann.getEndNode().getOffset());
+	gate.Annotation  sentence = sentence_set.iterator().next();
+	//negaciones de la sentencia anteriores, ver los offsets como se solicitan
+	gate.AnnotationSet  negation_set = outputAS.get("NEGATION",sentence.getStartNode().getOffset(), ann.getEndNode().getOffset());
+	for (Annotation neg_ann : negation_set) {
+		System.out.println("ENTRO A LA NEGACION");
+		System.out.println(stringFor(doc, sentence));
+		gate.AnnotationSet  tokens_ann = outputAS.get("Token",neg_ann.getEndNode().getOffset(), ann.getEndNode().getOffset());
+		if(tokens_ann!=null && tokens_ann.size()<10){
+			System.out.println("Borrar Finding");
+			outputAS.remove(ann);
+		}
+	}
+	/*System.out.println("ENTRO A LA NEGACION");
+    gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("no_finding");
+ 	
+ 	gate.AnnotationSet neg_ann_set = (gate.AnnotationSet) lookup.get("NEGATION");
+ 	gate.AnnotationSet fin_ann_set = (gate.AnnotationSet) lookup.get("FINDING");
+ 	
+ 	gate.Annotation neg_ann = (gate.Annotation) neg_ann_set.iterator().next();
+ 	gate.Annotation fin_ann = (gate.Annotation) fin_ann_set.iterator().next();
+ 	
+ 	gate.AnnotationSet  sentence_1 = outputAS.get("Sentence",neg_ann.getStartNode().getOffset(), neg_ann.getEndNode().getOffset());
+ 	gate.AnnotationSet  sentence_2 = outputAS.get("Sentence",fin_ann.getStartNode().getOffset(), fin_ann.getEndNode().getOffset());
+ 	
+ 	System.out.println(stringFor(doc, sentence_1.iterator().next()));
+ 	System.out.println(stringFor(doc, sentence_2.iterator().next()));
+ 	
+ 	if(sentence_1.iterator().next().getId().equals(sentence_2.iterator().next().getId())){
+ 		System.out.println("SENTENCIAS IGUALES HAY QUE BORRAR FINDING");
+ 		outputAS.remove(fin_ann); 	
  	}
+ 	 {NEGATION} ({Token})[1,10] {FINDING}
+ 	*/	
+ 	
 }
