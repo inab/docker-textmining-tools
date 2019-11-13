@@ -1,4 +1,5 @@
 MultiPhase: Main
 Phases:
 basic_mapping
+remove_false_negation
 delete_lookups

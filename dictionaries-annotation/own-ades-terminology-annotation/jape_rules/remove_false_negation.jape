@@ -1,0 +1,18 @@
+Imports: {
+import static gate.Utils.*;
+}
+Phase:secondphase
+Input: Token
+Options: control = all
+Rule: removeStopwords
+(
+{Token.word=="no."} | ({Token.word=="no"} {Token.kind=="NUMBER"}) 
+) :stop
+-->
+{
+    System.out.println("Negation erronea");
+    gate.AnnotationSet lookup = (gate.AnnotationSet) bindings.get("stop");
+ 	System.out.println(lookup);
+ 	AnnotationSet negation = inputAS.get("NEGATION", lookup.iterator().next().getStartNode().getOffset(), lookup.iterator().next().getEndNode().getOffset());
+ 	outputAS.remove(negation.iterator().next()); 	
+}
